@@ -649,28 +649,207 @@
       }
     ];
 
-    // Scored Codebase Query Engine
-    function searchCodebaseKnowledge(query) {
-      const qClean = query.toLowerCase().replace(/[^a-z0-9\s#\.\+]/g, ' ');
+    // Bilingual Language Detector (Hindi/Hinglish vs English)
+    function isHindiQuery(q) {
+      const hindiStems = [
+        'kya', 'hai', 'kaise', 'kare', 'hoga', 'bhai', 'nahi', 'chahiye', 'chalaye', 
+        'karte', 'hota', 'aur', 'agar', 'koi', 'batao', 'karu', 'raha', 'isme', 'kitna', 
+        'kab', 'kuch', 'pe', 'se', 'ko', 'mera', 'meri', 'mere', 'tum', 'aap', 'bol', 
+        'baat', 'shuru', 'madad', 'namaste', 'dhanyawad', 'shukriya', 'kripya', 'gaya', 
+        'chali', 'bijli', 'der', 'sakte', 'bhi', 'bataye', 'padhana', 'sikhao'
+      ];
+      const tokens = q.toLowerCase().split(/[^a-z0-9]+/);
+      return tokens.some(t => hindiStems.includes(t));
+    }
+
+    // Comprehensive Conversational NLU Intents (Both English and Hindi Responses)
+    const conversationalIntents = [
+      {
+        id: 'greetings',
+        matches: ['hello', 'hi', 'hey', 'namaste', 'kaise ho', 'kya haal', 'pranam', 'sup', 'good morning', 'good afternoon', 'good evening', 'yo'],
+        en: "Hello! 👋 I am <strong>Centrix AI</strong>, your assistant for PhysicsWallah classroom lecture automation. How can I help you today? You can ask me how to use Centrix, check PC performance impact, understand timetable matching, or inquire about offline sync in English or Hindi!",
+        hi: "नमस्ते! 👋 मैं <strong>Centrix AI</strong> हूँ, PhysicsWallah क्लासरूम ऑटोमेशन का इंटेलिजेंट असिस्टेंट। मैं आपकी क्या मदद कर सकता हूँ? आप मुझसे Centrix को इस्तेमाल करने का तरीका, PC परफॉर्मेंस, ऑफलाइन सिंक, या टाइमटेबल मैचिंग के बारे में हिंदी या इंग्लिश में कुछ भी पूछ सकते हैं!"
+      },
+      {
+        id: 'thanks',
+        matches: ['thank', 'thanks', 'dhanyawad', 'shukriya', 'great', 'awesome', 'mast', 'badhiya', 'sahi hai', 'cool', 'nice', 'good job'],
+        en: "You are welcome! 😊 If you have any other questions regarding Centrix, deployment, or classroom operations, feel free to ask anytime.",
+        hi: "आपका बहुत-बहुत स्वागत है! 😊 अगर Centrix या क्लासरूम ऑपरेशंस के बारे में आपका कोई भी सवाल हो, तो कभी भी पूछ सकते हैं।"
+      },
+      {
+        id: 'how_to_use',
+        matches: ['how to use', 'kaise use', 'use kaise', 'kaise chalaye', 'workflow', 'steps', 'guide', 'tutorial', 'teacher ko kya', 'operator', 'step by step', 'daily use'],
+        en: "<strong>How to Use Centrix in 4 Simple Steps:</strong><br />" +
+            "• <strong>1. One-Time Setup:</strong> Run <code>Centrix-Setup.exe</code> on the classroom PC, select your Vidyapeeth center, and assign the Room ID.<br />" +
+            "• <strong>2. Faculty Workflow:</strong> Teachers conduct class in OBS Studio as usual. When class finishes, simply click <strong>'Stop Recording'</strong> (zero extra software or manual file renaming!).<br />" +
+            "• <strong>3. Autonomous Sync:</strong> Centrix verifies file stability, matches the schedule (&ge;85% confidence auto-passes), renames the video, and streams chunked uploads to Google Drive & YouTube.<br />" +
+            "• <strong>4. Review Portal:</strong> Center coordinators monitor all rooms live at <code>localhost:5200</code>.",
+        hi: "<strong>Centrix को इस्तेमाल करने का 4-स्टेप तरीका:</strong><br />" +
+            "• <strong>1. एक बार सेटअप:</strong> क्लासरूम PC पर <code>Centrix-Setup.exe</code> चलाएं, अपना सेंटर और रूम नंबर चुनें।<br />" +
+            "• <strong>2. टीचर्स के लिए आसान:</strong> टीचर जैसे रोज़ पढ़ाते हैं वैसे ही OBS Studio में पढ़ाएं और क्लास खत्म होने पर सिर्फ <strong>'Stop Recording'</strong> दबाएं। टीचर को कोई दूसरा सॉफ्टवेयर छूने की ज़रूरत नहीं है!<br />" +
+            "• <strong>3. ऑटोमैटिक अपलोड:</strong> Centrix खुद फाइल डिटेक्ट करेगा, टाइमटेबल मैच करेगा और गूगल ड्राइव के सही बैच फोल्डर में अपलोड कर देगा।<br />" +
+            "• <strong>4. रिव्यू पोर्टल:</strong> कोऑर्डिनेटर <code>localhost:5200</code> पर सभी रूम्स का लाइव स्टेटस देख सकते हैं।"
+      },
+      {
+        id: 'performance',
+        matches: ['slow', 'lag', 'hang', 'heavy', 'pc slow', 'ram', 'cpu', 'system load', 'laptop', 'smartboard', 'load padega'],
+        en: "<strong>Zero PC Lag or Slowdown:</strong><br />" +
+            "• Consumes <strong>&lt; 1% CPU and under 60 MB RAM</strong> as a silent Windows background service.<br />" +
+            "• Performs <strong>zero local video re-encoding or transcoding</strong> on classroom PCs; it only monitors files and streams network bytes.<br />" +
+            "• OBS Studio recordings, smartboard touch inputs, and presentations will stay 100% smooth without any stutter.",
+        hi: "<strong>कंप्यूटर पर बिल्कुल कोई लोड या लैग नहीं पड़ेगा:</strong><br />" +
+            "• Centrix बैकग्राउंड में सिर्फ <strong>1% से कम CPU और 60 MB से कम RAM</strong> लेता है।<br />" +
+            "• यह क्लासरूम PC पर कोई भारी वीडियो एनकोडिंग नहीं करता, सिर्फ फाइल डिटेक्ट करके नेटवर्क पर स्ट्रीम करता है।<br />" +
+            "• OBS Studio रिकॉर्डिंग, स्मार्टबोर्ड टच और प्रेजेंटेशन 100% स्मूद चलेंगे, कोई हैंग या स्लोडाउन नहीं होगा।"
+      },
+      {
+        id: 'offline',
+        matches: ['offline', 'internet', 'network', 'wifi', 'outage', 'disconnect', 'band', 'blackout', 'net nahi', 'no internet', 'bina net', 'net chala gaya'],
+        en: "<strong>100% Offline-First Architecture:</strong><br />" +
+            "• If center internet drops for 10 minutes or 3 days, Centrix continues to detect, timestamp, and catalogue lectures safely in local SQLite storage.<br />" +
+            "• The moment internet is restored, chunked uploads automatically resume from the exact interrupted byte offset—zero files lost, zero bandwidth wasted.",
+        hi: "<strong>100% ऑफलाइन काम करने की गारंटी:</strong><br />" +
+            "• अगर सेंटर का इंटरनेट 10 मिनट या 3 दिन के लिए भी बंद हो जाए, तो भी रिकॉर्डिंग रुकेगी नहीं। Centrix लोकल SQLite डेटाबेस में सारी फाइल्स सुरक्षित रखता है।<br />" +
+            "• जैसे ही इंटरनेट वापस आएगा, अपलोड ठीक उसी बाइट से खुद-ब-खुद शुरू हो जाएगा जहाँ वो रुका था। कोई फाइल मिस नहीं होगी!"
+      },
+      {
+        id: 'reboot_crash',
+        matches: ['power cut', 'bijli', 'light chali', 'restart', 'reboot', 'crash', 'sudden shutdown', 'pc band', 'aadha'],
+        en: "<strong>Power Cut & Sudden Crash Recovery:</strong><br />" +
+            "• All state transitions and byte upload progress are committed transactionally to local SQLite.<br />" +
+            "• If power cuts or Windows restarts unexpectedly, Centrix automatically boots with Windows, reconciles the file queue, and resumes pending uploads from the exact byte without duplicate uploads.",
+        hi: "<strong>बिजली जाने या अचानक PC बंद होने पर रिकवरी:</strong><br />" +
+            "• सारा डेटा और अपलोड प्रोग्रेस लोकल SQLite डेटाबेस में तुरंत सेव रहता है।<br />" +
+            "• अगर अचानक बिजली कट जाए या PC रीस्टार्ट हो जाए, तो Windows ऑन होते ही Centrix खुद स्टार्ट होगा और छूटे हुए अपलोड को वहीं से दोबारा पूरा करेगा।"
+      },
+      {
+        id: 'matching',
+        matches: ['matching', 'algorithm', 'score', 'confidence', 'timetable', 'heuristic', 'weights', 'formula', 'accuracy', 'teacher kaise', 'batch kaise', 'schedule'],
+        en: "<strong>Deterministic 7-Signal Matching Engine:</strong><br />" +
+            "1. Time Overlap (35% weight)<br />2. Hardware Room ID (15% weight)<br />3. Duration Consistency (15% weight)<br />4. Teacher Roster Match (15% weight)<br />5. Batch & Subject Alignment (10% weight)<br />6. Historical Drift & Faculty Pattern (10% weight)<br />" +
+            "• <strong>Thresholds:</strong> &ge;85% auto-assigns directly to Google Drive; 60–84% requests quick 1-click coordinator confirmation.",
+        hi: "<strong>7-सिग्नल स्मार्ट मैचिंग एल्गोरिदम:</strong><br />" +
+            "1. टाइम ओवरलैप (35% वेटेज)<br />2. क्लासरूम रूम नंबर (15% वेटेज)<br />3. लेक्चर की अवधि/ड्यूरेशन (15% वेटेज)<br />4. फैकल्टी टाइमटेबल रोस्टर (15% वेटेज)<br />5. बैच और सब्जेक्ट (10% वेटेज)<br />6. हिस्टोरिकल पैटर्न्स (10% वेटेज)<br />" +
+            "• <strong>रिजल्ट:</strong> 85% या ज्यादा स्कोर होने पर लेक्चर खुद ड्राइव के सही बैच फोल्डर में चला जाता है।"
+      },
+      {
+        id: 'overtime',
+        matches: ['late', 'overtime', 'extend', 'extra time', 'duration', 'der', 'class late', '30 min', 'lamba'],
+        en: "<strong>Adaptive Overtime Correlation:</strong><br />" +
+            "• If an instructor lectures 20 to 30 minutes past the bell, standard systems misclassify the lecture into the next period.<br />" +
+            "• Centrix calculates <strong>percentage duration overlap</strong> with the ongoing slot, ensuring the overtime lecture stays attached to the correct batch.",
+        hi: "<strong>क्लास लेट या लंबी चलने पर क्या होगा:</strong><br />" +
+            "• अगर कोई टीचर 20-30 मिनट एक्स्ट्रा पढ़ा देते हैं, तो नॉर्मल सॉफ्टवेयर उसे अगली क्लास समझकर गलत बैच में डाल देते हैं।<br />" +
+            "• लेकिन Centrix टाइमटेबल स्लॉट के साथ पर्सेंटेज ओवरलैप कैलकुलेट करता है, जिससे लेट चलने वाली क्लास भी बिल्कुल सही बैच में ही जाती है।"
+      },
+      {
+        id: 'security',
+        matches: ['security', 'dpapi', 'encryption', 'encrypt', 'keys', 'token', 'credential', 'oauth', 'safe', 'privacy', 'password', 'leak', 'safe hai'],
+        en: "<strong>Enterprise-Grade Security:</strong><br />" +
+            "• <strong>Zero Hardcoded Secrets:</strong> No API keys or tokens are stored in the installer or codebase.<br />" +
+            "• <strong>Windows DPAPI Vault:</strong> Google Drive OAuth refresh tokens are encrypted at the OS level using Windows DPAPI (machine/user scope).<br />" +
+            "• <strong>4-Tier RBAC:</strong> Strict access controls for Super Admin, Center Admin, Reviewer, and Room Operator.",
+        hi: "<strong>सिक्योरिटी और डेटा प्राइवेसी:</strong><br />" +
+            "• <strong>कोई सीक्रेट कोड में नहीं:</strong> ऐप इंस्टॉलर में कोई गूगल पासवर्ड या API की नहीं होती।<br />" +
+            "• <strong>Windows DPAPI एनक्रिप्शन:</strong> गूगल ड्राइव टोकन को Windows OS लेवल पर DPAPI से एनक्रिप्ट करके PC में सुरक्षित रखा जाता है।<br />" +
+            "• <strong>4-लेवल RBAC:</strong> सुपर एडमिन, सेंटर एडमिन, रिव्यूअर और रूम ऑपरेटर के अलग-अलग सुरक्षित अधिकार होते हैं।"
+      },
+      {
+        id: 'features',
+        matches: ['feature', 'features', 'kya kya', 'kya karta', 'overview', 'modules', 'capabilities', 'kya feature', 'fayde', 'details', 'kya hai'],
+        en: "<strong>Centrix Core Automated Modules:</strong><br />" +
+            "• <strong>OBS Auto-Detection:</strong> 10-second stability lock verifies recording completion.<br />" +
+            "• <strong>Timetable Matcher:</strong> Correlates Room & Teacher against center schedules.<br />" +
+            "• <strong>Resilient Drive Sync:</strong> 10MB chunked resumable streaming to Google Drive & YouTube.<br />" +
+            "• <strong>Review Portal:</strong> 1-click verification queue at <code>localhost:5200</code>.<br />" +
+            "• <strong>Offline SQLite Queue:</strong> 100% data safety during network blackouts.",
+        hi: "<strong>Centrix के 5 मुख्य फीचर्स:</strong><br />" +
+            "• <strong>OBS ऑटो-डिटेक्शन:</strong> क्लास खत्म होते ही 10 सेकंड में रिकॉर्डिंग डिटेक्ट करता है।<br />" +
+            "• <strong>स्मार्ट टाइमटेबल मैचर:</strong> रूम, सब्जेक्ट और टीचर का मिलान करके सही बैच तय करता है।<br />" +
+            "• <strong>रेज़िलिएंट गूगल ड्राइव सिंक:</strong> 10MB चंक्स में सीधा गूगल ड्राइव और यूट्यूब पर अपलोड करता है।<br />" +
+            "• <strong>रिव्यू पोर्टल:</strong> कोऑर्डिनेटर के लिए <code>localhost:5200</code> पर 1-क्लिक रिव्यू डैशबोर्ड।<br />" +
+            "• <strong>ऑफलाइन SQLite बैकअप:</strong> बिना इंटरनेट के भी कोई क्लास मिस नहीं होती।"
+      },
+      {
+        id: 'cost_roi',
+        matches: ['cost', 'price', 'free', 'kharcha', 'roi', 'money', 'savings', 'time save', 'kitna bachega'],
+        en: "<strong>Measurable ROI & Zero Cloud Cost:</strong><br />" +
+            "• <strong>Zero Cloud Video Compute:</strong> Processing occurs directly on edge workstations ($0 cloud transcoding bill).<br />" +
+            "• <strong>Saves 2–3 Hours Daily per Center:</strong> Eliminates manual file transferring and folder sorting (saving ~3,000+ staff hours monthly across 50 centers).<br />" +
+            "• <strong>Fast Student Access:</strong> Students receive lectures in under 30 minutes instead of next-day delays.",
+        hi: "<strong>लागत में बचत और बड़ा ROI:</strong><br />" +
+            "• <strong>जीरो क्लाउड सर्वर खर्च:</strong> सारा काम क्लासरूम PC पर होता है, इसलिए महंगे क्लाउड सर्वर का कोई बिल नहीं आता ($0 Server Cost)।<br />" +
+            "• <strong>रोजाना 2 से 3 घंटे की बचत:</strong> स्टाफ को हाथ से फाइल रीनेम या ड्राइव में अपलोड नहीं करना पड़ता (50 सेंटर्स पर महीने के 3,000+ घंटे बचते हैं)।<br />" +
+            "• <strong>छात्रों को तुरंत लेक्चर:</strong> स्टूडेंट्स को अगली सुबह का इंतजार नहीं करना पड़ता, क्लास खत्म होने के आधे घंटे में रिकॉर्डिंग मिल जाती है।"
+      },
+      {
+        id: 'install',
+        matches: ['install', 'setup', 'download', 'exe', 'requirements', 'windows 10', 'windows 11', 'kaise install'],
+        en: "<strong>3-Step Installation:</strong><br />" +
+            "1. Download <code>Centrix-Setup.exe</code> (v1.0.4) using the top download button on this page.<br />" +
+            "2. Run the installer on classroom Windows 10/11 PCs.<br />" +
+            "3. Select your Vidyapeeth center, room number, and link your OBS recording folder. Centrix starts automatically with Windows.",
+        hi: "<strong>इंस्टॉल करने का 3-स्टेप तरीका:</strong><br />" +
+            "1. इस पेज के ऊपर दिए गए 'Download .exe' बटन से <code>Centrix-Setup.exe</code> (v1.0.4) डाउनलोड करें।<br />" +
+            "2. क्लासरूम के Windows 10 या 11 PC पर इंस्टॉलर रन करें।<br />" +
+            "3. अपना सेंटर, रूम नंबर और OBS फोल्डर चुनें। इसके बाद Centrix हर बार Windows ऑन होने पर खुद बैकग्राउंड में चलने लगेगा।"
+      },
+      {
+        id: 'pilot',
+        matches: ['pilot', 'rollout', 'demo', 'contact', 'aniket mishra', 'shuru kaise', 'request pilot', 'chahiye'],
+        en: "<strong>Request a Pilot Rollout:</strong><br />" +
+            "You can request an official pilot for your Vidyapeeth center! Click the green <strong>'Request Pilot for Your Center'</strong> button below or email Project Lead Aniket Mishra at <a href='mailto:aniket.mishra2@pw.live' class='text-blue-600 underline font-semibold'>aniket.mishra2@pw.live</a>.",
+        hi: "<strong>पायलट रोलआउट के लिए संपर्क:</strong><br />" +
+            "आप अपने विद्यापीठ सेंटर के लिए पायलट टेस्टिंग शुरू करवा सकते हैं! नीचे दिए गए हरे बटन <strong>'Request Pilot for Your Center'</strong> पर क्लिक करें या प्रोजेक्ट लीड अनिकेत मिश्रा को सीधे <a href='mailto:aniket.mishra2@pw.live' class='text-blue-600 underline font-semibold'>aniket.mishra2@pw.live</a> पर ईमेल भेजें।"
+      },
+      {
+        id: 'camera_missing',
+        matches: ['camera', 'wire', 'nikal', 'missing', 'unrecorded', 'missed', 'record nahi hua', 'video nahi', 'video generate'],
+        en: "<strong>Missing Lecture & Camera Disconnect Alert:</strong><br />" +
+            "• Centrix continuously cross-checks actual recording files against the center schedule cache.<br />" +
+            "• If a scheduled class time window expires with no recording file produced (e.g. camera wire unplugged or faculty absent), Centrix flags an instant <strong>Missing Lecture Alert</strong> on the dashboard to prompt coordinator inspection.",
+        hi: "<strong>कैमरा वायर निकलने या क्लास रिकॉर्ड न होने पर अलर्ट:</strong><br />" +
+            "• Centrix लगातार टाइमटेबल से रिकॉर्डिंग फाइलों का मिलान करता रहता है।<br />" +
+            "• अगर क्लास का समय खत्म हो गया और कोई वीडियो फाइल नहीं बनी (जैसे कैमरा अनप्लग हो गया या OBS शुरू नहीं हुआ), तो Centrix तुरंत डैशबोर्ड पर <strong>Missing Lecture Alert</strong> जारी करता है ताकि ऑपरेटर तुरंत चेक कर सके।"
+      },
+      {
+        id: 'tech_stack',
+        matches: ['tech stack', 'dotnet', 'c#', 'rust', 'sqlite', 'codebase', 'architecture', 'programming language', 'database'],
+        en: "<strong>Technology Stack & Internal Architecture:</strong><br />" +
+            "• <strong>Runtime:</strong> .NET 8 (C#) background Windows Service daemon.<br />" +
+            "• <strong>Daemons:</strong> Rust low-level system hooks.<br />" +
+            "• <strong>Database:</strong> SQLite 3 with EF Core & Dapper for durable local queues.<br />" +
+            "• <strong>APIs:</strong> Google Drive v3 Resumable Upload API & YouTube Data API.<br />" +
+            "• <strong>Frontend:</strong> React + Vite responsive PWA with Tailwind CSS.",
+        hi: "<strong>टेक्नोलॉजी स्टैक और आर्किटेक्चर:</strong><br />" +
+            "• <strong>कोर एजेंट:</strong> .NET 8 (C#) बैकग्राउंड विंडोज सर्विस।<br />" +
+            "• <strong>सिस्टम हुक्स:</strong> Rust नेटिव डेमन्स।<br />" +
+            "• <strong>डेटाबेस:</strong> लोकल SQLite 3 (ड्यूरेबल क्यू और ऑफलाइन कैशे के लिए)।<br />" +
+            "• <strong>क्लाउड API:</strong> Google Drive v3 Resumable Upload API और YouTube Data API।<br />" +
+            "• <strong>यूजर इंटरफेस:</strong> React + Vite और Tailwind CSS से बना PWA पोर्टल।"
+      }
+    ];
+
+    async function askAI(query) {
+      const qTrim = query.trim();
+      const isHi = isHindiQuery(qTrim);
+      const qClean = qTrim.toLowerCase().replace(/[^a-z0-9\s#\.\+]/g, ' ');
       const tokens = qClean.split(/\s+/).filter(t => t.length > 1);
 
-      if (tokens.length === 0) {
-        return getCodebaseSummary();
-      }
+      // 200ms natural typing simulation delay
+      await new Promise(r => setTimeout(r, 220));
 
       let bestMatch = null;
       let highestScore = 0;
 
-      codebaseKnowledge.forEach(item => {
+      conversationalIntents.forEach(item => {
         let score = 0;
-        item.keywords.forEach(kw => {
-          if (qClean.includes(kw.toLowerCase())) {
-            score += kw.includes(' ') ? 40 : 20;
+        item.matches.forEach(m => {
+          if (qClean.includes(m)) {
+            score += m.includes(' ') ? 40 : 20;
           } else {
             tokens.forEach(tok => {
-              if (kw.toLowerCase().includes(tok)) {
-                score += 8;
-              }
+              if (m.includes(tok)) score += 8;
             });
           }
         });
@@ -681,107 +860,16 @@
         }
       });
 
-      if (highestScore >= 16 && bestMatch) {
-        return `<div class="mb-1.5 inline-block font-mono text-[11px] font-semibold px-2 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400">⚡ Codebase Insight // ${bestMatch.title}</div><br />${bestMatch.answer}`;
+      if (highestScore >= 14 && bestMatch) {
+        return isHi ? bestMatch.hi : bestMatch.en;
       }
 
-      return getCodebaseSummary();
-    }
-
-    function getCodebaseSummary() {
-      return "<strong>Centrix Codebase Intelligence:</strong><br />" +
-        "Centrix is an edge-first lecture automation system built in .NET 8 (C#) and Rust. Key subsystems include:<br />" +
-        "• <strong>File Watcher:</strong> 10-second stability debounce on OBS output folders.<br />" +
-        "• <strong>Smart Matcher:</strong> 7-signal deterministic timetable scoring (85% auto-assign threshold).<br />" +
-        "• <strong>Upload Queue:</strong> SQLite durable queue with 10MB chunked Google Drive/YouTube resumption.<br />" +
-        "• <strong>Security:</strong> Windows DPAPI encrypted OAuth tokens (zero hardcoded secrets).<br />" +
-        "• <strong>Resource Footprint:</strong> &lt;1% CPU and &lt;60MB RAM.<br /><br />" +
-        "💡 <em>Tip: Ask specifically about the matching algorithm, database schema, DPAPI security, or offline queue!</em>";
-    }
-
-    // System Prompt containing complete Centrix Codebase scan
-    const CENTRIX_SYSTEM_PROMPT = `You are Centrix AI, the official live intelligent assistant for "Centrix" (Classroom Lecture Automation & Smart Review System) developed by Project Lead Aniket Mishra for PhysicsWallah Vidyapeeth and Pathshala offline centers.
-
-You have full knowledge of the Centrix codebase and architecture:
-1. Edge-First Architecture: Heavy lifting happens locally on classroom PCs (.NET 8 C# background Windows Service, Rust hooks, SQLite 3 local queue). Direct resumable video upload to Google Drive v3 API & YouTube API without passing video through central cloud servers ($0 server compute/transcoding cost). Lightweight Cloud Firestore coordinates review state and reviewer notifications.
-2. File Watcher: Built on Windows FileSystemWatcher. Detects MKV, MP4, MOV, AVI, PDF. Implements a mandatory 10-second stability lock (waits until file size is static and OS file handles are closed) to prevent corrupting active recordings.
-3. Deterministic Smart Matching Engine: Evaluates 7 weighted signals to match lectures to timetable slots:
-   - Time overlap (35%)
-   - Room ID hardware match (15%)
-   - Duration consistency (15%)
-   - Teacher timetable roster (15%)
-   - Batch / Subject match (10%)
-   - Historical drift / patterns (10%)
-   Thresholds: >=85% AUTO_ASSIGNED (direct upload queue), 60-84% REVIEW_REQUIRED, <60% High priority low-confidence alert.
-4. Resumable Upload Queue: SQLite durable queue with 10MB chunked byte-range upload. Survives app crashes and PC reboots. Exponential backoff retry with jitter on network failure. Resumes from exact interrupted byte when internet reconnects.
-5. Database Schema: SQLite tables: 'devices' (hardware & paths), 'lecture_sessions' (lifecycle, times, slots, confidence), 'upload_queue' (byte progress, status, retry count), 'timetable_cache' (offline timetable copy), 'audit_logs' (immutable log).
-6. Security & DPAPI: Zero hardcoded API keys or secrets in installer binaries. OAuth tokens encrypted locally via Windows Data Protection API (DPAPI). 4 RBAC tiers: SUPER_ADMIN, CENTER_ADMIN, REVIEWER, ROOM_OPERATOR.
-7. Performance: Consumes <1% CPU and <60MB RAM. Zero video re-encoding/transcoding locally. Zero impact on OBS recordings or smartboards.
-8. Operational Edge Cases: Overtime lectures (20-30m late) handled via heuristic duration overlap so they aren't misclassified into the next batch. Missing lectures flagged when schedule ends without recording.
-9. How to Use Centrix: Explain the 4-step workflow whenever asked: 1) One-time setup via Centrix-Setup.exe on classroom PC (select center & room ID), 2) Teachers conduct lectures in OBS Studio normally and simply click 'Stop Recording' (zero extra work for faculty), 3) Centrix autonomously stabilizes the recording, correlates timetable (&ge;85% confidence auto-passes), and uploads chunked bytes directly to Google Drive & YouTube, 4) Center operators verify upload progress or resolve rare ambiguous sessions with 1 click at localhost:5200.
-
-Instructions:
-- If greeted (hello, hi, namaste, hey), respond warmly and briefly like a real AI assistant! Welcome them and invite questions in English or Hindi.
-- If user asks in Hindi or Hinglish, reply naturally in clear Hindi / Hinglish.
-- If user asks in English, reply in English.
-- Keep responses concise, helpful, and technically accurate based on the Centrix codebase.`;
-
-    // Markdown Parser
-    function formatMarkdown(text) {
-      if (!text) return '';
-      return text
-        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\*(.*?)\*/g, '<em>$1</em>')
-        .replace(/`([^`]+)`/g, '<code class="font-mono text-xs bg-stone-200/70 dark:bg-stone-800 px-1 py-0.5 rounded">$1</code>')
-        .replace(/\n\n/g, '<br /><br />')
-        .replace(/\n•\s/g, '<br />• ')
-        .replace(/\n-\s/g, '<br />• ')
-        .replace(/\n/g, '<br />');
-    }
-
-    // Hybrid Conversational AI Engine (Live LLM + Local Knowledge Base Fallback)
-    async function askAI(query) {
-      const qTrim = query.trim();
-      const qLower = qTrim.toLowerCase();
-
-      // Conversational Greeting Detection
-      const greetingWords = ['hello', 'hi', 'hey', 'namaste', 'kaise ho', 'kya haal', 'good morning', 'good evening', 'pranam', 'sup', 'yo'];
-      if (greetingWords.some(w => qLower === w || qLower === w + '!' || qLower === w + '?')) {
-        return "Hello! 👋 I am <strong>Centrix AI</strong>. How can I help you today? You can ask me anything about classroom OBS automation, smart timetable matching, offline SQLite sync, or center rollout in <strong>English, Hindi, or Hinglish</strong>!";
+      // Context-aware fallback synthesized in user's detected language
+      if (isHi) {
+        return "Centrix एक एडवांस ऑटोमेटेड बैकग्राउंड सिस्टम है जो PhysicsWallah विद्यापीठ क्लासरूम्स के OBS लेक्चर्स को अपने आप टाइमटेबल से मैच करके गूगल ड्राइव में अपलोड करता है। आप मुझसे <strong>फीचर्स</strong>, <strong>ऑफलाइन सिंक</strong>, <strong>PC परफॉर्मेंस</strong>, या <strong>इसे कैसे यूज़ करना है</strong>—कुछ भी पूछ सकते हैं!";
+      } else {
+        return "Centrix is an intelligent edge-first lecture automation system for PhysicsWallah Vidyapeeth classrooms. It automatically detects OBS recordings, matches timetables with 7 signals, and uploads to Google Drive with 10MB resumable chunking. Feel free to ask about <strong>features</strong>, <strong>offline queue</strong>, <strong>PC impact</strong>, or <strong>how to use</strong>!";
       }
-
-      // Try Live LLM with 6-second timeout
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 6000);
-
-      try {
-        const res = await fetch('https://text.pollinations.ai/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            messages: [
-              { role: 'system', content: CENTRIX_SYSTEM_PROMPT },
-              { role: 'user', content: qTrim }
-            ],
-            seed: 42
-          }),
-          signal: controller.signal
-        });
-        clearTimeout(timeoutId);
-
-        if (res.ok) {
-          const text = await res.text();
-          if (text && text.trim().length > 0) {
-            return formatMarkdown(text.trim());
-          }
-        }
-      } catch (err) {
-        console.warn('Real AI live call fallback to local knowledge base:', err);
-      }
-
-      // Fallback to indexed codebase knowledge engine
-      return searchCodebaseKnowledge(qTrim);
     }
 
     // Floating Chat Window Controls with Smooth Animation
