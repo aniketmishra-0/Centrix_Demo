@@ -1105,24 +1105,62 @@
       return DEFAULT_OPENROUTER_KEY;
     }
 
-    const CENTRIX_SYSTEM_PROMPT = `STRICT SYSTEM DIRECTIVE:
-You are Centrix AI, the official technical intelligence assistant for Centrix (Automated Classroom Lecture Capture & Cloud Delivery for PhysicsWallah Vidyapeeth & Pathshala offline centers across 442+ locations nationwide).
+    function detectLanguage(q) {
+      const hasDevanagari = /[\u0900-\u097F]/.test(q);
+      if (hasDevanagari) return 'Hindi';
+      
+      const hindiStems = [
+        'kya', 'hai', 'kaise', 'kare', 'hoga', 'bhai', 'nahi', 'chahiye', 'chalaye', 
+        'karte', 'hota', 'aur', 'agar', 'koi', 'batao', 'karu', 'raha', 'isme', 'kitna', 
+        'kab', 'kuch', 'pe', 'se', 'ko', 'mera', 'meri', 'mere', 'tum', 'aap', 'bol', 
+        'baat', 'shuru', 'madad', 'namaste', 'dhanyawad', 'shukriya', 'kripya', 'gaya', 
+        'chali', 'bijli', 'der', 'sakte', 'bhi', 'bataye', 'padhana', 'sikhao', 'kharcha',
+        'bataiye', 'kaisa', 'kaun', 'kyun'
+      ];
+      const tokens = q.toLowerCase().split(/[^a-z0-9]+/);
+      if (tokens.some(t => hindiStems.includes(t))) return 'Hinglish';
+      
+      return 'English';
+    }
 
-CRITICAL CONSTRAINTS ("mere .md file ko padhe uska hi answer de usse jada kuch bhi nhi"):
-1. STRICT GROUNDING RULE: You must answer EXCLUSIVELY and ONLY based on the official Centrix specifications provided below. Do NOT use outside general knowledge, do NOT invent, assume, or hallucinate features, numbers, or logic not in these specifications.
-2. OUT-OF-DOMAIN RULE: If the user asks anything unrelated to Centrix (e.g. general chit-chat, other companies, recipes, generic coding, news), politely refuse in their language: "I am Centrix AI, strictly programmed to answer questions about Centrix architecture, specifications, and classroom operations. I cannot answer queries outside Centrix."
-3. ACCURACY RULE: Always provide exact weights, lifecycle states, tables, thresholds, and architectural principles as specified.
-4. LANGUAGE RULE: Respond in the language of the user (English, Hindi, or Hinglish) fluently, professionally, and concisely.
-5. NO RAW FILENAMES: Never cite raw markdown filenames (e.g. do not say "in ARCHITECTURE.md" or "in DATABASE_SCHEMA.md"). Refer to them naturally as "Centrix Architecture", "7-Signal Matching Engine", "SQLite WAL Schema", "DPAPI Security Model", or "Cost Control Strategy".
+    const CENTRIX_SYSTEM_PROMPT = `STRICT SYSTEM DIRECTIVE:
+You are Centrix AI, the official intelligent assistant for Centrix (Automated Classroom Lecture Capture & Cloud Delivery for PhysicsWallah Vidyapeeth & Pathshala offline centers across 442+ locations nationwide).
+
+CORE PERSONALITY & CONVERSATIONAL GUIDELINES:
+1. GREETINGS & SMALL TALK:
+   - When the user greeting is ONLY a hello ("hi", "hello", "hey", "hay", "namaste", "pranam"):
+     * English: "Hello! 👋 I am Centrix AI, your assistant for PhysicsWallah classroom lecture automation. How can I help you today?"
+     * Hindi/Hinglish: "नमस्ते! 👋 मैं Centrix AI हूँ, PhysicsWallah क्लासरूम ऑटोमेशन का असिस्टेंट। आज आपकी क्या मदद कर सकता हूँ?"
+     Do NOT write long paragraphs for simple greetings. Keep greetings short, warm, and friendly!
+   - When the user asks "how are you", "how r u", "kaise ho", "kya haal hai":
+     * English: "I am fine, thank you! 🚀 All classroom sync pipelines are active. What would you like to know about Centrix today?"
+     * Hindi/Hinglish: "मैं बिल्कुल ठीक हूँ, धन्यवाद! 🚀 Centrix के सभी क्लासरूम पाइपलाइन्स एक्टिव हैं। आज आप Centrix के बारे में क्या जानना चाहते हैं?"
+   - When the user asks "who are you", "what is your name", "aap kaun ho":
+     * "I am Centrix AI, built for PhysicsWallah offline classroom lecture automation."
+   - When user says "thank you", "thanks", "dhanyawad", "shukriya":
+     * "You're welcome! 😊 Feel free to ask anything else about Centrix."
+
+2. APP-CENTRIC FOCUS ("gemini or baaten kre isi app ke baare me baki chize nhi"):
+   - Stay strictly focused on Centrix and PhysicsWallah classroom operations.
+   - If the user asks about unrelated general topics (such as movies, cooking/recipes, games, politics, generic coding, weather):
+     Politely refuse and steer back: "I am Centrix AI, specialized exclusively in Centrix classroom automation. I can only assist with questions regarding Centrix architecture, matching algorithm, or center operations."
+
+3. STRICT LANGUAGE MATCHING RULE:
+   - IF THE USER QUERIES IN ENGLISH (e.g. "how much cost", "how does matching work") -> You MUST answer 100% in fluent ENGLISH! Absolutely no Hindi words or Devanagari script for English queries.
+   - IF THE USER QUERIES IN HINDI (Devanagari) -> Answer in Hindi.
+   - IF THE USER QUERIES IN HINGLISH (Roman Hindi) -> Answer in conversational Hinglish.
+
+4. NO RAW FILENAMES:
+   - Never cite raw .md file paths (e.g. never say "in ARCHITECTURE.md" or "in DATABASE_SCHEMA.md"). Refer to them naturally as "Centrix Architecture", "7-Signal Matching Engine", "SQLite WAL Schema", "DPAPI Security Model", or "Cost Control Strategy".
 
 ============================================================
 OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
 ============================================================
 
-1. SYSTEM OVERVIEW & PROBLEM STATEMENT:
+1. SYSTEM OVERVIEW:
 - Application: Centrix (Automated Classroom Lecture Capture & Cloud Delivery), Version 1.0.4.
 - Target: PhysicsWallah Vidyapeeth & Pathshala offline classrooms (442+ centers nationwide).
-- Platform: Windows 10/11 Desktop background service (<1% CPU, <60MB RAM footprint) and modern web dashboard.
+- Platform: Windows 10/11 Desktop background service (<1% CPU, <60MB RAM footprint) and local web dashboard.
 - Problem Solved: Previously, 50+ centers manually used pen drives to collect recordings, leading to 12-24 hour student upload delays, file naming errors, lost footage, and staff burnout.
 - Transformation: Lectures reach students in <30 minutes. Saves 2-3 hours per workstation daily (~3,000+ staff hours saved each month across the network).
 - Zero Teacher Disruption: Faculty teach normally in OBS Studio without opening or managing any secondary software. They simply press "Stop Recording" when done.
@@ -1277,11 +1315,35 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       return html + `<span class='inline-block mt-2.5 text-[10px] text-purple-600 dark:text-purple-400 font-mono'>⚡ Live ${modelLabel} • Grounded in Centrix Specs</span>`;
     }
 
-    async function askGeminiFlash(query, apiKey) {
+    // Maintained chat context across conversations
+    const floatChatContext = [];
+    const inlineChatContext = [];
+
+    async function askGeminiFlash(query, apiKey, history = []) {
       const cleanKey = apiKey.trim();
+      const detectedLang = detectLanguage(query);
+
+      let langDirective = '';
+      if (detectedLang === 'English') {
+        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in ENGLISH: "${query}". You MUST respond 100% in pure ENGLISH! Do NOT output any Devanagari Hindi or Hindi translations. Answer exclusively in clear English.]`;
+      } else if (detectedLang === 'Hindi') {
+        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in Hindi. Respond in natural Devanagari Hindi.]`;
+      } else {
+        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in Hinglish (Roman Hindi). Respond in friendly, conversational Hinglish.]`;
+      }
+
+      const promptWithLang = CENTRIX_SYSTEM_PROMPT + '\n' + langDirective;
 
       // Route 1: OpenRouter Key (sk-or-...)
       if (cleanKey.startsWith('sk-or-')) {
+        const messages = [
+          { role: 'system', content: promptWithLang }
+        ];
+        if (history && history.length > 0) {
+          messages.push(...history.slice(-6));
+        }
+        messages.push({ role: 'user', content: query });
+
         const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
           method: 'POST',
           headers: {
@@ -1293,11 +1355,8 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
           body: JSON.stringify({
             model: 'google/gemini-2.5-flash',
             max_tokens: 650,
-            temperature: 0.1,
-            messages: [
-              { role: 'system', content: CENTRIX_SYSTEM_PROMPT },
-              { role: 'user', content: query }
-            ]
+            temperature: 0.15,
+            messages: messages
           })
         });
 
@@ -1322,10 +1381,10 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
           }
         ],
         systemInstruction: {
-          parts: [{ text: CENTRIX_SYSTEM_PROMPT }]
+          parts: [{ text: promptWithLang }]
         },
         generationConfig: {
-          temperature: 0.1,
+          temperature: 0.15,
           maxOutputTokens: 650
         }
       };
@@ -1347,14 +1406,14 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       return formatMarkdown(text, 'Gemini 1.5 Flash');
     }
 
-    async function askAI(query) {
+    async function askAI(query, history = []) {
       const qTrim = query.trim();
       const apiKey = getActiveApiKey();
 
-      // Query live Gemini model with strict grounding
+      // Query live Gemini model with strict grounding and conversational memory
       if (apiKey && apiKey.length > 8) {
         try {
-          return await askGeminiFlash(qTrim, apiKey);
+          return await askGeminiFlash(qTrim, apiKey, history);
         } catch (err) {
           console.warn('Gemini live query notice, falling back to 0ms NLU:', err);
         }
@@ -1470,8 +1529,10 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       history.appendChild(typingDiv);
       history.scrollTop = history.scrollHeight;
 
-      // Generate response from AI engine
-      const reply = await askAI(q);
+      // Generate response from AI engine with conversational history
+      const reply = await askAI(q, floatChatContext);
+      floatChatContext.push({ role: 'user', content: q });
+      floatChatContext.push({ role: 'assistant', content: reply.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim() });
 
       const ind = document.getElementById('floatTypingIndicator');
       if (ind) ind.remove();
@@ -1524,8 +1585,10 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       history.appendChild(typingDiv);
       history.scrollTop = history.scrollHeight;
 
-      // Determine response from AI engine
-      const reply = await askAI(q);
+      // Determine response from AI engine with conversational history
+      const reply = await askAI(q, inlineChatContext);
+      inlineChatContext.push({ role: 'user', content: q });
+      inlineChatContext.push({ role: 'assistant', content: reply.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim() });
 
       const ind = document.getElementById('typingIndicator');
       if (ind) ind.remove();
