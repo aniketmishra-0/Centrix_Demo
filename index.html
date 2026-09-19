@@ -28,46 +28,56 @@
       perspective: 1400px;
     }
     .mockup-3d {
-      transform: rotateX(3.5deg) scale(0.985);
+      transform: rotateX(3deg) scale(0.985);
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.06);
     }
     .dark .mockup-3d {
-      box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1);
     }
     .mockup-3d:hover {
       transform: rotateX(0deg) scale(1);
     }
     .glass-nav {
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
+    /* Typing dots animation */
+    @keyframes bounce-dot {
+      0%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-5px); }
+    }
+    .dot-1 { animation: bounce-dot 1.2s infinite 0s; }
+    .dot-2 { animation: bounce-dot 1.2s infinite 0.2s; }
+    .dot-3 { animation: bounce-dot 1.2s infinite 0.4s; }
   </style>
 </head>
-<body class="bg-[#F6F4F0] text-stone-900 dark:bg-[#111215] dark:text-stone-100 transition-colors duration-300 min-h-screen selection:bg-blue-600 selection:text-white antialiased font-sans">
+<body class="bg-[#F5F3EF] text-stone-900 dark:bg-[#0E0F12] dark:text-stone-100 transition-colors duration-300 min-h-screen selection:bg-blue-600 selection:text-white antialiased font-sans">
 
   <!-- Sticky Navbar -->
-  <header class="sticky top-0 z-50 border-b border-stone-200/80 dark:border-stone-800/80 bg-[#F6F4F0]/85 dark:bg-[#111215]/85 glass-nav px-6 py-3.5">
+  <header class="sticky top-0 z-50 border-b border-stone-300/70 dark:border-stone-800/80 bg-[#F5F3EF]/90 dark:bg-[#0E0F12]/90 glass-nav px-6 py-3.5">
     <div class="max-w-6xl mx-auto flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <img src="./images/centrix-logo.png" alt="Centrix" class="w-8 h-8 rounded-full border border-stone-300 dark:border-stone-700 shadow-sm">
-        <span class="font-extrabold text-lg tracking-tight font-mono">CENTRIX</span>
-        <span class="text-xs px-2.5 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 font-mono font-semibold">v1.0.4 Ready</span>
+        <img src="./images/centrix-logo.png" alt="Centrix Logo" class="w-8 h-8 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs">
+        <span class="font-extrabold text-lg tracking-tight font-mono text-stone-900 dark:text-white">CENTRIX</span>
+        <span class="hidden sm:inline-block text-xs px-2.5 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 font-mono font-semibold">v1.0.4 Ready</span>
       </div>
 
-      <div class="flex items-center space-x-3 sm:space-x-4">
+      <div class="flex items-center space-x-3 sm:space-x-5">
         <a href="#showcase" class="hidden md:inline-block text-xs font-mono text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition">Showcase</a>
         <a href="#qa" class="hidden md:inline-block text-xs font-mono text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition">Live Q&amp;A</a>
-        <a href="#pilot" class="hidden sm:inline-block text-xs font-mono text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition">Request Pilot</a>
+        <a href="#pilot" class="hidden sm:inline-block text-xs font-mono text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition">Pilot Request</a>
 
-        <!-- Dark/Light Mode Switcher -->
-        <button onclick="toggleTheme()" id="themeBtn" aria-label="Toggle Dark/Light Mode" class="p-2 rounded-lg border border-stone-300 dark:border-stone-700 bg-white/60 dark:bg-stone-800/60 text-stone-700 dark:text-stone-200 hover:scale-105 transition active:scale-95 shadow-xs">
-          <span id="themeIcon">🌙</span>
+        <!-- Premium iOS Style Dark/Light Sliding Toggle -->
+        <button onclick="toggleTheme()" aria-label="Toggle Theme" class="relative inline-flex h-8 w-14 items-center rounded-full bg-stone-300/80 dark:bg-stone-800 border border-stone-300 dark:border-stone-700 p-1 transition-colors duration-300 focus:outline-none shadow-inner">
+          <div id="toggleKnob" class="h-6 w-6 rounded-full bg-white dark:bg-stone-900 shadow-sm transform transition-transform duration-300 flex items-center justify-center text-xs translate-x-0 dark:translate-x-6">
+            <span id="knobEmoji">☀️</span>
+          </div>
         </button>
 
         <!-- Direct Download Button -->
         <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" 
-           class="inline-flex items-center space-x-2 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-xs px-4 py-2 rounded-lg shadow-sm transition active:scale-95">
+           class="inline-flex items-center space-x-1.5 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-xs px-4 py-2 rounded-lg shadow-sm transition active:scale-95">
           <span>↓ Download .exe</span>
         </a>
       </div>
@@ -97,7 +107,7 @@
           <span>↓ Download Centrix-Setup.exe (v1.0.4)</span>
         </a>
         <a href="#pilot" 
-           class="inline-flex items-center space-x-2 bg-stone-200/60 hover:bg-stone-300/60 dark:bg-stone-800/60 dark:hover:bg-stone-700/60 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-sm px-5 py-3.5 rounded-xl transition">
+           class="inline-flex items-center space-x-2 bg-stone-200/70 hover:bg-stone-300/70 dark:bg-stone-800/60 dark:hover:bg-stone-700/60 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-sm px-5 py-3.5 rounded-xl transition">
           <span>Request Center Pilot →</span>
         </a>
       </div>
@@ -110,7 +120,7 @@
     </div>
   </section>
 
-  <!-- 3D Software Interface Showcase -->
+  <!-- 3D Perspective Software Interface Showcase -->
   <section id="showcase" class="max-w-6xl mx-auto px-6 py-12">
     <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4 border-b border-stone-300 dark:border-stone-800 pb-4">
       <div>
@@ -118,93 +128,96 @@
         <h2 class="text-3xl sm:text-4xl font-serif text-stone-900 dark:text-stone-50 mt-1">Software Interface Showcase</h2>
       </div>
       <div class="text-xs font-mono text-stone-500 dark:text-stone-400">
-        Node: Pune - PCMC Vidyapeeth • Room 603
+        Active Node: Pune - PCMC Vidyapeeth • Room 603
       </div>
     </div>
 
     <!-- Interface Selector Tabs -->
     <div class="flex flex-wrap gap-2 mb-6" id="tabButtons">
       <button onclick="switchTab(0)" class="tab-btn active px-4 py-2 rounded-lg font-mono text-xs font-semibold bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950 shadow-sm transition">01. Home &amp; Access Portal</button>
-      <button onclick="switchTab(1)" class="tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/70 dark:bg-stone-900/70 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition">02. Live Ingest Monitor</button>
-      <button onclick="switchTab(2)" class="tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/70 dark:bg-stone-900/70 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition">03. Review &amp; Approval Hub</button>
-      <button onclick="switchTab(3)" class="tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/70 dark:bg-stone-900/70 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition">04. Master Schedule Sync</button>
-      <button onclick="switchTab(4)" class="tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/70 dark:bg-stone-900/70 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition">05. Operations Controls</button>
+      <button onclick="switchTab(1)" class="tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/80 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition">02. Live Ingest Monitor</button>
+      <button onclick="switchTab(2)" class="tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/80 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition">03. Review &amp; Approval Hub</button>
+      <button onclick="switchTab(3)" class="tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/80 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition">04. Master Schedule Sync</button>
+      <button onclick="switchTab(4)" class="tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/80 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition">05. Operations Controls</button>
     </div>
 
     <!-- 3D Perspective Browser Frame -->
     <div class="perspective-frame py-4">
-      <div class="mockup-3d bg-white dark:bg-stone-900 rounded-2xl border border-stone-300/80 dark:border-stone-800 overflow-hidden">
+      <div class="mockup-3d bg-white dark:bg-stone-900 rounded-2xl border border-stone-300 dark:border-stone-800 overflow-hidden">
         <!-- Mockup Window Bar -->
-        <div class="px-4 py-3 bg-stone-100 dark:bg-stone-950/80 border-b border-stone-200 dark:border-stone-800 flex items-center justify-between">
+        <div class="px-4 py-3 bg-stone-100/90 dark:bg-stone-950 border-b border-stone-200 dark:border-stone-800 flex items-center justify-between">
           <div class="flex items-center space-x-2">
-            <div class="w-3 h-3 rounded-full bg-red-400"></div>
+            <div class="w-3 h-3 rounded-full bg-rose-400"></div>
             <div class="w-3 h-3 rounded-full bg-amber-400"></div>
             <div class="w-3 h-3 rounded-full bg-emerald-400"></div>
           </div>
           <div class="text-xs font-mono text-stone-500 dark:text-stone-400 flex items-center space-x-1">
             <span>🔒 https://localhost:5200</span>
-            <span id="windowTabLabel" class="text-stone-700 dark:text-stone-200 font-semibold">• Home Portal</span>
+            <span id="windowTabLabel" class="text-stone-800 dark:text-stone-200 font-semibold">• Home Portal</span>
           </div>
-          <div class="text-xs font-mono text-stone-400">Centrix OS</div>
+          <div class="text-xs font-mono text-stone-400">Centrix v1.0.4</div>
         </div>
 
         <!-- Screenshot Image -->
         <div class="p-2 sm:p-4 bg-stone-50 dark:bg-stone-950">
-          <img id="previewImg" src="./images/centrix-home-portal.png" alt="Centrix Interface" class="w-full rounded-lg border border-stone-200 dark:border-stone-800 shadow-sm transition-opacity duration-300">
+          <img id="previewImg" src="./images/centrix-home-portal.png" alt="Centrix Interface" class="w-full rounded-xl border border-stone-200 dark:border-stone-800 shadow-sm transition-opacity duration-300">
         </div>
 
         <!-- Caption bar -->
-        <div class="px-6 py-3 bg-stone-100/70 dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 text-center font-mono text-xs text-stone-600 dark:text-stone-400">
-          <span id="previewDesc">01 // The clean editorial entrance portal with Google Workspace SSO and 1-click local access.</span>
+        <div class="px-6 py-3.5 bg-stone-100/80 dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 text-center font-mono text-xs text-stone-600 dark:text-stone-400">
+          <span id="previewDesc">01 // The clean editorial entrance portal with Google Workspace SSO and 1-click local access for classroom workstations.</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Interactive Live AI / Questions Assistant Section -->
-  <section id="qa" class="max-w-6xl mx-auto px-6 py-16">
+  <!-- Interactive Live AI Assistant (Upgraded with Logo & Rich Knowledge) -->
+  <section id="qa" class="max-w-6xl mx-auto px-6 py-16 border-t border-stone-300 dark:border-stone-800">
     <div class="max-w-3xl mx-auto">
       <div class="text-center mb-8">
         <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-mono text-xs font-semibold mb-2">
           <span>🤖 Interactive AI Assistant</span>
         </div>
         <h2 class="text-3xl sm:text-4xl font-serif text-stone-900 dark:text-stone-50">Ask Anything About Centrix</h2>
-        <p class="text-stone-600 dark:text-stone-400 text-sm mt-2">Click a common question or type your inquiry to get an instant answer.</p>
+        <p class="text-stone-600 dark:text-stone-400 text-sm mt-2">Get instant answers about features, offline queueing, PC impact, or center deployment.</p>
       </div>
 
       <!-- Quick Questions Chips -->
       <div class="flex flex-wrap justify-center gap-2 mb-6">
-        <button onclick="askQuestion('What happens if the internet disconnects?')" class="px-3 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/60 dark:bg-stone-900/60 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition">
+        <button onclick="askQuestion('What are the core features of Centrix?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
+          ✨ Core Features?
+        </button>
+        <button onclick="askQuestion('What happens if the internet disconnects?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
           📡 Internet Outage?
         </button>
-        <button onclick="askQuestion('Will Centrix slow down teaching PCs?')" class="px-3 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/60 dark:bg-stone-900/60 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition">
+        <button onclick="askQuestion('Will Centrix slow down teaching PCs?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
           ⚡ PC Performance?
         </button>
-        <button onclick="askQuestion('How does it handle classes running 30 mins late?')" class="px-3 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/60 dark:bg-stone-900/60 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition">
+        <button onclick="askQuestion('How does it handle classes running 30 mins late?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
           ⏱️ Overtime Classes?
         </button>
-        <button onclick="askQuestion('How are Google Drive credentials secured?')" class="px-3 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/60 dark:bg-stone-900/60 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition">
+        <button onclick="askQuestion('How are Google Drive credentials secured?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
           🛡️ Security &amp; Drive Keys?
         </button>
-        <button onclick="askQuestion('How much operational time does it save?')" class="px-3 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/60 dark:bg-stone-900/60 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition">
+        <button onclick="askQuestion('How much operational time does it save?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
           💰 Time &amp; Cost ROI?
         </button>
       </div>
 
       <!-- Live Chat / Answer Display Box -->
       <div class="rounded-2xl border border-stone-300 dark:border-stone-800 bg-white dark:bg-stone-900 p-5 shadow-sm">
-        <div id="qaHistory" class="space-y-4 mb-4 min-h-[140px] max-h-[300px] overflow-y-auto font-sans text-sm">
+        <div id="qaHistory" class="space-y-4 mb-4 min-h-[160px] max-h-[320px] overflow-y-auto font-sans text-sm pr-1">
           <div class="flex items-start space-x-3">
-            <div class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-mono font-bold text-xs shrink-0">CX</div>
-            <div class="bg-stone-100 dark:bg-stone-800/70 rounded-xl p-3.5 text-stone-800 dark:text-stone-200 text-xs sm:text-sm">
-              Hello! I am the <strong>Centrix Live Assistant</strong>. Ask me anything regarding classroom OBS detection, schedule correlation, Google Drive sync, or how to deploy Centrix across your center workstations.
+            <img src="./images/centrix-logo.png" alt="Centrix Bot" class="w-7 h-7 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0 mt-0.5">
+            <div class="bg-stone-100 dark:bg-stone-800/80 rounded-2xl rounded-tl-sm p-4 text-stone-800 dark:text-stone-200 text-xs sm:text-sm leading-relaxed">
+              Hello! I am the <strong>Centrix AI Assistant</strong>. Ask me anything regarding classroom OBS detection, schedule correlation, Google Drive sync, or how to deploy Centrix across your center workstations.
             </div>
           </div>
         </div>
 
         <!-- Input Bar -->
         <form onsubmit="handleChatSubmit(event)" class="flex items-center gap-2 pt-3 border-t border-stone-200 dark:border-stone-800">
-          <input type="text" id="userInput" placeholder="Type a question (e.g. How does offline queue work?)" 
+          <input type="text" id="userInput" placeholder="Ask anything (e.g. How does it work? Or isme kya kya features hain?)" 
                  class="flex-1 bg-stone-100 dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-blue-500 font-sans">
           <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold px-4 py-2.5 rounded-xl transition shadow-xs">
             Ask →
@@ -283,14 +296,20 @@
 
   <!-- Interactive JavaScript Logic -->
   <script>
-    // Theme Switcher (Dark / Light)
+    // Theme Switcher (Smooth iOS Pill Slider)
     function applyTheme(theme) {
+      const knob = document.getElementById('toggleKnob');
+      const knobEmoji = document.getElementById('knobEmoji');
       if (theme === 'dark') {
         document.documentElement.classList.add('dark');
-        document.getElementById('themeIcon').textContent = '☀️';
+        knob.classList.add('translate-x-6');
+        knob.classList.remove('translate-x-0');
+        knobEmoji.textContent = '🌙';
       } else {
         document.documentElement.classList.remove('dark');
-        document.getElementById('themeIcon').textContent = '🌙';
+        knob.classList.remove('translate-x-6');
+        knob.classList.add('translate-x-0');
+        knobEmoji.textContent = '☀️';
       }
       localStorage.setItem('centrix_theme', theme);
     }
@@ -328,20 +347,50 @@
         if (i === index) {
           btn.className = 'tab-btn active px-4 py-2 rounded-lg font-mono text-xs font-semibold bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950 shadow-sm transition';
         } else {
-          btn.className = 'tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/70 dark:bg-stone-900/70 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition';
+          btn.className = 'tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/80 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition';
         }
       });
     }
 
-    // Live AI / QA Knowledge Base
-    const answers = {
-      internet: "Centrix employs an <strong>offline-first architecture</strong> with an embedded SQLite database. If center internet disconnects, all lecture video cuts and metadata remain safely queued locally. The moment connectivity is restored, chunked uploads automatically resume from the exact interrupted byte without any data loss.",
-      performance: "Centrix runs as a lightweight Windows background worker service consuming <strong>&lt; 1% CPU and under 60 MB RAM</strong>. It does not perform heavy video re-encoding, so classroom teaching, presentation screens, and OBS recordings experience zero performance lag.",
-      overtime: "Centrix features an <strong>adaptive duration matching algorithm</strong>. When a lecture runs late or extends by 30 minutes, the engine correlates the file with the ongoing session's time window and faculty schedule rather than misclassifying it to the subsequent slot.",
-      security: "<strong>Zero credentials or secrets are packaged into the installer</strong>. Google OAuth tokens are acquired during the initial center setup wizard and encrypted on the workstation using the Windows Data Protection API (DPAPI).",
-      roi: "Centrix completely eliminates <strong>2 to 3 hours of manual staff work daily per center</strong>. It eliminates misclassified lectures to 0%, prevents bandwidth waste via resumable uploads, and delivers student recordings within 15 to 30 minutes of class completion.",
-      default: "Centrix is an automated background service for PhysicsWallah Vidyapeeth centers that detects OBS recordings, matches schedules, and auto-uploads to Google Drive and YouTube with zero manual overhead. You can request a pilot node for your center via the button below."
-    };
+    // Comprehensive Dynamic AI Knowledge Base (English + Hinglish Intents)
+    const knowledgeBase = [
+      {
+        triggers: ['kya kya', 'feature', 'features', 'modules', 'capabilities', 'include', 'kya hai', 'overview', 'summary', 'details'],
+        answer: "Centrix consists of <strong>5 core automated modules</strong>:<br />• <strong>Real-Time File Watcher:</strong> Instant OBS recording detection the second a class ends.<br />• <strong>Smart Matching Engine:</strong> Matches Room, Time Window & Faculty against master timetables (&ge; 85% confidence auto-passes).<br />• <strong>Resilient Cloud Sync:</strong> Chunked 10MB resumable uploads to Google Drive batch directories + YouTube pipeline.<br />• <strong>Central Review Queue:</strong> Flagging ambiguous sessions for quick 1-click administrative review.<br />• <strong>Offline SQLite Queue:</strong> 100% data safety even during complete center network blackouts."
+      },
+      {
+        triggers: ['kaise kaam', 'how it work', 'flow', 'process', 'workflow', 'steps'],
+        answer: "<strong>How Centrix Operates in 4 Steps:</strong><br />1. <strong>Capture:</strong> Teacher finishes class and stops OBS recording. Centrix catches the raw MP4 in milliseconds.<br />2. <strong>Match:</strong> The engine correlates Room ID with the Center Timetable (Batch, Subject, Faculty).<br />3. <strong>Standardize:</strong> Automatically renames the file to standard naming (e.g. <code>PW_Batch_Subject_Date.mp4</code>).<br />4. <strong>Delivery:</strong> Uploads directly to the correct Google Drive folder using byte-level resumable uploads."
+      },
+      {
+        triggers: ['internet', 'offline', 'outage', 'network', 'wifi', 'disconnect', 'net band'],
+        answer: "Centrix is built with an <strong>offline-first architecture</strong> powered by SQLite. If center internet drops for minutes, hours, or days, all lecture files and metadata remain safe locally. The moment internet is restored, chunked uploads automatically resume from the exact interrupted byte — zero files lost, zero bandwidth wasted."
+      },
+      {
+        triggers: ['slow', 'pc', 'performance', 'cpu', 'ram', 'lag', 'system load', 'heavy'],
+        answer: "Centrix runs as a silent background Windows Service consuming <strong>&lt; 1% CPU and under 60 MB RAM</strong>. It does not perform CPU-heavy video transcoding; it only performs lightweight file system listening and network transmission. Classroom presentation screens and OBS recordings experience zero lag."
+      },
+      {
+        triggers: ['late', 'overtime', 'extend', 'der', 'duration', 'extra time', 'time window'],
+        answer: "Centrix uses an <strong>adaptive heuristic overlap engine</strong>. When an instructor lectures 20-30 minutes overtime, the engine measures the percentage overlap with the ongoing slot and automatically associates the file with the correct ongoing lecture instead of misclassifying it into the next batch."
+      },
+      {
+        triggers: ['security', 'drive', 'credential', 'token', 'safe', 'privacy', 'password', 'api key'],
+        answer: "<strong>Zero credentials or secrets are packaged into the installer</strong>. Google OAuth tokens are acquired during the initial workstation onboarding wizard and encrypted locally on the PC using the Windows Data Protection API (DPAPI). Only authorized local Windows processes can read them."
+      },
+      {
+        triggers: ['save', 'roi', 'hours', 'cost', 'benefit', 'faayda', 'time save', 'money'],
+        answer: "Centrix delivers significant measurable ROI:<br />• <strong>Time Saved:</strong> Eliminates 2 to 3 operational hours daily per center (saving ~3,000+ staff hours monthly across 50 centers).<br />• <strong>Zero Error Rate:</strong> 100% elimination of wrong-folder uploads.<br />• <strong>Fast Turnaround:</strong> Students receive recordings within 15-30 minutes instead of waiting for next-morning uploads."
+      },
+      {
+        triggers: ['install', 'setup', 'kaise install', 'kaise chalaye', 'download', 'deploy', 'requirements'],
+        answer: "<strong>3-Step Deployment:</strong><br />1. Download <code>Centrix-Setup.exe</code> (v1.0.4) using the top download button.<br />2. Run the installer on classroom Windows 10/11 PCs.<br />3. Select your center from the dropdown (e.g. Pune - PCMC Vidyapeeth) and link the OBS recordings folder. Centrix starts automatically on boot."
+      },
+      {
+        triggers: ['pilot', 'request', 'demo', 'contact', 'onboarding', 'shuru'],
+        answer: "You can request a pilot rollout for your center directly! Click the green <strong>'Request Pilot for Your Center'</strong> button at the bottom of this page, or send an email to Project Lead Aniket Mishra at <a href='mailto:aniket.mishra2@pw.live' class='text-blue-600 underline font-semibold'>aniket.mishra2@pw.live</a>."
+      }
+    ];
 
     function askQuestion(q) {
       document.getElementById('userInput').value = q;
@@ -359,40 +408,53 @@
       // Add user message
       const userDiv = document.createElement('div');
       userDiv.className = 'flex items-start justify-end space-x-2';
-      userDiv.innerHTML = `<div class="bg-blue-600 text-white rounded-xl p-3 text-xs sm:text-sm max-w-[85%]">${q}</div>`;
+      userDiv.innerHTML = `<div class="bg-blue-600 text-white rounded-2xl rounded-tr-sm px-4 py-2.5 text-xs sm:text-sm max-w-[85%] shadow-xs">${escapeHtml(q)}</div>`;
       history.appendChild(userDiv);
       input.value = '';
 
-      // Determine response
+      // Determine response from knowledge base
       const qLower = q.toLowerCase();
-      let reply = answers.default;
-      if (qLower.includes('internet') || qLower.includes('offline') || qLower.includes('outage') || qLower.includes('network') || qLower.includes('wifi')) {
-        reply = answers.internet;
-      } else if (qLower.includes('slow') || qLower.includes('pc') || qLower.includes('performance') || qLower.includes('cpu') || qLower.includes('lag')) {
-        reply = answers.performance;
-      } else if (qLower.includes('late') || qLower.includes('overtime') || qLower.includes('extend') || qLower.includes('duration') || qLower.includes('time')) {
-        reply = answers.overtime;
-      } else if (qLower.includes('credential') || qLower.includes('drive') || qLower.includes('security') || qLower.includes('token') || qLower.includes('protect')) {
-        reply = answers.security;
-      } else if (qLower.includes('roi') || qLower.includes('cost') || qLower.includes('save') || qLower.includes('hours') || qLower.includes('benefit')) {
-        reply = answers.roi;
-      }
+      let matched = knowledgeBase.find(item => item.triggers.some(trig => qLower.includes(trig)));
+      let reply = matched ? matched.answer : "Centrix is an automated background service for PhysicsWallah Vidyapeeth centers that detects OBS recordings, matches schedules, and auto-uploads to Google Drive and YouTube with zero manual overhead. Try asking about <em>features</em>, <em>offline queue</em>, <em>PC performance</em>, or <em>pilot request</em>.";
 
-      // Add bot response with slight typing delay
+      // Add typing indicator
+      const typingDiv = document.createElement('div');
+      typingDiv.id = 'typingIndicator';
+      typingDiv.className = 'flex items-start space-x-3';
+      typingDiv.innerHTML = `
+        <img src="./images/centrix-logo.png" alt="Centrix Bot" class="w-7 h-7 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0 mt-0.5">
+        <div class="bg-stone-100 dark:bg-stone-800/80 rounded-2xl rounded-tl-sm px-4 py-3 text-stone-500 flex items-center space-x-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-stone-400 dot-1 inline-block"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-stone-400 dot-2 inline-block"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-stone-400 dot-3 inline-block"></span>
+        </div>
+      `;
+      history.appendChild(typingDiv);
+      history.scrollTop = history.scrollHeight;
+
+      // Replace typing indicator with real answer after 350ms
       setTimeout(() => {
+        const ind = document.getElementById('typingIndicator');
+        if (ind) ind.remove();
+
         const botDiv = document.createElement('div');
         botDiv.className = 'flex items-start space-x-3';
         botDiv.innerHTML = `
-          <div class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-mono font-bold text-xs shrink-0">CX</div>
-          <div class="bg-stone-100 dark:bg-stone-800/70 rounded-xl p-3.5 text-stone-800 dark:text-stone-200 text-xs sm:text-sm max-w-[85%]">
+          <img src="./images/centrix-logo.png" alt="Centrix Bot" class="w-7 h-7 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0 mt-0.5">
+          <div class="bg-stone-100 dark:bg-stone-800/80 rounded-2xl rounded-tl-sm p-4 text-stone-800 dark:text-stone-200 text-xs sm:text-sm max-w-[85%] leading-relaxed shadow-xs">
             ${reply}
           </div>
         `;
         history.appendChild(botDiv);
         history.scrollTop = history.scrollHeight;
-      }, 250);
+      }, 350);
 
       history.scrollTop = history.scrollHeight;
+    }
+
+    function escapeHtml(text) {
+      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+      return text.replace(/[&<>"']/g, m => map[m]);
     }
   </script>
 </body>
