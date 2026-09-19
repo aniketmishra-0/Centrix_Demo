@@ -8,167 +8,236 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    code, pre { font-family: 'JetBrains Mono', monospace; }
+    :root {
+      --bg-cream: #F5F3EF;
+      --paper: #FAF8F5;
+      --ink: #181716;
+      --ink-muted: #6B6862;
+      --border-line: #E3DFD7;
+      --accent-blue: #0052CC;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-cream);
+      color: var(--ink);
+    }
+    .font-serif-editorial {
+      font-family: 'Newsreader', Georgia, serif;
+    }
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-blue-600 selection:text-white">
+<body class="min-h-screen selection:bg-stone-800 selection:text-white antialiased">
 
-  <!-- Navigation -->
-  <nav class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/80 border-b border-slate-800/80 px-6 py-4">
-    <div class="max-w-6xl mx-auto flex items-center justify-between">
+  <!-- Header / Navigation -->
+  <header class="border-b border-[var(--border-line)] bg-[var(--bg-cream)]/90 backdrop-blur-md sticky top-0 z-50 px-6 py-4">
+    <div class="max-w-5xl mx-auto flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <img src="./images/centrix-logo.png" alt="Centrix" class="w-9 h-9 rounded-lg">
-        <span class="font-extrabold text-xl tracking-tight text-white">CENTRIX</span>
-        <span class="hidden md:inline-block px-2 py-0.5 text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full">v1.0.4 Ready</span>
+        <img src="./images/centrix-logo.png" alt="Centrix Logo" class="w-8 h-8 rounded-full border border-[var(--border-line)] shadow-xs">
+        <span class="font-bold text-lg tracking-tight font-mono-code text-[var(--ink)]">CENTRIX</span>
+        <span class="text-xs px-2 py-0.5 rounded-full border border-emerald-600/30 bg-emerald-50 text-emerald-800 font-mono-code font-semibold">v1.0.4 Ready</span>
       </div>
-      <div class="flex items-center space-x-4">
-        <a href="#features" class="hidden sm:inline-block text-sm text-slate-300 hover:text-white transition">Features</a>
-        <a href="#architecture" class="hidden sm:inline-block text-sm text-slate-300 hover:text-white transition">Architecture</a>
-        <a href="#roi" class="hidden sm:inline-block text-sm text-slate-300 hover:text-white transition">ROI</a>
+      <div class="flex items-center space-x-5 text-sm">
+        <a href="#interfaces" class="hidden sm:inline-block text-[var(--ink-muted)] hover:text-[var(--ink)] font-medium transition">Interfaces</a>
+        <a href="#faqs" class="hidden sm:inline-block text-[var(--ink-muted)] hover:text-[var(--ink)] font-medium transition">Executive FAQs</a>
+        <a href="#pilot" class="hidden sm:inline-block text-[var(--ink-muted)] hover:text-[var(--ink)] font-medium transition">Pilot Request</a>
         <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" 
-           onclick="trackDownload()" 
-           class="inline-flex items-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm px-4 py-2 rounded-lg shadow-lg shadow-blue-600/25 transition active:scale-95">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-          <span>Download .exe</span>
+           class="inline-flex items-center space-x-2 bg-[var(--ink)] hover:bg-stone-800 text-[var(--bg-cream)] font-mono-code font-semibold text-xs px-4 py-2 rounded-lg transition active:scale-95 shadow-sm">
+          <span>↓ Download .exe</span>
         </a>
       </div>
     </div>
-  </nav>
+  </header>
 
   <!-- Hero Section -->
-  <section class="relative pt-20 pb-16 px-6 overflow-hidden">
-    <div class="max-w-4xl mx-auto text-center relative z-10">
-      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-6">
-        <span>⚡ PhysicsWallah Offline Center Automation</span>
+  <main class="max-w-5xl mx-auto px-6 pt-16 pb-20">
+    <div class="max-w-3xl">
+      <div class="inline-flex items-center space-x-2 text-xs font-mono-code uppercase tracking-widest text-[var(--ink-muted)] mb-4 border-b border-[var(--border-line)] pb-1">
+        <span>Classroom Operations</span>
+        <span>•</span>
+        <span>Vidyapeeth &amp; Pathshala</span>
       </div>
-      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-        Your Lectures. <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Your Cloud.</span> Zero Friction.
-      </h1>
-      <p class="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-8 font-normal leading-relaxed">
-        Automated background engine that detects classroom OBS recordings, matches timetable schedules with zero human error, and syncs directly to Google Drive & YouTube.
-      </p>
       
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
-        <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" 
-           onclick="trackDownload()" 
-           class="w-full sm:w-auto inline-flex items-center justify-center space-x-3 bg-blue-600 hover:bg-blue-500 text-white font-bold text-base px-8 py-4 rounded-xl shadow-xl shadow-blue-600/30 transition transform hover:-translate-y-0.5 active:translate-y-0">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-          <span>Download Centrix Setup (.exe)</span>
-        </a>
-        <a href="https://github.com/aniketmishra-0/Centrix_Demo" class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-base px-6 py-4 rounded-xl transition">
-          <span>View on GitHub</span>
-        </a>
-      </div>
+      <h1 class="text-4xl sm:text-6xl font-serif-editorial font-normal tracking-tight text-[var(--ink)] mb-6 leading-[1.1]">
+        A quiet <em>editorial</em> take on classroom lecture capture.
+      </h1>
 
-      <div class="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 font-mono">
-        <div>📦 Package: <span class="text-slate-300">Centrix-Setup.exe (v1.0.4)</span></div>
-        <div>💻 OS: <span class="text-slate-300">Windows 10 / 11 (64-bit)</span></div>
-        <div>🛡️ Runtime: <span class="text-slate-300">Standalone (No setup needed)</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Interactive Screenshots Showcase -->
-  <section class="py-12 px-6 max-w-6xl mx-auto">
-    <div class="text-center mb-8">
-      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">Live Application Telemetry & Interfaces</h2>
-      <p class="text-slate-400 text-sm">Real-time interfaces operating across PhysicsWallah Vidyapeeth centers.</p>
-    </div>
-
-    <!-- Tab Selector -->
-    <div class="flex flex-wrap justify-center gap-2 mb-6" id="tabButtons">
-      <button onclick="switchTab(0)" class="tab-btn active px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition bg-blue-600 text-white">01. Live Ingest Monitor</button>
-      <button onclick="switchTab(1)" class="tab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition bg-slate-900 text-slate-400 hover:text-white border border-slate-800">02. Review & Approval Hub</button>
-      <button onclick="switchTab(2)" class="tab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition bg-slate-900 text-slate-400 hover:text-white border border-slate-800">03. Master Schedule Sync</button>
-      <button onclick="switchTab(3)" class="tab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition bg-slate-900 text-slate-400 hover:text-white border border-slate-800">04. Operations Controls</button>
-      <button onclick="switchTab(4)" class="tab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition bg-slate-900 text-slate-400 hover:text-white border border-slate-800">05. Home Access Portal</button>
-    </div>
-
-    <!-- Preview Container -->
-    <div class="rounded-2xl border border-slate-800 bg-slate-900/50 p-2 sm:p-4 shadow-2xl overflow-hidden">
-      <img id="previewImg" src="./images/centrix-screen-1-live.png" alt="Centrix Interface" class="w-full rounded-xl border border-slate-800/80 shadow-md">
-      <p id="previewDesc" class="mt-4 text-center text-xs text-slate-400 font-mono">
-        Active room telemetry (Room 603 - Pune PCMC Vidyapeeth) with 24-hour upload throughput status cards.
+      <p class="text-base sm:text-lg text-[var(--ink-muted)] leading-relaxed mb-8 max-w-2xl">
+        Watches OBS recording folders. Matches timetable schedules with zero manual overhead. Uploads automatically to Google Drive batch folders and YouTube.
       </p>
-    </div>
-  </section>
 
-  <!-- ROI Section -->
-  <section id="roi" class="py-16 px-6 max-w-6xl mx-auto border-t border-slate-900">
-    <div class="text-center mb-12">
-      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3">Enterprise ROI & Impact</h2>
-      <p class="text-slate-400 max-w-xl mx-auto text-sm">Eliminating operational bottlenecks across classroom recordings.</p>
-    </div>
+      <div class="flex flex-wrap items-center gap-3 mb-12">
+        <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" 
+           class="inline-flex items-center space-x-3 bg-[var(--ink)] hover:bg-stone-800 text-white font-mono-code font-semibold text-sm px-6 py-3.5 rounded-lg shadow-sm transition transform hover:-translate-y-0.5 active:translate-y-0">
+          <span>↓ Download Centrix-Setup.exe (v1.0.4)</span>
+        </a>
+        <a href="#pilot" 
+           class="inline-flex items-center space-x-2 bg-transparent hover:bg-stone-200/60 text-[var(--ink)] border border-[var(--border-line)] font-mono-code font-medium text-sm px-5 py-3.5 rounded-lg transition">
+          <span>Request Center Pilot →</span>
+        </a>
+      </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="p-6 rounded-xl bg-slate-900/60 border border-slate-800">
-        <div class="text-3xl font-extrabold text-emerald-400 mb-1">0 Min</div>
-        <div class="text-sm font-semibold text-white mb-1">Manual Staff Time</div>
-        <p class="text-xs text-slate-400">Replaces 2–3 daily hours of manual file renaming and uploading per center.</p>
-      </div>
-      <div class="p-6 rounded-xl bg-slate-900/60 border border-slate-800">
-        <div class="text-3xl font-extrabold text-blue-400 mb-1">0%</div>
-        <div class="text-sm font-semibold text-white mb-1">Misclassifications</div>
-        <p class="text-xs text-slate-400">Algorithmic timetable matching guarantees lectures land in the exact batch folder.</p>
-      </div>
-      <div class="p-6 rounded-xl bg-slate-900/60 border border-slate-800">
-        <div class="text-3xl font-extrabold text-indigo-400 mb-1">100%</div>
-        <div class="text-sm font-semibold text-white mb-1">Resumable Uploads</div>
-        <p class="text-xs text-slate-400">Chunked Google Drive uploads resume from the exact byte on network interruption.</p>
-      </div>
-      <div class="p-6 rounded-xl bg-slate-900/60 border border-slate-800">
-        <div class="text-3xl font-extrabold text-purple-400 mb-1">&lt; 30 Min</div>
-        <div class="text-sm font-semibold text-white mb-1">Student Delivery</div>
-        <p class="text-xs text-slate-400">Lectures are available to students shortly after class ends instead of next morning.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-[var(--border-line)] font-mono-code text-xs text-[var(--ink-muted)]">
+        <div>01 · <strong>Zero Prerequisite</strong> (.NET bundled)</div>
+        <div>02 · <strong>100% Offline-First</strong> (SQLite queue)</div>
+        <div>03 · <strong>Byte Resumable</strong> (Drive API v3)</div>
       </div>
     </div>
-  </section>
 
-  <!-- Technology Stack -->
-  <section id="architecture" class="py-16 px-6 max-w-6xl mx-auto border-t border-slate-900">
-    <div class="text-center mb-12">
-      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3">Engineered for Continuous Reliability</h2>
-      <p class="text-slate-400 text-sm">A modern, resilient tech stack operating 24/7 on center hardware.</p>
-    </div>
+    <!-- Interactive Showcase -->
+    <section id="interfaces" class="mt-20 pt-10 border-t border-[var(--border-line)]">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+        <div>
+          <div class="text-xs font-mono-code uppercase tracking-widest text-[var(--ink-muted)] mb-1">Live Telemetry &amp; Software Views</div>
+          <h2 class="text-2xl sm:text-3xl font-serif-editorial text-[var(--ink)]">Software Interface Showcase</h2>
+        </div>
+        <div class="text-xs font-mono-code text-[var(--ink-muted)]">
+          Center Node: Pune - PCMC Vidyapeeth • Room 603
+        </div>
+      </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-      <div class="p-6 rounded-xl bg-slate-900/40 border border-slate-800">
-        <h3 class="font-bold text-base text-white mb-2">.NET 8 Windows Service</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">
-          Native Windows worker service with <code class="text-blue-400">FileSystemWatcher</code>. Automatically starts on boot, consuming less than 1% CPU.
+      <!-- Tab Buttons: Login Page FIRST as requested! -->
+      <div class="flex flex-wrap gap-2 mb-6" id="tabButtons">
+        <button onclick="switchTab(0)" class="tab-btn active px-3.5 py-2 rounded-lg font-mono-code text-xs font-semibold bg-[var(--ink)] text-white shadow-xs">01. Home &amp; Access Portal</button>
+        <button onclick="switchTab(1)" class="tab-btn px-3.5 py-2 rounded-lg font-mono-code text-xs font-medium text-[var(--ink-muted)] bg-[var(--paper)] border border-[var(--border-line)] hover:text-[var(--ink)]">02. Live Ingest Monitor</button>
+        <button onclick="switchTab(2)" class="tab-btn px-3.5 py-2 rounded-lg font-mono-code text-xs font-medium text-[var(--ink-muted)] bg-[var(--paper)] border border-[var(--border-line)] hover:text-[var(--ink)]">03. Review &amp; Approval Hub</button>
+        <button onclick="switchTab(3)" class="tab-btn px-3.5 py-2 rounded-lg font-mono-code text-xs font-medium text-[var(--ink-muted)] bg-[var(--paper)] border border-[var(--border-line)] hover:text-[var(--ink)]">04. Master Schedule Sync</button>
+        <button onclick="switchTab(4)" class="tab-btn px-3.5 py-2 rounded-lg font-mono-code text-xs font-medium text-[var(--ink-muted)] bg-[var(--paper)] border border-[var(--border-line)] hover:text-[var(--ink)]">05. Operations Controls</button>
+      </div>
+
+      <!-- Preview Card -->
+      <div class="bg-[var(--paper)] border border-[var(--border-line)] rounded-xl p-3 sm:p-5 shadow-sm">
+        <img id="previewImg" src="./images/centrix-home-portal.png" alt="Centrix Interface" class="w-full rounded-lg border border-[var(--border-line)] shadow-xs">
+        <p id="previewDesc" class="mt-4 text-center font-mono-code text-xs text-[var(--ink-muted)]">
+          01 // The clean editorial entrance portal with Google Workspace SSO and 1-click local access for classroom workstations.
         </p>
       </div>
-      <div class="p-6 rounded-xl bg-slate-900/40 border border-slate-800">
-        <h3 class="font-bold text-base text-white mb-2">SQLite Persistence</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">
-          Offline-first architecture. If center internet drops for days, all lecture state remains safe in local queue and auto-syncs on reconnection.
+    </section>
+
+    <!-- Operational ROI Matrix -->
+    <section class="mt-20 pt-10 border-t border-[var(--border-line)]">
+      <div class="text-xs font-mono-code uppercase tracking-widest text-[var(--ink-muted)] mb-1">Measurable Operational Impact</div>
+      <h2 class="text-2xl sm:text-3xl font-serif-editorial text-[var(--ink)] mb-8">Before &amp; After Centrix Deployment</h2>
+
+      <div class="overflow-x-auto border border-[var(--border-line)] rounded-xl bg-[var(--paper)]">
+        <table class="w-full text-left text-sm font-sans border-collapse">
+          <thead>
+            <tr class="border-b border-[var(--border-line)] bg-stone-100/50 font-mono-code text-xs text-[var(--ink-muted)] uppercase">
+              <th class="py-3.5 px-5">Operational Metric</th>
+              <th class="py-3.5 px-5">Manual Process (Before)</th>
+              <th class="py-3.5 px-5 text-[var(--ink)] font-bold">Centrix Automated Engine</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[var(--border-line)] text-xs sm:text-sm">
+            <tr>
+              <td class="py-4 px-5 font-semibold text-[var(--ink)]">Staff Time per Center</td>
+              <td class="py-4 px-5 text-[var(--ink-muted)]">2 to 3 hours daily spent on file renaming &amp; manual upload</td>
+              <td class="py-4 px-5 text-emerald-700 font-bold font-mono-code">0 minutes (100% background automation)</td>
+            </tr>
+            <tr>
+              <td class="py-4 px-5 font-semibold text-[var(--ink)]">Misclassification Errors</td>
+              <td class="py-4 px-5 text-[var(--ink-muted)]">Frequent wrong batch/subject folder deliveries</td>
+              <td class="py-4 px-5 text-emerald-700 font-bold font-mono-code">0% Error Rate (Verified via Timetable Scorer)</td>
+            </tr>
+            <tr>
+              <td class="py-4 px-5 font-semibold text-[var(--ink)]">Network Dropouts</td>
+              <td class="py-4 px-5 text-[var(--ink-muted)]">Upload restarts from 0%, bandwidth wasted</td>
+              <td class="py-4 px-5 text-emerald-700 font-bold font-mono-code">100% Resumable (Resumes from exact byte)</td>
+            </tr>
+            <tr>
+              <td class="py-4 px-5 font-semibold text-[var(--ink)]">Student Content Delivery</td>
+              <td class="py-4 px-5 text-[var(--ink-muted)]">Next morning or 8-12 hours delay</td>
+              <td class="py-4 px-5 text-emerald-700 font-bold font-mono-code">Within 15 to 30 minutes after class ends</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Executive FAQs -->
+    <section id="faqs" class="mt-20 pt-10 border-t border-[var(--border-line)]">
+      <div class="text-xs font-mono-code uppercase tracking-widest text-[var(--ink-muted)] mb-1">Clear Answers for Leadership</div>
+      <h2 class="text-2xl sm:text-3xl font-serif-editorial text-[var(--ink)] mb-8">Executive Frequently Asked Questions</h2>
+
+      <div class="space-y-4 max-w-3xl">
+        <div class="border border-[var(--border-line)] rounded-xl p-5 bg-[var(--paper)]">
+          <h3 class="font-bold text-sm sm:text-base text-[var(--ink)] mb-2 font-mono-code">Q1: Will Centrix slow down classroom PCs during live teaching?</h3>
+          <p class="text-xs sm:text-sm text-[var(--ink-muted)] leading-relaxed">
+            No. Centrix runs as an idle background service consuming &lt; 1% CPU and under 60 MB RAM. It does not perform CPU-intensive video encoding; it only performs file system event listening and asynchronous chunked network upload.
+          </p>
+        </div>
+
+        <div class="border border-[var(--border-line)] rounded-xl p-5 bg-[var(--paper)]">
+          <h3 class="font-bold text-sm sm:text-base text-[var(--ink)] mb-2 font-mono-code">Q2: What happens if a teacher conducts overtime or lectures run 30 minutes late?</h3>
+          <p class="text-xs sm:text-sm text-[var(--ink-muted)] leading-relaxed">
+            Centrix features an adaptive heuristic matching engine. It continuously measures duration overlap against center schedule boundaries. Extended sessions are algorithmically detected and matched with the correct ongoing batch instead of misclassifying into the next slot.
+          </p>
+        </div>
+
+        <div class="border border-[var(--border-line)] rounded-xl p-5 bg-[var(--paper)]">
+          <h3 class="font-bold text-sm sm:text-base text-[var(--ink)] mb-2 font-mono-code">Q3: How does the system behave during complete internet or network outages?</h3>
+          <p class="text-xs sm:text-sm text-[var(--ink-muted)] leading-relaxed">
+            Centrix is engineered offline-first with an embedded SQLite transactional database. All captured lecture metadata and video cuts remain safely queued on the local hard drive. The moment network connectivity is restored, the service automatically resumes uploading without human intervention.
+          </p>
+        </div>
+
+        <div class="border border-[var(--border-line)] rounded-xl p-5 bg-[var(--paper)]">
+          <h3 class="font-bold text-sm sm:text-base text-[var(--ink)] mb-2 font-mono-code">Q4: How are Google Drive credentials and API tokens protected?</h3>
+          <p class="text-xs sm:text-sm text-[var(--ink-muted)] leading-relaxed">
+            Zero credentials or secrets are packaged into the installer executable. OAuth tokens are collected during initial center setup and stored using Windows Data Protection API (DPAPI) machine encryption, preventing unauthorized extraction.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action / Pilot Request -->
+    <section id="pilot" class="mt-20 pt-10 border-t border-[var(--border-line)]">
+      <div class="border border-[var(--border-line)] rounded-2xl p-8 sm:p-12 bg-[var(--paper)] text-center max-w-3xl mx-auto shadow-sm">
+        <span class="text-xs font-mono-code uppercase tracking-widest text-[var(--ink-muted)]">Next Steps &amp; Center Onboarding</span>
+        <h2 class="text-3xl sm:text-4xl font-serif-editorial text-[var(--ink)] mt-2 mb-4">Ready to pilot Centrix at your center?</h2>
+        <p class="text-sm text-[var(--ink-muted)] max-w-xl mx-auto mb-8 leading-relaxed">
+          We are rolling out initial pilot deployments across PhysicsWallah Vidyapeeth &amp; Pathshala centers. Schedule a 15-minute walkthrough or request a pilot node for your center workstations.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="mailto:aniket.mishra2@pw.live?subject=Centrix%20Pilot%20Request%20-%20[Center%20Name]&body=Hi%20Aniket,%0A%0AWe%20would%20like%20to%20request%20a%20pilot%20deployment%20of%20Centrix%20for%20our%20center:%0A%0ACenter%20Name:%20%0ANumber%20of%20Classrooms:%20%0AContact%20Person:%20%0A%0ABest%20regards," 
+             class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-[var(--ink)] hover:bg-stone-800 text-white font-mono-code font-semibold text-sm px-6 py-3.5 rounded-lg transition active:scale-95 shadow-sm">
+            <span>🚀 Request Pilot for Your Center</span>
+          </a>
+          <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" 
+             class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-transparent hover:bg-stone-200/50 text-[var(--ink)] border border-[var(--border-line)] font-mono-code font-medium text-sm px-6 py-3.5 rounded-lg transition">
+            <span>↓ Download Standalone Installer</span>
+          </a>
+        </div>
+
+        <p class="mt-6 text-xs text-[var(--ink-muted)] font-mono-code">
+          Lead Architect: Aniket Mishra • Contact: <a href="mailto:aniket.mishra2@pw.live" class="text-[var(--ink)] underline">aniket.mishra2@pw.live</a>
         </p>
       </div>
-      <div class="p-6 rounded-xl bg-slate-900/40 border border-slate-800">
-        <h3 class="font-bold text-base text-white mb-2">Google Drive API v3</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">
-          Chunked resumable uploads with SHA-256 deduplication to ensure zero wasted bandwidth and automatic resume on Wi-Fi dropouts.
-        </p>
-      </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <!-- Footer -->
-  <footer class="py-10 px-6 border-t border-slate-900 text-center text-xs text-slate-500 font-mono">
-    <p>Project Lead: <span class="text-slate-300">Aniket Mishra</span> (<a href="mailto:aniket.mishra2@pw.live" class="text-blue-400 hover:underline">aniket.mishra2@pw.live</a>)</p>
-    <p class="mt-2">PhysicsWallah Vidyapeeth & Pathshala Operations • Centrix v1.0.4</p>
+  <footer class="border-t border-[var(--border-line)] py-8 px-6 text-center text-xs font-mono-code text-[var(--ink-muted)]">
+    <p>© 2026 Centrix • Built with precision for PhysicsWallah Classroom Operations</p>
+    <p class="mt-1">
+      <a href="https://github.com/aniketmishra-0/Centrix_Demo" class="hover:underline">Repository</a> · 
+      <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases" class="hover:underline">Releases</a> · 
+      <a href="https://github.com/aniketmishra-0/Centrix_Demo/graphs/traffic" class="hover:underline">Live Analytics</a>
+    </p>
   </footer>
 
   <script>
     const tabs = [
-      { img: './images/centrix-screen-1-live.png', desc: 'Active room telemetry (Room 603 - Pune PCMC Vidyapeeth) with 24-hour upload throughput status cards.' },
-      { img: './images/centrix-screen-2-review.png', desc: 'Verification queue where processed lectures are cataloged, verified, and linked directly to Google Drive.' },
-      { img: './images/centrix-screen-3-schedule.png', desc: 'Master timetable synchronization covering all 20 classrooms and 408 scheduled sessions center-wide.' },
-      { img: './images/centrix-screen-4-controls.png', desc: 'Operations hub for managing file watchers, resumable Google Drive upload concurrency, and YouTube distribution.' },
-      { img: './images/centrix-home-portal.png', desc: 'The clean editorial entrance portal with Google Workspace SSO and 1-click local access.' }
+      { img: './images/centrix-home-portal.png', desc: '01 // The clean editorial entrance portal with Google Workspace SSO and 1-click local access for classroom workstations.' },
+      { img: './images/centrix-screen-1-live.png', desc: '02 // Active room telemetry (Room 603 - Pune PCMC Vidyapeeth) with 24-hour upload throughput status cards.' },
+      { img: './images/centrix-screen-2-review.png', desc: '03 // Verification queue where processed lectures are cataloged, verified, and linked directly to Google Drive.' },
+      { img: './images/centrix-screen-3-schedule.png', desc: '04 // Master timetable synchronization covering all 20 classrooms and 408 scheduled sessions center-wide.' },
+      { img: './images/centrix-screen-4-controls.png', desc: '05 // Operations hub for managing file watchers, resumable Google Drive upload concurrency, and YouTube distribution.' }
     ];
 
     function switchTab(index) {
@@ -178,19 +247,11 @@
       const btns = document.querySelectorAll('.tab-btn');
       btns.forEach((btn, i) => {
         if (i === index) {
-          btn.className = 'tab-btn active px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition bg-blue-600 text-white';
+          btn.className = 'tab-btn active px-3.5 py-2 rounded-lg font-mono-code text-xs font-semibold bg-[var(--ink)] text-white shadow-xs';
         } else {
-          btn.className = 'tab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition bg-slate-900 text-slate-400 hover:text-white border border-slate-800';
+          btn.className = 'tab-btn px-3.5 py-2 rounded-lg font-mono-code text-xs font-medium text-[var(--ink-muted)] bg-[var(--paper)] border border-[var(--border-line)] hover:text-[var(--ink)]';
         }
       });
-    }
-
-    function trackDownload() {
-      console.log('Download initiated for Centrix-Setup.exe at ' + new Date().toISOString());
-      // Analytics ping
-      if (window.navigator && window.navigator.sendBeacon) {
-        window.navigator.sendBeacon('https://komarev.com/ghpvc/?username=Centrix-Download-Click');
-      }
     }
   </script>
 </body>
