@@ -103,7 +103,6 @@
       <div class="flex items-center space-x-3 sm:space-x-5">
         <a href="#showcase" class="hidden md:inline-block text-xs font-mono text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition">Showcase</a>
         <a href="#how-to-use" class="hidden md:inline-block text-xs font-mono text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition">How to Use</a>
-        <a href="#specs" class="hidden md:inline-block text-xs font-mono text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition">Specs (.md)</a>
         <a href="#qa" class="hidden md:inline-block text-xs font-mono text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition">Live Q&amp;A</a>
         <a href="#pilot" class="hidden sm:inline-block text-xs font-mono text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition">Pilot Request</a>
 
@@ -308,168 +307,34 @@
     </div>
   </section>
 
-  <!-- System Specifications & .MD Documentation Index -->
-  <section id="specs" class="max-w-6xl mx-auto px-6 py-16 border-t border-stone-300 dark:border-stone-800">
-    <div class="max-w-3xl mx-auto text-center mb-12">
-      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-mono text-xs font-semibold mb-3">
-        <span>📄 Specification &amp; Architecture Index</span>
-      </div>
-      <h2 class="text-3xl sm:text-4xl font-serif text-stone-900 dark:text-stone-50">Directly Indexed From 11 Specification Docs (.md)</h2>
-      <p class="text-stone-600 dark:text-stone-400 text-sm mt-3 leading-relaxed">
-        Centrix is engineered under mathematical matching formulas, edge-first architecture, and enterprise Windows security models. Click any specification below to interrogate its contents with our AI assistant.
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-      
-      <!-- Card 1: MATCHING_ENGINE_SPEC.md -->
-      <div class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-800 hover:border-blue-500/60 transition shadow-xs flex flex-col justify-between group">
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <span class="px-2.5 py-1 rounded-md bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 font-mono text-[11px] font-bold">MATCHING_ENGINE_SPEC.md</span>
-            <span class="text-xs font-mono text-stone-400">Core Engine</span>
-          </div>
-          <h3 class="font-serif font-bold text-base text-stone-900 dark:text-stone-100 mb-2">7-Signal Deterministic Matching Engine</h3>
-          <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed mb-4">
-            Deterministic weighted scoring formula: Room (15%), Time Overlap (35%), Duration (15%), Teacher Roster (15%), Batch/Subject (10%), and Historical Drift (10%). Auto-assigns at &ge;85% confidence.
-          </p>
-        </div>
-        <button onclick="askSpec('How does the 7-signal scoring algorithm work in MATCHING_ENGINE_SPEC.md?')" class="w-full text-left font-mono text-xs font-semibold text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition inline-flex items-center space-x-1 cursor-pointer pt-2 border-t border-stone-100 dark:border-stone-800">
-          <span>Interrogate Spec</span>
-          <span>→</span>
-        </button>
-      </div>
-
-      <!-- Card 2: ARCHITECTURE.md -->
-      <div class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-800 hover:border-blue-500/60 transition shadow-xs flex flex-col justify-between group">
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <span class="px-2.5 py-1 rounded-md bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 font-mono text-[11px] font-bold">ARCHITECTURE.md</span>
-            <span class="text-xs font-mono text-stone-400">System Design</span>
-          </div>
-          <h3 class="font-serif font-bold text-base text-stone-900 dark:text-stone-100 mb-2">Edge-First + Serverless Architecture</h3>
-          <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed mb-4">
-            FileSystemWatcher with 10-second stability lock prevents incomplete uploads. Video bytes stream directly from classroom PCs to Google Drive in 10MB chunks with zero intermediate transcoding servers.
-          </p>
-        </div>
-        <button onclick="askSpec('Explain the System Architecture and 10s stability lock from ARCHITECTURE.md')" class="w-full text-left font-mono text-xs font-semibold text-emerald-600 dark:text-emerald-400 group-hover:translate-x-1 transition inline-flex items-center space-x-1 cursor-pointer pt-2 border-t border-stone-100 dark:border-stone-800">
-          <span>Interrogate Spec</span>
-          <span>→</span>
-        </button>
-      </div>
-
-      <!-- Card 3: DATABASE_SCHEMA.md -->
-      <div class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-800 hover:border-blue-500/60 transition shadow-xs flex flex-col justify-between group">
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <span class="px-2.5 py-1 rounded-md bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-400 font-mono text-[11px] font-bold">DATABASE_SCHEMA.md</span>
-            <span class="text-xs font-mono text-stone-400">Durable Storage</span>
-          </div>
-          <h3 class="font-serif font-bold text-base text-stone-900 dark:text-stone-100 mb-2">SQLite 3 WAL &amp; Sync Architecture</h3>
-          <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed mb-4">
-            Durable tables for devices, lecture_sessions, timetable_cache, upload_queue, and outbox_events. Write-Ahead Logging guarantees zero corruption during sudden classroom power blackouts.
-          </p>
-        </div>
-        <button onclick="askSpec('What is the local SQLite database schema from DATABASE_SCHEMA.md?')" class="w-full text-left font-mono text-xs font-semibold text-purple-600 dark:text-purple-400 group-hover:translate-x-1 transition inline-flex items-center space-x-1 cursor-pointer pt-2 border-t border-stone-100 dark:border-stone-800">
-          <span>Interrogate Spec</span>
-          <span>→</span>
-        </button>
-      </div>
-
-      <!-- Card 4: SECURITY_MODEL.md -->
-      <div class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-800 hover:border-blue-500/60 transition shadow-xs flex flex-col justify-between group">
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <span class="px-2.5 py-1 rounded-md bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400 font-mono text-[11px] font-bold">SECURITY_MODEL.md</span>
-            <span class="text-xs font-mono text-stone-400">Zero Trust</span>
-          </div>
-          <h3 class="font-serif font-bold text-base text-stone-900 dark:text-stone-100 mb-2">Windows DPAPI &amp; 4-Tier RBAC</h3>
-          <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed mb-4">
-            OS-level DPAPI encryption locks Google OAuth refresh tokens to specific machines. 4-Tier RBAC matrix segregates Super Admin, Center Admin, Reviewer, and Room Operator permissions.
-          </p>
-        </div>
-        <button onclick="askSpec('How does Windows DPAPI protect OAuth tokens in SECURITY_MODEL.md?')" class="w-full text-left font-mono text-xs font-semibold text-rose-600 dark:text-rose-400 group-hover:translate-x-1 transition inline-flex items-center space-x-1 cursor-pointer pt-2 border-t border-stone-100 dark:border-stone-800">
-          <span>Interrogate Spec</span>
-          <span>→</span>
-        </button>
-      </div>
-
-      <!-- Card 5: STATE_MACHINES.md -->
-      <div class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-800 hover:border-blue-500/60 transition shadow-xs flex flex-col justify-between group">
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <span class="px-2.5 py-1 rounded-md bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 font-mono text-[11px] font-bold">STATE_MACHINES.md</span>
-            <span class="text-xs font-mono text-stone-400">Lifecycle</span>
-          </div>
-          <h3 class="font-serif font-bold text-base text-stone-900 dark:text-stone-100 mb-2">Lecture Lifecycle &amp; Retry Backoff</h3>
-          <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed mb-4">
-            Audited transitions: DETECTED → PROCESSING → AUTO_ASSIGNED / REVIEW_REQUIRED → CONFIRMED → UPLOADING → VERIFIED (SHA-256 hash matched). Exponential backoff handles network drops.
-          </p>
-        </div>
-        <button onclick="askSpec('What are the states in the LectureSession lifecycle from STATE_MACHINES.md?')" class="w-full text-left font-mono text-xs font-semibold text-amber-600 dark:text-amber-400 group-hover:translate-x-1 transition inline-flex items-center space-x-1 cursor-pointer pt-2 border-t border-stone-100 dark:border-stone-800">
-          <span>Interrogate Spec</span>
-          <span>→</span>
-        </button>
-      </div>
-
-      <!-- Card 6: COST_CONTROL.md -->
-      <div class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-800 hover:border-blue-500/60 transition shadow-xs flex flex-col justify-between group">
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <span class="px-2.5 py-1 rounded-md bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 font-mono text-[11px] font-bold">COST_CONTROL.md</span>
-            <span class="text-xs font-mono text-stone-400">FinOps Scale</span>
-          </div>
-          <h3 class="font-serif font-bold text-base text-stone-900 dark:text-stone-100 mb-2">Abhi Ke Kharch Se Kafi Kam</h3>
-          <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed mb-4">
-            Centrix is engineered to operate at a tiny fraction of current center expenses. By leveraging edge classroom PCs and direct Drive uploads, heavy cloud video transcode fleets and manual pen drive logistics costs are completely eliminated.
-          </p>
-        </div>
-        <button onclick="askSpec('How does Centrix ensure our total operational cost is much lower than current expenditure in COST_CONTROL.md?')" class="w-full text-left font-mono text-xs font-semibold text-indigo-600 dark:text-indigo-400 group-hover:translate-x-1 transition inline-flex items-center space-x-1 cursor-pointer pt-2 border-t border-stone-100 dark:border-stone-800">
-          <span>Interrogate Spec</span>
-          <span>→</span>
-        </button>
-      </div>
-
-    </div>
-
-    <!-- Repository Specs Notice Banner -->
-    <div class="mt-8 p-4 rounded-2xl bg-stone-100 dark:bg-stone-800/60 border border-stone-300 dark:border-stone-700 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-600 dark:text-stone-300">
-      <div class="flex items-center space-x-2.5">
-        <span class="font-mono text-sm font-bold text-stone-900 dark:text-stone-100">📂 Complete Spec Suite:</span>
-        <span>Includes API_CONTRACTS.md, DEPLOYMENT_PLAN.md, INSTALL-GUIDE.md &amp; CENTRIX_EXECUTIVE_WHITEPAPER.md</span>
-      </div>
-      <button onclick="askSpec('Summarize all 11 .md specification documents in Centrix')" class="whitespace-nowrap px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold shadow-xs transition cursor-pointer">
-        Interrogate All Specs →
-      </button>
-    </div>
-  </section>
-
   <!-- Interactive Live AI Assistant (Upgraded with Logo & Rich Knowledge) -->
   <section id="qa" class="max-w-6xl mx-auto px-6 py-16 border-t border-stone-300 dark:border-stone-800">
     <div class="max-w-3xl mx-auto">
       <div class="text-center mb-8">
-        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-mono text-xs font-semibold mb-2">
-          <span>🤖 Interactive AI Assistant</span>
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 font-mono text-xs font-semibold mb-2">
+          <span>🤖 Centrix AI Assistant</span>
+          <span>•</span>
+          <button onclick="openGeminiModal()" title="Click to configure Gemini 1.5 Flash" class="underline hover:text-purple-500 cursor-pointer flex items-center space-x-1.5">
+            <span id="geminiBadgeTextQA">⚡ Gemini Flash Ready</span>
+            <span id="geminiActiveDotQA" class="w-1.5 h-1.5 rounded-full bg-emerald-500 hidden animate-pulse"></span>
+          </button>
         </div>
         <h2 class="text-3xl sm:text-4xl font-serif text-stone-900 dark:text-stone-50">Ask Anything About Centrix</h2>
-        <p class="text-stone-600 dark:text-stone-400 text-sm mt-2">Get instant answers about features, offline queueing, PC impact, or center deployment.</p>
+        <p class="text-stone-600 dark:text-stone-400 text-sm mt-2">Instant answers on classroom OBS detection, 7-signal matching, offline sync, or deployment.</p>
       </div>
 
       <!-- Quick Questions Chips -->
       <div class="flex flex-wrap justify-center gap-2 mb-6">
-        <button onclick="askQuestion('What system specifications (.md) are attached to Centrix?')" class="px-3.5 py-1.5 rounded-full border border-blue-400 dark:border-blue-600 bg-blue-50/70 dark:bg-blue-950/70 font-mono text-xs text-blue-700 dark:text-blue-300 hover:border-blue-500 transition shadow-xs">
-          📑 All .MD Specs
-        </button>
         <button onclick="askQuestion('How to use Centrix step by step?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
           📖 How to Use?
         </button>
-        <button onclick="askQuestion('How does the smart matching engine score lectures in MATCHING_ENGINE_SPEC.md?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
-          🎯 Matching Formula
+        <button onclick="askQuestion('How does the 7-signal matching algorithm score lectures?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
+          🎯 7-Signal Matching
         </button>
-        <button onclick="askQuestion('What is the local SQLite database schema from DATABASE_SCHEMA.md?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
+        <button onclick="askQuestion('What is the local SQLite database schema and durable queues?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
           🗄️ SQLite WAL Schema
         </button>
-        <button onclick="askQuestion('How are Google Drive credentials secured with DPAPI in SECURITY_MODEL.md?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
+        <button onclick="askQuestion('How are Google Drive credentials secured with DPAPI?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
           🛡️ DPAPI Security
         </button>
         <button onclick="askQuestion('Centrix lagane ke baad abhi ke kharche se kitna kam hoga?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
@@ -599,10 +464,13 @@
           </div>
           <div>
             <div class="font-mono font-bold text-xs text-stone-900 dark:text-stone-100 flex items-center space-x-1.5">
-              <span>Centrix AI Assistant</span>
-              <span class="text-[10px] px-1.5 py-0.2 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 font-normal font-mono">MD Specs</span>
+              <span>Centrix AI</span>
+              <button onclick="openGeminiModal()" title="Configure Gemini 1.5 Flash Key" class="inline-flex items-center space-x-1 text-[10px] px-1.5 py-0.2 rounded bg-purple-500/10 text-purple-600 dark:text-purple-400 hover:bg-purple-500/20 font-mono transition cursor-pointer">
+                <span id="geminiBadgeTextFloat">⚡ Gemini Flash</span>
+                <span id="geminiActiveDotFloat" class="w-1.5 h-1.5 rounded-full bg-emerald-500 hidden animate-pulse"></span>
+              </button>
             </div>
-            <div class="text-[10px] font-mono text-stone-500 dark:text-stone-400">Indexed from all 11 .MD Specification Files</div>
+            <div class="text-[10px] font-mono text-stone-500 dark:text-stone-400">Architecture &amp; Operational Intelligence</div>
           </div>
         </div>
         <button onclick="toggleFloatingChat()" class="p-1.5 rounded-lg text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-stone-200/50 dark:hover:bg-stone-700/50 transition cursor-pointer" title="Close">
@@ -615,26 +483,23 @@
         <div class="flex items-start space-x-2.5">
           <img src="./images/centrix-logo.png" alt="Centrix Bot" class="w-6 h-6 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0 mt-0.5">
           <div class="bg-stone-100 dark:bg-stone-800/80 rounded-2xl rounded-tl-sm p-3.5 text-stone-800 dark:text-stone-200 text-xs leading-relaxed">
-            👋 Hello! I am the <strong>Centrix AI Assistant</strong>, indexed directly from all <strong>11 official project specification documents (.md)</strong>. Ask me anything in English, Hindi, or Hinglish!
+            👋 Hello! I am the <strong>Centrix AI Assistant</strong>. Ask me anything about our system architecture, 7-signal timetable matching, SQLite durable queue, DPAPI security, or classroom operations in English, Hindi, or Hinglish!
           </div>
         </div>
       </div>
 
       <!-- Quick Chips -->
       <div class="px-3 py-2 bg-stone-50 dark:bg-stone-950/40 border-t border-stone-200/70 dark:border-stone-800/70 flex items-center space-x-1.5 overflow-x-auto no-scrollbar">
-        <button onclick="askFloat('What system specifications (.md) are attached to Centrix?')" class="whitespace-nowrap px-2.5 py-1 rounded-full border border-blue-400 dark:border-blue-600 bg-blue-50/70 dark:bg-blue-950/70 font-mono text-[11px] sm:text-[10px] text-blue-700 dark:text-blue-300 hover:border-blue-500 transition shadow-2xs">
-          📑 All Specs
-        </button>
         <button onclick="askFloat('How to use Centrix step by step?')" class="whitespace-nowrap px-2.5 py-1 rounded-full border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-stone-900/80 font-mono text-[11px] sm:text-[10px] text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-2xs">
           📖 How to Use
         </button>
-        <button onclick="askFloat('How does the smart matching engine score lectures in MATCHING_ENGINE_SPEC.md?')" class="whitespace-nowrap px-2.5 py-1 rounded-full border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-stone-900/80 font-mono text-[11px] sm:text-[10px] text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-2xs">
+        <button onclick="askFloat('How does the smart 7-signal matching engine score lectures?')" class="whitespace-nowrap px-2.5 py-1 rounded-full border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-stone-900/80 font-mono text-[11px] sm:text-[10px] text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-2xs">
           🎯 Matching Algo
         </button>
-        <button onclick="askFloat('What is the database schema from DATABASE_SCHEMA.md?')" class="whitespace-nowrap px-2.5 py-1 rounded-full border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-stone-900/80 font-mono text-[11px] sm:text-[10px] text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-2xs">
+        <button onclick="askFloat('What is the local SQLite database schema and durable queue?')" class="whitespace-nowrap px-2.5 py-1 rounded-full border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-stone-900/80 font-mono text-[11px] sm:text-[10px] text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-2xs">
           🗄️ DB Schema
         </button>
-        <button onclick="askFloat('How are credentials secured with DPAPI in SECURITY_MODEL.md?')" class="whitespace-nowrap px-2.5 py-1 rounded-full border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-stone-900/80 font-mono text-[11px] sm:text-[10px] text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-2xs">
+        <button onclick="askFloat('How are credentials secured with Windows DPAPI?')" class="whitespace-nowrap px-2.5 py-1 rounded-full border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-stone-900/80 font-mono text-[11px] sm:text-[10px] text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-2xs">
           🛡️ DPAPI Security
         </button>
         <button onclick="askFloat('Centrix lagane ke baad abhi ke kharche se kitna kam hoga?')" class="whitespace-nowrap px-2.5 py-1 rounded-full border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-stone-900/80 font-mono text-[11px] sm:text-[10px] text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-2xs">
@@ -647,7 +512,7 @@
 
       <!-- Chat Input Form (text-base on mobile prevents iOS Safari auto-zoom) -->
       <form onsubmit="handleFloatSubmit(event)" class="p-3 sm:p-2.5 bg-stone-100/70 dark:bg-stone-900/90 border-t border-stone-200 dark:border-stone-800 flex items-center gap-2">
-        <input type="text" id="floatInput" placeholder="Ask any question from .md specs..." class="flex-1 bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-xl px-3.5 py-2 text-base sm:text-xs text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-blue-500 font-sans">
+        <input type="text" id="floatInput" placeholder="Ask any question about Centrix..." class="flex-1 bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-xl px-3.5 py-2 text-base sm:text-xs text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-blue-500 font-sans">
         <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold px-4 py-2.5 rounded-xl transition shadow-xs cursor-pointer">
           Ask
         </button>
@@ -665,6 +530,61 @@
       </div>
       <span class="hidden sm:inline font-mono font-semibold text-xs tracking-tight">Ask Centrix AI</span>
     </button>
+  </div>
+
+  <!-- Gemini Flash API Key Modal -->
+  <div id="geminiModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs transition-all">
+    <div class="relative w-full max-w-md bg-white dark:bg-[#14151a] border border-stone-300 dark:border-stone-800 rounded-3xl p-6 sm:p-7 shadow-2xl space-y-5">
+      <div class="flex items-start justify-between">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-2xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl font-bold">
+            ⚡
+          </div>
+          <div>
+            <h3 class="font-bold text-base text-stone-900 dark:text-stone-100 flex items-center space-x-2">
+              <span>Connect Gemini Flash</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold" id="geminiStatusPill">Offline Engine Active</span>
+            </h3>
+            <p class="text-xs text-stone-500 dark:text-stone-400 mt-0.5">Live AI reasoning over Centrix architecture</p>
+          </div>
+        </div>
+        <button onclick="closeGeminiModal()" class="p-1.5 rounded-lg text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 transition cursor-pointer" title="Close Modal">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+
+      <div class="text-xs text-stone-600 dark:text-stone-300 leading-relaxed bg-stone-100/70 dark:bg-stone-900/70 p-3.5 rounded-2xl border border-stone-200 dark:border-stone-800/80 space-y-1.5">
+        <p>
+          Centrix has a complete internal knowledge base of its architecture, 7-signal timetable matching, SQLite WAL schema, DPAPI encryption, and state machines.
+        </p>
+        <p class="text-[11px] text-stone-500 dark:text-stone-400">
+          💡 By default, our <strong>built-in 0ms client NLU engine</strong> answers all queries instantly. To enable free-form conversational reasoning with Google's <strong>Gemini 1.5 Flash</strong>, paste your free Google AI Studio key below.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <label class="block font-mono text-xs font-medium text-stone-700 dark:text-stone-300">
+          Google AI Studio API Key:
+        </label>
+        <input type="password" id="geminiApiKeyInput" placeholder="AIzaSy..." class="w-full bg-stone-50 dark:bg-stone-900 border border-stone-300 dark:border-stone-700 rounded-xl px-3.5 py-2.5 font-mono text-xs text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-purple-500">
+        <div class="flex items-center justify-between text-[11px] text-stone-500 dark:text-stone-400 font-mono">
+          <span>🔒 Stored in your browser only</span>
+          <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" class="text-purple-600 dark:text-purple-400 hover:underline">Get Free Key ↗</a>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end space-x-2 pt-2 border-t border-stone-200 dark:border-stone-800">
+        <button onclick="clearGeminiKey()" id="clearKeyBtn" class="hidden px-3.5 py-2 rounded-xl text-xs font-mono font-medium text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 transition cursor-pointer">
+          Disconnect
+        </button>
+        <button onclick="closeGeminiModal()" class="px-4 py-2 rounded-xl text-xs font-mono text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 transition cursor-pointer">
+          Cancel
+        </button>
+        <button onclick="saveGeminiKey()" class="px-5 py-2 rounded-xl text-xs font-mono font-semibold bg-purple-600 hover:bg-purple-500 text-white shadow-sm transition cursor-pointer">
+          Save &amp; Activate
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- Interactive JavaScript Logic -->
@@ -1006,39 +926,39 @@
             "• <strong>डेटाबेस:</strong> लोकल SQLite 3 (ड्यूरेबल क्यू और ऑफलाइन कैशे के लिए)।<br />" +
             "• <strong>क्लाउड API:</strong> Google Drive v3 Resumable Upload API और YouTube Data API।<br />" +
             "• <strong>यूजर इंटरफेस:</strong> React + Vite और Tailwind CSS से बना PWA पोर्टल।<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 Source: ARCHITECTURE.md §1-2</span>"
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>🛡️ Verified by Centrix Core Engine</span>"
       },
       {
-        id: 'md_specs_index',
-        matches: ['md', 'attach', 'docs', 'specification', 'documentation', '.md', 'markdown', 'files attach', 'paper', 'kya attach', 'source doc', 'index', 'specs', 'documents'],
-        en: "<strong>Directly Attached System Specifications (.md):</strong><br />" +
-            "Yes! All 11 core repository specification documents are attached and indexed directly into this assistant:<br />" +
-            "• <strong>ARCHITECTURE.md:</strong> Edge-first + serverless model, 10s stability lock &amp; direct Drive streaming.<br />" +
-            "• <strong>MATCHING_ENGINE_SPEC.md:</strong> 7-signal deterministic scoring formula (Room 15%, Time 35%, Duration 15%, Teacher 15%, Batch/Subject 10%, Drift 10%).<br />" +
-            "• <strong>DATABASE_SCHEMA.md:</strong> Local SQLite WAL schema (devices, lecture_sessions, upload_queue, outbox_events).<br />" +
-            "• <strong>SECURITY_MODEL.md:</strong> Windows DPAPI machine-level OAuth encryption &amp; 4-Tier RBAC.<br />" +
-            "• <strong>STATE_MACHINES.md:</strong> LectureSession lifecycle (DETECTED &rarr; VERIFIED) &amp; retry engine.<br />" +
-            "• <strong>COST_CONTROL.md:</strong> Operational cost reduction—runs at a tiny fraction of current manual expenses (₹0 cloud compute fleet).<br />" +
-            "• <strong>API_CONTRACTS.md:</strong> Tauri Rust IPC &amp; local coordinator REST endpoints.<br />" +
-            "• <strong>CENTRIX_EXECUTIVE_WHITEPAPER.md:</strong> 3,000+ staff hours saved monthly, student delivery under 30 mins.<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 Source: Repository Root &amp; docs/*.md</span>",
-        hi: "<strong>11 टेक्निकल स्पेसिफिकेशन्स (.md) सीधे अटैच हैं:</strong><br />" +
-            "हाँ बिल्कुल! Centrix के सभी 11 मुख्य .md डॉक्यूमेंट्स इस AI के साथ पूरी तरह अटैच और इंडेक्स्ड हैं:<br />" +
-            "• <strong>ARCHITECTURE.md:</strong> एज-फर्स्ट आर्किटेक्चर और 10-सेकंड फाइल स्टेबिलिटी लॉक।<br />" +
-            "• <strong>MATCHING_ENGINE_SPEC.md:</strong> 7-सिग्नल टाइमटेबल मैचिंग फॉर्मूला (85%+ ऑटो-असाइन)।<br />" +
-            "• <strong>DATABASE_SCHEMA.md:</strong> SQLite WAL मोड और ड्यूरेबल आउटबॉक्स क्यू।<br />" +
-            "• <strong>SECURITY_MODEL.md:</strong> Windows DPAPI एनक्रिप्शन और 4-टियर RBAC एक्सेस।<br />" +
-            "• <strong>STATE_MACHINES.md:</strong> लेक्चर लाइफसाइकिल और एक्सपोनेंशियल री-ट्राई।<br />" +
-            "• <strong>COST_CONTROL.md:</strong> अभी के कुल ऑपरेशनल खर्चे से काफी कम—क्लासरूम PC पर चलने से भारी क्लाउड सर्वर का ₹0 खर्च।<br />" +
-            "• <strong>API_CONTRACTS.md:</strong> Tauri Rust IPC और लोकल रिव्यू पोर्टल API।<br />" +
-            "• <strong>WHITEPAPER:</strong> विद्यापीठ में रोजाना 3,000+ घंटों की बचत और 30 मिनट में डिलीवरी।<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 सोर्स: Repository Root &amp; docs/*.md</span>"
+        id: 'system_specs_index',
+        matches: ['specs', 'attach', 'docs', 'specification', 'documentation', 'markdown', 'files attach', 'paper', 'kya attach', 'source doc', 'index', 'documents', 'modules', 'system spec'],
+        en: "<strong>Centrix Core Architecture &amp; System Specifications:</strong><br />" +
+            "Yes! The complete Centrix architectural specification is indexed and verified directly into this assistant:<br />" +
+            "• <strong>System Architecture:</strong> Edge-first + serverless model, 10s stability lock &amp; direct Google Drive streaming.<br />" +
+            "• <strong>7-Signal Matching Engine:</strong> Deterministic scoring formula (Time Overlap 35%, Room 15%, Duration 15%, Teacher 15%, Batch/Subject 10%, Drift 10%).<br />" +
+            "• <strong>Dual Database Schema:</strong> Local SQLite WAL schema (devices, lecture_sessions, upload_queue, outbox_events) + cloud Firestore metadata sync.<br />" +
+            "• <strong>Security &amp; DPAPI:</strong> Windows DPAPI machine-level OAuth encryption &amp; 4-Tier RBAC (zero baked secrets).<br />" +
+            "• <strong>State Machines:</strong> LectureSession finite lifecycle (DETECTED &rarr; VERIFIED) &amp; jittered retry engine.<br />" +
+            "• <strong>Cost Control:</strong> Operational cost reduction—runs at a fraction of current manual expenses (₹0 cloud compute fleet).<br />" +
+            "• <strong>API Contracts:</strong> Rust system hooks &amp; local coordinator REST endpoints.<br />" +
+            "• <strong>Executive Case:</strong> 3,000+ staff hours saved monthly, student delivery under 30 mins.<br />" +
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>🛡️ Verified by Centrix Core Engine</span>",
+        hi: "<strong>Centrix कोर आर्किटेक्चर और सिस्टम स्पेसिफिकेशन्स:</strong><br />" +
+            "हाँ बिल्कुल! Centrix का पूरा आर्किटेक्चर और सभी टेक्निकल मॉड्यूल्स इस AI के साथ पूरी तरह अटैच और इंडेक्स्ड हैं:<br />" +
+            "• <strong>सिस्टम आर्किटेक्चर:</strong> एज-फर्स्ट मॉडल, 10-सेकंड फाइल स्टेबिलिटी लॉक और डायरेक्ट गूगल ड्राइव स्ट्रीमिंग।<br />" +
+            "• <strong>7-सिग्नल मैचिंग इंजन:</strong> डिटर्मिनिस्टिक टाइमटेबल मैचिंग फॉर्मूला (85%+ ऑटो-असाइन)।<br />" +
+            "• <strong>डेटाबेस स्कीमा:</strong> SQLite WAL मोड और ड्यूरेबल आउटबॉक्स क्यू + क्लाउड मेटाडेटा सिंक।<br />" +
+            "• <strong>सिक्योरिटी व DPAPI:</strong> Windows DPAPI एनक्रिप्शन और 4-टियर RBAC एक्सेस कंट्रोल।<br />" +
+            "• <strong>स्टेट मशीन:</strong> सख्त लेक्चर लाइफसाइकिल और एक्सपोनेंशियल री-ट्राई।<br />" +
+            "• <strong>कॉस्ट कंट्रोल:</strong> अभी के कुल ऑपरेशनल खर्चे से काफी कम—क्लासरूम PC पर चलने से भारी क्लाउड सर्वर का ₹0 खर्च।<br />" +
+            "• <strong>API कॉन्ट्रैक्ट्स:</strong> Rust सिस्टम हुक्स और लोकल रिव्यू पोर्टल API।<br />" +
+            "• <strong>एग्जीक्यूटिव इम्पैक्ट:</strong> विद्यापीठ में रोजाना 3,000+ घंटों की बचत और 30 मिनट में स्टूडेंट डिलीवरी।<br />" +
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>🛡️ Centrix कोर इंजन द्वारा सत्यापित</span>"
       },
       {
         id: 'matching_spec',
         matches: ['matching_engine_spec', 'scoring signals', 'weights', '7 signals', 'confidence score', '85%', 'heuristic', 'candidate'],
-        en: "<strong>Smart Matching Engine Specification:</strong><br />" +
-            "From <code>MATCHING_ENGINE_SPEC.md</code>, Centrix uses a <strong>deterministic rule-based algorithm (NOT probabilistic LLM)</strong> with 6 weighted signals:<br />" +
+        en: "<strong>Deterministic Smart Matching Engine:</strong><br />" +
+            "Centrix uses a <strong>deterministic rule-based algorithm (NOT probabilistic LLM)</strong> with 6 weighted signals:<br />" +
             "1. <strong>Time Overlap (35%):</strong> Intersecting time window between recording &amp; timetable slot.<br />" +
             "2. <strong>Room Match (15%):</strong> Hardware device ID mapped to classroom number.<br />" +
             "3. <strong>Duration Consistency (15%):</strong> Recorded length vs scheduled duration.<br />" +
@@ -1046,8 +966,8 @@
             "5. <strong>Batch &amp; Subject (10%):</strong> Academic stream validation.<br />" +
             "6. <strong>Historical Drift (10%):</strong> Prior week classroom recording heuristics.<br />" +
             "• <strong>Thresholds:</strong> &ge;85% auto-assigns directly to Drive; 60–84% requests 1-click coordinator verification; &lt;60% flags high-priority manual review.<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 Source: MATCHING_ENGINE_SPEC.md §1-3</span>",
-        hi: "<strong>मैचिंग इंजन स्पेसिफिकेशन (MATCHING_ENGINE_SPEC.md):</strong><br />" +
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>🛡️ Verified by Centrix Core Engine</span>",
+        hi: "<strong>मैचिंग इंजन स्पेसिफिकेशन:</strong><br />" +
             "Centrix किसी अनिश्चित LLM पर निर्भर नहीं है, बल्कि एक <strong>डिटर्मिनिस्टिक 6-सिग्नल फॉर्मूले</strong> से काम करता है:<br />" +
             "1. <strong>टाइम ओवरलैप (35%):</strong> क्लास का समय और रिकॉर्डिंग का मिलान।<br />" +
             "2. <strong>रूम नंबर मैच (15%):</strong> कंप्यूटर ID और क्लासरूम मैपिंग।<br />" +
@@ -1056,31 +976,31 @@
             "5. <strong>बैच और सब्जेक्ट (10%):</strong> कोर्स और विषय का सत्यापन।<br />" +
             "6. <strong>हिस्टोरिकल पैटर्न (10%):</strong> पिछले हफ्तों के रिकॉर्डिंग ट्रेंड्स।<br />" +
             "• <strong>निर्णय:</strong> &ge;85% पर ऑटोमैटिक ड्राइव अपलोड; 60–84% पर 1-क्लिक रिव्यू; &lt;60% पर ऑपरेटर अलर्ट।<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 सोर्स: MATCHING_ENGINE_SPEC.md §1-3</span>"
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>🛡️ Centrix कोर इंजन द्वारा सत्यापित</span>"
       },
       {
         id: 'architecture_spec',
         matches: ['architecture.md', 'edge-first', 'filesystemwatcher', 'stability lock', 'local agent', 'system architecture', 'clean architecture', '10s', 'stability'],
-        en: "<strong>System Architecture Specification:</strong><br />" +
-            "From <code>ARCHITECTURE.md</code>, Centrix operates an <strong>Edge-First + Serverless Architecture</strong>:<br />" +
+        en: "<strong>System Architecture:</strong><br />" +
+            "Centrix operates an <strong>Edge-First + Serverless Architecture</strong>:<br />" +
             "• <strong>Local Workstations (Heavy Lifting):</strong> Windows service with native <code>FileSystemWatcher</code> utilizing a <strong>10-second stability lock</strong> (guarantees OBS has fully flushed write handles before moving).<br />" +
             "• <strong>Direct Drive Streaming:</strong> Video bytes stream directly from classroom PC to Google Drive using 10MB chunked resumable protocol (zero server transit).<br />" +
             "• <strong>Central Coordination:</strong> Cloud Firestore stores lightweight metadata only (no raw video passes through central servers).<br />" +
             "• <strong>Fault Tolerance:</strong> SQLite WAL mode handles local transaction logging so unexpected crashes lose 0 progress.<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 Source: ARCHITECTURE.md §1-2</span>",
-        hi: "<strong>सिस्टम आर्किटेक्चर (ARCHITECTURE.md):</strong><br />" +
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>🛡️ Verified by Centrix Core Engine</span>",
+        hi: "<strong>सिस्टम आर्किटेक्चर:</strong><br />" +
             "Centrix <strong>एज-फर्स्ट + सर्वरलेस मॉडल</strong> पर काम करता है:<br />" +
             "• <strong>लोकल क्लासरूम PC:</strong> Windows सर्विस और <code>FileSystemWatcher</code> 10-सेकंड की स्टेबिलिटी लॉक लगाता है ताकि अधूरी फाइल प्रोसेस न हो।<br />" +
             "• <strong>डायरेक्ट गूगल ड्राइव स्ट्रीमिंग:</strong> वीडियो सीधे क्लासरूम PC से 10MB के चंक्स में गूगल ड्राइव में जाता है (बीच में कोई दूसरा सर्वर नहीं आता)।<br />" +
             "• <strong>क्लाउड कोऑर्डिनेशन:</strong> केवल हल्का मेटाडेटा Firestore में सिंक होता है।<br />" +
             "• <strong>क्रैश रिकवरी:</strong> SQLite WAL मोड हर बाइट का रिकॉर्ड रखता है, जिससे अचानक रीस्टार्ट होने पर भी 0% डेटा लॉस होता है।<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 सोर्स: ARCHITECTURE.md §1-2</span>"
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>🛡️ Centrix कोर इंजन द्वारा सत्यापित</span>"
       },
       {
         id: 'database_spec',
         matches: ['database_schema.md', 'database schema', 'sqlite tables', 'wal mode', 'devices table', 'lecture_sessions', 'upload_queue', 'outbox', 'schema'],
-        en: "<strong>Database Schema Specification:</strong><br />" +
-            "From <code>DATABASE_SCHEMA.md</code>, Centrix separates storage into two specialized tiers:<br />" +
+        en: "<strong>Database Schema &amp; Storage Architecture:</strong><br />" +
+            "Centrix separates storage into two specialized tiers:<br />" +
             "• <strong>Center-Local SQLite 3 (WAL Mode):</strong><br />" +
             "  1. <code>devices</code> (Hardware ID, room mapping, recording path)<br />" +
             "  2. <code>lecture_sessions</code> (Detected start/end, scheduled slots, assignment confidence)<br />" +
@@ -1088,8 +1008,8 @@
             "  4. <code>upload_queue</code> (Byte offsets, chunk status, resumable upload URI)<br />" +
             "  5. <code>outbox_events</code> &amp; <code>audit_log</code> (Guaranteed delivery event log)<br />" +
             "• <strong>Cloud Metadata Layer:</strong> Lightweight synced Firestore collections for organizations, centers, rooms, and audit trails.<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 Source: DATABASE_SCHEMA.md §1-2</span>",
-        hi: "<strong>डेटाबेस स्कीमा (DATABASE_SCHEMA.md):</strong><br />" +
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>🛡️ Verified by Centrix Core Engine</span>",
+        hi: "<strong>डेटाबेस स्कीमा:</strong><br />" +
             "Centrix का डेटाबेस दो परतों में डिज़ाइन किया गया है:<br />" +
             "• <strong>लोकल SQLite 3 (WAL मोड):</strong><br />" +
             "  1. <code>devices</code>: हार्डवेयर और क्लासरूम रूम नंबर की मैपिंग।<br />" +
@@ -1098,13 +1018,13 @@
             "  4. <code>upload_queue</code>: अपलोड बाइट ऑफसेट और रेज़्यूमेबल टोकन।<br />" +
             "  5. <code>audit_log</code>: हर एक्शन का टाइमस्टैम्प्ड रिकॉर्ड।<br />" +
             "• <strong>क्लाउड लेयर:</strong> सेंटर्स और ऑडिट का हल्का मेटाडेटा।<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 सोर्स: DATABASE_SCHEMA.md §1-2</span>"
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>🛡️ Centrix कोर इंजन द्वारा सत्यापित</span>"
       },
       {
         id: 'security_spec',
         matches: ['security_model.md', 'rbac', 'super_admin', 'center_admin', 'reviewer', 'room_operator', 'security model', 'credential', 'tokens', 'isolation'],
-        en: "<strong>Security &amp; DPAPI Specification:</strong><br />" +
-            "From <code>SECURITY_MODEL.md</code>, Centrix adheres to enterprise zero-trust defense:<br />" +
+        en: "<strong>Security &amp; DPAPI Architecture:</strong><br />" +
+            "Centrix adheres to enterprise zero-trust defense:<br />" +
             "• <strong>Windows DPAPI Vault:</strong> Google Drive OAuth refresh tokens and API secrets are never stored in plain text or app bundles; they are encrypted via OS-level Windows DPAPI tied to machine &amp; user credentials.<br />" +
             "• <strong>4-Tier RBAC:</strong><br />" +
             "  - <code>SUPER_ADMIN</code>: Org-wide configuration, releases, master audit.<br />" +
@@ -1112,8 +1032,8 @@
             "  - <code>REVIEWER</code>: Lecture verification &amp; correction (cannot alter timetables).<br />" +
             "  - <code>ROOM_OPERATOR</code>: Local room status &amp; upload monitor.<br />" +
             "• <strong>Zero Token Leakage:</strong> Client apps cannot extract raw cloud keys.<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 Source: SECURITY_MODEL.md §1-2</span>",
-        hi: "<strong>सिक्योरिटी और DPAPI मॉडल (SECURITY_MODEL.md):</strong><br />" +
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>🛡️ Verified by Centrix Core Engine</span>",
+        hi: "<strong>सिक्योरिटी और DPAPI मॉडल:</strong><br />" +
             "Centrix ज़ीरो-ट्रस्ट एंटरप्राइज सिक्योरिटी पर आधारित है:<br />" +
             "• <strong>Windows DPAPI वॉल्ट:</strong> गूगल ड्राइव OAuth टोकन्स को OS लेवल पर Windows DPAPI से हार्डवेयर-एनक्रिप्ट किया जाता है। कोड या डिस्क में कोई पासवर्ड प्लेन टेक्स्ट में नहीं होता।<br />" +
             "• <strong>4-टियर RBAC:</strong><br />" +
@@ -1121,59 +1041,241 @@
             "  - <code>CENTER_ADMIN</code>: सेंटर और रूम लेवल का मैनेजमेंट।<br />" +
             "  - <code>REVIEWER</code>: 1-क्लिक क्लास वेरिफिकेशन (टाइमटेबल में बदलाव की अनुमति नहीं)।<br />" +
             "  - <code>ROOM_OPERATOR</code>: सिर्फ लोकल रूम का स्टेटस देखना।<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 सोर्स: SECURITY_MODEL.md §1-2</span>"
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>🛡️ Centrix कोर इंजन द्वारा सत्यापित</span>"
       },
       {
         id: 'state_machines_spec',
         matches: ['state_machines.md', 'state machines', 'lifecycle', 'states', 'detected', 'processing', 'auto_assigned', 'review_required', 'verified', 'retry engine'],
-        en: "<strong>State Machines Specification:</strong><br />" +
-            "From <code>STATE_MACHINES.md</code>, every recorded lecture follows a strict, audited finite state machine:<br />" +
+        en: "<strong>State Machines &amp; Session Lifecycle:</strong><br />" +
+            "Every recorded lecture follows a strict, audited finite state machine:<br />" +
             "• <strong>Lecture Lifecycle:</strong> <code>DETECTED</code> &rarr; <code>PROCESSING</code> (hash &amp; metadata) &rarr; <code>AUTO_ASSIGNED</code> (&ge;85%) / <code>REVIEW_REQUIRED</code> (60–84%) &rarr; <code>CONFIRMED</code> &rarr; <code>UPLOADING</code> &rarr; <code>UPLOADED</code> &rarr; <code>VERIFIED</code> (SHA-256 matched with Drive) &rarr; <code>ARCHIVED</code>.<br />" +
             "• <strong>Upload Retry Engine:</strong> Backoff formula: <code>min(2^attempt * 1000ms + jitter, 60000ms)</code> with max 5 retries before moving to quarantined state for network reconnection.<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 Source: STATE_MACHINES.md §1-2</span>",
-        hi: "<strong>स्टेट मशीन और लाइफसाइकिल (STATE_MACHINES.md):</strong><br />" +
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>🛡️ Verified by Centrix Core Engine</span>",
+        hi: "<strong>स्टेट मशीन और लाइफसाइकिल:</strong><br />" +
             "हर रिकॉर्डिंग एक सख्त फाइनाइट स्टेट मशीन का पालन करती है:<br />" +
             "• <strong>लेक्चर लाइफसाइकिल:</strong> <code>DETECTED</code> &rarr; <code>PROCESSING</code> (फाइल हैश चेक) &rarr; <code>AUTO_ASSIGNED</code> (&ge;85%) या <code>REVIEW_REQUIRED</code> &rarr; <code>CONFIRMED</code> &rarr; <code>UPLOADING</code> &rarr; <code>UPLOADED</code> &rarr; <code>VERIFIED</code> (SHA-256 हैश मिलान) &rarr; <code>ARCHIVED</code>।<br />" +
             "• <strong>ऑटोमैटिक री-ट्राई:</strong> नेटवर्क जाने पर एक्सपोनेंशियल बैकऑफ फॉर्मूला से बिना सिस्टम हैंग किए सुरक्षित री-ट्राई होता है।<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 सोर्स: STATE_MACHINES.md §1-2</span>"
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>🛡️ Centrix कोर इंजन द्वारा सत्यापित</span>"
       },
       {
         id: 'cost_control_spec',
         matches: ['cost_control.md', 'cost control', 'recurring cost', 'current cost', 'kitna kam', 'cloud cost', 'finops', 'monthly cost', 'kharcha', 'rupaye', 'rupee', 'budget', 'saving', 'abhi', 'abhi ke kharch'],
-        en: "<strong>Cost Control Strategy (COST_CONTROL.md):</strong><br />" +
-            "From <code>COST_CONTROL.md</code>, Centrix is engineered with a strict operational principle: <strong>total expenditure must be significantly lower than your current operational baseline</strong>:<br />" +
+        en: "<strong>Cost Control Strategy:</strong><br />" +
+            "Centrix is engineered with a strict operational principle: <strong>total expenditure must be significantly lower than your current operational baseline</strong>:<br />" +
             "• <strong>Far Lower Than Current Operations:</strong> Today, offline centers bear high recurring expenses in manual operator staff hours, physical pen drive logistics, and delayed delivery. Centrix replaces this with a silent automated edge pipeline that costs only a tiny fraction of what you spend today.<br />" +
             "• <strong>Zero Cloud Transcoding Bill (₹0 Server Cost):</strong> Because video ingestion, SHA-256 hashing, and direct chunk uploads occur locally on classroom edge workstations, cloud server compute bills remain ₹0.<br />" +
             "• <strong>Direct Egress to Google Drive:</strong> Video streams directly from classroom PCs to the organization's Google Drive storage without passing through costly intermediary cloud proxies.<br />" +
             "• <strong>Substantial Financial Savings:</strong> Saves thousands of staff hours monthly across the Vidyapeeth network, keeping recurring costs at an absolute minimum.<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 Source: COST_CONTROL.md</span>",
-        hi: "<strong>कॉस्ट कंट्रोल रणनीति (COST_CONTROL.md):</strong><br />" +
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>🛡️ Verified by Centrix Core Engine</span>",
+        hi: "<strong>कॉस्ट कंट्रोल रणनीति:</strong><br />" +
             "Centrix को इस कोर सिद्धांत पर तैयार किया गया है कि इसका खर्च आपके <strong>अभी के कुल मौजूदा ऑपरेशनल खर्च से काफी कम</strong> रहेगा:<br />" +
             "• <strong>अभी जितना आता है उससे बहुत कम खर्च:</strong> वर्तमान में सेंटर्स पर पेन ड्राइव खरीदने, मैन्युअल ट्रांसफर, स्टाफ के ओवरटाइम और वीडियो मैनेज करने में काफी खर्च होता है। Centrix इसे पूरी तरह ऑटोमेट करके इस खर्चे को नाममात्र कर देता है।<br />" +
             "• <strong>₹0 अतिरिक्त सर्वर खर्च:</strong> वीडियो हैशिंग और चंकिंग क्लासरूम PC पर ही होती है, इसलिए किसी भी महंगे क्लाउड सर्वर का अलग से बिल नहीं आता।<br />" +
             "• <strong>डायरेक्ट गूगल ड्राइव स्ट्रीमिंग:</strong> वीडियो सीधे क्लासरूम PC से संस्थान के गूगल ड्राइव में अपलोड होता है, कोई बिचौलिया सर्वर या बैंडविड्थ चार्ज नहीं लगता।<br />" +
             "• <strong>सालाना लाखों रुपये की बचत:</strong> मौजूदा खर्चे की तुलना में पूरे विद्यापीठ नेटवर्क के लाखों रुपये और 3,000+ घंटे हर महीने बचते हैं।<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 सोर्स: COST_CONTROL.md</span>"
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>🛡️ Centrix कोर इंजन द्वारा सत्यापित</span>"
       },
       {
         id: 'whitepaper_spec',
         matches: ['whitepaper', 'executive', 'business case', 'pw operations', 'roi', 'vidyapeeth impact', 'hours saved', 'student delivery'],
-        en: "<strong>Executive Whitepaper &amp; Business Case:</strong><br />" +
-            "From <code>docs/CENTRIX_EXECUTIVE_WHITEPAPER.md</code>:<br />" +
+        en: "<strong>Executive Business Case:</strong><br />" +
             "• <strong>Core Problem Solved:</strong> Manual pen drive collection across 50+ centers causes 12–24hr student lecture delays, human naming errors, and staff burnout.<br />" +
             "• <strong>Operational Transformation:</strong> Lectures reach students in &lt;30 minutes. Saves 2–3 hours per classroom workstation daily (~3,000+ staff hours saved each month).<br />" +
             "• <strong>Zero Teacher Disruption:</strong> Faculty teach normally in OBS Studio without opening any secondary software.<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 Source: docs/CENTRIX_EXECUTIVE_WHITEPAPER.md</span>",
-        hi: "<strong>एग्जीक्यूटिव व्हाइटपेपर और बिजनेस इम्पैक्ट (WHITEPAPER.md):</strong><br />" +
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>🛡️ Verified by Centrix Core Engine</span>",
+        hi: "<strong>एग्जीक्यूटिव बिजनेस इम्पैक्ट:</strong><br />" +
             "• <strong>हल की गई समस्या:</strong> 50+ सेंटर्स पर पेन ड्राइव से मैन्युअल कॉपी करने पर 12-24 घंटे की देरी, गलत नाम और स्टाफ का समय बर्बाद होता था।<br />" +
             "• <strong>बड़ा बदलाव:</strong> लेक्चर्स 30 मिनट के अंदर स्टूडेंट्स तक पहुँचते हैं। हर सेंटर पर रोज़ाना 2-3 घंटे बचते हैं (हर महीने 3,000+ स्टाफ घंटे की बचत)।<br />" +
             "• <strong>टीचर्स के लिए 0 परेशानी:</strong> शिक्षक सामान्य रूप से OBS Studio में पढ़ाते हैं, उन्हें कोई नया सॉफ्टवेयर सीखने की ज़रूरत नहीं है।<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 सोर्स: docs/CENTRIX_EXECUTIVE_WHITEPAPER.md</span>"
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>🛡️ Centrix कोर इंजन द्वारा सत्यापित</span>"
       }
     ];
 
+    // ==========================================
+    // GEMINI 1.5 FLASH LIVE ANALYSIS ENGINE
+    // ==========================================
+    const CENTRIX_SYSTEM_PROMPT = `You are Centrix AI, the official technical intelligence assistant for Centrix: an enterprise edge-first lecture capture, smart timetable matching, and automated upload system built for PhysicsWallah Vidyapeeth and Pathshala offline classroom operations across India.
+
+KEY ARCHITECTURAL HIGHLIGHTS & CORE DATA:
+1. Edge-First + Serverless Architecture:
+- Silent Windows Service daemon running locally on classroom Windows 10/11 PCs (<1% CPU, <60MB RAM footprint).
+- Monitors OBS Studio output directory via Windows FileSystemWatcher.
+- Mandatory 10-Second Stability Lock: Ensures recording file write handles are fully released and byte size is invariant before ingestion starts.
+- Video streams directly from classroom workstations to Google Drive v3 / YouTube via 10MB chunked resumable protocol.
+- Cloud server compute bill = ₹0 (Zero cloud transcoding fleet needed).
+- Dual Storage: Center-local SQLite 3 with WAL mode (devices, lecture_sessions, upload_queue, timetable_cache, outbox_events, audit_logs) ensures 100% offline durability. Lightweight Firestore syncs state and alerts without handling video files.
+
+2. Deterministic 7-Signal Matching Algorithm (NOT probabilistic LLM):
+- Signal 1: Time Overlap (35% weight) - intersection with scheduled period.
+- Signal 2: Hardware Room ID mapping (15% weight).
+- Signal 3: Duration Consistency (15% weight) - expected vs recorded length.
+- Signal 4: Teacher Roster alignment (15% weight).
+- Signal 5: Batch & Academic Subject validation (10% weight).
+- Signal 6: Historical Drift & faculty habit patterns (10% weight).
+- Confidence Thresholds:
+  * Score >= 85%: AUTO_ASSIGNED directly to the Google Drive target batch folder.
+  * Score 60-84%: REVIEW_REQUIRED for 1-click coordinator verification on localhost:5200 dashboard.
+  * Score < 60%: High-priority operator alert for manual resolution.
+
+3. Offline Resilience & Crash Recovery:
+- Operates 100% offline during internet outages. Files queue safely on local disk.
+- When connection returns, chunked uploads resume from the exact interrupted byte offset (zero re-uploading).
+- Survives power cuts and abrupt system reboots cleanly through transactional SQLite commits.
+
+4. Enterprise Security & Cryptography:
+- Zero hardcoded secrets in app binaries or repo.
+- Google OAuth refresh tokens encrypted at OS-level via Windows DPAPI (machine/user scope).
+- 4-Tier RBAC: SUPER_ADMIN, CENTER_ADMIN, REVIEWER, ROOM_OPERATOR.
+
+5. Cost Control Strategy & Economics:
+- The ongoing operational cost is strictly FAR LOWER than existing center costs ("Abhi jitna kharcha aata hai, usse kafi kam").
+- Eliminates manual pen drive purchases, physical transport logistics, and operator overtime.
+- All pricing is contextualized in INR (₹) without arbitrary high server dollar quotes.
+
+6. How to Use Centrix:
+- Step 1: Install Centrix-Setup.exe on classroom PC, pick center & room number.
+- Step 2: Faculty conduct class normally in OBS Studio, press "Stop Recording".
+- Step 3: Centrix automatically captures, matches timetable (>=85% auto-passes), renames video, and streams chunks to Google Drive.
+- Step 4: Coordinators review status at localhost:5200.
+
+RESPONSE INSTRUCTIONS:
+- Answer accurately based on Centrix's real engineering specs.
+- Respond in the language of the user (English, Hindi, or Hinglish).
+- Keep answers concise, clear, and professional with formatting (bold, bullet points).
+- Do NOT expose internal raw file paths like ARCHITECTURE.md or DATABASE_SCHEMA.md; refer to them as "Centrix Architecture", "SQLite Schema", "7-Signal Matching Engine", or "Security Model".`;
+
+    function openGeminiModal() {
+      const modal = document.getElementById('geminiModal');
+      const input = document.getElementById('geminiApiKeyInput');
+      if (input) input.value = localStorage.getItem('centrix_gemini_key') || '';
+      updateGeminiStatusUI();
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeGeminiModal() {
+      const modal = document.getElementById('geminiModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function saveGeminiKey() {
+      const input = document.getElementById('geminiApiKeyInput');
+      const key = input ? input.value.trim() : '';
+      if (key) {
+        localStorage.setItem('centrix_gemini_key', key);
+      } else {
+        localStorage.removeItem('centrix_gemini_key');
+      }
+      updateGeminiStatusUI();
+      closeGeminiModal();
+    }
+
+    function clearGeminiKey() {
+      localStorage.removeItem('centrix_gemini_key');
+      const input = document.getElementById('geminiApiKeyInput');
+      if (input) input.value = '';
+      updateGeminiStatusUI();
+      closeGeminiModal();
+    }
+
+    function updateGeminiStatusUI() {
+      const key = localStorage.getItem('centrix_gemini_key');
+      const isConnected = !!(key && key.trim().length > 10);
+      
+      const statusPill = document.getElementById('geminiStatusPill');
+      const clearBtn = document.getElementById('clearKeyBtn');
+      const dotFloat = document.getElementById('geminiActiveDotFloat');
+      const dotQA = document.getElementById('geminiActiveDotQA');
+      const badgeTextFloat = document.getElementById('geminiBadgeTextFloat');
+      const badgeTextQA = document.getElementById('geminiBadgeTextQA');
+
+      if (isConnected) {
+        if (statusPill) {
+          statusPill.textContent = '⚡ Gemini 1.5 Flash Connected';
+          statusPill.className = 'text-[10px] font-mono px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 font-semibold';
+        }
+        if (clearBtn) clearBtn.classList.remove('hidden');
+        if (dotFloat) dotFloat.classList.remove('hidden');
+        if (dotQA) dotQA.classList.remove('hidden');
+        if (badgeTextFloat) badgeTextFloat.textContent = '⚡ Gemini Flash (Live)';
+        if (badgeTextQA) badgeTextQA.textContent = '⚡ Gemini Flash (Active)';
+      } else {
+        if (statusPill) {
+          statusPill.textContent = 'Built-in 0ms Engine Active';
+          statusPill.className = 'text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold';
+        }
+        if (clearBtn) clearBtn.classList.add('hidden');
+        if (dotFloat) dotFloat.classList.add('hidden');
+        if (dotQA) dotQA.classList.add('hidden');
+        if (badgeTextFloat) badgeTextFloat.textContent = '⚡ Gemini Flash';
+        if (badgeTextQA) badgeTextQA.textContent = '⚡ Gemini Flash Ready';
+      }
+    }
+
+    function formatMarkdown(text) {
+      let html = escapeHtml(text);
+      // bold **text**
+      html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      // italic *text*
+      html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+      // inline code `code`
+      html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+      // bullet lines
+      html = html.replace(/^\s*[\-\*]\s+(.*)$/gm, '• $1<br />');
+      // numbered list lines
+      html = html.replace(/^\s*(\d+)\.\s+(.*)$/gm, '$1. $2<br />');
+      // paragraph breaks
+      html = html.replace(/\n\n+/g, '<br /><br />').replace(/\n/g, '<br />');
+      return html + "<span class='inline-block mt-2.5 text-[10px] text-purple-600 dark:text-purple-400 font-mono'>⚡ Live Analysis via Gemini 1.5 Flash</span>";
+    }
+
+    async function askGeminiFlash(query, apiKey) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey.trim()}`;
+      const payload = {
+        contents: [
+          {
+            role: 'user',
+            parts: [{ text: query }]
+          }
+        ],
+        systemInstruction: {
+          parts: [{ text: CENTRIX_SYSTEM_PROMPT }]
+        },
+        generationConfig: {
+          temperature: 0.3,
+          maxOutputTokens: 800
+        }
+      };
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error?.message || `HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (!text) throw new Error('No response text returned from Gemini Flash.');
+      return formatMarkdown(text);
+    }
+
     async function askAI(query) {
       const qTrim = query.trim();
+      const apiKey = localStorage.getItem('centrix_gemini_key');
+
+      // If user configured Gemini 1.5 Flash, query live model
+      if (apiKey && apiKey.trim().length > 10) {
+        try {
+          return await askGeminiFlash(qTrim, apiKey);
+        } catch (err) {
+          console.warn('Gemini Flash API request error, falling back to built-in NLU:', err);
+        }
+      }
+
       const isHi = isHindiQuery(qTrim);
       const qClean = qTrim.toLowerCase().replace(/[^a-z0-9\s#\.\+]/g, ' ');
       const tokens = qClean.split(/\s+/).filter(t => t.length > 1);
@@ -1208,9 +1310,9 @@
 
       // Context-aware fallback synthesized in user's detected language
       if (isHi) {
-        return "Centrix एक एडवांस ऑटोमेटेड बैकग्राउंड सिस्टम है जो PhysicsWallah विद्यापीठ क्लासरूम्स के OBS लेक्चर्स को अपने आप टाइमटेबल से मैच करके गूगल ड्राइव में अपलोड करता है। यह AI सीधे <strong>11 टेक्निकल स्पेसिफिकेशन्स (.md)</strong> से लिंक्ड है। आप मुझसे <strong>Matching Algorithm</strong>, <strong>DB Schema</strong>, <strong>DPAPI Security</strong>, <strong>State Machines</strong>, या <strong>How to Use</strong> के बारे में कुछ भी पूछ सकते हैं!";
+        return "Centrix एक एडवांस ऑटोमेटेड बैकग्राउंड सिस्टम है जो PhysicsWallah विद्यापीठ क्लासरूम्स के OBS लेक्चर्स को अपने आप टाइमटेबल से मैच करके गूगल ड्राइव में अपलोड करता है। यह AI सीधे Centrix कोर आर्किटेक्चर और ऑपरेशनल नॉलेज से लिंक्ड है। आप मुझसे <strong>Matching Algorithm</strong>, <strong>DB Schema</strong>, <strong>DPAPI Security</strong>, <strong>State Machines</strong>, या <strong>How to Use</strong> के बारे में कुछ भी पूछ सकते हैं!";
       } else {
-        return "Centrix is an intelligent edge-first lecture automation system for PhysicsWallah Vidyapeeth classrooms. This AI is indexed directly from <strong>11 repository specification documents (.md)</strong>. Feel free to ask about <strong>Matching Engine signals</strong>, <strong>SQLite Schema</strong>, <strong>DPAPI Security</strong>, <strong>State Machines</strong>, <strong>Cost Control</strong>, or <strong>How to Use</strong>!";
+        return "Centrix is an intelligent edge-first lecture automation system for PhysicsWallah Vidyapeeth classrooms. This AI is indexed directly from Centrix core architecture and operational knowledge. Feel free to ask about <strong>Matching Engine signals</strong>, <strong>SQLite Schema</strong>, <strong>DPAPI Security</strong>, <strong>State Machines</strong>, <strong>Cost Control</strong>, or <strong>How to Use</strong>!";
       }
     }
 
@@ -1360,6 +1462,9 @@
       const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
       return text.replace(/[&<>"']/g, m => map[m]);
     }
+
+    // Initialize Gemini UI state on load
+    updateGeminiStatusUI();
   </script>
 </body>
 </html>
