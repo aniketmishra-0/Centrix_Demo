@@ -419,12 +419,12 @@
             <span class="px-2.5 py-1 rounded-md bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 font-mono text-[11px] font-bold">COST_CONTROL.md</span>
             <span class="text-xs font-mono text-stone-400">FinOps Scale</span>
           </div>
-          <h3 class="font-serif font-bold text-base text-stone-900 dark:text-stone-100 mb-2">~$362/mo Total at 500 Centers</h3>
+          <h3 class="font-serif font-bold text-base text-stone-900 dark:text-stone-100 mb-2">Abhi Ke Kharch Se Kafi Kam</h3>
           <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed mb-4">
-            By offloading hash calculation and direct byte uploads to edge PCs, central video cloud compute and egress bandwidth cost is exactly $0. Only lightweight metadata reads/writes hit Firestore.
+            Centrix is engineered to operate at a tiny fraction of current center expenses. By leveraging edge classroom PCs and direct Drive uploads, heavy cloud video transcode fleets and manual pen drive logistics costs are completely eliminated.
           </p>
         </div>
-        <button onclick="askSpec('How does Centrix achieve $362/mo at 500 centers from COST_CONTROL.md?')" class="w-full text-left font-mono text-xs font-semibold text-indigo-600 dark:text-indigo-400 group-hover:translate-x-1 transition inline-flex items-center space-x-1 cursor-pointer pt-2 border-t border-stone-100 dark:border-stone-800">
+        <button onclick="askSpec('How does Centrix ensure our total operational cost is much lower than current expenditure in COST_CONTROL.md?')" class="w-full text-left font-mono text-xs font-semibold text-indigo-600 dark:text-indigo-400 group-hover:translate-x-1 transition inline-flex items-center space-x-1 cursor-pointer pt-2 border-t border-stone-100 dark:border-stone-800">
           <span>Interrogate Spec</span>
           <span>→</span>
         </button>
@@ -472,8 +472,8 @@
         <button onclick="askQuestion('How are Google Drive credentials secured with DPAPI in SECURITY_MODEL.md?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
           🛡️ DPAPI Security
         </button>
-        <button onclick="askQuestion('How does Centrix achieve $362/mo across 500 centers in COST_CONTROL.md?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
-          💰 Cost &amp; FinOps
+        <button onclick="askQuestion('Centrix lagane ke baad abhi ke kharche se kitna kam hoga?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
+          💰 Current Cost Se Kam
         </button>
         <button onclick="askQuestion('What happens if the internet disconnects?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
           📡 Internet Outage?
@@ -637,8 +637,8 @@
         <button onclick="askFloat('How are credentials secured with DPAPI in SECURITY_MODEL.md?')" class="whitespace-nowrap px-2.5 py-1 rounded-full border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-stone-900/80 font-mono text-[11px] sm:text-[10px] text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-2xs">
           🛡️ DPAPI Security
         </button>
-        <button onclick="askFloat('How does Centrix achieve $362/mo in COST_CONTROL.md?')" class="whitespace-nowrap px-2.5 py-1 rounded-full border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-stone-900/80 font-mono text-[11px] sm:text-[10px] text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-2xs">
-          💰 $362/mo Cost
+        <button onclick="askFloat('Centrix lagane ke baad abhi ke kharche se kitna kam hoga?')" class="whitespace-nowrap px-2.5 py-1 rounded-full border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-stone-900/80 font-mono text-[11px] sm:text-[10px] text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-2xs">
+          💰 Current Cost Se Kam
         </button>
         <button onclick="askFloat('How does offline upload resume work?')" class="whitespace-nowrap px-2.5 py-1 rounded-full border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-stone-900/80 font-mono text-[11px] sm:text-[10px] text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-2xs">
           📡 Offline Queue
@@ -736,7 +736,7 @@
         id: 'architecture',
         title: 'Edge-First System Architecture & Flow',
         keywords: ['architecture', 'design', 'high level', 'how it work', 'how does it work', 'kaise kaam', 'system flow', 'data flow', 'infrastructure', 'edge', 'serverless', 'overview', 'summary', 'kya kya', 'kya hai', 'feature', 'features', 'modules', 'capabilities', 'isme kya'],
-        answer: "<strong>Edge-First + Serverless Architecture:</strong><br />• <strong>Local Processing:</strong> All heavy lifting (OBS file stability monitoring, timetable correlation, SQLite buffering) executes locally on center workstations.<br />• <strong>Resilient Storage:</strong> Files stream directly from center PCs to Google Drive v3 / YouTube with byte-level resumability ($0 cloud compute/transcoding cost).<br />• <strong>Metadata Coordination:</strong> Lightweight Firestore handles centralized review state sync and reviewer alerts without handling bulky video payloads.<br />• <strong>Review Layer:</strong> Distributed reviewers can confirm ambiguous sessions from any phone or laptop via responsive PWA."
+        answer: "<strong>Edge-First + Serverless Architecture:</strong><br />• <strong>Local Processing:</strong> All heavy lifting (OBS file stability monitoring, timetable correlation, SQLite buffering) executes locally on center workstations.<br />• <strong>Resilient Storage:</strong> Files stream directly from center PCs to Google Drive v3 / YouTube with byte-level resumability (₹0 extra cloud compute/transcoding cost).<br />• <strong>Metadata Coordination:</strong> Lightweight Firestore handles centralized review state sync and reviewer alerts without handling bulky video payloads.<br />• <strong>Review Layer:</strong> Distributed reviewers can confirm ambiguous sessions from any phone or laptop via responsive PWA."
       },
       {
         id: 'watcher',
@@ -800,9 +800,9 @@
       },
       {
         id: 'cost',
-        title: 'Cost Control & Cloud Infrastructure Economics',
-        keywords: ['cost', 'cloud', 'roi', 'pricing', 'expensive', 'server', 'compute', 'egress', 'bandwidth', 'faayda', 'save', 'saving', 'money'],
-        answer: "<strong>Zero Cloud Compute Costs ($0 Server Billing):</strong><br />• Traditional systems ingest video into cloud servers to re-encode and route, resulting in high GPU/CPU cloud bills.<br />• Centrix executes file matching and metadata extraction entirely on edge workstations and streams directly to Google Drive.<br />• Cloud hosting cost for central metadata is virtually zero (under free Firestore tiers). Eliminates 2-3 hours daily staff labor per center."
+        title: 'Cost Control & Operational Economics',
+        keywords: ['cost', 'cloud', 'roi', 'pricing', 'expensive', 'server', 'compute', 'egress', 'bandwidth', 'faayda', 'save', 'saving', 'money', 'kharcha', 'rupaye', 'rupee', 'budget', 'abhi'],
+        answer: "<strong>Abhi Ke Kharch Se Kafi Kam (Fractional Operational Cost):</strong><br />• <strong>Current Kharch Se Bohat Kam:</strong> Aaj centers par manual staff hours, physical pen drive logistics aur cloud servers par mota kharcha aata hai. Centrix lagane ke baad ye ongoing kharcha girkar sirf ek chhota sa hissa (fractional) reh jata hai.<br />• <strong>Zero Extra Cloud GPU/Transcoding Cost (₹0 Server Bill):</strong> Saara processing classroom PC par hi ho jata hai, isliye alag se koi mehange cloud servers nahi lene padte.<br />• <strong>Net Financial Savings:</strong> Har center par daily 2–3 ghante ka manual staff time bachta hai, jisse institute ke laakhon rupaye ki seedhi bachat hoti hai."
       },
       {
         id: 'stack',
@@ -951,15 +951,15 @@
       },
       {
         id: 'cost_roi',
-        matches: ['cost', 'price', 'free', 'kharcha', 'roi', 'money', 'savings', 'time save', 'kitna bachega'],
-        en: "<strong>Measurable ROI & Zero Cloud Cost:</strong><br />" +
-            "• <strong>Zero Cloud Video Compute:</strong> Processing occurs directly on edge workstations ($0 cloud transcoding bill).<br />" +
-            "• <strong>Saves 2–3 Hours Daily per Center:</strong> Eliminates manual file transferring and folder sorting (saving ~3,000+ staff hours monthly across 50 centers).<br />" +
-            "• <strong>Fast Student Access:</strong> Students receive lectures in under 30 minutes instead of next-day delays.",
-        hi: "<strong>लागत में बचत और बड़ा ROI:</strong><br />" +
-            "• <strong>जीरो क्लाउड सर्वर खर्च:</strong> सारा काम क्लासरूम PC पर होता है, इसलिए महंगे क्लाउड सर्वर का कोई बिल नहीं आता ($0 Server Cost)।<br />" +
-            "• <strong>रोजाना 2 से 3 घंटे की बचत:</strong> स्टाफ को हाथ से फाइल रीनेम या ड्राइव में अपलोड नहीं करना पड़ता (50 सेंटर्स पर महीने के 3,000+ घंटे बचते हैं)।<br />" +
-            "• <strong>छात्रों को तुरंत लेक्चर:</strong> स्टूडेंट्स को अगली सुबह का इंतजार नहीं करना पड़ता, क्लास खत्म होने के आधे घंटे में रिकॉर्डिंग मिल जाती है।"
+        matches: ['cost', 'price', 'free', 'kharcha', 'roi', 'money', 'savings', 'time save', 'kitna bachega', 'rupaye', 'rupees', 'kitna kharcha', 'kam hoga', 'budget', 'abhi se', 'abhi jitna'],
+        en: "<strong>Significantly Lower Than Current Operational Costs:</strong><br />" +
+            "• <strong>Far Lower Than What You Currently Spend:</strong> Centrix is architected so that your total ongoing operational expense will be substantially lower than your existing center costs. It eliminates manual staff hours, pen drive procurement/replacement, and human error costs.<br />" +
+            "• <strong>Zero New Cloud Compute Fees (₹0 Server Infrastructure):</strong> Video hashing and direct chunk streaming run locally on classroom edge PCs—meaning ₹0 spent on expensive cloud GPU/CPU transcoding fleets.<br />" +
+            "• <strong>Direct Return on Investment:</strong> Eliminates 2 to 3 hours of manual staff effort every single day across each center, producing massive operational and financial savings every month.",
+        hi: "<strong>अभी के मौजूदा खर्चे से काफी कम (Substantial Cost Reduction):</strong><br />" +
+            "• <strong>वर्तमान खर्चे से बहुत कम:</strong> अभी हर विद्यापीठ सेंटर पर मैन्युअल स्टाफ के घंटे, पेन ड्राइव की खरीद-फरोख्त, खोई हुई रिकॉर्डिंग्स और भारी मेंटेनेंस पर काफी खर्च होता है। Centrix लगाने के बाद आपका यह पूरा ऑपरेशनल खर्च घटकर बहुत कम (fractional) रह जाएगा—यानी <strong>अभी जितना आता है उससे काफी कम</strong>!<br />" +
+            "• <strong>₹0 अतिरिक्त सर्वर खर्च:</strong> सारा काम क्लासरूम के मौजूदा PC पर ही बैकग्राउंड में हो जाता है, इसलिए किसी भी भारी क्लाउड GPU सर्वर का ₹1 भी बिल नहीं आता।<br />" +
+            "• <strong>लाखों रुपये और समय की सीधी बचत:</strong> हर सेंटर पर रोज़ाना 2–3 घंटे की मैन्युअल मेहनत खत्म होती है, जिससे संस्थान के लाखों रुपये और कीमती समय की बचत होती है।"
       },
       {
         id: 'install',
@@ -1018,7 +1018,7 @@
             "• <strong>DATABASE_SCHEMA.md:</strong> Local SQLite WAL schema (devices, lecture_sessions, upload_queue, outbox_events).<br />" +
             "• <strong>SECURITY_MODEL.md:</strong> Windows DPAPI machine-level OAuth encryption &amp; 4-Tier RBAC.<br />" +
             "• <strong>STATE_MACHINES.md:</strong> LectureSession lifecycle (DETECTED &rarr; VERIFIED) &amp; retry engine.<br />" +
-            "• <strong>COST_CONTROL.md:</strong> Zero cloud compute cost, ~$362/mo across 500 Vidyapeeth centers.<br />" +
+            "• <strong>COST_CONTROL.md:</strong> Operational cost reduction—runs at a tiny fraction of current manual expenses (₹0 cloud compute fleet).<br />" +
             "• <strong>API_CONTRACTS.md:</strong> Tauri Rust IPC &amp; local coordinator REST endpoints.<br />" +
             "• <strong>CENTRIX_EXECUTIVE_WHITEPAPER.md:</strong> 3,000+ staff hours saved monthly, student delivery under 30 mins.<br />" +
             "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 Source: Repository Root &amp; docs/*.md</span>",
@@ -1029,7 +1029,7 @@
             "• <strong>DATABASE_SCHEMA.md:</strong> SQLite WAL मोड और ड्यूरेबल आउटबॉक्स क्यू।<br />" +
             "• <strong>SECURITY_MODEL.md:</strong> Windows DPAPI एनक्रिप्शन और 4-टियर RBAC एक्सेस।<br />" +
             "• <strong>STATE_MACHINES.md:</strong> लेक्चर लाइफसाइकिल और एक्सपोनेंशियल री-ट्राई।<br />" +
-            "• <strong>COST_CONTROL.md:</strong> 500 सेंटर्स पर मात्र $362/महीने का सर्वर खर्च ($0 ट्रांसकोडिंग)।<br />" +
+            "• <strong>COST_CONTROL.md:</strong> अभी के कुल ऑपरेशनल खर्चे से काफी कम—क्लासरूम PC पर चलने से भारी क्लाउड सर्वर का ₹0 खर्च।<br />" +
             "• <strong>API_CONTRACTS.md:</strong> Tauri Rust IPC और लोकल रिव्यू पोर्टल API।<br />" +
             "• <strong>WHITEPAPER:</strong> विद्यापीठ में रोजाना 3,000+ घंटों की बचत और 30 मिनट में डिलीवरी।<br />" +
             "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 सोर्स: Repository Root &amp; docs/*.md</span>"
@@ -1139,26 +1139,21 @@
       },
       {
         id: 'cost_control_spec',
-        matches: ['cost_control.md', 'cost control', 'recurring cost', '362', 'cloud cost', 'finops', 'monthly cost', '500 centers', 'serverless cost'],
-        en: "<strong>Cost Control Strategy Specification:</strong><br />" +
-            "From <code>COST_CONTROL.md</code>, the system is engineered for <strong>near-zero marginal cloud expenditure</strong>:<br />" +
-            "• <strong>Scales to 500 Centers (20,000 lectures/day) at ~$362/month total:</strong><br />" +
-            "  - Firestore Reads (30M/mo): $180<br />" +
-            "  - Firestore Writes (10M/mo): $180<br />" +
-            "  - Firebase Hosting &amp; FCM: $0 (Free Tier)<br />" +
-            "  - Cloud Compute / Transcoding: <strong>$0</strong> (all handled on local classroom PCs)<br />" +
-            "  - Video Transit Bandwidth: <strong>$0</strong> (streams direct from edge to Google Drive)<br />" +
-            "• <strong>Annual Savings:</strong> Over $50,000+ saved compared to central cloud VM transcode fleets.<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 Source: COST_CONTROL.md §1</span>",
+        matches: ['cost_control.md', 'cost control', 'recurring cost', 'current cost', 'kitna kam', 'cloud cost', 'finops', 'monthly cost', 'kharcha', 'rupaye', 'rupee', 'budget', 'saving', 'abhi', 'abhi ke kharch'],
+        en: "<strong>Cost Control Strategy (COST_CONTROL.md):</strong><br />" +
+            "From <code>COST_CONTROL.md</code>, Centrix is engineered with a strict operational principle: <strong>total expenditure must be significantly lower than your current operational baseline</strong>:<br />" +
+            "• <strong>Far Lower Than Current Operations:</strong> Today, offline centers bear high recurring expenses in manual operator staff hours, physical pen drive logistics, and delayed delivery. Centrix replaces this with a silent automated edge pipeline that costs only a tiny fraction of what you spend today.<br />" +
+            "• <strong>Zero Cloud Transcoding Bill (₹0 Server Cost):</strong> Because video ingestion, SHA-256 hashing, and direct chunk uploads occur locally on classroom edge workstations, cloud server compute bills remain ₹0.<br />" +
+            "• <strong>Direct Egress to Google Drive:</strong> Video streams directly from classroom PCs to the organization's Google Drive storage without passing through costly intermediary cloud proxies.<br />" +
+            "• <strong>Substantial Financial Savings:</strong> Saves thousands of staff hours monthly across the Vidyapeeth network, keeping recurring costs at an absolute minimum.<br />" +
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 Source: COST_CONTROL.md</span>",
         hi: "<strong>कॉस्ट कंट्रोल रणनीति (COST_CONTROL.md):</strong><br />" +
-            "Centrix को <strong>न्यूनतम क्लाउड खर्च</strong> के लिए ऑप्टिमाइज़ किया गया है:<br />" +
-            "• <strong>500 सेंटर्स (20,000 लेक्चर्स/दिन) पर सिर्फ ~$362/महीने का कुल खर्च:</strong><br />" +
-            "  - Firestore रीड्स: $180<br />" +
-            "  - Firestore राइट्स: $180<br />" +
-            "  - वीडियो ट्रांसकोडिंग सर्वर खर्च: <strong>$0</strong> (क्लासरूम PC पर ही सब होता है)<br />" +
-            "  - बैंडविड्थ ट्रांजिट खर्च: <strong>$0</strong> (सीधे गूगल ड्राइव में स्ट्रीम होता है)<br />" +
-            "• <strong>सालाना बचत:</strong> भारी क्लाउड सर्वर की तुलना में हर साल ₹40 लाख+ से ज्यादा की बचत।<br />" +
-            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 सोर्स: COST_CONTROL.md §1</span>"
+            "Centrix को इस कोर सिद्धांत पर तैयार किया गया है कि इसका खर्च आपके <strong>अभी के कुल मौजूदा ऑपरेशनल खर्च से काफी कम</strong> रहेगा:<br />" +
+            "• <strong>अभी जितना आता है उससे बहुत कम खर्च:</strong> वर्तमान में सेंटर्स पर पेन ड्राइव खरीदने, मैन्युअल ट्रांसफर, स्टाफ के ओवरटाइम और वीडियो मैनेज करने में काफी खर्च होता है। Centrix इसे पूरी तरह ऑटोमेट करके इस खर्चे को नाममात्र कर देता है।<br />" +
+            "• <strong>₹0 अतिरिक्त सर्वर खर्च:</strong> वीडियो हैशिंग और चंकिंग क्लासरूम PC पर ही होती है, इसलिए किसी भी महंगे क्लाउड सर्वर का अलग से बिल नहीं आता।<br />" +
+            "• <strong>डायरेक्ट गूगल ड्राइव स्ट्रीमिंग:</strong> वीडियो सीधे क्लासरूम PC से संस्थान के गूगल ड्राइव में अपलोड होता है, कोई बिचौलिया सर्वर या बैंडविड्थ चार्ज नहीं लगता।<br />" +
+            "• <strong>सालाना लाखों रुपये की बचत:</strong> मौजूदा खर्चे की तुलना में पूरे विद्यापीठ नेटवर्क के लाखों रुपये और 3,000+ घंटे हर महीने बचते हैं।<br />" +
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>📄 सोर्स: COST_CONTROL.md</span>"
       },
       {
         id: 'whitepaper_spec',
