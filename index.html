@@ -294,6 +294,80 @@
     </p>
   </footer>
 
+  <!-- Floating Bottom-Right AI Assistant Widget -->
+  <div id="floatingChatContainer" class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    
+    <!-- Floating Chat Window (Toggled via Launcher) -->
+    <div id="floatingChatWindow" class="hidden flex-col w-[380px] sm:w-[420px] max-w-[calc(100vw-2rem)] h-[520px] max-h-[calc(100vh-6rem)] rounded-2xl bg-white/95 dark:bg-[#131418]/95 border border-stone-300 dark:border-stone-800 shadow-2xl backdrop-blur-xl mb-3 overflow-hidden transition-all duration-300">
+      
+      <!-- Window Header -->
+      <div class="px-4 py-3 bg-stone-100/90 dark:bg-stone-800/90 border-b border-stone-200 dark:border-stone-800 flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <div class="relative">
+            <img src="./images/centrix-logo.png" alt="Centrix Logo" class="w-7 h-7 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs">
+            <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white dark:border-stone-900"></span>
+          </div>
+          <div>
+            <div class="font-mono font-bold text-xs text-stone-900 dark:text-stone-100 flex items-center space-x-1.5">
+              <span>Centrix Codebase AI</span>
+              <span class="text-[10px] px-1.5 py-0.2 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 font-normal font-mono">Live</span>
+            </div>
+            <div class="text-[10px] font-mono text-stone-500 dark:text-stone-400">Indexed from Core Architecture &amp; Code</div>
+          </div>
+        </div>
+        <button onclick="toggleFloatingChat()" class="p-1 rounded-lg text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-stone-200/50 dark:hover:bg-stone-700/50 transition" title="Minimize / Close">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+
+      <!-- Window Message Stream -->
+      <div id="floatHistory" class="flex-1 p-4 space-y-3.5 overflow-y-auto font-sans text-xs sm:text-sm">
+        <div class="flex items-start space-x-2.5">
+          <img src="./images/centrix-logo.png" alt="Centrix Bot" class="w-6 h-6 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0 mt-0.5">
+          <div class="bg-stone-100 dark:bg-stone-800/80 rounded-2xl rounded-tl-sm p-3.5 text-stone-800 dark:text-stone-200 text-xs leading-relaxed">
+            👋 Hello! I am the <strong>Centrix Codebase AI</strong>. Ask me anything about the system architecture, matching algorithms, SQLite queue, security, or codebase internals!
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Chips -->
+      <div class="px-3 py-2 bg-stone-50 dark:bg-stone-950/40 border-t border-stone-200/70 dark:border-stone-800/70 flex items-center space-x-1.5 overflow-x-auto">
+        <button onclick="askFloat('How does the smart matching engine score lectures?')" class="whitespace-nowrap px-2.5 py-1 rounded-full border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-stone-900/80 font-mono text-[10px] text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-2xs">
+          🎯 Matching Algo
+        </button>
+        <button onclick="askFloat('What is the database schema and tables?')" class="whitespace-nowrap px-2.5 py-1 rounded-full border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-stone-900/80 font-mono text-[10px] text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-2xs">
+          🗄️ DB Schema
+        </button>
+        <button onclick="askFloat('How are credentials secured with DPAPI?')" class="whitespace-nowrap px-2.5 py-1 rounded-full border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-stone-900/80 font-mono text-[10px] text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-2xs">
+          🛡️ DPAPI Security
+        </button>
+        <button onclick="askFloat('How does offline upload resume work?')" class="whitespace-nowrap px-2.5 py-1 rounded-full border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-stone-900/80 font-mono text-[10px] text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-2xs">
+          📡 Offline Queue
+        </button>
+      </div>
+
+      <!-- Chat Input Form -->
+      <form onsubmit="handleFloatSubmit(event)" class="p-2.5 bg-stone-100/70 dark:bg-stone-900/90 border-t border-stone-200 dark:border-stone-800 flex items-center gap-2">
+        <input type="text" id="floatInput" placeholder="Ask any question from codebase..." class="flex-1 bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-xl px-3 py-2 text-xs text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-blue-500 font-sans">
+        <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold px-3 py-2 rounded-xl transition shadow-xs">
+          Ask
+        </button>
+      </form>
+    </div>
+
+    <!-- Floating Launcher Button -->
+    <button onclick="toggleFloatingChat()" id="floatingLauncherBtn" aria-label="Open Centrix AI Chat" class="group flex items-center space-x-2.5 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-950 px-4 py-3 rounded-full shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 border border-stone-800 dark:border-stone-300 cursor-pointer">
+      <div class="relative flex items-center justify-center">
+        <img src="./images/centrix-logo.png" alt="Centrix Logo" class="w-6 h-6 rounded-full border border-stone-700 dark:border-stone-300">
+        <span class="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+        </span>
+      </div>
+      <span class="font-mono font-semibold text-xs tracking-tight">Ask Centrix AI</span>
+    </button>
+  </div>
+
   <!-- Interactive JavaScript Logic -->
   <script>
     // Theme Switcher (Smooth iOS Pill Slider)
@@ -352,46 +426,219 @@
       });
     }
 
-    // Comprehensive Dynamic AI Knowledge Base (English + Hinglish Intents)
-    const knowledgeBase = [
+    // ==========================================
+    // DEEP CODEBASE INTELLIGENCE KNOWLEDGE ENGINE
+    // Indexed directly from Centrix Rust/.NET Core Codebase:
+    // (ARCHITECTURE.md, MATCHING_ENGINE_SPEC.md, DATABASE_SCHEMA.md,
+    //  SECURITY_MODEL.md, STATE_MACHINES.md, COST_CONTROL.md)
+    // ==========================================
+    const codebaseKnowledge = [
       {
-        triggers: ['kya kya', 'feature', 'features', 'modules', 'capabilities', 'include', 'kya hai', 'overview', 'summary', 'details'],
-        answer: "Centrix consists of <strong>5 core automated modules</strong>:<br />• <strong>Real-Time File Watcher:</strong> Instant OBS recording detection the second a class ends.<br />• <strong>Smart Matching Engine:</strong> Matches Room, Time Window & Faculty against master timetables (&ge; 85% confidence auto-passes).<br />• <strong>Resilient Cloud Sync:</strong> Chunked 10MB resumable uploads to Google Drive batch directories + YouTube pipeline.<br />• <strong>Central Review Queue:</strong> Flagging ambiguous sessions for quick 1-click administrative review.<br />• <strong>Offline SQLite Queue:</strong> 100% data safety even during complete center network blackouts."
+        id: 'architecture',
+        title: 'Edge-First System Architecture & Flow',
+        keywords: ['architecture', 'design', 'high level', 'how it work', 'how does it work', 'kaise kaam', 'system flow', 'data flow', 'infrastructure', 'edge', 'serverless', 'overview', 'summary', 'kya kya', 'kya hai', 'feature', 'features', 'modules', 'capabilities', 'isme kya'],
+        answer: "<strong>Edge-First + Serverless Architecture:</strong><br />• <strong>Local Processing:</strong> All heavy lifting (OBS file stability monitoring, timetable correlation, SQLite buffering) executes locally on center workstations.<br />• <strong>Resilient Storage:</strong> Files stream directly from center PCs to Google Drive v3 / YouTube with byte-level resumability ($0 cloud compute/transcoding cost).<br />• <strong>Metadata Coordination:</strong> Lightweight Firestore handles centralized review state sync and reviewer alerts without handling bulky video payloads.<br />• <strong>Review Layer:</strong> Distributed reviewers can confirm ambiguous sessions from any phone or laptop via responsive PWA."
       },
       {
-        triggers: ['kaise kaam', 'how it work', 'flow', 'process', 'workflow', 'steps'],
-        answer: "<strong>How Centrix Operates in 4 Steps:</strong><br />1. <strong>Capture:</strong> Teacher finishes class and stops OBS recording. Centrix catches the raw MP4 in milliseconds.<br />2. <strong>Match:</strong> The engine correlates Room ID with the Center Timetable (Batch, Subject, Faculty).<br />3. <strong>Standardize:</strong> Automatically renames the file to standard naming (e.g. <code>PW_Batch_Subject_Date.mp4</code>).<br />4. <strong>Delivery:</strong> Uploads directly to the correct Google Drive folder using byte-level resumable uploads."
+        id: 'watcher',
+        title: 'File Watcher & OBS Ingestion Engine',
+        keywords: ['watcher', 'obs', 'file watcher', 'detect', 'capture', 'stability', 'debounce', 'mkv', 'mp4', 'mov', 'avi', 'pdf', 'lock', 'incomplete', 'file handling', 'recording'],
+        answer: "<strong>File Watcher Subsystem:</strong><br />• Built on Windows <code>FileSystemWatcher</code> API with event throttling and debounce.<br />• Listens for <code>.mkv</code>, <code>.mp4</code>, <code>.mov</code>, <code>.avi</code>, and <code>.pdf</code> in the classroom output directory.<br />• Enforces a mandatory <strong>10-second stability lock</strong> (verifying file size is immutable and Windows OS file-handles are released) before ingestion to prevent reading mid-recording files.<br />• Extracts recording start/end timestamps, duration, and media container metadata automatically."
       },
       {
-        triggers: ['internet', 'offline', 'outage', 'network', 'wifi', 'disconnect', 'net band'],
-        answer: "Centrix is built with an <strong>offline-first architecture</strong> powered by SQLite. If center internet drops for minutes, hours, or days, all lecture files and metadata remain safe locally. The moment internet is restored, chunked uploads automatically resume from the exact interrupted byte — zero files lost, zero bandwidth wasted."
+        id: 'matching',
+        title: 'Deterministic Smart Matching Engine',
+        keywords: ['matching', 'algorithm', 'score', 'scoring', 'confidence', 'timetable', 'heuristic', 'weights', 'formula', 'accuracy', 'assign', 'ai', 'math', 'rule'],
+        answer: "<strong>Deterministic Smart Matching Engine:</strong><br />Instead of probabilistic LLMs, Centrix uses a 7-signal deterministic scoring model:<br />1. <strong>Time Overlap (35% weight):</strong> Percentage intersection with scheduled class window.<br />2. <strong>Room Match (15% weight):</strong> Hardware Room ID mapping.<br />3. <strong>Duration Consistency (15% weight):</strong> Ratio of expected vs actual lecture duration.<br />4. <strong>Teacher Match (15% weight):</strong> Teacher timetable roster correlation.<br />5. <strong>Batch / Subject (10% weight):</strong> Course curriculum slot alignment.<br />6. <strong>Historical Patterns (10% weight):</strong> Teacher drift and schedule shifts.<br />• <strong>Thresholds:</strong> &ge;85% &rarr; <code>AUTO_ASSIGNED</code> | 60–84% &rarr; <code>REVIEW_REQUIRED</code> | &lt;60% &rarr; Low-confidence alert."
       },
       {
-        triggers: ['slow', 'pc', 'performance', 'cpu', 'ram', 'lag', 'system load', 'heavy'],
-        answer: "Centrix runs as a silent background Windows Service consuming <strong>&lt; 1% CPU and under 60 MB RAM</strong>. It does not perform CPU-heavy video transcoding; it only performs lightweight file system listening and network transmission. Classroom presentation screens and OBS recordings experience zero lag."
+        id: 'queue',
+        title: 'Durable Upload Queue & Chunking Pipeline',
+        keywords: ['queue', 'upload', 'resume', 'resumable', 'chunk', 'chunks', 'bytes', 'drive', 'youtube', 'retry', 'backoff', 'survive', 'crash', 'reboot', 'restart'],
+        answer: "<strong>Durable Upload Queue Pipeline:</strong><br />• Backed by local <strong>SQLite</strong> for complete transactional durability.<br />• Streams video payloads directly to Google Drive v3 API and YouTube API using <strong>10 MB byte-range chunks</strong>.<br />• If interrupted mid-upload, Centrix polls Google Drive for the last confirmed byte offset and resumes from that exact point (zero re-uploading).<br />• Features exponential backoff with jitter on network failures and seamlessly survives application crashes and Windows system reboots."
       },
       {
-        triggers: ['late', 'overtime', 'extend', 'der', 'duration', 'extra time', 'time window'],
-        answer: "Centrix uses an <strong>adaptive heuristic overlap engine</strong>. When an instructor lectures 20-30 minutes overtime, the engine measures the percentage overlap with the ongoing slot and automatically associates the file with the correct ongoing lecture instead of misclassifying it into the next batch."
+        id: 'database',
+        title: 'Database Schema & Storage Architecture',
+        keywords: ['database', 'schema', 'sqlite', 'table', 'tables', 'sql', 'models', 'firestore', 'storage', 'data', 'store'],
+        answer: "<strong>Dual Database Architecture:</strong><br />• <strong>Local SQLite (Workstation):</strong><br />  - <code>devices</code>: Hardware config, center/room IDs, recording directories.<br />  - <code>lecture_sessions</code>: Session lifecycle, detected times, matched slots, confidence.<br />  - <code>upload_queue</code>: File paths, byte progress, retry counts, target destinations.<br />  - <code>timetable_cache</code>: Local master timetable mirror for offline matching.<br />  - <code>audit_logs</code>: Immutable local audit trail.<br />• <strong>Cloud Firestore:</strong> Lightweight sync table for multi-center dashboard review status and mobile PWA alerts."
       },
       {
-        triggers: ['security', 'drive', 'credential', 'token', 'safe', 'privacy', 'password', 'api key'],
-        answer: "<strong>Zero credentials or secrets are packaged into the installer</strong>. Google OAuth tokens are acquired during the initial workstation onboarding wizard and encrypted locally on the PC using the Windows Data Protection API (DPAPI). Only authorized local Windows processes can read them."
+        id: 'security',
+        title: 'Security, Cryptography & RBAC Model',
+        keywords: ['security', 'dpapi', 'encryption', 'encrypt', 'keys', 'token', 'credential', 'credentials', 'oauth', 'safe', 'privacy', 'rbac', 'roles', 'permissions', 'password'],
+        answer: "<strong>Enterprise Security & Privacy:</strong><br />• <strong>Zero Baked Secrets:</strong> Zero client secrets or API keys are packaged into the installer or repo.<br />• <strong>Windows DPAPI Vault:</strong> Google OAuth refresh tokens are encrypted at the OS level using the Windows Data Protection API (DPAPI) with machine/user scope.<br />• <strong>4-Tier RBAC:</strong><br />  - <code>SUPER_ADMIN</code>: Organization-wide access & config.<br />  - <code>CENTER_ADMIN</code>: Center-level timetables & review queue.<br />  - <code>REVIEWER</code>: Lecture approval & metadata corrections.<br />  - <code>ROOM_OPERATOR</code>: Local recording status & batch selection."
       },
       {
-        triggers: ['save', 'roi', 'hours', 'cost', 'benefit', 'faayda', 'time save', 'money'],
-        answer: "Centrix delivers significant measurable ROI:<br />• <strong>Time Saved:</strong> Eliminates 2 to 3 operational hours daily per center (saving ~3,000+ staff hours monthly across 50 centers).<br />• <strong>Zero Error Rate:</strong> 100% elimination of wrong-folder uploads.<br />• <strong>Fast Turnaround:</strong> Students receive recordings within 15-30 minutes instead of waiting for next-morning uploads."
+        id: 'statemachine',
+        title: 'Session State Machine & Transitions',
+        keywords: ['state', 'states', 'statemachine', 'lifecycle', 'transitions', 'status', 'pipeline'],
+        answer: "<strong>Lifecycle State Machine:</strong><br /><code>DETECTED</code> &rarr; File stability confirmed.<br /><code>ANALYZING</code> &rarr; Metadata extracted & timetable slots compared.<br /><code>MATCHED</code> &rarr; Weighted confidence score calculated.<br /><code>AUTO_ASSIGNED</code> (if &ge;85%) or <code>REVIEW_REQUIRED</code> (if &lt;85%).<br /><code>QUEUED</code> &rarr; Placed in durable SQLite upload queue.<br /><code>UPLOADING</code> &rarr; Resumable chunked transmission.<br /><code>COMPLETED</code> / <code>FAILED</code> &rarr; Audit trail recorded."
       },
       {
-        triggers: ['install', 'setup', 'kaise install', 'kaise chalaye', 'download', 'deploy', 'requirements'],
-        answer: "<strong>3-Step Deployment:</strong><br />1. Download <code>Centrix-Setup.exe</code> (v1.0.4) using the top download button.<br />2. Run the installer on classroom Windows 10/11 PCs.<br />3. Select your center from the dropdown (e.g. Pune - PCMC Vidyapeeth) and link the OBS recordings folder. Centrix starts automatically on boot."
+        id: 'performance',
+        title: 'Hardware Footprint & PC Impact',
+        keywords: ['performance', 'cpu', 'ram', 'memory', 'slow', 'pc', 'lag', 'system load', 'heavy', 'hang', 'specs'],
+        answer: "<strong>Hardware Footprint on Classroom PCs:</strong><br />• Consumes <strong>&lt; 1% CPU and under 60 MB RAM</strong>.<br />• Operates as a silent background Windows Service daemon.<br />• Performs <strong>zero local video re-encoding or transcoding</strong>; it only performs file system monitoring and byte streaming.<br />• Completely unnoticeable by teachers and has zero impact on OBS Studio recordings, smartboards, or PowerPoint presentations."
       },
       {
-        triggers: ['pilot', 'request', 'demo', 'contact', 'onboarding', 'shuru'],
-        answer: "You can request a pilot rollout for your center directly! Click the green <strong>'Request Pilot for Your Center'</strong> button at the bottom of this page, or send an email to Project Lead Aniket Mishra at <a href='mailto:aniket.mishra2@pw.live' class='text-blue-600 underline font-semibold'>aniket.mishra2@pw.live</a>."
+        id: 'offline',
+        title: 'Offline Resilience & Network Blackouts',
+        keywords: ['offline', 'internet', 'network', 'outage', 'disconnect', 'wifi', 'down', 'band', 'blackout', 'net nahi', 'no internet'],
+        answer: "<strong>100% Offline-First Guarantee:</strong><br />• Centrix operates normally without active internet.<br />• Master timetables are cached locally in SQLite; recordings continue to be detected, matched, and cataloged offline.<br />• The upload queue buffers files safely on local disk for hours or days.<br />• As soon as the network reconnects, uploads resume automatically from the exact interrupted byte."
+      },
+      {
+        id: 'overtime',
+        title: 'Adaptive Overtime & Late-Running Classes',
+        keywords: ['overtime', 'late', 'extend', 'extra time', 'duration', 'der', 'class late', 'shift'],
+        answer: "<strong>Adaptive Overtime Correlation:</strong><br />• If a teacher lectures 20 to 30 minutes overtime, naive timestamp matching would misclassify the file into the subsequent batch.<br />• Centrix evaluates <strong>percentage duration overlap</strong> with the scheduled slot rather than raw end time, preserving the correct batch assignment."
+      },
+      {
+        id: 'missing',
+        title: 'Missing Lecture Detection & Timetable Audit',
+        keywords: ['missing', 'unrecorded', 'missed', 'gap', 'audit', 'camera band', 'not recorded', 'absent'],
+        answer: "<strong>Automated Reconciliation & Missing Lecture Alerts:</strong><br />• Centrix continuously audits the scheduled timetable against completed recordings.<br />• If a scheduled lecture has concluded without any corresponding recording being generated, Centrix flags a <strong>Missing Lecture Alert</strong> to center operators to investigate camera/OBS disruptions."
+      },
+      {
+        id: 'cost',
+        title: 'Cost Control & Cloud Infrastructure Economics',
+        keywords: ['cost', 'cloud', 'roi', 'pricing', 'expensive', 'server', 'compute', 'egress', 'bandwidth', 'faayda', 'save', 'saving', 'money'],
+        answer: "<strong>Zero Cloud Compute Costs ($0 Server Billing):</strong><br />• Traditional systems ingest video into cloud servers to re-encode and route, resulting in high GPU/CPU cloud bills.<br />• Centrix executes file matching and metadata extraction entirely on edge workstations and streams directly to Google Drive.<br />• Cloud hosting cost for central metadata is virtually zero (under free Firestore tiers). Eliminates 2-3 hours daily staff labor per center."
+      },
+      {
+        id: 'stack',
+        title: 'Technology Stack & Repository Layout',
+        keywords: ['stack', 'tech', 'technology', 'language', 'c#', 'csharp', 'dotnet', '.net', 'rust', 'repository', 'modules', 'codebase', 'folder', 'structure', 'files'],
+        answer: "<strong>Centrix Technology Stack & Modules:</strong><br />• <strong>Core Agent:</strong> .NET 8 (C#) Windows Service daemon (<code>LectureAgent.Application</code>, <code>LectureAgent.Domain</code>, <code>LectureAgent.Infrastructure</code>, <code>LectureAgent.Desktop</code>).<br />• <strong>Performance Daemons:</strong> Rust IPC hooks & system integration.<br />• <strong>Storage Engine:</strong> SQLite 3 via EF Core & Dapper.<br />• <strong>Cloud Integrations:</strong> Google Drive API v3, YouTube Data API v3, Google Sheets & Firestore.<br />• <strong>Reviewer UI:</strong> React + Vite responsive PWA with Tailwind CSS."
+      },
+      {
+        id: 'install',
+        title: 'Installation & Center Rollout',
+        keywords: ['install', 'setup', 'kaise install', 'download', 'deploy', 'rollout', 'requirements', 'onboarding', 'pilot'],
+        answer: "<strong>Enterprise 3-Step Setup:</strong><br />1. Download <code>Centrix-Setup.exe</code> (v1.0.4) directly from this page.<br />2. Run the installer on classroom Windows 10/11 PCs.<br />3. Select your center (e.g. Pune - PCMC Vidyapeeth), assign Room ID, and point to the OBS output directory. Centrix runs silently on boot. For custom center rollouts, contact Aniket Mishra at <a href='mailto:aniket.mishra2@pw.live' class='text-blue-600 underline font-semibold'>aniket.mishra2@pw.live</a>."
       }
     ];
 
+    // Scored Codebase Query Engine
+    function searchCodebaseKnowledge(query) {
+      const qClean = query.toLowerCase().replace(/[^a-z0-9\s#\.\+]/g, ' ');
+      const tokens = qClean.split(/\s+/).filter(t => t.length > 1);
+
+      if (tokens.length === 0) {
+        return getCodebaseSummary();
+      }
+
+      let bestMatch = null;
+      let highestScore = 0;
+
+      codebaseKnowledge.forEach(item => {
+        let score = 0;
+        item.keywords.forEach(kw => {
+          if (qClean.includes(kw.toLowerCase())) {
+            score += kw.includes(' ') ? 40 : 20;
+          } else {
+            tokens.forEach(tok => {
+              if (kw.toLowerCase().includes(tok)) {
+                score += 8;
+              }
+            });
+          }
+        });
+
+        if (score > highestScore) {
+          highestScore = score;
+          bestMatch = item;
+        }
+      });
+
+      if (highestScore >= 16 && bestMatch) {
+        return `<div class="mb-1.5 inline-block font-mono text-[11px] font-semibold px-2 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400">⚡ Codebase Insight // ${bestMatch.title}</div><br />${bestMatch.answer}`;
+      }
+
+      return getCodebaseSummary();
+    }
+
+    function getCodebaseSummary() {
+      return "<strong>Centrix Codebase Intelligence:</strong><br />" +
+        "Centrix is an edge-first lecture automation system built in .NET 8 (C#) and Rust. Key subsystems include:<br />" +
+        "• <strong>File Watcher:</strong> 10-second stability debounce on OBS output folders.<br />" +
+        "• <strong>Smart Matcher:</strong> 7-signal deterministic timetable scoring (85% auto-assign threshold).<br />" +
+        "• <strong>Upload Queue:</strong> SQLite durable queue with 10MB chunked Google Drive/YouTube resumption.<br />" +
+        "• <strong>Security:</strong> Windows DPAPI encrypted OAuth tokens (zero hardcoded secrets).<br />" +
+        "• <strong>Resource Footprint:</strong> &lt;1% CPU and &lt;60MB RAM.<br /><br />" +
+        "💡 <em>Tip: Ask specifically about the matching algorithm, database schema, DPAPI security, or offline queue!</em>";
+    }
+
+    // Floating Chat Window Controls
+    function toggleFloatingChat() {
+      const win = document.getElementById('floatingChatWindow');
+      if (win.classList.contains('hidden')) {
+        win.classList.remove('hidden');
+        win.classList.add('flex');
+        setTimeout(() => document.getElementById('floatInput').focus(), 100);
+      } else {
+        win.classList.add('hidden');
+        win.classList.remove('flex');
+      }
+    }
+
+    function askFloat(q) {
+      document.getElementById('floatInput').value = q;
+      handleFloatSubmit(new Event('submit'));
+    }
+
+    function handleFloatSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('floatInput');
+      const q = input.value.trim();
+      if (!q) return;
+
+      const history = document.getElementById('floatHistory');
+
+      // Add user message
+      const userDiv = document.createElement('div');
+      userDiv.className = 'flex items-start justify-end space-x-2';
+      userDiv.innerHTML = `<div class="bg-blue-600 text-white rounded-2xl rounded-tr-sm px-3.5 py-2 text-xs max-w-[85%] shadow-xs">${escapeHtml(q)}</div>`;
+      history.appendChild(userDiv);
+      input.value = '';
+
+      // Add typing indicator
+      const typingDiv = document.createElement('div');
+      typingDiv.id = 'floatTypingIndicator';
+      typingDiv.className = 'flex items-start space-x-2';
+      typingDiv.innerHTML = `
+        <img src="./images/centrix-logo.png" alt="Centrix Bot" class="w-6 h-6 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0 mt-0.5">
+        <div class="bg-stone-100 dark:bg-stone-800/80 rounded-2xl rounded-tl-sm px-3 py-2 text-stone-500 flex items-center space-x-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-stone-400 dot-1 inline-block"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-stone-400 dot-2 inline-block"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-stone-400 dot-3 inline-block"></span>
+        </div>
+      `;
+      history.appendChild(typingDiv);
+      history.scrollTop = history.scrollHeight;
+
+      // Generate response from codebase intelligence
+      setTimeout(() => {
+        const ind = document.getElementById('floatTypingIndicator');
+        if (ind) ind.remove();
+
+        const reply = searchCodebaseKnowledge(q);
+        const botDiv = document.createElement('div');
+        botDiv.className = 'flex items-start space-x-2.5';
+        botDiv.innerHTML = `
+          <img src="./images/centrix-logo.png" alt="Centrix Bot" class="w-6 h-6 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0 mt-0.5">
+          <div class="bg-stone-100 dark:bg-stone-800/80 rounded-2xl rounded-tl-sm p-3 text-stone-800 dark:text-stone-200 text-xs max-w-[88%] leading-relaxed shadow-xs">
+            ${reply}
+          </div>
+        `;
+        history.appendChild(botDiv);
+        history.scrollTop = history.scrollHeight;
+      }, 300);
+
+      history.scrollTop = history.scrollHeight;
+    }
+
+    // On-Page Inline Chat Controls
     function askQuestion(q) {
       document.getElementById('userInput').value = q;
       handleChatSubmit(new Event('submit'));
@@ -412,11 +659,6 @@
       history.appendChild(userDiv);
       input.value = '';
 
-      // Determine response from knowledge base
-      const qLower = q.toLowerCase();
-      let matched = knowledgeBase.find(item => item.triggers.some(trig => qLower.includes(trig)));
-      let reply = matched ? matched.answer : "Centrix is an automated background service for PhysicsWallah Vidyapeeth centers that detects OBS recordings, matches schedules, and auto-uploads to Google Drive and YouTube with zero manual overhead. Try asking about <em>features</em>, <em>offline queue</em>, <em>PC performance</em>, or <em>pilot request</em>.";
-
       // Add typing indicator
       const typingDiv = document.createElement('div');
       typingDiv.id = 'typingIndicator';
@@ -432,11 +674,12 @@
       history.appendChild(typingDiv);
       history.scrollTop = history.scrollHeight;
 
-      // Replace typing indicator with real answer after 350ms
+      // Determine response from codebase intelligence
       setTimeout(() => {
         const ind = document.getElementById('typingIndicator');
         if (ind) ind.remove();
 
+        const reply = searchCodebaseKnowledge(q);
         const botDiv = document.createElement('div');
         botDiv.className = 'flex items-start space-x-3';
         botDiv.innerHTML = `
@@ -447,7 +690,7 @@
         `;
         history.appendChild(botDiv);
         history.scrollTop = history.scrollHeight;
-      }, 350);
+      }, 300);
 
       history.scrollTop = history.scrollHeight;
     }
