@@ -311,12 +311,12 @@
   <section id="qa" class="max-w-6xl mx-auto px-6 py-16 border-t border-stone-300 dark:border-stone-800">
     <div class="max-w-3xl mx-auto">
       <div class="text-center mb-8">
-        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 font-mono text-xs font-semibold mb-2">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-mono text-xs font-semibold mb-2">
           <span>🤖 Centrix AI Assistant</span>
           <span>•</span>
-          <button onclick="openGeminiModal()" title="Click to configure Gemini 1.5 Flash" class="underline hover:text-purple-500 cursor-pointer flex items-center space-x-1.5">
-            <span id="geminiBadgeTextQA">⚡ Gemini Flash Ready</span>
-            <span id="geminiActiveDotQA" class="w-1.5 h-1.5 rounded-full bg-emerald-500 hidden animate-pulse"></span>
+          <button onclick="openGeminiModal()" title="Centrix AI Status" class="hover:text-blue-500 cursor-pointer flex items-center space-x-1.5">
+            <span id="geminiBadgeTextQA">⚡ Centrix AI Active</span>
+            <span id="geminiActiveDotQA" class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
           </button>
         </div>
         <h2 class="text-3xl sm:text-4xl font-serif text-stone-900 dark:text-stone-50">Ask Anything About Centrix</h2>
@@ -441,8 +441,8 @@
     </p>
   </footer>
 
-  <!-- Floating Backdrop on Mobile -->
-  <div id="floatingChatBackdrop" onclick="toggleFloatingChat()" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-40 sm:hidden transition-opacity"></div>
+  <!-- Floating Backdrop (Desktop & Mobile - clicking closes chat) -->
+  <div id="floatingChatBackdrop" onclick="toggleFloatingChat()" class="hidden fixed inset-0 bg-black/40 sm:bg-black/5 backdrop-blur-xs z-40 transition-opacity"></div>
 
   <!-- Floating Bottom-Right AI Assistant Widget -->
   <div id="floatingChatContainer" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end">
@@ -465,9 +465,9 @@
           <div>
             <div class="font-mono font-bold text-xs text-stone-900 dark:text-stone-100 flex items-center space-x-1.5">
               <span>Centrix AI</span>
-              <button onclick="openGeminiModal()" title="Configure Gemini 1.5 Flash Key" class="inline-flex items-center space-x-1 text-[10px] px-1.5 py-0.2 rounded bg-purple-500/10 text-purple-600 dark:text-purple-400 hover:bg-purple-500/20 font-mono transition cursor-pointer">
-                <span id="geminiBadgeTextFloat">⚡ Gemini Flash</span>
-                <span id="geminiActiveDotFloat" class="w-1.5 h-1.5 rounded-full bg-emerald-500 hidden animate-pulse"></span>
+              <button onclick="openGeminiModal()" title="Centrix AI Engine Status" class="inline-flex items-center space-x-1 text-[10px] px-1.5 py-0.2 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 hover:bg-blue-500/20 font-mono transition cursor-pointer">
+                <span id="geminiBadgeTextFloat">Live</span>
+                <span id="geminiActiveDotFloat" class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
               </button>
             </div>
             <div class="text-[10px] font-mono text-stone-500 dark:text-stone-400">Architecture &amp; Operational Intelligence</div>
@@ -532,20 +532,20 @@
     </button>
   </div>
 
-  <!-- Gemini Flash API Key Modal -->
+  <!-- Centrix AI Engine Modal -->
   <div id="geminiModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs transition-all">
     <div class="relative w-full max-w-md bg-white dark:bg-[#14151a] border border-stone-300 dark:border-stone-800 rounded-3xl p-6 sm:p-7 shadow-2xl space-y-5">
       <div class="flex items-start justify-between">
         <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-2xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl font-bold">
+          <div class="w-10 h-10 rounded-2xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl font-bold">
             ⚡
           </div>
           <div>
             <h3 class="font-bold text-base text-stone-900 dark:text-stone-100 flex items-center space-x-2">
-              <span>Connect Gemini Flash</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold" id="geminiStatusPill">Offline Engine Active</span>
+              <span>Centrix AI Engine</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold" id="geminiStatusPill">Live Engine Active</span>
             </h3>
-            <p class="text-xs text-stone-500 dark:text-stone-400 mt-0.5">Live AI reasoning over Centrix architecture</p>
+            <p class="text-xs text-stone-500 dark:text-stone-400 mt-0.5">Autonomous reasoning over Centrix architecture</p>
           </div>
         </div>
         <button onclick="closeGeminiModal()" class="p-1.5 rounded-lg text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 transition cursor-pointer" title="Close Modal">
@@ -555,21 +555,20 @@
 
       <div class="text-xs text-stone-600 dark:text-stone-300 leading-relaxed bg-stone-100/70 dark:bg-stone-900/70 p-3.5 rounded-2xl border border-stone-200 dark:border-stone-800/80 space-y-1.5">
         <p>
-          Centrix has a complete internal knowledge base of its architecture, 7-signal timetable matching, SQLite WAL schema, DPAPI encryption, and state machines.
+          Centrix AI has a complete internal knowledge base of its architecture, 7-signal timetable matching, SQLite WAL schema, DPAPI encryption, and state machines.
         </p>
         <p class="text-[11px] text-stone-500 dark:text-stone-400">
-          💡 By default, our <strong>built-in 0ms client NLU engine</strong> answers all queries instantly. To enable free-form conversational reasoning with Google's <strong>Gemini 1.5 Flash</strong>, paste your free Google AI Studio key below.
+          💡 Our <strong>Centrix AI live engine</strong> is active and grounded in the core specifications. You can optionally connect a custom API key below if needed.
         </p>
       </div>
 
       <div class="space-y-2">
         <label class="block font-mono text-xs font-medium text-stone-700 dark:text-stone-300">
-          Google AI Studio API Key:
+          Custom Centrix AI Key (Optional):
         </label>
-        <input type="password" id="geminiApiKeyInput" placeholder="AIzaSy..." class="w-full bg-stone-50 dark:bg-stone-900 border border-stone-300 dark:border-stone-700 rounded-xl px-3.5 py-2.5 font-mono text-xs text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-purple-500">
+        <input type="password" id="geminiApiKeyInput" placeholder="sk-... or AIzaSy..." class="w-full bg-stone-50 dark:bg-stone-900 border border-stone-300 dark:border-stone-700 rounded-xl px-3.5 py-2.5 font-mono text-xs text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
         <div class="flex items-center justify-between text-[11px] text-stone-500 dark:text-stone-400 font-mono">
-          <span>🔒 Stored in your browser only</span>
-          <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" class="text-purple-600 dark:text-purple-400 hover:underline">Get Free Key ↗</a>
+          <span>🔒 Stored securely in your browser only</span>
         </div>
       </div>
 
@@ -580,7 +579,7 @@
         <button onclick="closeGeminiModal()" class="px-4 py-2 rounded-xl text-xs font-mono text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 transition cursor-pointer">
           Cancel
         </button>
-        <button onclick="saveGeminiKey()" class="px-5 py-2 rounded-xl text-xs font-mono font-semibold bg-purple-600 hover:bg-purple-500 text-white shadow-sm transition cursor-pointer">
+        <button onclick="saveGeminiKey()" class="px-5 py-2 rounded-xl text-xs font-mono font-semibold bg-blue-600 hover:bg-blue-500 text-white shadow-sm transition cursor-pointer">
           Save &amp; Activate
         </button>
       </div>
@@ -924,6 +923,18 @@
         ]
       },
       {
+        id: 'contact_email',
+        matches: ['email', 'email id', 'mail', 'contact', 'sampark', 'aniket email', 'reach out', 'phone', 'touch', 'gmail'],
+        en: [
+          "<strong>Official Contact & Email ID:</strong><br />For Centrix deployments, pilot requests, and inquiries, you can directly reach Creator & Architect <strong>Aniket Mishra</strong> (Pune BM Lead, PhysicsWallah) at <a href='mailto:aniket.mishra2@pw.live' class='text-blue-600 underline font-semibold'>aniket.mishra2@pw.live</a>.",
+          "<strong>Contact Aniket Mishra:</strong><br />You can reach <strong>Aniket Mishra</strong> (Pune BM Lead at PhysicsWallah) via his official email: <a href='mailto:aniket.mishra2@pw.live' class='text-blue-600 underline font-semibold'>aniket.mishra2@pw.live</a>."
+        ],
+        hi: [
+          "<strong>ऑफिशियल संपर्क एवं ईमेल आईडी:</strong><br />Centrix के आर्किटेक्ट व <strong>Pune BM Lead अनिकेत मिश्रा</strong> से संपर्क करने के लिए उनका आधिकारिक ईमेल है:<br />📧 <a href='mailto:aniket.mishra2@pw.live' class='text-blue-600 underline font-semibold'>aniket.mishra2@pw.live</a><br />पायलट रोलआउट और किसी भी तकनीकी पूछताछ के लिए आप उन्हें सीधे ईमेल कर सकते हैं।",
+          "<strong>अनिकेत मिश्रा से संपर्क:</strong><br />Centrix के निर्माता <strong>Aniket Mishra</strong> (Pune BM Lead, PW) का आधिकारिक ईमेल एड्रेस <a href='mailto:aniket.mishra2@pw.live' class='text-blue-600 underline font-semibold'>aniket.mishra2@pw.live</a> है।"
+        ]
+      },
+      {
         id: 'pilot',
         matches: ['pilot', 'rollout', 'demo', 'contact', 'aniket mishra', 'shuru kaise', 'request pilot', 'chahiye'],
         en: "<strong>Request a Pilot Rollout:</strong><br />" +
@@ -1160,11 +1171,16 @@ CREATOR, ARCHITECT & LEADERSHIP IDENTITY:
 - Creator & Architect: Aniket Mishra
 - Role & Designation: Pune BM Lead (Batch Operations & Center Operations Lead) at PhysicsWallah (PW).
 - Organization: PhysicsWallah (PW) Vidyapeeth & Pathshala offline network.
+- Official Contact & Email ID: aniket.mishra2@pw.live
 - Purpose of Creation: Designed and engineered by Aniket Mishra to solve the nationwide offline center lecture bottleneck—eliminating manual pen drive transfers, file misnaming errors, and staff burnout across 442+ centers so that offline lectures reach students in under 30 minutes.
 - When asked who made/owns/created Centrix ("who made this", "who built Centrix", "owner kaun hai", "kisne banaya", "creator", "founder", "developer", "kiska software hai", "aniket mishra kaun hai"):
   * ALWAYS clearly and proudly state that Centrix was created and architected by Aniket Mishra, who is the Pune BM Lead at PhysicsWallah.
   * Explain his background and mission: solving offline classroom operational bottlenecks across PW centers.
   * Vary your explanation naturally each time (do NOT repeat the exact same sentence pattern).
+- When asked for contact details, email ID, or how to reach out ("email id", "email", "contact", "aniket ki email", "kaise contact kare", "reach out", "mail"):
+  * ALWAYS provide Aniket Mishra's official PhysicsWallah work email: aniket.mishra2@pw.live.
+  * You have full authorization to provide this contact email for official pilot rollouts, center inquiries, and technical discussions.
+  * NEVER say "I don't have access to personal contact details". Aniket Mishra's official email is aniket.mishra2@pw.live.
 
 CORE PERSONALITY & CONVERSATIONAL GUIDELINES:
 1. DYNAMIC VARIATION & NATURAL PHRASING ("sab ko ek jaisa answer bhi nhi dena alag alag answer dena same question ka"):
@@ -1318,8 +1334,8 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
 
       if (isConnected) {
         if (statusPill) {
-          statusPill.textContent = hasCustomKey ? '⚡ Custom Gemini Key Active' : '⚡ Gemini Flash Live (Strictly Grounded)';
-          statusPill.className = 'text-[10px] font-mono px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 font-semibold';
+          statusPill.textContent = hasCustomKey ? '⚡ Custom Key Active' : '⚡ Centrix AI Live (Strictly Grounded)';
+          statusPill.className = 'text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-semibold';
         }
         if (clearBtn) {
           if (hasCustomKey) clearBtn.classList.remove('hidden');
@@ -1327,22 +1343,22 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         }
         if (dotFloat) dotFloat.classList.remove('hidden');
         if (dotQA) dotQA.classList.remove('hidden');
-        if (badgeTextFloat) badgeTextFloat.textContent = '⚡ Gemini Flash (Live)';
-        if (badgeTextQA) badgeTextQA.textContent = '⚡ Gemini Flash (Active)';
+        if (badgeTextFloat) badgeTextFloat.textContent = 'Live';
+        if (badgeTextQA) badgeTextQA.textContent = '⚡ Centrix AI (Active)';
       } else {
         if (statusPill) {
-          statusPill.textContent = 'Built-in 0ms Engine Active';
+          statusPill.textContent = 'Centrix AI Built-in Active';
           statusPill.className = 'text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold';
         }
         if (clearBtn) clearBtn.classList.add('hidden');
         if (dotFloat) dotFloat.classList.add('hidden');
         if (dotQA) dotQA.classList.add('hidden');
-        if (badgeTextFloat) badgeTextFloat.textContent = '⚡ Gemini Flash';
-        if (badgeTextQA) badgeTextQA.textContent = '⚡ Gemini Flash Ready';
+        if (badgeTextFloat) badgeTextFloat.textContent = 'Live';
+        if (badgeTextQA) badgeTextQA.textContent = '⚡ Centrix AI Ready';
       }
     }
 
-    function formatMarkdown(text, modelLabel = 'Gemini Flash') {
+    function formatMarkdown(text, modelLabel = 'Centrix AI') {
       let html = escapeHtml(text);
       // bold **text**
       html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
@@ -1356,7 +1372,7 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       html = html.replace(/^\s*(\d+)\.\s+(.*)$/gm, '$1. $2<br />');
       // paragraph breaks
       html = html.replace(/\n\n+/g, '<br /><br />').replace(/\n/g, '<br />');
-      return html + `<span class='inline-block mt-2.5 text-[10px] text-purple-600 dark:text-purple-400 font-mono'>⚡ Live ${modelLabel} • Grounded in Centrix Specs</span>`;
+      return html + `<span class='inline-block mt-2.5 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>⚡ ${modelLabel} • Grounded in Centrix Specs</span>`;
     }
 
     // Maintained chat context across conversations
@@ -1369,11 +1385,11 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
 
       let langDirective = '';
       if (detectedLang === 'English') {
-        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in ENGLISH: "${query}". You MUST respond 100% in pure ENGLISH! Do NOT output any Devanagari Hindi or Hindi translations. Answer exclusively in clear English. Also vary your phrasing naturally and do not give repetitive canned answers.]`;
+        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in ENGLISH: "${query}". You MUST respond 100% in pure ENGLISH! Do NOT output any Devanagari Hindi or Hindi translations. Answer exclusively in clear English. Also vary your phrasing naturally and do not give repetitive canned answers. If asked about contact details/email, provide Aniket Mishra's official email: aniket.mishra2@pw.live.]`;
       } else if (detectedLang === 'Hindi') {
-        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in Hindi. Respond in natural Devanagari Hindi. Also vary your phrasing naturally and do not give repetitive canned answers.]`;
+        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in Hindi. Respond in natural Devanagari Hindi. Also vary your phrasing naturally and do not give repetitive canned answers. If asked about contact details/email, provide Aniket Mishra's official email: aniket.mishra2@pw.live.]`;
       } else {
-        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in Hinglish (Roman Hindi). Respond in friendly, conversational Hinglish. Also vary your phrasing naturally and do not give repetitive canned answers.]`;
+        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in Hinglish (Roman Hindi). Respond in friendly, conversational Hinglish. Also vary your phrasing naturally and do not give repetitive canned answers. If asked about contact details/email, provide Aniket Mishra's official email: aniket.mishra2@pw.live.]`;
       }
 
       const promptWithLang = CENTRIX_SYSTEM_PROMPT + '\n' + langDirective;
@@ -1411,8 +1427,8 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
 
         const data = await response.json();
         const text = data.choices?.[0]?.message?.content;
-        if (!text) throw new Error('Empty response from Gemini.');
-        return formatMarkdown(text, 'Gemini 2.5 Flash');
+        if (!text) throw new Error('Empty response from Centrix AI.');
+        return formatMarkdown(text, 'Centrix AI');
       }
 
       // Route 2: Google AI Studio Key (AIza...)
@@ -1446,7 +1462,8 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
 
       const data = await response.json();
       const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (!text) throw new Error('No response text returned from Gemini Flash.');
+      if (!text) throw new Error('No response text returned from Centrix AI.');
+      return formatMarkdown(text, 'Centrix AI');
     }
 
     async function askAI(query, history = []) {
@@ -1523,6 +1540,36 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         if (backdrop) backdrop.classList.add('hidden');
       }
     }
+
+    // Close floating chat when clicking outside anywhere on document
+    document.addEventListener('pointerdown', function(e) {
+      const win = document.getElementById('floatingChatWindow');
+      const launcher = document.getElementById('floatingLauncherBtn');
+      const geminiModal = document.getElementById('geminiModal');
+      const previewModal = document.getElementById('previewModal');
+
+      if (win && !win.classList.contains('hidden')) {
+        // If clicking inside the chat window, do nothing
+        if (win.contains(e.target)) return;
+        // If clicking on launcher button, let toggleFloatingChat handle it
+        if (launcher && (launcher === e.target || launcher.contains(e.target))) return;
+        // If clicking inside active modals, do nothing
+        if (geminiModal && !geminiModal.classList.contains('hidden') && geminiModal.contains(e.target)) return;
+        if (previewModal && !previewModal.classList.contains('hidden') && previewModal.contains(e.target)) return;
+        
+        toggleFloatingChat();
+      }
+    });
+
+    // Close floating chat on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const win = document.getElementById('floatingChatWindow');
+        if (win && !win.classList.contains('hidden')) {
+          toggleFloatingChat();
+        }
+      }
+    });
 
     function askFloat(q) {
       const win = document.getElementById('floatingChatWindow');
