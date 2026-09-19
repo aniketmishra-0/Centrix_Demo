@@ -764,7 +764,7 @@
     const conversationalIntents = [
       {
         id: 'greetings',
-        matches: ['hello', 'hi', 'hey', 'hay', 'namaste', 'kaise ho', 'kya haal', 'pranam', 'sup', 'good morning', 'good afternoon', 'good evening', 'yo'],
+        matches: ['hello', 'hi', 'hey', 'hay', 'namaste', 'pranam', 'sup', 'good morning', 'good afternoon', 'good evening', 'yo'],
         en: [
           "Hello! 👋 I am <strong>Centrix AI</strong>, your assistant for PhysicsWallah classroom lecture automation. How can I help you today?",
           "Hey there! 👋 Welcome to Centrix AI. How can I assist with your PW Vidyapeeth lecture workflows today?",
@@ -774,6 +774,20 @@
           "नमस्ते! 👋 मैं <strong>Centrix AI</strong> हूँ, PhysicsWallah क्लासरूम ऑटोमेशन का इंटेलिजेंट असिस्टेंट। आज आपकी क्या मदद कर सकता हूँ?",
           "हेलो! 👋 Centrix AI में आपका स्वागत है। आप मुझसे Centrix के फीचर्स, टाइमटेबल मैचिंग या क्लासरूम ऑटोमेशन के बारे में कुछ भी पूछ सकते हैं!",
           "नमस्कार! 🚀 मैं PhysicsWallah क्लासरूम लेक्चर्स के ऑटोमेशन के लिए Centrix AI हूँ। आज आप क्या जानना चाहते हैं?"
+        ]
+      },
+      {
+        id: 'how_are_you',
+        matches: ['how are you', 'how r u', 'how are u', 'kaise ho', 'kya haal', 'kaise hai', 'kaisa hai', 'kaisa chal raha', 'sab theek', 'sab kaisa hai'],
+        en: [
+          "I am doing great, thank you! 😊 All classroom capture and upload pipelines are running smoothly across centers. How are you doing today?",
+          "Doing wonderful, thanks for asking! 🚀 Everything is operational and ready. How are you, and how can I help you with Centrix today?",
+          "I'm doing well! Always here to make offline classroom recording seamless. How is your day going?"
+        ],
+        hi: [
+          "मैं बिल्कुल ठीक हूँ, पूछने के लिए धन्यवाद! 😊 सभी क्लासरूम रिकॉर्डिंग और सिंक पाइपलाइन बढ़िया चल रही हैं। आप कैसे हैं?",
+          "सब एकदम बढ़िया है! 🚀 सेंटर्स पर ऑटोमेशन स्मूदली काम कर रहा है। आप बताइए, आप कैसे हैं?",
+          "मैं बहुत अच्छा हूँ! 😊 आज Centrix के बारे में क्या जानना चाहते हैं?"
         ]
       },
       {
@@ -1575,7 +1589,37 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       // Immediate Gate 2: PW Identity verification
       if (qLower.includes('pw.live') || qLower.includes('@pw.live')) {
         const isHi = isHindiQuery(qTrim);
+        const emailMatch = qTrim.match(/[a-zA-Z0-9._%+-]+@pw\.live/i);
+        if (emailMatch) {
+          localStorage.setItem('centrix_verified_pw_email', emailMatch[0]);
+          if (typeof sendTelemetryPing === 'function') {
+            sendTelemetryPing(emailMatch[0]);
+          }
+        }
         const item = conversationalIntents.find(i => i.id === 'pw_verified_email');
+        if (item) {
+          const reply = isHi ? item.hi : item.en;
+          return Array.isArray(reply) ? reply[Math.floor(Math.random() * reply.length)] : reply;
+        }
+      }
+
+      // Immediate Gate 3: "How are you" / "Kaise ho" small talk
+      const qClean = qLower.replace(/[^a-z0-9\s#\.\+]/g, ' ');
+      const qWords = qClean.split(/\s+/).filter(Boolean);
+      if (qClean.includes('how are you') || qClean.includes('how r u') || qClean.includes('how are u') || qClean.includes('kaise ho') || qClean.includes('kaise hai') || qClean.includes('kya haal') || qClean.includes('kaisa hai') || qClean.includes('kaisa chal raha')) {
+        const isHi = isHindiQuery(qTrim);
+        const item = conversationalIntents.find(i => i.id === 'how_are_you');
+        if (item) {
+          const reply = isHi ? item.hi : item.en;
+          return Array.isArray(reply) ? reply[Math.floor(Math.random() * reply.length)] : reply;
+        }
+      }
+
+      // Immediate Gate 4: Simple greeting ("Hi", "Hello", "Hey", "Namaste", "Pranam", etc.)
+      const greetingWords = ['hi', 'hello', 'hey', 'hay', 'namaste', 'pranam', 'sup', 'yo', 'halo', 'good morning', 'good afternoon', 'good evening'];
+      if (qWords.length <= 3 && qWords.some(w => greetingWords.includes(w))) {
+        const isHi = isHindiQuery(qTrim);
+        const item = conversationalIntents.find(i => i.id === 'greetings');
         if (item) {
           const reply = isHi ? item.hi : item.en;
           return Array.isArray(reply) ? reply[Math.floor(Math.random() * reply.length)] : reply;
@@ -1592,29 +1636,10 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       }
 
       const isHi = isHindiQuery(qTrim);
-      const qClean = qTrim.toLowerCase().replace(/[^a-z0-9\s#\.\+]/g, ' ');
       const tokens = qClean.split(/\s+/).filter(t => t.length > 1);
 
       // 200ms natural typing simulation delay
       await new Promise(r => setTimeout(r, 200));
-
-      // Priority check 1: PW Identity verification
-      if (qClean.includes('pw live') || qClean.includes('pw.live') || qTrim.toLowerCase().includes('@pw.live') || qTrim.toLowerCase().includes('pw.live')) {
-        const item = conversationalIntents.find(i => i.id === 'pw_verified_email');
-        if (item) {
-          const reply = isHi ? item.hi : item.en;
-          return Array.isArray(reply) ? reply[Math.floor(Math.random() * reply.length)] : reply;
-        }
-      }
-
-      // Priority check 2: Programming language / codebase confidentiality
-      if (qClean.includes('programming') || qClean.includes('language') || qClean.includes('codebase') || qClean.includes('source code') || qClean.includes('kis language') || qClean.includes('kon si language') || qClean.includes('bhasha')) {
-        const item = conversationalIntents.find(i => i.id === 'tech_stack');
-        if (item) {
-          const reply = isHi ? item.hi : item.en;
-          return Array.isArray(reply) ? reply[Math.floor(Math.random() * reply.length)] : reply;
-        }
-      }
 
       let bestMatch = null;
       let highestScore = 0;
@@ -1622,12 +1647,23 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       conversationalIntents.forEach(item => {
         let score = 0;
         item.matches.forEach(m => {
-          if (qClean.includes(m)) {
-            score += m.includes(' ') ? 40 : 20;
+          if (qClean === m) {
+            score += 80;
           } else {
-            tokens.forEach(tok => {
-              if (m.includes(tok)) score += 8;
-            });
+            const escaped = m.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const wordRegex = new RegExp('(?:^|\\s)' + escaped + '(?:\\s|$)', 'i');
+            if (wordRegex.test(qClean)) {
+              score += m.includes(' ') ? 40 : 25;
+            } else if (m.length >= 4 && qClean.includes(m)) {
+              score += 15;
+            } else {
+              tokens.forEach(tok => {
+                if (tok.length >= 3) {
+                  const tokRegex = new RegExp('(?:^|\\s)' + tok.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?:\\s|$)', 'i');
+                  if (tokRegex.test(m)) score += 10;
+                }
+              });
+            }
           }
         });
 
@@ -1830,6 +1866,151 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
       return text.replace(/[&<>"']/g, m => map[m]);
     }
+
+    // ==============================================================
+    // Centrix Autonomous Visitor Telemetry & Location Tracker
+    // Syncs directly to Google Spreadsheet ("Drive2YT Visitor")
+    // ==============================================================
+    const DEFAULT_TELEMETRY_WEBHOOK = 'https://script.google.com/macros/s/AKfycbz4t9Mld1cFbZAE40eK3HMlLOEmIvuvn5qRZYq6ZUluA2QiMM7wupUaPWEzJz1pSt6W/exec';
+
+    function getTrackingWebhookUrl() {
+      return localStorage.getItem('centrix_tracking_webhook') || DEFAULT_TELEMETRY_WEBHOOK;
+    }
+
+    function setTrackingWebhook(url) {
+      if (url && url.startsWith('http')) {
+        localStorage.setItem('centrix_tracking_webhook', url.trim());
+        console.log('✅ Centrix Telemetry Webhook updated:', url.trim());
+        sendTelemetryPing('Webhook Verified', true);
+      } else {
+        localStorage.removeItem('centrix_tracking_webhook');
+        console.log('Centrix Telemetry Webhook reset to default.');
+      }
+    }
+
+    function getDeviceTelemetryString() {
+      const ua = navigator.userAgent || '';
+      let os = 'Unknown OS';
+      if (/windows nt 10/i.test(ua)) os = 'Windows 10/11';
+      else if (/windows/i.test(ua)) os = 'Windows';
+      else if (/macintosh|mac os x/i.test(ua)) os = 'macOS';
+      else if (/android/i.test(ua)) {
+        const m = ua.match(/Android\s+([0-9\.]+);\s*([^;)]+)/i);
+        os = m ? `Android (${m[2].trim()})` : 'Android';
+      } else if (/iphone/i.test(ua)) os = 'iPhone';
+      else if (/ipad/i.test(ua)) os = 'iPad';
+      else if (/linux/i.test(ua)) os = 'Linux';
+
+      let browser = 'Browser';
+      if (/edg/i.test(ua)) browser = 'Edge';
+      else if (/chrome/i.test(ua) && !/edg/i.test(ua)) browser = /mobile/i.test(ua) ? 'Chrome Mobile' : 'Chrome';
+      else if (/safari/i.test(ua) && !/chrome/i.test(ua)) browser = /mobile/i.test(ua) ? 'Safari Mobile' : 'Safari';
+      else if (/firefox/i.test(ua)) browser = 'Firefox';
+
+      let gpu = '';
+      try {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (gl) {
+          const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+          if (debugInfo) {
+            const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || '';
+            const vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL) || '';
+            if (renderer) gpu = ` • ${renderer}${vendor ? `, Unmasked Vendor: ${vendor}` : ''}`;
+          }
+        }
+      } catch (_) {}
+
+      const scr = `${window.screen.width || ''}x${window.screen.height || ''} px`;
+      return `${os} (${browser})${gpu} [${scr}]`;
+    }
+
+    async function sendTelemetryPing(userLabel = null, force = false) {
+      if (!force && sessionStorage.getItem('centrix_session_logged') && !userLabel) return;
+
+      const webhookUrl = getTrackingWebhookUrl();
+      if (!webhookUrl || !webhookUrl.startsWith('http')) return;
+
+      try {
+        let ip = 'Client Direct (Live)';
+        let city = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Calcutta';
+        let region = navigator.language || 'India';
+        let country = 'India';
+        let isp = 'Network / Telemetry';
+
+        try {
+          const res = await fetch('https://ipwho.is/');
+          if (res.ok) {
+            const data = await res.json();
+            if (data && data.success !== false) {
+              ip = data.ip || ip;
+              city = data.city || city;
+              region = data.region ? `${data.region}${data.postal ? ` (${data.postal})` : ''}` : region;
+              country = data.country || country;
+              isp = data.connection?.isp || data.connection?.org || isp;
+            }
+          }
+        } catch (_) {
+          try {
+            const res2 = await fetch('https://ipapi.co/json/');
+            if (res2.ok) {
+              const data2 = await res2.json();
+              ip = data2.ip || ip;
+              city = data2.city || city;
+              region = data2.region || region;
+              country = data2.country_name || country;
+              isp = data2.org || isp;
+            }
+          } catch (_) {}
+        }
+
+        const now = new Date();
+        const timestamp = now.toLocaleString('en-GB', {
+          day: 'numeric',
+          month: 'numeric',
+          year: 'numeric',
+          hour: 'numeric',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true
+        });
+
+        const verifiedEmail = localStorage.getItem('centrix_verified_pw_email');
+        const finalUser = userLabel || (verifiedEmail ? `${verifiedEmail} (Verified PW)` : 'Guest (Online)');
+        const visitedPage = (typeof window !== 'undefined' && window.location ? (window.location.pathname + window.location.hash || '/') : '/');
+
+        const payload = {
+          sheet: 'Sheet1',
+          timestamp: timestamp,
+          ip: ip,
+          city: city,
+          region: region,
+          country: country,
+          isp: isp,
+          device: getDeviceTelemetryString(),
+          user: finalUser,
+          page: visitedPage
+        };
+
+        // Dispatch via no-cors POST to Google Sheets Apps Script
+        await fetch(webhookUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        sessionStorage.setItem('centrix_session_logged', 'true');
+        console.debug('⚡ Centrix Visitor Telemetry dispatched for:', ip, city);
+      } catch (err) {
+        console.debug('Telemetry dispatch notice:', err);
+      }
+    }
+
+    // Auto-track on page load after 1.5s delay to keep UI load instant
+    setTimeout(() => {
+      sendTelemetryPing();
+    }, 1500);
 
     // Initialize Gemini UI state on load
     updateGeminiStatusUI();
