@@ -765,15 +765,31 @@
     const conversationalIntents = [
       {
         id: 'greetings',
-        matches: ['hello', 'hi', 'hey', 'namaste', 'kaise ho', 'kya haal', 'pranam', 'sup', 'good morning', 'good afternoon', 'good evening', 'yo'],
-        en: "Hello! 👋 I am <strong>Centrix AI</strong>, your assistant for PhysicsWallah classroom lecture automation. How can I help you today? You can ask me how to use Centrix, check PC performance impact, understand timetable matching, or inquire about offline sync in English or Hindi!",
-        hi: "नमस्ते! 👋 मैं <strong>Centrix AI</strong> हूँ, PhysicsWallah क्लासरूम ऑटोमेशन का इंटेलिजेंट असिस्टेंट। मैं आपकी क्या मदद कर सकता हूँ? आप मुझसे Centrix को इस्तेमाल करने का तरीका, PC परफॉर्मेंस, ऑफलाइन सिंक, या टाइमटेबल मैचिंग के बारे में हिंदी या इंग्लिश में कुछ भी पूछ सकते हैं!"
+        matches: ['hello', 'hi', 'hey', 'hay', 'namaste', 'kaise ho', 'kya haal', 'pranam', 'sup', 'good morning', 'good afternoon', 'good evening', 'yo'],
+        en: [
+          "Hello! 👋 I am <strong>Centrix AI</strong>, your assistant for PhysicsWallah classroom lecture automation. How can I help you today?",
+          "Hey there! 👋 Welcome to Centrix AI. How can I assist with your PW Vidyapeeth lecture workflows today?",
+          "Hi! Great to connect with you. 🚀 Ask me anything about Centrix architecture, timetable matching, or classroom deployments."
+        ],
+        hi: [
+          "नमस्ते! 👋 मैं <strong>Centrix AI</strong> हूँ, PhysicsWallah क्लासरूम ऑटोमेशन का इंटेलिजेंट असिस्टेंट। आज आपकी क्या मदद कर सकता हूँ?",
+          "हेलो! 👋 Centrix AI में आपका स्वागत है। आप मुझसे Centrix के फीचर्स, टाइमटेबल मैचिंग या क्लासरूम ऑटोमेशन के बारे में कुछ भी पूछ सकते हैं!",
+          "नमस्कार! 🚀 मैं PhysicsWallah क्लासरूम लेक्चर्स के ऑटोमेशन के लिए Centrix AI हूँ। आज आप क्या जानना चाहते हैं?"
+        ]
       },
       {
         id: 'thanks',
         matches: ['thank', 'thanks', 'dhanyawad', 'shukriya', 'great', 'awesome', 'mast', 'badhiya', 'sahi hai', 'cool', 'nice', 'good job'],
-        en: "You are welcome! 😊 If you have any other questions regarding Centrix, deployment, or classroom operations, feel free to ask anytime.",
-        hi: "आपका बहुत-बहुत स्वागत है! 😊 अगर Centrix या क्लासरूम ऑपरेशंस के बारे में आपका कोई भी सवाल हो, तो कभी भी पूछ सकते हैं।"
+        en: [
+          "You are welcome! 😊 If you have any other questions regarding Centrix, deployment, or classroom operations, feel free to ask anytime.",
+          "Glad to help! 🚀 Let me know if you need any further insights into Centrix architecture or center operations.",
+          "Always a pleasure! 😊 Happy to assist with anything related to Centrix lecture capture."
+        ],
+        hi: [
+          "आपका बहुत-बहुत स्वागत है! 😊 अगर Centrix या क्लासरूम ऑपरेशंस के बारे में आपका कोई भी सवाल हो, तो कभी भी पूछ सकते हैं।",
+          "मदद करके खुशी हुई! 🚀 अगर Centrix आर्किटेक्चर या सेंटर रोलआउट पर और कुछ जानना हो, तो ज़रूर बताएं।",
+          "धन्यवाद! 😊 Centrix से जुड़े किसी भी सवाल के लिए मैं हमेशा तैयार हूँ।"
+        ]
       },
       {
         id: 'how_to_use',
@@ -892,6 +908,20 @@
             "1. इस पेज के ऊपर दिए गए 'Download .exe' बटन से <code>Centrix-Setup.exe</code> (v1.0.4) डाउनलोड करें।<br />" +
             "2. क्लासरूम के Windows 10 या 11 PC पर इंस्टॉलर रन करें।<br />" +
             "3. अपना सेंटर, रूम नंबर और OBS फोल्डर चुनें। इसके बाद Centrix हर बार Windows ऑन होने पर खुद बैकग्राउंड में चलने लगेगा।"
+      },
+      {
+        id: 'creator_owner',
+        matches: ['owner', 'kisne banaya', 'kisne bnaya', 'creator', 'founder', 'who made', 'who created', 'who built', 'developer', 'author', 'aniket', 'aniket mishra', 'bm lead', 'pune bm', 'kiska hai', 'kon banaya', 'kaun banaya', 'kisne banaya hai', 'kisne kiya'],
+        en: [
+          "<strong>Creator & System Architect:</strong><br />Centrix was conceived, designed, and architected by <strong>Aniket Mishra</strong>, who serves as the <strong>Pune BM Lead at PhysicsWallah</strong>.<br />He built Centrix to eliminate manual pen-drive transfers, missing recordings, and delayed uploads across 442+ PW Vidyapeeth & Pathshala classrooms nationwide, automating the entire lecture capture and cloud delivery pipeline.",
+          "<strong>Built by Aniket Mishra (Pune BM Lead, PhysicsWallah):</strong><br />Centrix is the creation of <strong>Aniket Mishra</strong>, currently the <strong>Pune BM Lead at PhysicsWallah</strong>.<br />His goal was to streamline classroom operations so that 50+ centers no longer deal with manual recording collection, cutting lecture delivery time to students down to under 30 minutes with zero teacher disruption.",
+          "<strong>Architect & Visionary:</strong><br /><strong>Aniket Mishra</strong>, Pune BM Lead at PhysicsWallah, is the creator and architect behind Centrix.<br />Facing daily operational bottlenecks with pen drives and manual naming in offline centers, he engineered Centrix as a zero-disruption background service that automates everything from file detection to Google Drive uploads."
+        ],
+        hi: [
+          "<strong>निर्माता और आर्किटेक्ट:</strong><br />Centrix को <strong>Aniket Mishra</strong> ने बनाया और आर्किटेक्ट किया है, जो कि <strong>PhysicsWallah में Pune BM Lead</strong> हैं।<br />उन्होंने विद्यापीठ और पाठशाला के 442+ ऑफलाइन सेंटर्स पर पेन ड्राइव के झंझट, मैन्युअल गलतियों और क्लास अपलोड में होने वाली 12-24 घंटे की देरी को खत्म करने के लिए Centrix को विकसित किया है।",
+          "<strong>अनिकेत मिश्रा (Pune BM Lead, PhysicsWallah) द्वारा निर्मित:</strong><br />Centrix के निर्माता और आर्किटेक्ट <strong>Aniket Mishra</strong> हैं, जो <strong>PW में Pune BM Lead</strong> के पद पर कार्यरत हैं।<br />क्लासरूम्स में होने वाली देरी और मैन्युअल पेन ड्राइव ट्रांसफर की परेशानी को जड़ से खत्म करने के लिए उन्होंने यह ऑटोमेशन सिस्टम तैयार किया है।",
+          "<strong>Centrix के क्रिएटर व आर्किटेक्ट:</strong><br />इस पूरे सिस्टम को <strong>Aniket Mishra</strong> (Pune BM Lead, PhysicsWallah) ने खुद डिज़ाइन और डेवलप किया है।<br />उनका मुख्य उद्देश्य PW के सभी ऑफलाइन क्लासरूम्स में बिना फैकल्टी को परेशान किए, 100% ऑटोमैटिक और एरर-फ्री लेक्चर डिलीवरी सुनिश्चित करना है।"
+        ]
       },
       {
         id: 'pilot',
@@ -1126,31 +1156,45 @@
     const CENTRIX_SYSTEM_PROMPT = `STRICT SYSTEM DIRECTIVE:
 You are Centrix AI, the official intelligent assistant for Centrix (Automated Classroom Lecture Capture & Cloud Delivery for PhysicsWallah Vidyapeeth & Pathshala offline centers across 442+ locations nationwide).
 
-CORE PERSONALITY & CONVERSATIONAL GUIDELINES:
-1. GREETINGS & SMALL TALK:
-   - When the user greeting is ONLY a hello ("hi", "hello", "hey", "hay", "namaste", "pranam"):
-     * English: "Hello! 👋 I am Centrix AI, your assistant for PhysicsWallah classroom lecture automation. How can I help you today?"
-     * Hindi/Hinglish: "नमस्ते! 👋 मैं Centrix AI हूँ, PhysicsWallah क्लासरूम ऑटोमेशन का असिस्टेंट। आज आपकी क्या मदद कर सकता हूँ?"
-     Do NOT write long paragraphs for simple greetings. Keep greetings short, warm, and friendly!
-   - When the user asks "how are you", "how r u", "kaise ho", "kya haal hai":
-     * English: "I am fine, thank you! 🚀 All classroom sync pipelines are active. What would you like to know about Centrix today?"
-     * Hindi/Hinglish: "मैं बिल्कुल ठीक हूँ, धन्यवाद! 🚀 Centrix के सभी क्लासरूम पाइपलाइन्स एक्टिव हैं। आज आप Centrix के बारे में क्या जानना चाहते हैं?"
-   - When the user asks "who are you", "what is your name", "aap kaun ho":
-     * "I am Centrix AI, built for PhysicsWallah offline classroom lecture automation."
-   - When user says "thank you", "thanks", "dhanyawad", "shukriya":
-     * "You're welcome! 😊 Feel free to ask anything else about Centrix."
+CREATOR, ARCHITECT & LEADERSHIP IDENTITY:
+- Creator & Architect: Aniket Mishra
+- Role & Designation: Pune BM Lead (Batch Operations & Center Operations Lead) at PhysicsWallah (PW).
+- Organization: PhysicsWallah (PW) Vidyapeeth & Pathshala offline network.
+- Purpose of Creation: Designed and engineered by Aniket Mishra to solve the nationwide offline center lecture bottleneck—eliminating manual pen drive transfers, file misnaming errors, and staff burnout across 442+ centers so that offline lectures reach students in under 30 minutes.
+- When asked who made/owns/created Centrix ("who made this", "who built Centrix", "owner kaun hai", "kisne banaya", "creator", "founder", "developer", "kiska software hai", "aniket mishra kaun hai"):
+  * ALWAYS clearly and proudly state that Centrix was created and architected by Aniket Mishra, who is the Pune BM Lead at PhysicsWallah.
+  * Explain his background and mission: solving offline classroom operational bottlenecks across PW centers.
+  * Vary your explanation naturally each time (do NOT repeat the exact same sentence pattern).
 
-2. APP-CENTRIC FOCUS ("gemini or baaten kre isi app ke baare me baki chize nhi"):
-   - Stay strictly focused on Centrix and PhysicsWallah classroom operations.
+CORE PERSONALITY & CONVERSATIONAL GUIDELINES:
+1. DYNAMIC VARIATION & NATURAL PHRASING ("sab ko ek jaisa answer bhi nhi dena alag alag answer dena same question ka"):
+   - NEVER output identical, robotic, or word-for-word canned replies when asked the same or similar question repeatedly.
+   - For every response, dynamically vary your sentence structure, vocabulary, greetings, and transition phrases while keeping all technical facts, figures, and creator details 100% accurate.
+
+2. GREETINGS & SMALL TALK:
+   - When the user greeting is ONLY a hello ("hi", "hello", "hey", "hay", "namaste", "pranam"):
+     * Dynamically greet them warmly and concisely (1 to 2 sentences max). Mention you are Centrix AI for PhysicsWallah classroom automation and ask how you can help.
+     * Vary your greeting each time (e.g. "Hello! Centrix AI here...", "Hey there! 👋 Welcome to Centrix...", "Hi! Great to connect with you...").
+     * Do NOT write long paragraphs for simple greetings.
+   - When the user asks "how are you", "how r u", "kaise ho", "kya haal hai":
+     * Respond naturally and cheerfully (e.g. "I am doing great, thank you! All classroom ingestion pipelines are running smoothly across centers. What would you like to explore about Centrix today?")
+     * Vary the phrasing dynamically each time.
+   - When the user asks "who are you", "what is your name", "aap kaun ho":
+     * State you are Centrix AI, the intelligent assistant for PhysicsWallah offline classroom lecture automation, designed under the architectural vision of Aniket Mishra (Pune BM Lead).
+   - When user says "thank you", "thanks", "dhanyawad", "shukriya":
+     * Warmly acknowledge (e.g. "You're most welcome! 😊 Feel free to ask anything else about Centrix.")
+
+3. APP-CENTRIC FOCUS ("gemini or baaten kre isi app ke baare me baki chize nhi"):
+   - Stay strictly focused on Centrix, PhysicsWallah classroom operations, and Aniket Mishra's architecture.
    - If the user asks about unrelated general topics (such as movies, cooking/recipes, games, politics, generic coding, weather):
      Politely refuse and steer back: "I am Centrix AI, specialized exclusively in Centrix classroom automation. I can only assist with questions regarding Centrix architecture, matching algorithm, or center operations."
 
-3. STRICT LANGUAGE MATCHING RULE:
-   - IF THE USER QUERIES IN ENGLISH (e.g. "how much cost", "how does matching work") -> You MUST answer 100% in fluent ENGLISH! Absolutely no Hindi words or Devanagari script for English queries.
+4. STRICT LANGUAGE MATCHING RULE:
+   - IF THE USER QUERIES IN ENGLISH (e.g. "who made this", "how much cost", "how does matching work") -> You MUST answer 100% in fluent ENGLISH! Absolutely no Hindi words or Devanagari script for English queries.
    - IF THE USER QUERIES IN HINDI (Devanagari) -> Answer in Hindi.
    - IF THE USER QUERIES IN HINGLISH (Roman Hindi) -> Answer in conversational Hinglish.
 
-4. NO RAW FILENAMES:
+5. NO RAW FILENAMES:
    - Never cite raw .md file paths (e.g. never say "in ARCHITECTURE.md" or "in DATABASE_SCHEMA.md"). Refer to them naturally as "Centrix Architecture", "7-Signal Matching Engine", "SQLite WAL Schema", "DPAPI Security Model", or "Cost Control Strategy".
 
 ============================================================
@@ -1325,11 +1369,11 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
 
       let langDirective = '';
       if (detectedLang === 'English') {
-        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in ENGLISH: "${query}". You MUST respond 100% in pure ENGLISH! Do NOT output any Devanagari Hindi or Hindi translations. Answer exclusively in clear English.]`;
+        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in ENGLISH: "${query}". You MUST respond 100% in pure ENGLISH! Do NOT output any Devanagari Hindi or Hindi translations. Answer exclusively in clear English. Also vary your phrasing naturally and do not give repetitive canned answers.]`;
       } else if (detectedLang === 'Hindi') {
-        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in Hindi. Respond in natural Devanagari Hindi.]`;
+        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in Hindi. Respond in natural Devanagari Hindi. Also vary your phrasing naturally and do not give repetitive canned answers.]`;
       } else {
-        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in Hinglish (Roman Hindi). Respond in friendly, conversational Hinglish.]`;
+        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in Hinglish (Roman Hindi). Respond in friendly, conversational Hinglish. Also vary your phrasing naturally and do not give repetitive canned answers.]`;
       }
 
       const promptWithLang = CENTRIX_SYSTEM_PROMPT + '\n' + langDirective;
@@ -1355,7 +1399,7 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
           body: JSON.stringify({
             model: 'google/gemini-2.5-flash',
             max_tokens: 650,
-            temperature: 0.15,
+            temperature: 0.75,
             messages: messages
           })
         });
@@ -1384,7 +1428,7 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
           parts: [{ text: promptWithLang }]
         },
         generationConfig: {
-          temperature: 0.15,
+          temperature: 0.75,
           maxOutputTokens: 650
         }
       };
@@ -1403,7 +1447,6 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       const data = await response.json();
       const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
       if (!text) throw new Error('No response text returned from Gemini Flash.');
-      return formatMarkdown(text, 'Gemini 1.5 Flash');
     }
 
     async function askAI(query, history = []) {
@@ -1448,7 +1491,8 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       });
 
       if (highestScore >= 14 && bestMatch) {
-        return isHi ? bestMatch.hi : bestMatch.en;
+        const reply = isHi ? bestMatch.hi : bestMatch.en;
+        return Array.isArray(reply) ? reply[Math.floor(Math.random() * reply.length)] : reply;
       }
 
       // Context-aware fallback strictly grounded in user's detected language
