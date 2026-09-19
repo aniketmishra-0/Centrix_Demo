@@ -50,6 +50,21 @@
     .dot-1 { animation: bounce-dot 1.2s infinite 0s; }
     .dot-2 { animation: bounce-dot 1.2s infinite 0.2s; }
     .dot-3 { animation: bounce-dot 1.2s infinite 0.4s; }
+
+    /* Floating Chat opening animation */
+    @keyframes chatOpen {
+      0% {
+        opacity: 0;
+        transform: translateY(16px) scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    .chat-open {
+      animation: chatOpen 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
   </style>
 </head>
 <body class="bg-[#F5F3EF] text-stone-900 dark:bg-[#0E0F12] dark:text-stone-100 transition-colors duration-300 min-h-screen selection:bg-blue-600 selection:text-white antialiased font-sans">
@@ -569,16 +584,102 @@
         "💡 <em>Tip: Ask specifically about the matching algorithm, database schema, DPAPI security, or offline queue!</em>";
     }
 
-    // Floating Chat Window Controls
+    // System Prompt containing complete Centrix Codebase scan
+    const CENTRIX_SYSTEM_PROMPT = `You are Centrix AI, the official live intelligent assistant for "Centrix" (Classroom Lecture Automation & Smart Review System) developed by Project Lead Aniket Mishra for PhysicsWallah Vidyapeeth and Pathshala offline centers.
+
+You have full knowledge of the Centrix codebase and architecture:
+1. Edge-First Architecture: Heavy lifting happens locally on classroom PCs (.NET 8 C# background Windows Service, Rust hooks, SQLite 3 local queue). Direct resumable video upload to Google Drive v3 API & YouTube API without passing video through central cloud servers ($0 server compute/transcoding cost). Lightweight Cloud Firestore coordinates review state and reviewer notifications.
+2. File Watcher: Built on Windows FileSystemWatcher. Detects MKV, MP4, MOV, AVI, PDF. Implements a mandatory 10-second stability lock (waits until file size is static and OS file handles are closed) to prevent corrupting active recordings.
+3. Deterministic Smart Matching Engine: Evaluates 7 weighted signals to match lectures to timetable slots:
+   - Time overlap (35%)
+   - Room ID hardware match (15%)
+   - Duration consistency (15%)
+   - Teacher timetable roster (15%)
+   - Batch / Subject match (10%)
+   - Historical drift / patterns (10%)
+   Thresholds: >=85% AUTO_ASSIGNED (direct upload queue), 60-84% REVIEW_REQUIRED, <60% High priority low-confidence alert.
+4. Resumable Upload Queue: SQLite durable queue with 10MB chunked byte-range upload. Survives app crashes and PC reboots. Exponential backoff retry with jitter on network failure. Resumes from exact interrupted byte when internet reconnects.
+5. Database Schema: SQLite tables: 'devices' (hardware & paths), 'lecture_sessions' (lifecycle, times, slots, confidence), 'upload_queue' (byte progress, status, retry count), 'timetable_cache' (offline timetable copy), 'audit_logs' (immutable log).
+6. Security & DPAPI: Zero hardcoded API keys or secrets in installer binaries. OAuth tokens encrypted locally via Windows Data Protection API (DPAPI). 4 RBAC tiers: SUPER_ADMIN, CENTER_ADMIN, REVIEWER, ROOM_OPERATOR.
+7. Performance: Consumes <1% CPU and <60MB RAM. Zero video re-encoding/transcoding locally. Zero impact on OBS recordings or smartboards.
+8. Operational Edge Cases: Overtime lectures (20-30m late) handled via heuristic duration overlap so they aren't misclassified into the next batch. Missing lectures flagged when schedule ends without recording.
+
+Instructions:
+- If greeted (hello, hi, namaste, hey), respond warmly and briefly like a real AI assistant! Welcome them and invite questions in English or Hindi.
+- If user asks in Hindi or Hinglish, reply naturally in clear Hindi / Hinglish.
+- If user asks in English, reply in English.
+- Keep responses concise, helpful, and technically accurate based on the Centrix codebase.`;
+
+    // Markdown Parser
+    function formatMarkdown(text) {
+      if (!text) return '';
+      return text
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/`([^`]+)`/g, '<code class="font-mono text-xs bg-stone-200/70 dark:bg-stone-800 px-1 py-0.5 rounded">$1</code>')
+        .replace(/\n\n/g, '<br /><br />')
+        .replace(/\n•\s/g, '<br />• ')
+        .replace(/\n-\s/g, '<br />• ')
+        .replace(/\n/g, '<br />');
+    }
+
+    // Hybrid Conversational AI Engine (Live LLM + Local Knowledge Base Fallback)
+    async function askAI(query) {
+      const qTrim = query.trim();
+      const qLower = qTrim.toLowerCase();
+
+      // Conversational Greeting Detection
+      const greetingWords = ['hello', 'hi', 'hey', 'namaste', 'kaise ho', 'kya haal', 'good morning', 'good evening', 'pranam', 'sup', 'yo'];
+      if (greetingWords.some(w => qLower === w || qLower === w + '!' || qLower === w + '?')) {
+        return "Hello! 👋 I am <strong>Centrix AI</strong>. How can I help you today? You can ask me anything about classroom OBS automation, smart timetable matching, offline SQLite sync, or center rollout in <strong>English, Hindi, or Hinglish</strong>!";
+      }
+
+      // Try Live LLM with 6-second timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 6000);
+
+      try {
+        const res = await fetch('https://text.pollinations.ai/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: [
+              { role: 'system', content: CENTRIX_SYSTEM_PROMPT },
+              { role: 'user', content: qTrim }
+            ],
+            seed: 42
+          }),
+          signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+
+        if (res.ok) {
+          const text = await res.text();
+          if (text && text.trim().length > 0) {
+            return formatMarkdown(text.trim());
+          }
+        }
+      } catch (err) {
+        console.warn('Real AI live call fallback to local knowledge base:', err);
+      }
+
+      // Fallback to indexed codebase knowledge engine
+      return searchCodebaseKnowledge(qTrim);
+    }
+
+    // Floating Chat Window Controls with Smooth Animation
     function toggleFloatingChat() {
       const win = document.getElementById('floatingChatWindow');
       if (win.classList.contains('hidden')) {
         win.classList.remove('hidden');
-        win.classList.add('flex');
-        setTimeout(() => document.getElementById('floatInput').focus(), 100);
+        win.classList.add('flex', 'chat-open');
+        const hist = document.getElementById('floatHistory');
+        hist.scrollTop = hist.scrollHeight;
+        setTimeout(() => document.getElementById('floatInput').focus(), 150);
       } else {
         win.classList.add('hidden');
-        win.classList.remove('flex');
+        win.classList.remove('flex', 'chat-open');
       }
     }
 
@@ -587,7 +688,7 @@
       handleFloatSubmit(new Event('submit'));
     }
 
-    function handleFloatSubmit(e) {
+    async function handleFloatSubmit(e) {
       e.preventDefault();
       const input = document.getElementById('floatInput');
       const q = input.value.trim();
@@ -617,24 +718,21 @@
       history.appendChild(typingDiv);
       history.scrollTop = history.scrollHeight;
 
-      // Generate response from codebase intelligence
-      setTimeout(() => {
-        const ind = document.getElementById('floatTypingIndicator');
-        if (ind) ind.remove();
+      // Generate response from AI engine
+      const reply = await askAI(q);
 
-        const reply = searchCodebaseKnowledge(q);
-        const botDiv = document.createElement('div');
-        botDiv.className = 'flex items-start space-x-2.5';
-        botDiv.innerHTML = `
-          <img src="./images/centrix-logo.png" alt="Centrix Bot" class="w-6 h-6 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0 mt-0.5">
-          <div class="bg-stone-100 dark:bg-stone-800/80 rounded-2xl rounded-tl-sm p-3 text-stone-800 dark:text-stone-200 text-xs max-w-[88%] leading-relaxed shadow-xs">
-            ${reply}
-          </div>
-        `;
-        history.appendChild(botDiv);
-        history.scrollTop = history.scrollHeight;
-      }, 300);
+      const ind = document.getElementById('floatTypingIndicator');
+      if (ind) ind.remove();
 
+      const botDiv = document.createElement('div');
+      botDiv.className = 'flex items-start space-x-2.5';
+      botDiv.innerHTML = `
+        <img src="./images/centrix-logo.png" alt="Centrix Bot" class="w-6 h-6 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0 mt-0.5">
+        <div class="bg-stone-100 dark:bg-stone-800/80 rounded-2xl rounded-tl-sm p-3 text-stone-800 dark:text-stone-200 text-xs max-w-[88%] leading-relaxed shadow-xs">
+          ${reply}
+        </div>
+      `;
+      history.appendChild(botDiv);
       history.scrollTop = history.scrollHeight;
     }
 
@@ -644,7 +742,7 @@
       handleChatSubmit(new Event('submit'));
     }
 
-    function handleChatSubmit(e) {
+    async function handleChatSubmit(e) {
       e.preventDefault();
       const input = document.getElementById('userInput');
       const q = input.value.trim();
@@ -674,24 +772,21 @@
       history.appendChild(typingDiv);
       history.scrollTop = history.scrollHeight;
 
-      // Determine response from codebase intelligence
-      setTimeout(() => {
-        const ind = document.getElementById('typingIndicator');
-        if (ind) ind.remove();
+      // Determine response from AI engine
+      const reply = await askAI(q);
 
-        const reply = searchCodebaseKnowledge(q);
-        const botDiv = document.createElement('div');
-        botDiv.className = 'flex items-start space-x-3';
-        botDiv.innerHTML = `
-          <img src="./images/centrix-logo.png" alt="Centrix Bot" class="w-7 h-7 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0 mt-0.5">
-          <div class="bg-stone-100 dark:bg-stone-800/80 rounded-2xl rounded-tl-sm p-4 text-stone-800 dark:text-stone-200 text-xs sm:text-sm max-w-[85%] leading-relaxed shadow-xs">
-            ${reply}
-          </div>
-        `;
-        history.appendChild(botDiv);
-        history.scrollTop = history.scrollHeight;
-      }, 300);
+      const ind = document.getElementById('typingIndicator');
+      if (ind) ind.remove();
 
+      const botDiv = document.createElement('div');
+      botDiv.className = 'flex items-start space-x-3';
+      botDiv.innerHTML = `
+        <img src="./images/centrix-logo.png" alt="Centrix Bot" class="w-7 h-7 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0 mt-0.5">
+        <div class="bg-stone-100 dark:bg-stone-800/80 rounded-2xl rounded-tl-sm p-4 text-stone-800 dark:text-stone-200 text-xs sm:text-sm max-w-[85%] leading-relaxed shadow-xs">
+          ${reply}
+        </div>
+      `;
+      history.appendChild(botDiv);
       history.scrollTop = history.scrollHeight;
     }
 
