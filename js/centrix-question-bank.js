@@ -525,12 +525,42 @@
           "• <strong>Centrix के बाद:</strong> 100% ऑटोमैटिक बैकग्राउंड अपलोड। क्लास खत्म होते ही Centrix अपने आप सही ड्राइव फोल्डर में 30 मिनट के अंदर वीडियो और PDF अपलोड कर देता है, जिससे FOTs का पूरा समय बचता है।"
     },
     {
+      id: 'video_upload_pipeline',
+      matches: [
+        'video kaise upload hoga', 'video upload kaise hota hai', 'video upload', 
+        'video kaise jayega', 'video upload process', 'how video is uploaded', 
+        'video ingestion', 'video drive upload', 'lecture upload kaise hoga', 
+        'class upload kaise hogi', 'video upload hoga', 'video upload system', 
+        'upload kaise hoga', 'video upload kaise kare', 'video upload kaise karte hain', 
+        'how is lecture uploaded', 'how does video upload', 'lecture upload', 
+        'video record hone ke baad', 'class record hone ke baad', 'lecture record hone ke baad'
+      ],
+      en: "<strong>Autonomous Classroom Video Capture &amp; Google Drive Upload Engine:</strong><br />" +
+          "Centrix automates 100% of classroom lecture video ingestion and cloud delivery with <strong>zero manual drag-and-drop</strong>:<br />" +
+          "• <strong>Step 1: Automatic OBS Studio Detection:</strong> Faculty teaches normally in OBS Studio. When class ends, the teacher simply presses 'Stop Recording'. Centrix's background service (<code>FileWatcher.cs</code>) instantly detects the newly created video file (<code>.mp4</code>, <code>.mkv</code>).<br />" +
+          "• <strong>Step 2: 10-Second Stability Lock:</strong> Centrix waits for 10 seconds to verify file size invariance and release of OS write handles, guaranteeing no half-recorded or corrupt files are ingested.<br />" +
+          "• <strong>Step 3: 7-Signal Timetable Correlation (&ge;85% Confidence):</strong> The deterministic engine evaluates time overlap (35%), hardware room ID (15%), slot duration (15%), faculty roster, and day schedule to map the exact batch (e.g. <code>LJ152EA</code>), subject, teacher, and room.<br />" +
+          "• <strong>Step 4: Standardized Auto-Renaming:</strong> The file is automatically renamed to PW's standard format (<code>[Center]_[Room]_[Batch]_[Subject]_[Date]_[Slot].mp4</code>).<br />" +
+          "• <strong>Step 5: 10MB Chunked Resumable Upload:</strong> Using Google Drive API v3 chunked upload streaming, the video uploads directly from the classroom PC to the center's designated Google Drive folder in <strong>&lt; 30 minutes</strong>.<br />" +
+          "• <strong>Step 6: YouTube Catalog Distribution &amp; Disk Cleanup:</strong> Once Google Drive confirms SHA-256 integrity, the lecture is queued for YouTube catalog release, and local PC disk space is safely reclaimed.<br />" +
+          "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>⚡ Source: [LectureAgent/Services/LectureIngestService.cs:42-120] &amp; [LectureAgent/Upload/GoogleDriveUploader.cs:30-90]</span>",
+      hi: "<strong>क्लासरूम वीडियो ऑटोमैटिक कैप्चर और गूगल ड्राइव अपलोड प्रक्रिया:</strong><br />" +
+          "Centrix में क्लासरूम वीडियो बिना किसी Floor Incharge (FOT) के मैन्युअल ड्रैग-एंड-ड्रॉप के 100% ऑटोमैटिकली अपलोड होता है:<br />" +
+          "• <strong>स्टेप 1 (OBS ऑटोमैटिक डिटेक्शन):</strong> शिक्षक सामान्य रूप से OBS Studio में क्लास लेते हैं। जैसे ही शिक्षक 'Stop Recording' दबाते हैं, Centrix का बैकग्राउंड सर्विस (<code>FileWatcher.cs</code>) नई वीडियो फाइल (<code>.mp4</code>, <code>.mkv</code>) को तुरंत डिटेक्ट कर लेता है।<br />" +
+          "• <strong>स्टेप 2 (10-सेकंड स्टेबिलिटी लॉक):</strong> Centrix 10 सेकंड तक फाइल साइज के स्थिर होने और Windows फाइल हैंडल्स फ्री होने की पुष्टि करता है, ताकि कोई अधूरी या करप्ट फाइल प्रोसेस न हो।<br />" +
+          "• <strong>स्टेप 3 (7-सिग्नल टाइमटेबल मैचिंग):</strong> मैचिंग इंजन वीडियो को टाइमटेबल के साथ मैच करके सही बैच (उदा. <code>LJ152EA</code>), विषय, शिक्षक और रूम अपने आप असाइन कर देता है (&ge;85% कॉन्फिडेंस)।<br />" +
+          "• <strong>स्टेप 4 (स्टैंडर्ड नामकरण):</strong> फाइल का नाम ऑटोमैटिकली सही फॉर्मेट (<code>[Center]_[Room]_[Batch]_[Subject]_[Date]_[Slot].mp4</code>) में बदल दिया जाता है।<br />" +
+          "• <strong>स्टेप 5 (Google Drive 10MB चंक अपलोड):</strong> वीडियो सीधे क्लासरूम PC से 10MB के टुकड़ों में Google Drive के सही बैच फोल्डर में <strong>30 मिनट के अंदर</strong> अपलोड हो जाता है।<br />" +
+          "• <strong>स्टेप 6 (YouTube कतार और लोकल क्लीनअप):</strong> ड्राइव पर SHA-256 हैश वेरिफाई होने के बाद वीडियो YouTube पाइपलाइन में कतारबद्ध हो जाता है और कंप्यूटर की डिस्क खाली करने के लिए लोकल फाइल सुरक्षित आर्काइव हो जाती है।"
+    },
+    {
       id: 'pdf_detection_and_upload',
       matches: [
-        'pdf', 'notes.pdf', 'pdf upload', 'maxhub', 'smartboard notes', 'pdf notes', 
+        'pdf', 'notes.pdf', 'pdf notes upload', 'maxhub', 'smartboard notes', 'pdf notes', 
         'notes upload', 'pdf pakdne', 'pdf file', 'pdf match', 'digital board notes', 
         'notes export', 'board notes', 'slide notes', 'kya mera app pdf ko upload nhi krega', 
-        'pdf upload hoga', 'pdf kaise pakadta hai', 'pdftextractor', 'pdfpig', 'notes'
+        'pdf notes upload hoga', 'pdf kaise pakadta hai', 'smartboard notes upload', 
+        'notes kaise upload honge', 'smartboard notes kaise upload hoga', 'pdftextractor', 'pdfpig'
       ],
       en: "<strong>MaxHub Digital Smartboard PDF Notes Detection &amp; Upload Engine:</strong><br />" +
           "<strong>Yes, 100%!</strong> Centrix is specifically architected to detect, parse, pair, and upload digital smartboard notes (<code>.pdf</code>) alongside class video recordings to Google Drive:<br />" +

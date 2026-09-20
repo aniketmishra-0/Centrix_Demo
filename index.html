@@ -2542,13 +2542,43 @@
             "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>🛡️ Centrix कोर इंजन द्वारा सत्यापित</span>"
       },
       {
+        id: 'video_upload_pipeline',
+        matches: [
+          'video kaise upload hoga', 'video upload kaise hota hai', 'video upload', 
+          'video kaise jayega', 'video upload process', 'how video is uploaded', 
+          'video ingestion', 'video drive upload', 'lecture upload kaise hoga', 
+          'class upload kaise hogi', 'video upload hoga', 'video upload system', 
+          'upload kaise hoga', 'video upload kaise kare', 'video upload kaise karte hain', 
+          'how is lecture uploaded', 'how does video upload', 'lecture upload', 
+          'video record hone ke baad', 'class record hone ke baad', 'lecture record hone ke baad'
+        ],
+        en: "<strong>Autonomous Classroom Video Capture &amp; Google Drive Upload Engine:</strong><br />" +
+            "Centrix automates 100% of classroom lecture video ingestion and cloud delivery with <strong>zero manual drag-and-drop</strong>:<br />" +
+            "• <strong>Step 1: Automatic OBS Studio Detection:</strong> Faculty teaches normally in OBS Studio. When class ends, the teacher simply presses 'Stop Recording'. Centrix's background service (<code>FileWatcher.cs</code>) instantly detects the newly created video file (<code>.mp4</code>, <code>.mkv</code>).<br />" +
+            "• <strong>Step 2: 10-Second Stability Lock:</strong> Centrix waits for 10 seconds to verify file size invariance and release of OS write handles, guaranteeing no half-recorded or corrupt files are ingested.<br />" +
+            "• <strong>Step 3: 7-Signal Timetable Correlation (&ge;85% Confidence):</strong> The deterministic engine evaluates time overlap (35%), hardware room ID (15%), slot duration (15%), faculty roster, and day schedule to map the exact batch (e.g. <code>LJ152EA</code>), subject, teacher, and room.<br />" +
+            "• <strong>Step 4: Standardized Auto-Renaming:</strong> The file is automatically renamed to PW's standard format (<code>[Center]_[Room]_[Batch]_[Subject]_[Date]_[Slot].mp4</code>).<br />" +
+            "• <strong>Step 5: 10MB Chunked Resumable Upload:</strong> Using Google Drive API v3 chunked upload streaming, the video uploads directly from the classroom PC to the center's designated Google Drive folder in <strong>&lt; 30 minutes</strong>.<br />" +
+            "• <strong>Step 6: YouTube Catalog Distribution &amp; Disk Cleanup:</strong> Once Google Drive confirms SHA-256 integrity, the lecture is queued for YouTube catalog release, and local PC disk space is safely reclaimed.<br />" +
+            "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>⚡ Source: [LectureAgent/Services/LectureIngestService.cs:42-120] &amp; [LectureAgent/Upload/GoogleDriveUploader.cs:30-90]</span>",
+        hi: "<strong>क्लासरूम वीडियो ऑटोमैटिक कैप्चर और गूगल ड्राइव अपलोड प्रक्रिया:</strong><br />" +
+            "Centrix में क्लासरूम वीडियो बिना किसी Floor Incharge (FOT) के मैन्युअल ड्रैग-एंड-ड्रॉप के 100% ऑटोमैटिकली अपलोड होता है:<br />" +
+            "• <strong>स्टेप 1 (OBS ऑटोमैटिक डिटेक्शन):</strong> शिक्षक सामान्य रूप से OBS Studio में क्लास लेते हैं। जैसे ही शिक्षक 'Stop Recording' दबाते हैं, Centrix का बैकग्राउंड सर्विस (<code>FileWatcher.cs</code>) नई वीडियो फाइल (<code>.mp4</code>, <code>.mkv</code>) को तुरंत डिटेक्ट कर लेता है।<br />" +
+            "• <strong>स्टेप 2 (10-सेकंड स्टेबिलिटी लॉक):</strong> Centrix 10 सेकंड तक फाइल साइज के स्थिर होने और Windows फाइल हैंडल्स फ्री होने की पुष्टि करता है, ताकि कोई अधूरी या करप्ट फाइल प्रोसेस न हो।<br />" +
+            "• <strong>स्टेप 3 (7-सिग्नल टाइमटेबल मैचिंग):</strong> मैचिंग इंजन वीडियो को टाइमटेबल के साथ मैच करके सही बैच (उदा. <code>LJ152EA</code>), विषय, शिक्षक और रूम अपने आप असाइन कर देता है (&ge;85% कॉन्फिडेंस)।<br />" +
+            "• <strong>स्टेप 4 (स्टैंडर्ड नामकरण):</strong> फाइल का नाम ऑटोमैटिकली सही फॉर्मेट (<code>[Center]_[Room]_[Batch]_[Subject]_[Date]_[Slot].mp4</code>) में बदल दिया जाता है।<br />" +
+            "• <strong>स्टेप 5 (Google Drive 10MB चंक अपलोड):</strong> वीडियो सीधे क्लासरूम PC से 10MB के टुकड़ों में Google Drive के सही बैच फोल्डर में <strong>30 मिनट के अंदर</strong> अपलोड हो जाता है।<br />" +
+            "• <strong>स्टेप 6 (YouTube कतार और लोकल क्लीनअप):</strong> ड्राइव पर SHA-256 हैश वेरिफाई होने के बाद वीडियो YouTube पाइपलाइन में कतारबद्ध हो जाता है और कंप्यूटर की डिस्क खाली करने के लिए लोकल फाइल सुरक्षित आर्काइव हो जाती है।"
+      },
+      {
         id: 'pdf_notes_spec',
         matches: [
-          'pdf', '.pdf', 'notes.pdf', 'pdf upload', 'maxhub', 'smartboard notes', 
+          'pdf', '.pdf', 'notes.pdf', 'pdf notes upload', 'maxhub', 'smartboard notes', 
           'pdf notes', 'notes upload', 'pdf pakdne', 'pdf file', 'pdf match', 
           'digital board notes', 'notes export', 'board notes', 'slide notes', 
-          'kya mera app pdf ko upload nhi krega', 'pdf upload hoga', 'pdf kaise pakadta hai', 
-          'pdftextractor', 'pdfpig', 'notes'
+          'kya mera app pdf ko upload nhi krega', 'pdf notes upload hoga', 'pdf kaise pakadta hai', 
+          'smartboard notes upload', 'notes kaise upload honge', 'smartboard notes kaise upload hoga',
+          'pdftextractor', 'pdfpig', 'smartboard notes'
         ],
         en: "<strong>MaxHub Digital Smartboard PDF Notes Detection &amp; Upload Engine:</strong><br />" +
             "<strong>Yes, 100%!</strong> Centrix is fully engineered to detect, parse, correlate, and upload digital smartboard notes (<code>.pdf</code>) alongside the classroom video recording to Google Drive:<br />" +
@@ -2761,7 +2791,22 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
 - Cloud Transcoding Fleet: $0 Server Cost. 100% of hashing, packet chunking, and PDF cover OCR run at the edge on existing classroom PCs.
 - Distribution Turnaround SLA: < 30 minutes (96% faster than manual 6–12 hour human lag).
 - Deterministic Precision: 99.99% accuracy (< 0.01% error rate with 7-signal timetable correlation).
-- Teacher Experience: Zero disruption (0 minutes teacher training required; standard OBS Studio).`;
+- Teacher Experience: Zero disruption (0 minutes teacher training required; standard OBS Studio).
+
+11. CRITICAL TOPIC DISAMBIGUATION: VIDEO UPLOAD VS SMARTBOARD PDF NOTES:
+- VIDEO UPLOAD QUERIES ("video kaise upload hoga", "video upload kaise hota hai", "video kaise jayega", "how video uploads", "video upload process", "video pipeline"):
+  * The user is asking specifically about CLASSROOM LECTURE VIDEOS! You MUST answer specifically about video capture and the automated Google Drive upload pipeline.
+  * DO NOT respond with PDF notes!
+  * Clearly detail the 6 automated steps:
+    1. Faculty teaches normally in OBS Studio and presses "Stop Recording".
+    2. FileWatcher.cs detects the .mp4 or .mkv file and applies a 10-second stability lock to guarantee OS write handles are completely released.
+    3. 7-Signal Timetable Matching Engine correlates the video with schedule slots (>=85% confidence), determining batch code (e.g. LJ152EA), subject, and teacher.
+    4. Automatically renames the file to standard convention ([Center]_[Room]_[Batch]_[Subject]_[Date]_[Slot].mp4).
+    5. Streams directly to Google Drive via 10MB resumable chunked upload in < 30 minutes with zero manual drag-and-drop by 2 to 6 FOTs.
+    6. Verifies SHA-256 hash, queues for internal YouTube catalog distribution, and safely cleans up local PC storage.
+- SMARTBOARD PDF NOTES QUERIES ("pdf kaise upload hoga", "notes upload", "smartboard notes", "maxhub pdf"):
+  * The user is asking about digital smartboard slide notes. Answer about PdfTextExtractor.cs, ZLibStream decompression, cover slide batch extraction, and 15-minute pairing window with the video session into the SAME Google Drive folder.
+- DUAL ASSET QUERIES: If asked about both video and notes, explain how both are captured, paired, and uploaded into the same Google Drive folder.`;
 
     function openGeminiModal() {
       const modal = document.getElementById('geminiModal');
@@ -3147,23 +3192,12 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         }
         messages.push({ role: 'user', content: query });
 
-        let response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${cleanKey}`,
-            'Content-Type': 'application/json',
-            'HTTP-Referer': 'https://aniketmishra-0.github.io/Centrix_Demo/',
-            'X-Title': 'Centrix Codebase Intelligence'
-          },
-          body: JSON.stringify({
-            model: 'openrouter/free',
-            max_tokens: 1000,
-            temperature: 0.6,
-            messages: messages
-          })
-        });
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 12000);
 
-        if (!response.ok) {
+        let response = null;
+        try {
+          // Attempt fast responsive model first
           response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
             method: 'POST',
             headers: {
@@ -3173,23 +3207,53 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
               'X-Title': 'Centrix Codebase Intelligence'
             },
             body: JSON.stringify({
-              model: 'google/gemini-2.5-flash',
+              model: 'liquid/lfm-2.5-2.6b:free',
               max_tokens: 1000,
-              temperature: 0.6,
+              temperature: 0.5,
               messages: messages
-            })
+            }),
+            signal: controller.signal
           });
+        } catch (e) {
+          response = null;
         }
 
-        if (!response.ok) {
-          const err = await response.json().catch(() => ({}));
-          throw new Error(err.error?.message || `HTTP ${response.status}`);
+        // Secondary fallback to openrouter/free or gemini-2.5-flash
+        if (!response || !response.ok) {
+          try {
+            response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${cleanKey}`,
+                'Content-Type': 'application/json',
+                'HTTP-Referer': 'https://aniketmishra-0.github.io/Centrix_Demo/',
+                'X-Title': 'Centrix Codebase Intelligence'
+              },
+              body: JSON.stringify({
+                model: 'openrouter/free',
+                max_tokens: 1000,
+                temperature: 0.5,
+                messages: messages
+              }),
+              signal: controller.signal
+            });
+          } catch (e) {
+            response = null;
+          }
+        }
+
+        clearTimeout(timeoutId);
+
+        if (!response || !response.ok) {
+          throw new Error('OpenRouter upstream unavailable');
         }
 
         const data = await response.json();
         const text = data.choices?.[0]?.message?.content;
-        if (!text) throw new Error('Empty response from Centrix AI.');
-        return formatMarkdown(text, 'Centrix AI');
+        if (!text || text.trim().length < 10 || text.includes('User Safety:')) {
+          throw new Error('Incomplete response from AI endpoint.');
+        }
+        return formatMarkdown(text, 'Centrix AI (Gemini Core)');
       }
 
       // Route 2: Google AI Studio Key (AIza...)
@@ -3206,7 +3270,7 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         },
         generationConfig: {
           temperature: 0.7,
-          maxOutputTokens: 750
+          maxOutputTokens: 900
         }
       };
 
@@ -3223,8 +3287,8 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
 
       const data = await response.json();
       const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (!text) throw new Error('No response text returned from Centrix AI.');
-      return formatMarkdown(text, 'Centrix AI');
+      if (!text || text.trim().length < 10) throw new Error('No response text returned from Centrix AI.');
+      return formatMarkdown(text, 'Centrix AI (Gemini Core)');
     }
 
     function generateClientCodebaseResponse(ragResult, query) {
@@ -3493,7 +3557,21 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         }
       }
 
-      // Execute CodebaseEngine RAG retrieval
+      // Immediate Gate 4: EXACT match against official preset questions (e.g. clicking a question button)
+      let exactPresetMatch = null;
+      for (const item of conversationalIntents) {
+        if (item.matches && item.matches.some(m => qClean === m.toLowerCase().trim())) {
+          exactPresetMatch = item;
+          break;
+        }
+      }
+      if (exactPresetMatch) {
+        const reply = isHi ? exactPresetMatch.hi : exactPresetMatch.en;
+        const text = Array.isArray(reply) ? reply[Math.floor(Math.random() * reply.length)] : reply;
+        return renderCitations(text);
+      }
+
+      // Execute CodebaseEngine RAG retrieval for context enrichment
       let ragResult = null;
       if (window.CodebaseEngine && window.CodebaseEngine.isReady) {
         try {
@@ -3503,60 +3581,33 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         }
       }
 
-      const isCodebaseQuery = ragResult && (
-        ragResult.intent !== 'GENERAL' ||
-        qLower.includes('code') || qLower.includes('source') || qLower.includes('repo') ||
-        qLower.includes('auth') || qLower.includes('login') || qLower.includes('flow') ||
-        qLower.includes('save') || qLower.includes('impact') || qLower.includes('architecture') ||
-        qLower.includes('lang') || qLower.includes('symbol') || qLower.includes('file') ||
-        qLower.includes('c#') || qLower.includes('rust') || qLower.includes('typescript') ||
-        qLower.includes('sql') || qLower.includes('ingest') || qLower.includes('matching') ||
-        qLower.includes('queue') || qLower.includes('vault') || qLower.includes('dpapi')
-      );
-
-      const isHi = isHindiQuery(qTrim);
-      const tokens = qClean.split(/\s+/).filter(t => t.length > 1);
-
-      // 1. High-Confidence Knowledge Corpus & Intent Matching (Direct answers for what was asked)
-      let bestMatch = null;
-      let highestScore = 0;
-
-      conversationalIntents.forEach(item => {
-        let score = 0;
-        item.matches.forEach(m => {
-          if (qClean === m) {
-            score += 80;
-          } else {
-            const escaped = m.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            const wordRegex = new RegExp('(?:^|\\s)' + escaped + '(?:\\s|$)', 'i');
-            if (wordRegex.test(qClean)) {
-              score += m.includes(' ') ? 40 : 25;
-            } else if (m.length >= 4 && qClean.includes(m)) {
-              score += 15;
-            } else {
-              tokens.forEach(tok => {
-                if (tok.length >= 3) {
-                  const tokRegex = new RegExp('(?:^|\\s)' + tok.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?:\\s|$)', 'i');
-                  if (tokRegex.test(m)) score += 10;
-                }
-              });
-            }
+      // =========================================================================
+      // PRIMARY BRAIN: Live Gemini / AI Intelligence (Dynamic natural language understanding)
+      // When apiKey is present, let Gemini understand and answer the user intelligently!
+      // =========================================================================
+      if (apiKey && apiKey.length > 8) {
+        try {
+          const aiResponse = await askGeminiFlash(qTrim, apiKey, history, ragResult);
+          if (aiResponse && aiResponse.trim().length > 10 && !aiResponse.includes('User Safety:')) {
+            return aiResponse;
           }
-        });
-
-        if (score > highestScore) {
-          highestScore = score;
-          bestMatch = item;
+        } catch (err) {
+          console.warn('Gemini live query notice, falling back to smart local intelligence:', err);
         }
-      });
-
-      if (highestScore >= 16 && bestMatch) {
-        const reply = isHi ? bestMatch.hi : bestMatch.en;
-        const text = Array.isArray(reply) ? reply[Math.floor(Math.random() * reply.length)] : reply;
-        return renderCitations(text);
       }
 
-      // 2. Specific Codebase Architecture & Deep Dive Intent (DATA_FLOW, LOCATE, IMPACT_ANALYSIS)
+      // =========================================================================
+      // FALLBACK BRAIN: Smart Local Knowledge Base (With strict topic disambiguation)
+      // =========================================================================
+      return getSmartLocalFallback(qTrim, qClean, isHi, ragResult);
+    }
+
+    function getSmartLocalFallback(qTrim, qClean, isHi, ragResult) {
+      const qLower = qTrim.toLowerCase();
+      const isVideoQuery = /\b(video|videos|recording|recordings|lecture|lectures|mkv|mp4|obs)\b/i.test(qLower);
+      const isPdfQuery = /\b(pdf|notes|smartboard|maxhub|slide|slides|pptx|ppt|handout|handouts)\b/i.test(qLower);
+
+      // 1. Specific Codebase Architecture & Deep Dive Intent (DATA_FLOW, LOCATE, IMPACT_ANALYSIS)
       if (ragResult && (
         ragResult.intent === 'DATA_FLOW' ||
         ragResult.intent === 'IMPACT_ANALYSIS' ||
@@ -3569,32 +3620,89 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         return generateClientCodebaseResponse(ragResult, qTrim);
       }
 
-      // 3. Moderate Confidence Match in knowledge corpus
-      if (highestScore >= 12 && bestMatch) {
+      // Stop-words to ignore in partial token matching to prevent false positives
+      const stopWords = new Set([
+        'kaise', 'hoga', 'hogi', 'kare', 'karega', 'karegi', 'karna', 'karo', 
+        'hai', 'hain', 'kya', 'hota', 'hoti', 'hote', 'upload', 'file', 'files', 
+        'app', 'mera', 'meri', 'mere', 'the', 'and', 'for', 'with', 'what', 
+        'how', 'does', 'from', 'this', 'that', 'isme', 'kisme', 'batao', 'bataye',
+        'samjhao', 'chahiye', 'sakta', 'sakte', 'sakti', 'mein', 'par', 'pe'
+      ]);
+
+      const tokens = qClean.split(/\s+/).filter(t => t.length >= 3 && !stopWords.has(t));
+
+      let bestMatch = null;
+      let highestScore = 0;
+
+      conversationalIntents.forEach(item => {
+        // STRICT DISAMBIGUATION RULE:
+        // If query specifically asks about video and NOT about pdf/notes, DO NOT match PDF notes!
+        if (isVideoQuery && !isPdfQuery && (
+          item.id === 'pdf_notes_spec' || 
+          item.id === 'pdf_detection_and_upload' || 
+          item.id === 'pdf_text_extractor_deep' || 
+          item.id === 'pdf_video_pairing_window'
+        )) {
+          return;
+        }
+
+        // If query specifically asks about pdf/notes and NOT about video, DO NOT match video-only intents!
+        if (isPdfQuery && !isVideoQuery && (item.id === 'video_upload_pipeline')) {
+          return;
+        }
+
+        let score = 0;
+        item.matches.forEach(m => {
+          const mClean = m.toLowerCase().trim();
+          if (qClean === mClean) {
+            score += 90;
+          } else {
+            const escaped = mClean.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const wordRegex = new RegExp('(?:^|\\s)' + escaped + '(?:\\s|$)', 'i');
+            if (wordRegex.test(qClean)) {
+              score += mClean.includes(' ') ? 50 : 30;
+            } else if (mClean.length >= 5 && qClean.includes(mClean)) {
+              score += 20;
+            } else {
+              tokens.forEach(tok => {
+                const tokRegex = new RegExp('(?:^|\\s)' + tok.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?:\\s|$)', 'i');
+                if (tokRegex.test(mClean)) score += 12;
+              });
+            }
+          }
+        });
+
+        if (score > highestScore) {
+          highestScore = score;
+          bestMatch = item;
+        }
+      });
+
+      if (highestScore >= 18 && bestMatch) {
         const reply = isHi ? bestMatch.hi : bestMatch.en;
         const text = Array.isArray(reply) ? reply[Math.floor(Math.random() * reply.length)] : reply;
         return renderCitations(text);
       }
 
-      // 4. Live Gemini Flash model for open-ended or unique queries
-      if (apiKey && apiKey.length > 8) {
-        try {
-          return await askGeminiFlash(qTrim, apiKey, history, ragResult);
-        } catch (err) {
-          console.warn('Gemini live query notice, falling back to local intelligence:', err);
-        }
-      }
-
-      // 5. If general codebase query, provide focused component summary without code dump
+      // If general codebase query, provide focused component summary without code dump
+      const isCodebaseQuery = ragResult && (
+        ragResult.intent !== 'GENERAL' ||
+        qLower.includes('code') || qLower.includes('source') || qLower.includes('repo') ||
+        qLower.includes('auth') || qLower.includes('login') || qLower.includes('flow') ||
+        qLower.includes('save') || qLower.includes('architecture') ||
+        qLower.includes('c#') || qLower.includes('rust') || qLower.includes('typescript') ||
+        qLower.includes('sql') || qLower.includes('ingest') || qLower.includes('matching') ||
+        qLower.includes('queue') || qLower.includes('vault') || qLower.includes('dpapi')
+      );
       if (isCodebaseQuery && ragResult) {
         return generateClientCodebaseResponse(ragResult, qTrim);
       }
 
       // Context-aware fallback strictly grounded in user's detected language
       if (isHi) {
-        return "Centrix एक एडवांस ऑटोमेटेड बैकग्राउंड सिस्टम है जो PhysicsWallah विद्यापीठ क्लासरूम्स के OBS लेक्चर्स को अपने आप टाइमटेबल से मैच करके गूगल ड्राइव में अपलोड करता है। यह AI सीधे Centrix कोर कोडबेस और ऑपरेशनल नॉलेज से लिंक्ड है। आप मुझसे <strong>Matching Algorithm</strong>, <strong>DB Schema</strong>, <strong>DPAPI Security</strong>, <strong>Save Flow</strong>, या <strong>Codebase Architecture</strong> के बारे में कुछ भी पूछ सकते हैं!";
+        return "Centrix एक एडवांस ऑटोमैटिक बैकग्राउंड सिस्टम है जो PhysicsWallah विद्यापीठ क्लासरूम्स के OBS लेक्चर्स और MaxHub PDF नोट्स को अपने आप टाइमटेबल से मैच करके गूगल ड्राइव में अपलोड करता है। आप मुझसे <strong>Video Upload Flow</strong>, <strong>PDF Notes Sync</strong>, <strong>Matching Algorithm</strong>, <strong>DB Schema</strong>, <strong>DPAPI Security</strong>, या <strong>FOT Drag-and-Drop Automation</strong> के बारे में कुछ भी पूछ सकते हैं!";
       } else {
-        return "Centrix is an intelligent edge-first lecture automation system for PhysicsWallah Vidyapeeth classrooms. This AI is indexed directly from the Centrix repository. Feel free to ask about <strong>Locating Authentication</strong>, <strong>Save Flow (UI ➔ DB)</strong>, <strong>Matching Engine signals</strong>, <strong>Impact Analysis</strong>, or <strong>Repository Architecture</strong>!";
+        return "Centrix is an intelligent edge-first lecture automation system for PhysicsWallah Vidyapeeth classrooms. Feel free to ask about <strong>Video Upload Pipeline</strong>, <strong>Smartboard PDF Notes Sync</strong>, <strong>7-Signal Matching Engine</strong>, <strong>DPAPI Security</strong>, or <strong>FOT Drag-and-Drop Automation</strong>!";
       }
     }
 
