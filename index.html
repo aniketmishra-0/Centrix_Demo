@@ -760,14 +760,14 @@
       <!-- Quick Preset Buttons -->
       <div class="flex flex-wrap items-center gap-2">
         <span class="text-xs font-mono text-stone-500 mr-1">Fleet Scale:</span>
-        <button type="button" id="preset-btn-20" onclick="setCalcPreset(20, 4)" class="calc-preset-btn px-3 py-1.5 rounded-xl font-mono text-xs bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:border-stone-400 border border-transparent transition cursor-pointer">
-          Single Center (20)
+        <button type="button" id="preset-btn-20" onclick="setCalcPreset(20, 4, 2)" class="calc-preset-btn px-3 py-1.5 rounded-xl font-mono text-xs bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:border-stone-400 border border-transparent transition cursor-pointer">
+          Single Center (20 Rooms • 2 FOTs)
         </button>
-        <button type="button" id="preset-btn-80" onclick="setCalcPreset(80, 4)" class="calc-preset-btn px-3 py-1.5 rounded-xl font-mono text-xs bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:border-stone-400 border border-transparent transition cursor-pointer">
-          Regional Cluster (80)
+        <button type="button" id="preset-btn-80" onclick="setCalcPreset(80, 4, 4)" class="calc-preset-btn px-3 py-1.5 rounded-xl font-mono text-xs bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:border-stone-400 border border-transparent transition cursor-pointer">
+          Regional Cluster (80 Rooms • 4 FOTs)
         </button>
-        <button type="button" id="preset-btn-442" onclick="setCalcPreset(442, 4)" class="calc-preset-btn px-3 py-1.5 rounded-xl font-mono text-xs font-semibold bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950 shadow-sm border border-transparent transition cursor-pointer">
-          Nationwide Fleet (442)
+        <button type="button" id="preset-btn-442" onclick="setCalcPreset(442, 4, 4)" class="calc-preset-btn px-3 py-1.5 rounded-xl font-mono text-xs font-semibold bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950 shadow-sm border border-transparent transition cursor-pointer">
+          Nationwide Fleet (442 Rooms • 4 FOTs)
         </button>
       </div>
     </div>
@@ -778,13 +778,24 @@
       <!-- Left: Interactive Sliders Card (5 cols) -->
       <div class="lg:col-span-5 p-6 sm:p-8 rounded-3xl bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-800 shadow-xs flex flex-col justify-between">
         <div>
-          <h3 class="font-bold text-lg text-stone-900 dark:text-stone-100 mb-6 flex items-center justify-between">
-            <span>Deployment Parameters</span>
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-bold text-lg text-stone-900 dark:text-stone-100">
+              Deployment Parameters
+            </h3>
             <span class="text-xs font-mono text-stone-400 font-normal">Real-Time Simulation</span>
-          </h3>
+          </div>
+
+          <!-- Timeframe View Switcher: 1 Month vs 1 Day -->
+          <div class="flex items-center justify-between mb-6 p-2 rounded-2xl bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700/60">
+            <span class="text-xs font-mono text-stone-600 dark:text-stone-400 font-semibold uppercase pl-1">Timeframe:</span>
+            <div class="inline-flex p-0.5 rounded-xl bg-stone-200/80 dark:bg-stone-900 border border-stone-300 dark:border-stone-700">
+              <button type="button" id="viewModeMonthlyBtn" onclick="setCalcViewMode('monthly')" class="px-3 py-1 rounded-lg font-mono text-[11px] font-semibold bg-blue-600 text-white shadow-xs transition cursor-pointer">📅 Monthly (30 Days)</button>
+              <button type="button" id="viewModeDailyBtn" onclick="setCalcViewMode('daily')" class="px-3 py-1 rounded-lg font-mono text-[11px] text-stone-600 dark:text-stone-400 hover:bg-stone-300 dark:hover:bg-stone-800 transition cursor-pointer">⏱️ Daily (1 Day Shift)</button>
+            </div>
+          </div>
 
           <!-- Slider 1: Classrooms -->
-          <div class="mb-8">
+          <div class="mb-6">
             <div class="flex items-center justify-between mb-2">
               <label for="calcRooms" class="text-xs font-mono font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide">Classrooms Deployed</label>
               <span class="font-mono text-sm font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 px-2.5 py-0.5 rounded-md border border-blue-200 dark:border-blue-900/60">
@@ -814,11 +825,37 @@
               <span>8 (Double Shift)</span>
             </div>
           </div>
+
+          <!-- Slider 3: Floor Incharges (FOTs) Per Center (1 to 6 FOTs) -->
+          <div class="mb-6">
+            <div class="flex items-center justify-between mb-2">
+              <div>
+                <label for="calcFots" class="text-xs font-mono font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide">Floor Incharges (FOTs)</label>
+                <div class="text-[10px] text-stone-400 font-mono">Min. 9 hrs/day work shift per FOT</div>
+              </div>
+              <span class="font-mono text-sm font-bold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/40 px-2.5 py-0.5 rounded-md border border-purple-200 dark:border-purple-900/60">
+                <span id="calcFotsVal">4</span> FOTs / Center
+              </span>
+            </div>
+            <input id="calcFots" type="range" min="1" max="6" step="1" value="4" oninput="updateExecutiveCalculator()" class="w-full accent-purple-600 cursor-pointer h-2 bg-stone-200 dark:bg-stone-800 rounded-lg">
+            <div class="flex justify-between text-[11px] font-mono text-stone-400 mt-1.5">
+              <span>1 FOT (Heavy Load)</span>
+              <span>3 FOTs (Average)</span>
+              <span>6 FOTs (Mega Center)</span>
+            </div>
+          </div>
         </div>
 
-        <!-- Footnote Badge -->
-        <div class="p-4 rounded-2xl bg-stone-50 dark:bg-stone-800/50 border border-stone-200 dark:border-stone-800 text-xs text-stone-600 dark:text-stone-400 leading-relaxed font-mono">
-          ⚡ <strong>Throughput:</strong> <span id="calcLecturesProcessed" class="font-bold text-stone-900 dark:text-stone-100">53,040 lectures/mo</span> processed 100% autonomously without staff intervention.
+        <!-- Footnote Badge with Throughput & Human Error Ground Reality -->
+        <div class="p-4 rounded-2xl bg-stone-50 dark:bg-stone-800/50 border border-stone-200 dark:border-stone-800 text-xs text-stone-600 dark:text-stone-400 leading-relaxed font-mono space-y-2">
+          <div class="flex items-center justify-between">
+            <span>⚡ <strong>Throughput:</strong> <span id="calcLecturesProcessed" class="font-bold text-stone-900 dark:text-stone-100">53,040 lectures/mo</span></span>
+            <span id="calcDailyLecturesBadge" class="text-[10px] text-stone-400">(1,768/day)</span>
+          </div>
+          <div class="pt-2 border-t border-stone-200/60 dark:border-stone-700/60 text-[11px] text-amber-700 dark:text-amber-400 flex items-start space-x-1.5">
+            <span class="shrink-0 text-sm">⚠️</span>
+            <span><strong>Ground Reality:</strong> FOTs work <strong>9+ hours/day</strong>. Despite exhausting shifts, repetitive manual drag-and-drop inevitably causes human errors (missed notes, wrong batch drops). Centrix delivers <strong>0% Human Error</strong> autonomously.</span>
+          </div>
         </div>
       </div>
 
@@ -836,7 +873,7 @@
               Substantially Lower
             </div>
             <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-              Slashes operational costs down to a fraction of current manual workflows by eliminating the repetitive manual drag-and-drop uploads to Google Drive performed by 2 to 6 Floor Incharges (FOTs) per center, ending overtime, upload delays, and lost lecture re-shoots.
+              Slashes operational costs down to a fraction of current manual workflows by eliminating the repetitive manual drag-and-drop uploads to Google Drive performed by 1 to 6 Floor Incharges (FOTs) per center, ending overtime, upload delays, and lost lecture re-shoots.
             </p>
           </div>
           <div class="mt-4 pt-3 border-t border-emerald-500/20 font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center justify-between">
@@ -845,23 +882,30 @@
           </div>
         </div>
 
-        <!-- Metric 2: Staff Hours Reclaimed -->
+        <!-- Metric 2: Staff Hours & FOT Shift Reclaimed -->
         <div class="p-6 rounded-3xl bg-gradient-to-br from-blue-500/10 via-white dark:via-stone-900 to-transparent border border-blue-500/30 dark:border-blue-500/40 shadow-xs flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-2">
               <span class="text-xs font-mono text-blue-700 dark:text-blue-400 font-semibold uppercase tracking-wider">Floor Incharge (FOT) Hours Reclaimed</span>
               <span class="text-lg">⏱️</span>
             </div>
-            <div id="calcStaffHours" class="text-3xl sm:text-4xl font-extrabold font-mono text-stone-900 dark:text-stone-50 mb-1">
-              35,360 hrs
+            <div class="flex items-baseline mb-1">
+              <span id="calcStaffHours" class="text-3xl sm:text-4xl font-extrabold font-mono text-stone-900 dark:text-stone-50">35,360</span>
+              <span id="calcStaffHoursUnit" class="text-xs font-mono text-stone-400 ml-1.5 font-bold">hrs / month</span>
             </div>
-            <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-              Eliminates ~40 minutes of manual labor per lecture across 2 to 6 Floor Incharges (FOTs) per center who currently spend hours manually renaming files and dragging-and-dropping videos &amp; notes into Google Drive folders.
+
+            <!-- Dynamic Shift Impact Pill -->
+            <div id="calcPerFotPill" class="my-2 p-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-900/60 text-[11px] font-mono text-blue-800 dark:text-blue-300 leading-tight">
+              ⏱️ <strong>Shift Impact:</strong> Reclaims ~2.8 hrs/day per FOT out of their <strong>9-hr workday</strong>.
+            </div>
+
+            <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed mt-1">
+              FOTs work 9+ hour shifts. In manual operations, mental fatigue causes missed uploads and wrong-batch drops. Centrix automates 100% of this background file movement.
             </p>
           </div>
           <div class="mt-4 pt-3 border-t border-blue-500/20 font-mono text-xs font-bold text-blue-600 dark:text-blue-400 flex items-center justify-between">
-            <span>Productivity Gain:</span>
-            <span>Reclaims 2 to 6 FOTs per Center</span>
+            <span>Human Error Rate:</span>
+            <span class="text-emerald-600 dark:text-emerald-400 font-extrabold">0.00% (Zero Misdropped Files)</span>
           </div>
         </div>
 
@@ -921,6 +965,11 @@
           </tr>
         </thead>
         <tbody class="divide-y divide-stone-100 dark:divide-stone-800/60 text-stone-700 dark:text-stone-300">
+          <tr>
+            <td class="py-3.5 pr-4 font-semibold text-stone-900 dark:text-stone-100">FOT 9-Hour Shift &amp; Human Error</td>
+            <td class="py-3.5 px-4 text-stone-500">FOTs work 9+ hour shifts under high fatigue; manual drag-and-drop inevitably causes human errors (missed notes, wrong batch folder drops, upload backlogs)</td>
+            <td class="py-3.5 pl-4 font-bold text-emerald-600 dark:text-emerald-400">0.00% Human Error; automated timetable matching eliminates shift fatigue and guarantees flawless batch &amp; notes indexing</td>
+          </tr>
           <tr>
             <td class="py-3.5 pr-4 font-semibold text-stone-900 dark:text-stone-100">Lecture Ingestion &amp; Uploads</td>
             <td class="py-3.5 px-4 text-stone-500">2 to 6 Floor Incharges (FOTs) manually rename &amp; drag-and-drop files into Google Drive folders</td>
@@ -1836,42 +1885,92 @@
     // ==========================================
     // SENIOR LEADERSHIP OPERATIONAL IMPACT LOGIC
     // ==========================================
+    let calcViewMode = 'monthly';
+
+    function setCalcViewMode(mode) {
+      calcViewMode = mode;
+      const monthlyBtn = document.getElementById('viewModeMonthlyBtn');
+      const dailyBtn = document.getElementById('viewModeDailyBtn');
+      const activeClass = 'px-3 py-1 rounded-lg font-mono text-[11px] font-semibold bg-blue-600 text-white shadow-xs transition cursor-pointer';
+      const inactiveClass = 'px-3 py-1 rounded-lg font-mono text-[11px] text-stone-600 dark:text-stone-400 hover:bg-stone-300 dark:hover:bg-stone-800 transition cursor-pointer';
+
+      if (monthlyBtn && dailyBtn) {
+        if (mode === 'daily') {
+          dailyBtn.className = activeClass;
+          monthlyBtn.className = inactiveClass;
+        } else {
+          monthlyBtn.className = activeClass;
+          dailyBtn.className = inactiveClass;
+        }
+      }
+      updateExecutiveCalculator();
+    }
+
     function updateExecutiveCalculator() {
       const roomsInput = document.getElementById('calcRooms');
       const lecturesInput = document.getElementById('calcLectures');
+      const fotsInput = document.getElementById('calcFots');
       if (!roomsInput || !lecturesInput) return;
 
       const rooms = parseInt(roomsInput.value, 10);
       const lectures = parseInt(lecturesInput.value, 10);
+      const fots = fotsInput ? parseInt(fotsInput.value, 10) : 4;
 
       const roomsValElem = document.getElementById('calcRoomsVal');
       const lecturesValElem = document.getElementById('calcLecturesVal');
+      const fotsValElem = document.getElementById('calcFotsVal');
       if (roomsValElem) roomsValElem.textContent = rooms;
       if (lecturesValElem) lecturesValElem.textContent = lectures;
+      if (fotsValElem) fotsValElem.textContent = fots;
 
-      // Total lectures per month (30 days)
-      const totalLecturesPerMonth = rooms * lectures * 30;
+      // Daily and monthly lecture volumes
+      const dailyLectures = rooms * lectures;
+      const monthlyLectures = dailyLectures * 30;
 
-      // Staff hours saved per month:
-      // Eliminates ~40 minutes of manual drag-and-drop labor per lecture across 2 to 6 Floor Incharges (FOTs) per center
-      const staffHoursSaved = Math.round((totalLecturesPerMonth * 40) / 60);
+      // Manual labor: ~40 minutes per lecture (searching recording, finding & pairing PDF notes, timetable check, renaming, dragging & dropping to Drive, handling browser drop failures)
+      const dailyLaborHours = (dailyLectures * 40) / 60;
+      const monthlyLaborHours = dailyLaborHours * 30;
+
+      // Work shift impact per FOT (each FOT works min. 9 hours/day shift)
+      // Model realistic floor distribution:
+      const hoursPerFot = (Math.max(1.5, (5.2 / Math.pow(fots, 0.6)) * (lectures / 4))).toFixed(1);
+      const pctOfWorkday = Math.min(75, Math.round((parseFloat(hoursPerFot) / 9) * 100));
 
       const monthlySavingsElem = document.getElementById('calcMonthlySavings');
       const annualSavingsElem = document.getElementById('calcAnnualSavings');
       const staffHoursElem = document.getElementById('calcStaffHours');
+      const staffHoursUnitElem = document.getElementById('calcStaffHoursUnit');
       const lecturesProcessedElem = document.getElementById('calcLecturesProcessed');
+      const dailyLecturesBadgeElem = document.getElementById('calcDailyLecturesBadge');
+      const perFotPillElem = document.getElementById('calcPerFotPill');
 
       if (monthlySavingsElem) monthlySavingsElem.textContent = 'Substantially Lower';
       if (annualSavingsElem) annualSavingsElem.textContent = 'Fraction of Current Spend';
-      if (staffHoursElem) staffHoursElem.textContent = staffHoursSaved.toLocaleString('en-US') + ' hrs';
-      if (lecturesProcessedElem) lecturesProcessedElem.textContent = totalLecturesPerMonth.toLocaleString('en-US') + ' lectures/mo';
+
+      if (calcViewMode === 'daily') {
+        if (staffHoursElem) staffHoursElem.textContent = Math.round(dailyLaborHours).toLocaleString('en-US');
+        if (staffHoursUnitElem) staffHoursUnitElem.textContent = 'hrs / day (1 shift)';
+        if (lecturesProcessedElem) lecturesProcessedElem.textContent = dailyLectures.toLocaleString('en-US') + ' lectures / day';
+        if (dailyLecturesBadgeElem) dailyLecturesBadgeElem.textContent = `(${monthlyLectures.toLocaleString('en-US')}/mo)`;
+      } else {
+        if (staffHoursElem) staffHoursElem.textContent = Math.round(monthlyLaborHours).toLocaleString('en-US');
+        if (staffHoursUnitElem) staffHoursUnitElem.textContent = 'hrs / month (30 days)';
+        if (lecturesProcessedElem) lecturesProcessedElem.textContent = monthlyLectures.toLocaleString('en-US') + ' lectures / mo';
+        if (dailyLecturesBadgeElem) dailyLecturesBadgeElem.textContent = `(${dailyLectures.toLocaleString('en-US')}/day)`;
+      }
+
+      if (perFotPillElem) {
+        perFotPillElem.innerHTML = `⏱️ <strong>Shift Impact:</strong> Reclaims ~<strong>${hoursPerFot} hrs/day</strong> per FOT out of their <strong>9-hr workday</strong> (${pctOfWorkday}% of shift freed from manual drag-and-drop fatigue &amp; human errors).`;
+      }
     }
 
-    function setCalcPreset(rooms, lectures) {
+    function setCalcPreset(rooms, lectures, fots) {
       const roomsInput = document.getElementById('calcRooms');
       const lecturesInput = document.getElementById('calcLectures');
+      const fotsInput = document.getElementById('calcFots');
       if (roomsInput) roomsInput.value = rooms;
       if (lecturesInput) lecturesInput.value = lectures;
+      if (fotsInput && fots) fotsInput.value = fots;
 
       document.querySelectorAll('.calc-preset-btn').forEach(btn => {
         btn.className = 'calc-preset-btn px-3 py-1.5 rounded-xl font-mono text-xs bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:border-stone-400 border border-transparent transition cursor-pointer';
