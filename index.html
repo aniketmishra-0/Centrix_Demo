@@ -131,29 +131,13 @@
           </div>
         </button>
 
-        <!-- Direct Download Button Dropdown (Auto-detects Windows or macOS, Auto-fetches Latest Release) -->
-        <div class="relative inline-block text-left" id="headerDownloadDropdownContainer">
-          <div class="inline-flex rounded-lg shadow-sm">
-            <a id="headerPrimaryDownloadBtn" data-download-platform="auto" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" 
-               class="inline-flex items-center space-x-1.5 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-xs px-3.5 py-2 rounded-l-lg transition active:scale-95">
-              <span id="headerPrimaryDownloadLabel">↓ Download .dmg (Mac)</span>
-            </a>
-            <button onclick="toggleDownloadMenu('headerDlMenu')" type="button" aria-label="More download options" 
-                    class="bg-stone-800 hover:bg-stone-700 dark:bg-stone-200 dark:hover:bg-stone-300 text-white dark:text-stone-950 px-2 py-2 rounded-r-lg border-l border-stone-700 dark:border-stone-300 transition cursor-pointer">
-              ▾
-            </button>
-          </div>
-          <div id="headerDlMenu" class="hidden absolute right-0 mt-1.5 w-64 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-lg p-1.5 z-50 font-mono text-xs">
-            <a id="headerDlWinItem" data-download-platform="windows" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" class="flex items-center justify-between p-2 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition">
-              <span class="font-bold flex items-center space-x-1.5"><span>🪟</span><span>Windows (.exe)</span></span>
-              <span id="headerDlWinMeta" class="text-[10px] text-stone-400 font-normal">v1.0.4 • 208MB</span>
-            </a>
-            <a id="headerDlMacItem" data-download-platform="mac" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" class="flex items-center justify-between p-2 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition">
-              <span class="font-bold flex items-center space-x-1.5"><span>🍎</span><span>macOS (.dmg)</span></span>
-              <span id="headerDlMacMeta" class="text-[10px] text-stone-400 font-normal">v1.0.4 • 26MB</span>
-            </a>
-          </div>
-        </div>
+        <!-- Download Centrix Desktop App Button (Opens Windows / macOS Choice Modal) -->
+        <button onclick="openDownloadModal()" id="headerDownloadAppBtn" type="button" 
+                class="inline-flex items-center space-x-2 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-xs px-3.5 py-2 rounded-xl shadow-sm transition transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+          <span class="text-sm">📥</span>
+          <span>Download App</span>
+          <span id="headerBtnVerBadge" class="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 dark:text-emerald-700 font-bold ml-0.5">v1.0.4</span>
+        </button>
       </div>
     </div>
   </header>
@@ -176,19 +160,23 @@
       </p>
 
       <div class="flex flex-wrap items-center gap-3 mb-10">
+        <button onclick="openDownloadModal()" type="button" 
+                class="inline-flex items-center space-x-2.5 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-sm px-6 py-3.5 rounded-xl shadow-md transition transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+          <span class="text-base">📥</span>
+          <span>Download Centrix App</span>
+          <span class="text-xs opacity-75 font-normal ml-0.5">(Windows / Mac)</span>
+        </button>
         <a data-download-platform="windows" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" 
-           class="inline-flex items-center space-x-2 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-sm px-5 py-3 rounded-xl shadow-md transition transform hover:-translate-y-0.5 active:translate-y-0">
-          <span>🪟</span>
-          <span>Download Windows (.exe)</span>
+           class="inline-flex items-center space-x-1.5 bg-stone-200/70 hover:bg-stone-300/70 dark:bg-stone-800/60 dark:hover:bg-stone-700/60 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-xs sm:text-sm px-3.5 py-3.5 rounded-xl transition" title="Direct download Windows .exe installer">
+          <span>🪟 .exe</span>
         </a>
         <a data-download-platform="mac" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" 
-           class="inline-flex items-center space-x-2 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-sm px-5 py-3 rounded-xl shadow-md transition transform hover:-translate-y-0.5 active:translate-y-0">
-          <span>🍎</span>
-          <span>Download macOS (.dmg)</span>
+           class="inline-flex items-center space-x-1.5 bg-stone-200/70 hover:bg-stone-300/70 dark:bg-stone-800/60 dark:hover:bg-stone-700/60 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-xs sm:text-sm px-3.5 py-3.5 rounded-xl transition" title="Direct download macOS .dmg disk image">
+          <span>🍎 .dmg</span>
         </a>
         <a href="#pilot" 
-           class="inline-flex items-center space-x-2 bg-stone-200/70 hover:bg-stone-300/70 dark:bg-stone-800/60 dark:hover:bg-stone-700/60 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-sm px-4 py-3 rounded-xl transition">
-          <span>Request Center Pilot →</span>
+           class="inline-flex items-center space-x-2 text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 font-mono font-medium text-xs sm:text-sm px-3 py-3.5 transition">
+          <span>Request Pilot →</span>
         </a>
       </div>
 
@@ -1209,10 +1197,11 @@
       </p>
 
       <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-        <a href="mailto:aniket.mishra2@pw.live?subject=Centrix%20Pilot%20Request%20-%20[Center%20Name]&body=Hi%20Aniket,%0A%0AWe%20would%20like%20to%20request%20a%20pilot%20deployment%20of%20Centrix%20for%20our%20center:%0A%0ACenter%20Name:%20%0ANumber%20of%20Classrooms:%20%0AContact%20Person:%20%0A%0ABest%20regards," 
-           class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-emerald-600 hover:bg-emerald-500 text-white font-mono font-semibold text-sm px-6 py-3.5 rounded-xl shadow-sm transition active:scale-95">
-          <span>🚀 Request Pilot</span>
-        </a>
+        <button onclick="openDownloadModal()" type="button" 
+           class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-sm px-6 py-3.5 rounded-xl shadow-sm transition active:scale-95 cursor-pointer">
+          <span>📥</span>
+          <span>Download Centrix App</span>
+        </button>
         <a data-download-platform="windows" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" 
            class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-sm px-4 py-3.5 rounded-xl transition">
           <span>🪟 Windows (.exe)</span>
@@ -1220,6 +1209,10 @@
         <a data-download-platform="mac" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" 
            class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-sm px-4 py-3.5 rounded-xl transition">
           <span>🍎 macOS (.dmg)</span>
+        </a>
+        <a href="mailto:aniket.mishra2@pw.live?subject=Centrix%20Pilot%20Request%20-%20[Center%20Name]&body=Hi%20Aniket,%0A%0AWe%20would%20like%20to%20request%20a%20pilot%20deployment%20of%20Centrix%20for%20our%20center:%0A%0ACenter%20Name:%20%0ANumber%20of%20Classrooms:%20%0AContact%20Person:%20%0A%0ABest%20regards," 
+           class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-emerald-600 hover:bg-emerald-500 text-white font-mono font-semibold text-sm px-6 py-3.5 rounded-xl shadow-sm transition active:scale-95">
+          <span>🚀 Request Pilot</span>
         </a>
       </div>
 
@@ -1328,6 +1321,106 @@
       </div>
       <span class="hidden sm:inline font-mono font-semibold text-xs tracking-tight">Ask Centrix AI</span>
     </button>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- Centrix Desktop App Download Platform Modal (Windows & macOS)            -->
+  <!-- ========================================================================= -->
+  <div id="downloadModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm transition-all select-none" onclick="handleDownloadModalBackdropClick(event)">
+    <div class="relative w-full max-w-2xl bg-[#FBF9F5] dark:bg-[#151513] border border-stone-300 dark:border-stone-800 rounded-2xl shadow-2xl overflow-hidden transform transition-all text-stone-900 dark:text-stone-100">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-stone-200 dark:border-stone-800 bg-[#F4F1EA] dark:bg-[#1A1A18]">
+        <div class="flex items-center space-x-3">
+          <img src="./images/centrix-logo.png" alt="Centrix Logo" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0">
+          <div>
+            <div class="flex items-center space-x-2">
+              <h3 class="font-mono font-extrabold text-sm sm:text-base tracking-tight">Download Centrix Desktop App</h3>
+              <span data-centrix-version class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400">v1.0.4 Ready</span>
+            </div>
+            <p class="text-[11px] sm:text-xs text-stone-500 dark:text-stone-400 font-sans">PhysicsWallah Classroom Lecture Capture &amp; Cloud Delivery Workstation</p>
+          </div>
+        </div>
+        <button onclick="closeDownloadModal()" class="p-1.5 rounded-lg text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-stone-200 dark:hover:bg-stone-800 transition cursor-pointer text-lg leading-none" title="Close">
+          ✕
+        </button>
+      </div>
+
+      <!-- Modal Body: 2 Platform Choice Cards -->
+      <div class="p-5 sm:p-6">
+        <p class="text-xs font-mono uppercase tracking-wider text-stone-500 dark:text-stone-400 mb-4">Choose your workstation platform:</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          
+          <!-- Windows Card -->
+          <div class="relative flex flex-col justify-between p-5 rounded-xl border-2 border-stone-200 dark:border-stone-800 hover:border-blue-500/70 dark:hover:border-blue-500/70 bg-white dark:bg-stone-900/70 shadow-xs hover:shadow-md transition group">
+            <div id="winRecommendedBadge" class="hidden absolute -top-2.5 right-4 bg-blue-600 text-white font-mono text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-xs">
+              ✓ Recommended for this PC
+            </div>
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-3xl">🪟</span>
+                <span class="font-mono text-xs text-stone-500 dark:text-stone-400" id="modalWinMeta">v1.0.4 • ~208MB</span>
+              </div>
+              <h4 class="font-bold text-base mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">Windows 10 / 11</h4>
+              <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed mb-4">
+                Native background automation service for classroom Windows workstations. Silent OBS watcher, auto-start on boot, and hardware DPAPI vault.
+              </p>
+              <ul class="text-[11px] font-mono text-stone-500 dark:text-stone-400 space-y-1 mb-5">
+                <li class="flex items-center space-x-1.5"><span class="text-blue-500">✓</span><span>Windows 10 / 11 (64-bit)</span></li>
+                <li class="flex items-center space-x-1.5"><span class="text-blue-500">✓</span><span>Auto-starts with Windows service</span></li>
+                <li class="flex items-center space-x-1.5"><span class="text-blue-500">✓</span><span>.NET 8 bundled (No setup required)</span></li>
+              </ul>
+            </div>
+            <a data-download-platform="windows" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe"
+               class="w-full inline-flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white font-mono font-semibold text-xs py-3 px-4 rounded-xl shadow-sm transition transform active:scale-95">
+              <span>🪟 Download Windows (.exe)</span>
+            </a>
+          </div>
+
+          <!-- macOS Card -->
+          <div class="relative flex flex-col justify-between p-5 rounded-xl border-2 border-stone-200 dark:border-stone-800 hover:border-emerald-500/70 dark:hover:border-emerald-500/70 bg-white dark:bg-stone-900/70 shadow-xs hover:shadow-md transition group">
+            <div id="macRecommendedBadge" class="hidden absolute -top-2.5 right-4 bg-emerald-600 text-white font-mono text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-xs">
+              ✓ Recommended for your Mac
+            </div>
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-3xl">🍎</span>
+                <span class="font-mono text-xs text-stone-500 dark:text-stone-400" id="modalMacMeta">v1.0.4 • ~26MB</span>
+              </div>
+              <h4 class="font-bold text-base mb-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">macOS Universal</h4>
+              <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed mb-4">
+                Universal application package for Mac workstations and review operators. Fast native execution on Apple Silicon (M1–M4) and Intel.
+              </p>
+              <ul class="text-[11px] font-mono text-stone-500 dark:text-stone-400 space-y-1 mb-5">
+                <li class="flex items-center space-x-1.5"><span class="text-emerald-500">✓</span><span>macOS 12 Monterey or newer</span></li>
+                <li class="flex items-center space-x-1.5"><span class="text-emerald-500">✓</span><span>Apple Silicon (M-series) &amp; Intel</span></li>
+                <li class="flex items-center space-x-1.5"><span class="text-emerald-500">✓</span><span>Drag-and-Drop .dmg Installer</span></li>
+              </ul>
+            </div>
+            <a data-download-platform="mac" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg"
+               class="w-full inline-flex items-center justify-center space-x-2 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-xs py-3 px-4 rounded-xl shadow-sm transition transform active:scale-95">
+              <span>🍎 Download macOS (.dmg)</span>
+            </a>
+            <div class="mt-2.5 p-2 rounded-lg bg-stone-100 dark:bg-stone-800/70 border border-stone-200 dark:border-stone-700/70 text-[10px] font-mono text-stone-600 dark:text-stone-300 leading-snug">
+              <span class="font-bold text-amber-600 dark:text-amber-400">⚡ First Run on Mac:</span> If Gatekeeper says <em>"is damaged"</em>, drag to Applications and run:<br/>
+              <code class="text-[10px] bg-stone-200/90 dark:bg-stone-900 px-1 py-0.5 rounded text-emerald-600 dark:text-emerald-400 select-all font-bold block mt-1">xattr -cr /Applications/Centrix.app</code>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Footnote inside modal -->
+        <div class="mt-5 p-3 rounded-xl bg-stone-100 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700/60 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-stone-500 dark:text-stone-400 gap-2">
+          <div class="flex items-center space-x-2">
+            <span>🛡️</span>
+            <span>Always auto-fetches the latest certified GitHub production build</span>
+          </div>
+          <a href="#how-to-use" onclick="closeDownloadModal()" class="underline hover:text-stone-800 dark:hover:text-stone-200 transition">View 3-Step Setup Guide →</a>
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <!-- Showcase High-Resolution Image Lightbox Modal (Zoom, Pan, Swipe & Fullscreen) -->
@@ -2362,28 +2455,47 @@
         });
         const simVer = document.getElementById('simulatorVersionLabel');
         if (simVer) simVer.textContent = `Centrix ${rel.tag}`;
+        const headerBadge = document.getElementById('headerBtnVerBadge');
+        if (headerBadge) headerBadge.textContent = rel.tag;
       }
 
-      // 4. Update dropdown metadata labels
-      const winMeta = document.getElementById('headerDlWinMeta');
-      if (winMeta) winMeta.textContent = `${rel.tag || 'Latest'} • ${rel.winSize || '208MB'}`;
-      const macMeta = document.getElementById('headerDlMacMeta');
-      if (macMeta) macMeta.textContent = `${rel.tag || 'Latest'} • ${rel.macSize || '26MB'}`;
+      // 4. Update modal platform metadata
+      const modalWinMeta = document.getElementById('modalWinMeta');
+      if (modalWinMeta) modalWinMeta.textContent = `${rel.tag || 'Latest'} • ~${rel.winSize || '208MB'}`;
+      const modalMacMeta = document.getElementById('modalMacMeta');
+      if (modalMacMeta) modalMacMeta.textContent = `${rel.tag || 'Latest'} • ~${rel.macSize || '26MB'}`;
+    }
 
-      // 5. Update Header Primary Button with Client OS Auto-detection
+    // Modal Controller for Platform Download Popup
+    function openDownloadModal() {
+      const modal = document.getElementById('downloadModal');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+
+      // Auto-highlight recommended card based on visitor OS
       const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0 || navigator.userAgent.toUpperCase().indexOf('MAC') >= 0;
-      const primaryBtn = document.getElementById('headerPrimaryDownloadBtn');
-      const primaryLabel = document.getElementById('headerPrimaryDownloadLabel');
-      if (primaryBtn && primaryLabel) {
-        if (isMac) {
-          primaryBtn.href = rel.macUrl || 'https://github.com/aniketmishra-0/Centrix_Demo/releases/latest';
-          primaryLabel.innerHTML = '🍎 Download .dmg';
-          primaryBtn.setAttribute('title', `Download Centrix ${rel.tag || ''} for macOS (${rel.macSize || '26MB'})`);
-        } else {
-          primaryBtn.href = rel.winUrl || 'https://github.com/aniketmishra-0/Centrix_Demo/releases/latest/download/Centrix-Setup.exe';
-          primaryLabel.innerHTML = '🪟 Download .exe';
-          primaryBtn.setAttribute('title', `Download Centrix ${rel.tag || ''} for Windows (${rel.winSize || '208MB'})`);
-        }
+      const macBadge = document.getElementById('macRecommendedBadge');
+      const winBadge = document.getElementById('winRecommendedBadge');
+      if (isMac) {
+        if (macBadge) macBadge.classList.remove('hidden');
+        if (winBadge) winBadge.classList.add('hidden');
+      } else {
+        if (winBadge) winBadge.classList.remove('hidden');
+        if (macBadge) macBadge.classList.add('hidden');
+      }
+    }
+
+    function closeDownloadModal() {
+      const modal = document.getElementById('downloadModal');
+      if (!modal) return;
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    function handleDownloadModalBackdropClick(e) {
+      if (e.target && e.target.id === 'downloadModal') {
+        closeDownloadModal();
       }
     }
 
@@ -4328,6 +4440,7 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         closeCodeViewer();
         closeImpactModal();
         closeQuestionDirectoryModal();
+        closeDownloadModal();
       }
     });
 
