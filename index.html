@@ -780,216 +780,196 @@
   </section>
 
   <!-- Senior Leadership Strategic & Operational Impact -->
-  <section id="executive-roi" class="max-w-6xl mx-auto px-6 py-16 border-t border-stone-300 dark:border-stone-800">
-    <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-10 gap-4">
+  <section id="executive-roi" class="max-w-6xl mx-auto px-6 py-8 sm:py-10 border-t border-stone-300 dark:border-stone-800">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-5 gap-3 border-b border-stone-200 dark:border-stone-800 pb-3">
       <div>
-        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono text-xs font-semibold mb-2">
-          <span>👔 Executive Leadership Briefing</span>
+        <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono text-[11px] font-semibold mb-1">
+          <span>👔 Executive Briefing</span>
           <span>•</span>
-          <span>Strategic &amp; Operational Impact</span>
+          <span>Operational ROI</span>
         </div>
-        <h2 class="text-3xl sm:text-4xl font-serif text-stone-900 dark:text-stone-50 mt-1">Senior Leadership Operational Impact</h2>
-        <p class="text-stone-600 dark:text-stone-400 text-sm mt-2 max-w-2xl">
-          Quantifiable operational transformation across PhysicsWallah Vidyapeeth centers nationwide—replacing repetitive manual Google Drive drag-and-drop uploads by 2 to 6 Floor Incharges (FOTs) per center with autonomous edge streaming.
-        </p>
+        <h2 class="text-2xl sm:text-3xl font-serif text-stone-900 dark:text-stone-50">Senior Leadership Operational Impact</h2>
       </div>
 
       <!-- Quick Preset Buttons -->
-      <div class="flex flex-wrap items-center gap-2">
-        <span class="text-xs font-mono text-stone-500 mr-1">Fleet Scale:</span>
-        <button type="button" id="preset-btn-20" onclick="setCalcPreset(20, 4, 3)" class="calc-preset-btn px-3 py-1.5 rounded-xl font-mono text-xs bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:border-stone-400 border border-transparent transition cursor-pointer">
-          Single Center (20 Rooms • 3 FOTs)
+      <div class="flex flex-wrap items-center gap-1.5">
+        <span class="text-[11px] font-mono text-stone-400 mr-0.5">Presets:</span>
+        <button type="button" id="preset-btn-20" onclick="setCalcPreset(20, 4, 3)" class="calc-preset-btn px-2.5 py-1 rounded-lg font-mono text-[11px] bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:border-stone-400 border border-transparent transition cursor-pointer">
+          Single Center (20)
         </button>
-        <button type="button" id="preset-btn-50" onclick="setCalcPreset(50, 4, 3)" class="calc-preset-btn px-3 py-1.5 rounded-xl font-mono text-xs bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:border-stone-400 border border-transparent transition cursor-pointer">
-          Cluster Hub (50 Rooms • 6k Lec)
+        <button type="button" id="preset-btn-50" onclick="setCalcPreset(50, 4, 3)" class="calc-preset-btn px-2.5 py-1 rounded-lg font-mono text-[11px] bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:border-stone-400 border border-transparent transition cursor-pointer">
+          Cluster (50)
         </button>
-        <button type="button" id="preset-btn-100" onclick="setCalcPreset(100, 4, 4)" class="calc-preset-btn px-3 py-1.5 rounded-xl font-mono text-xs font-semibold bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950 shadow-sm border border-transparent transition cursor-pointer">
-          Standard Fleet (100 Rooms • 12k Lec)
+        <button type="button" id="preset-btn-100" onclick="setCalcPreset(100, 4, 4)" class="calc-preset-btn px-2.5 py-1 rounded-lg font-mono text-[11px] font-semibold bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950 shadow-xs border border-transparent transition cursor-pointer">
+          Fleet (100 Rooms • 12k Lec)
         </button>
       </div>
     </div>
 
     <!-- Sliders and Live Strategic KPI Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
       
       <!-- Left: Interactive Sliders Card (5 cols) -->
-      <div class="lg:col-span-5 p-6 sm:p-8 rounded-3xl bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-800 shadow-xs flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="font-bold text-lg text-stone-900 dark:text-stone-100">
-              Deployment Parameters
-            </h3>
-            <span class="text-xs font-mono text-stone-400 font-normal">Real-Time Simulation</span>
-          </div>
+      <div class="lg:col-span-5 p-4 sm:p-5 rounded-2xl bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-800 shadow-xs space-y-3.5">
+        <div class="flex items-center justify-between pb-2 border-b border-stone-200 dark:border-stone-800">
+          <h3 class="font-bold text-sm text-stone-900 dark:text-stone-100">
+            Deployment Parameters
+          </h3>
+          <span class="text-[10px] font-mono text-stone-400">Real-Time Simulation</span>
+        </div>
 
-          <!-- Timeframe View Switcher: 1 Month vs 1 Day -->
-          <div class="flex items-center justify-between mb-6 p-2 rounded-2xl bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700/60">
-            <span class="text-xs font-mono text-stone-600 dark:text-stone-400 font-semibold uppercase pl-1">Timeframe:</span>
-            <div class="inline-flex p-0.5 rounded-xl bg-stone-200/80 dark:bg-stone-900 border border-stone-300 dark:border-stone-700">
-              <button type="button" id="viewModeMonthlyBtn" onclick="setCalcViewMode('monthly')" class="px-3 py-1 rounded-lg font-mono text-[11px] font-semibold bg-blue-600 text-white shadow-xs transition cursor-pointer">📅 Monthly (30 Days)</button>
-              <button type="button" id="viewModeDailyBtn" onclick="setCalcViewMode('daily')" class="px-3 py-1 rounded-lg font-mono text-[11px] text-stone-600 dark:text-stone-400 hover:bg-stone-300 dark:hover:bg-stone-800 transition cursor-pointer">⏱️ Daily (1 Day Shift)</button>
-            </div>
-          </div>
-
-          <!-- Slider 1: Classrooms -->
-          <div class="mb-6">
-            <div class="flex items-center justify-between mb-2">
-              <label for="calcRooms" class="text-xs font-mono font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide">Classrooms Deployed</label>
-              <span class="font-mono text-sm font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 px-2.5 py-0.5 rounded-md border border-blue-200 dark:border-blue-900/60">
-                <span id="calcRoomsVal">100</span> Rooms
-              </span>
-            </div>
-            <input id="calcRooms" type="range" min="10" max="150" step="5" value="100" oninput="updateExecutiveCalculator()" class="w-full accent-blue-600 cursor-pointer h-2 bg-stone-200 dark:bg-stone-800 rounded-lg">
-            <div class="flex justify-between text-[11px] font-mono text-stone-400 mt-1.5">
-              <span>10 Rooms (1 Center)</span>
-              <span>100 Rooms (~12k Lec)</span>
-              <span>150 Rooms</span>
-            </div>
-          </div>
-
-          <!-- Slider 2: Daily Lectures -->
-          <div class="mb-6">
-            <div class="flex items-center justify-between mb-2">
-              <label for="calcLectures" class="text-xs font-mono font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide">Daily Lectures / Room</label>
-              <span class="font-mono text-sm font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-0.5 rounded-md border border-emerald-200 dark:border-emerald-900/60">
-                <span id="calcLecturesVal">4</span> Lectures/Day
-              </span>
-            </div>
-            <input id="calcLectures" type="range" min="2" max="8" step="1" value="4" oninput="updateExecutiveCalculator()" class="w-full accent-emerald-600 cursor-pointer h-2 bg-stone-200 dark:bg-stone-800 rounded-lg">
-            <div class="flex justify-between text-[11px] font-mono text-stone-400 mt-1.5">
-              <span>2 per Day</span>
-              <span>4 (Standard)</span>
-              <span>8 (Double Shift)</span>
-            </div>
-          </div>
-
-          <!-- Slider 3: Floor Incharges (FOTs) Per Center (1 to 6 FOTs) -->
-          <div class="mb-6">
-            <div class="flex items-center justify-between mb-2">
-              <div>
-                <label for="calcFots" class="text-xs font-mono font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wide">Floor Incharges (FOTs)</label>
-                <div class="text-[10px] text-stone-400 font-mono">Min. 9 hrs/day work shift per FOT</div>
-              </div>
-              <span class="font-mono text-sm font-bold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/40 px-2.5 py-0.5 rounded-md border border-purple-200 dark:border-purple-900/60">
-                <span id="calcFotsVal">4</span> FOTs / Center
-              </span>
-            </div>
-            <input id="calcFots" type="range" min="1" max="6" step="1" value="4" oninput="updateExecutiveCalculator()" class="w-full accent-purple-600 cursor-pointer h-2 bg-stone-200 dark:bg-stone-800 rounded-lg">
-            <div class="flex justify-between text-[11px] font-mono text-stone-400 mt-1.5">
-              <span>1 FOT (Overloaded)</span>
-              <span>3–4 FOTs (Standard)</span>
-              <span>6 FOTs (Mega Center)</span>
-            </div>
+        <!-- Timeframe Switcher -->
+        <div class="flex items-center justify-between p-1.5 rounded-xl bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700/60">
+          <span class="text-[11px] font-mono text-stone-600 dark:text-stone-400 font-semibold uppercase pl-1">Timeframe:</span>
+          <div class="inline-flex p-0.5 rounded-lg bg-stone-200/80 dark:bg-stone-900 border border-stone-300 dark:border-stone-700">
+            <button type="button" id="viewModeMonthlyBtn" onclick="setCalcViewMode('monthly')" class="px-2.5 py-0.5 rounded-md font-mono text-[10px] font-semibold bg-blue-600 text-white shadow-xs transition cursor-pointer">📅 Monthly (30D)</button>
+            <button type="button" id="viewModeDailyBtn" onclick="setCalcViewMode('daily')" class="px-2.5 py-0.5 rounded-md font-mono text-[10px] text-stone-600 dark:text-stone-400 hover:bg-stone-300 dark:hover:bg-stone-800 transition cursor-pointer">⏱️ Daily (1D)</button>
           </div>
         </div>
 
-        <!-- Footnote Badge with Throughput & Human Error Ground Reality -->
-        <div class="p-4 rounded-2xl bg-stone-50 dark:bg-stone-800/50 border border-stone-200 dark:border-stone-800 text-xs text-stone-600 dark:text-stone-400 leading-relaxed font-mono space-y-2">
+        <!-- Slider 1: Classrooms -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label for="calcRooms" class="text-[11px] font-mono font-semibold text-stone-700 dark:text-stone-300 uppercase">Classrooms Deployed</label>
+            <span class="font-mono text-xs font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 px-2 py-0.5 rounded border border-blue-200 dark:border-blue-900/60">
+              <span id="calcRoomsVal">100</span> Rooms
+            </span>
+          </div>
+          <input id="calcRooms" type="range" min="10" max="150" step="5" value="100" oninput="updateExecutiveCalculator()" class="w-full accent-blue-600 cursor-pointer h-1.5 bg-stone-200 dark:bg-stone-800 rounded-lg">
+          <div class="flex justify-between text-[10px] font-mono text-stone-400 mt-0.5">
+            <span>10 Rooms (1 Ctr)</span>
+            <span>100 Rooms (~12k Lec)</span>
+            <span>150 Rooms</span>
+          </div>
+        </div>
+
+        <!-- Slider 2: Daily Lectures -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label for="calcLectures" class="text-[11px] font-mono font-semibold text-stone-700 dark:text-stone-300 uppercase">Daily Lectures / Room</label>
+            <span class="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-900/60">
+              <span id="calcLecturesVal">4</span> Lectures/Day
+            </span>
+          </div>
+          <input id="calcLectures" type="range" min="2" max="8" step="1" value="4" oninput="updateExecutiveCalculator()" class="w-full accent-emerald-600 cursor-pointer h-1.5 bg-stone-200 dark:bg-stone-800 rounded-lg">
+          <div class="flex justify-between text-[10px] font-mono text-stone-400 mt-0.5">
+            <span>2 / Day</span>
+            <span>4 (Standard)</span>
+            <span>8 (Double Shift)</span>
+          </div>
+        </div>
+
+        <!-- Slider 3: Floor Incharges (FOTs) Per Center -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label for="calcFots" class="text-[11px] font-mono font-semibold text-stone-700 dark:text-stone-300 uppercase">FOTs / Center</label>
+            <span class="font-mono text-xs font-bold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/40 px-2 py-0.5 rounded border border-purple-200 dark:border-purple-900/60">
+              <span id="calcFotsVal">4</span> FOTs / Center
+            </span>
+          </div>
+          <input id="calcFots" type="range" min="1" max="6" step="1" value="4" oninput="updateExecutiveCalculator()" class="w-full accent-purple-600 cursor-pointer h-1.5 bg-stone-200 dark:bg-stone-800 rounded-lg">
+          <div class="flex justify-between text-[10px] font-mono text-stone-400 mt-0.5">
+            <span>1 FOT (Lean)</span>
+            <span>3–4 FOTs (Standard)</span>
+            <span>6 FOTs (Mega)</span>
+          </div>
+        </div>
+
+        <!-- Footnote Badge: Compact -->
+        <div class="p-2.5 rounded-xl bg-stone-50 dark:bg-stone-800/50 border border-stone-200 dark:border-stone-800 text-[11px] font-mono text-stone-600 dark:text-stone-400 space-y-1">
           <div class="flex items-center justify-between">
             <span>⚡ <strong>Throughput:</strong> <span id="calcLecturesProcessed" class="font-bold text-stone-900 dark:text-stone-100">12,000 lectures/mo</span></span>
             <span id="calcDailyLecturesBadge" class="text-[10px] text-stone-400">(400/day)</span>
           </div>
-          <div class="pt-2 border-t border-stone-200/60 dark:border-stone-700/60 text-[11px] text-amber-700 dark:text-amber-400 flex items-start space-x-1.5">
-            <span class="shrink-0 text-sm">⚠️</span>
-            <span><strong>Ground Reality:</strong> FOTs work <strong>9+ hours/day</strong>. Despite exhausting shifts, repetitive manual drag-and-drop inevitably causes human errors (missed notes, wrong batch drops). Centrix delivers <strong>0% Human Error</strong> autonomously.</span>
+          <div class="text-[10px] text-amber-700 dark:text-amber-400 flex items-center space-x-1">
+            <span>⚠️</span>
+            <span>Centrix delivers <strong>0% Human Error</strong> autonomously.</span>
           </div>
         </div>
       </div>
 
       <!-- Right: Live Executive Output Cards (7 cols) -->
-      <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="lg:col-span-7 flex flex-col space-y-3">
         
-        <!-- Metric 1: Operational Expenditure Reduction -->
-        <div class="p-6 rounded-3xl bg-gradient-to-br from-emerald-500/10 via-white dark:via-stone-900 to-transparent border border-emerald-500/30 dark:border-emerald-500/40 shadow-xs flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-xs font-mono text-emerald-700 dark:text-emerald-400 font-semibold uppercase tracking-wider">Ongoing Operational Expense</span>
-              <span class="text-lg">📉</span>
-            </div>
-            <div id="calcMonthlySavings" class="text-2xl sm:text-3xl font-extrabold font-mono text-emerald-600 dark:text-emerald-400 mb-1">
-              Substantially Lower
-            </div>
-            <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-              Slashes operational costs down to a fraction of current manual workflows by eliminating the repetitive manual drag-and-drop uploads to Google Drive performed by 1 to 6 Floor Incharges (FOTs) per center, ending overtime, upload delays, and lost lecture re-shoots.
-            </p>
+        <!-- Primary Hero Card: FOT Headcount Optimization & Shift Relief -->
+        <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-blue-500/10 via-white dark:via-stone-900 to-transparent border border-blue-500/30 dark:border-blue-500/40 shadow-xs">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[11px] font-mono text-blue-700 dark:text-blue-400 font-semibold uppercase tracking-wider flex items-center space-x-1.5">
+              <span>👥</span>
+              <span>Floor Incharge (FOT) Workforce Optimization</span>
+            </span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold" id="calcAnnualSavings">Fraction of Current Spend</span>
           </div>
-          <div class="mt-4 pt-3 border-t border-emerald-500/20 font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center justify-between">
-            <span>Operational Baseline:</span>
-            <span id="calcAnnualSavings">Fraction of Current Spend</span>
+          
+          <!-- Hero Stat -->
+          <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1.5">
+            <div id="calcFotHeroStat" class="text-2xl sm:text-3xl font-extrabold font-mono text-emerald-600 dark:text-emerald-400">
+              ↓ Reduce 3 FOTs / Center
+            </div>
+            <span id="calcFotPctBadge" class="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+              75% Headcount Saved
+            </span>
+          </div>
+
+          <!-- Dynamic Executive Staff Recommendation Box -->
+          <div id="calcPerFotPill" class="my-2 p-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-900/60 text-[11px] font-mono text-blue-900 dark:text-blue-200 leading-snug">
+            <!-- Dynamically populated via JS -->
+          </div>
+
+          <!-- Quick Metrics Bar -->
+          <div class="grid grid-cols-2 gap-2 pt-2 border-t border-blue-500/20 text-[11px] font-mono">
+            <div class="flex items-center justify-between pr-2 border-r border-stone-200 dark:border-stone-800">
+              <span class="text-stone-500">Upload Time Reclaimed:</span>
+              <strong id="calcStaffHours" class="text-stone-900 dark:text-stone-100 font-bold">2,400 hrs/mo</strong>
+            </div>
+            <div class="flex items-center justify-between pl-1">
+              <span class="text-stone-500">Operating Spend:</span>
+              <span id="calcMonthlySavings" class="text-emerald-600 dark:text-emerald-400 font-bold">Substantially Lower</span>
+            </div>
           </div>
         </div>
 
-        <!-- Metric 2: Staff Reduction & FOT Hours Reclaimed -->
-        <div class="p-6 rounded-3xl bg-gradient-to-br from-blue-500/10 via-white dark:via-stone-900 to-transparent border border-blue-500/30 dark:border-blue-500/40 shadow-xs flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-xs font-mono text-blue-700 dark:text-blue-400 font-semibold uppercase tracking-wider">FOT Staff Reduction &amp; Shift Impact</span>
-              <span class="text-lg">👥</span>
-            </div>
-            
-            <!-- Hero Stat: Exact FOT reduction recommendation -->
-            <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1">
-              <div id="calcFotHeroStat" class="text-2xl sm:text-3xl font-extrabold font-mono text-emerald-600 dark:text-emerald-400">
-                ↓ Reduce 3 FOTs / Center
+        <!-- 2 Compact Cards Side-by-Side: Server Compute & Turnaround -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          
+          <!-- Card 1: Server Transcoding -->
+          <div class="p-3.5 sm:p-4 rounded-xl bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-800 shadow-xs flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-[10px] font-mono text-indigo-700 dark:text-indigo-400 font-semibold uppercase">Cloud Transcoding</span>
+                <span class="text-sm">☁️</span>
               </div>
-              <span id="calcFotPctBadge" class="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                75% Headcount Saved
-              </span>
+              <div class="text-xl sm:text-2xl font-extrabold font-mono text-emerald-600 dark:text-emerald-400 mb-0.5">
+                $0 Server Compute
+              </div>
+              <p class="text-[11px] text-stone-500 dark:text-stone-400 leading-tight">
+                100% hashing &amp; OCR run locally on classroom PCs. Zero AWS/EC2 transcoding bills.
+              </p>
             </div>
+            <div class="mt-2 pt-2 border-t border-stone-200 dark:border-stone-800 font-mono text-[10px] text-stone-400">
+              Infinite Edge Scaling
+            </div>
+          </div>
 
-            <!-- Dynamic Executive Staff Recommendation Box -->
-            <div id="calcPerFotPill" class="my-2.5 p-3 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-900/60 text-[11px] font-mono text-blue-900 dark:text-blue-200 leading-relaxed">
-              <!-- Dynamically populated via JS -->
+          <!-- Card 2: Turnaround SLA -->
+          <div class="p-3.5 sm:p-4 rounded-xl bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-800 shadow-xs flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-[10px] font-mono text-purple-700 dark:text-purple-400 font-semibold uppercase">Distribution Speed</span>
+                <span class="text-sm">⚡</span>
+              </div>
+              <div class="text-xl sm:text-2xl font-extrabold font-mono text-purple-600 dark:text-purple-400 mb-0.5">
+                &lt; 30 Minutes
+              </div>
+              <p class="text-[11px] text-stone-500 dark:text-stone-400 leading-tight">
+                96% turnaround reduction vs 6–12 hr manual lag. Deterministic timetable engine.
+              </p>
             </div>
+            <div class="mt-2 pt-2 border-t border-stone-200 dark:border-stone-800 font-mono text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">
+              0.00% Misdropped Files
+            </div>
+          </div>
 
-            <!-- Total Upload Hours Reclaimed Sub-row -->
-            <div class="flex items-center justify-between pt-1 text-xs font-mono text-stone-600 dark:text-stone-400 border-t border-stone-200/50 dark:border-stone-800/60 mt-2">
-              <span>Manual Drag-and-Drop Reclaimed:</span>
-              <strong id="calcStaffHours" class="text-stone-900 dark:text-stone-100 font-mono text-xs">2,400 hrs / month</strong>
-            </div>
-          </div>
-          <div class="mt-4 pt-3 border-t border-blue-500/20 font-mono text-xs font-bold text-blue-600 dark:text-blue-400 flex items-center justify-between">
-            <span>Human Error Rate:</span>
-            <span class="text-emerald-600 dark:text-emerald-400 font-extrabold">0.00% (Zero Misdropped Files)</span>
-          </div>
-        </div>
-
-        <!-- Metric 3: Server Transcoding Compute -->
-        <div class="p-6 rounded-3xl bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-800 shadow-xs flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-xs font-mono text-indigo-700 dark:text-indigo-400 font-semibold uppercase tracking-wider">Cloud Transcoding Fleet</span>
-              <span class="text-lg">☁️</span>
-            </div>
-            <div class="text-3xl sm:text-4xl font-extrabold font-mono text-emerald-600 dark:text-emerald-400 mb-1">
-              $0 Server Compute
-            </div>
-            <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-              100% of hashing, packet chunking, and PDF cover slide OCR execute locally on classroom PCs. Zero AWS/EC2 cloud transcoding bills.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-stone-200 dark:border-stone-800 font-mono text-xs text-stone-500">
-            Infinite Edge Scaling
-          </div>
-        </div>
-
-        <!-- Metric 4: Turnaround SLA & Accuracy -->
-        <div class="p-6 rounded-3xl bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-800 shadow-xs flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-xs font-mono text-purple-700 dark:text-purple-400 font-semibold uppercase tracking-wider">Distribution Turnaround</span>
-              <span class="text-lg">⚡</span>
-            </div>
-            <div class="text-3xl sm:text-4xl font-extrabold font-mono text-purple-600 dark:text-purple-400 mb-1">
-              &lt; 30 Minutes
-            </div>
-            <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-              96% turnaround reduction vs. 6–12 hour manual FOT lag. 7-signal deterministic timetable engine delivers <strong>&lt; 0.01% error rate</strong>.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-stone-200 dark:border-stone-800 font-mono text-xs text-stone-500">
-            99.99% Algorithmic Precision
-          </div>
         </div>
 
       </div>
@@ -2250,13 +2230,12 @@
         }
         if (perFotPillElem) {
           perFotPillElem.innerHTML = `
-            <div class="font-bold text-emerald-800 dark:text-emerald-300 mb-1 flex items-center space-x-1.5">
+            <div class="font-bold text-emerald-800 dark:text-emerald-300 mb-0.5 flex items-center space-x-1.5 text-[11px]">
               <span>🎯</span>
               <span>Leadership Recommendation: Cut from ${fots} FOTs down to 1 FOT / center</span>
             </div>
-            <div class="text-stone-700 dark:text-stone-300">
-              Centrix takes over 100% of video ingestion &amp; Google Drive streaming. Centers only require <strong>1 FOT for basic room assistance</strong>. 
-              You can safely reallocate or reduce <strong>${fotsToReducePerCenter} FOTs per center</strong> (<strong>${totalFotsReducedFleet} total FOT positions</strong> across ${numCenters} center${numCenters > 1 ? 's' : ''}), ending high operational payroll and overtime costs.
+            <div class="text-[11px] text-stone-700 dark:text-stone-300 leading-snug">
+              Centrix automates 100% of Drive uploads. Centers only require <strong>1 FOT for floor oversight</strong>. You can safely save <strong>${fotsToReducePerCenter} FOTs per center (${totalFotsReducedFleet} positions across ${numCenters} center${numCenters > 1 ? 's' : ''})</strong>, eliminating heavy recurring payroll &amp; overtime.
             </div>
           `;
         }
@@ -2273,12 +2252,12 @@
         }
         if (perFotPillElem) {
           perFotPillElem.innerHTML = `
-            <div class="font-bold text-blue-800 dark:text-blue-300 mb-1 flex items-center space-x-1.5">
+            <div class="font-bold text-blue-800 dark:text-blue-300 mb-0.5 flex items-center space-x-1.5 text-[11px]">
               <span>🛡️</span>
               <span>Single-FOT Operation: Zero Additional Hiring Needed</span>
             </div>
-            <div class="text-stone-700 dark:text-stone-300">
-              Currently, 1 lone FOT spends <strong>~${hoursPerFotDaily} hrs/day</strong> (${pctOfWorkday}% of their 9-hr shift) running room-to-room manually dragging files, causing extreme fatigue &amp; errors. Centrix relieves 100% of this upload burden so <strong>1 FOT can comfortably manage all ${rooms} rooms</strong> without hiring 2nd or 3rd FOTs!
+            <div class="text-[11px] text-stone-700 dark:text-stone-300 leading-snug">
+              Centrix reclaims <strong>~${hoursPerFotDaily} hrs/day</strong> (${pctOfWorkday}% of shift) from tedious file drag-and-drop. <strong>1 FOT easily manages all ${rooms} rooms</strong> without burnout or hiring additional staff.
             </div>
           `;
         }
