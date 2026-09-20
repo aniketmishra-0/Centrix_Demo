@@ -174,12 +174,16 @@
     </div>
 
     <!-- Interface Selector Tabs -->
-    <div class="flex flex-wrap gap-2 mb-6" id="tabButtons">
-      <button onclick="switchTab(0)" class="tab-btn active px-4 py-2 rounded-lg font-mono text-xs font-semibold bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950 shadow-sm transition">01. Home &amp; Access Portal</button>
-      <button onclick="switchTab(1)" class="tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/80 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition">02. Live Ingest Monitor</button>
-      <button onclick="switchTab(2)" class="tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/80 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition">03. Review &amp; Approval Hub</button>
-      <button onclick="switchTab(3)" class="tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/80 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition">04. Master Schedule Sync</button>
-      <button onclick="switchTab(4)" class="tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/80 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition">05. Operations Controls</button>
+    <div class="flex flex-wrap items-center gap-2 mb-6" id="tabButtons">
+      <button onclick="switchTab(0)" class="tab-btn active px-4 py-2 rounded-lg font-mono text-xs font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md transition flex items-center space-x-1.5">
+        <span class="animate-pulse">⚡</span>
+        <span>00. Interactive Sandbox (Try It Live!)</span>
+      </button>
+      <button onclick="switchTab(1)" class="tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/80 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition">01. Home &amp; Access Portal</button>
+      <button onclick="switchTab(2)" class="tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/80 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition">02. Live Ingest Monitor</button>
+      <button onclick="switchTab(3)" class="tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/80 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition">03. Review &amp; Approval Hub</button>
+      <button onclick="switchTab(4)" class="tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/80 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition">04. Master Schedule Sync</button>
+      <button onclick="switchTab(5)" class="tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/80 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition">05. Operations Controls</button>
     </div>
 
     <!-- 3D Perspective Browser Frame -->
@@ -194,19 +198,155 @@
           </div>
           <div class="text-xs font-mono text-stone-500 dark:text-stone-400 flex items-center space-x-1">
             <span>🔒 https://localhost:5200</span>
-            <span id="windowTabLabel" class="text-stone-800 dark:text-stone-200 font-semibold">• Home Portal</span>
+            <span id="windowTabLabel" class="text-stone-800 dark:text-stone-200 font-semibold">• Live Interactive Simulator</span>
           </div>
-          <div class="text-xs font-mono text-stone-400">Centrix v1.0.4</div>
+          <div class="flex items-center space-x-2">
+            <span class="inline-flex items-center space-x-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+              <span>LIVE EDGE SIMULATOR</span>
+            </span>
+            <span class="text-xs font-mono text-stone-400 hidden sm:inline">Centrix v1.0.4</span>
+          </div>
         </div>
 
-        <!-- Screenshot Image -->
-        <div class="p-2 sm:p-4 bg-stone-50 dark:bg-stone-950">
+        <!-- 1. Interactive Simulator Sandbox View (Active by default) -->
+        <div id="interactiveSimulator" class="p-4 sm:p-6 bg-stone-50 dark:bg-stone-950 min-h-[540px] flex flex-col justify-between">
+          <!-- Simulator Control Toolbar -->
+          <div class="p-4 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xs mb-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div>
+                <div class="text-xs font-mono uppercase tracking-wider text-stone-400 font-bold mb-1">Select Classroom Scenario to Test:</div>
+                <div class="flex flex-wrap gap-2" id="scenarioButtons">
+                  <button type="button" onclick="selectScenario('auto')" id="btn-scen-auto" class="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800 transition">
+                    ⚡ 1. Regular Lecture (&ge;85% Auto-Match)
+                  </button>
+                  <button type="button" onclick="selectScenario('swap')" id="btn-scen-swap" class="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-stone-100 text-stone-600 border border-stone-200 dark:bg-stone-800 dark:text-stone-400 dark:border-stone-700 hover:bg-stone-200 dark:hover:bg-stone-700 transition">
+                    🔄 2. Teacher Swap (1-Tap Review Card)
+                  </button>
+                  <button type="button" onclick="selectScenario('corrupt')" id="btn-scen-corrupt" class="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-stone-100 text-stone-600 border border-stone-200 dark:bg-stone-800 dark:text-stone-400 dark:border-stone-700 hover:bg-stone-200 dark:hover:bg-stone-700 transition">
+                    ⚠️ 3. Corrupt Recording (Broken Header)
+                  </button>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2 shrink-0">
+                <button type="button" id="btnRunSim" onclick="runSimulation()" class="px-5 py-2.5 rounded-xl font-mono text-xs font-bold bg-stone-900 hover:bg-stone-800 text-white dark:bg-stone-100 dark:hover:bg-white dark:text-stone-950 shadow-md transition transform active:scale-95 flex items-center space-x-2">
+                  <span id="simPlayIcon">▶</span>
+                  <span id="simBtnLabel">Simulate Classroom Output</span>
+                </button>
+                <button type="button" onclick="resetSimulation()" title="Reset Simulator" class="p-2.5 rounded-xl font-mono text-xs text-stone-500 hover:text-stone-800 dark:hover:text-stone-200 bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 transition">
+                  ↺
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Telemetry & Pipeline View -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1">
+            <!-- Left Column: Edge Device & File Watcher Status -->
+            <div class="lg:col-span-4 flex flex-col space-y-4">
+              <div class="p-4 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xs">
+                <div class="flex items-center justify-between pb-2 border-b border-stone-100 dark:border-stone-800 mb-3">
+                  <span class="text-[11px] font-mono text-stone-400 uppercase font-bold">Node Telemetry</span>
+                  <span class="inline-flex items-center space-x-1 text-[11px] font-mono text-emerald-600 dark:text-emerald-400">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    <span>ONLINE</span>
+                  </span>
+                </div>
+                <div class="space-y-1.5 font-mono text-xs text-stone-600 dark:text-stone-400">
+                  <div class="flex justify-between"><span>Node:</span> <strong class="text-stone-800 dark:text-stone-200">Room 603 (PCMC)</strong></div>
+                  <div class="flex justify-between"><span>Batch:</span> <strong class="text-stone-800 dark:text-stone-200" id="simBatchCode">35-LJ252MA 2026</strong></div>
+                  <div class="flex justify-between"><span>Database:</span> <span class="text-blue-600 dark:text-blue-400">SQLite WAL</span></div>
+                  <div class="flex justify-between"><span>Storage:</span> <span class="text-purple-600 dark:text-purple-400">Drive Direct (0 Egress)</span></div>
+                </div>
+              </div>
+
+              <!-- Detected Files Card -->
+              <div class="p-4 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xs flex-1 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between pb-2 border-b border-stone-100 dark:border-stone-800 mb-3">
+                    <span class="text-[11px] font-mono text-stone-400 uppercase font-bold">Edge Ingest Queue</span>
+                    <span id="watcherBadge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800 text-stone-500">AWAITING OBS</span>
+                  </div>
+                  <div class="space-y-2.5 font-mono text-xs" id="detectedFilesList">
+                    <div class="p-2.5 rounded-lg bg-stone-100/70 dark:bg-stone-800/50 border border-stone-200/60 dark:border-stone-700/60 text-stone-400 text-center py-6">
+                      Click <strong class="text-stone-700 dark:text-stone-300">"Simulate Classroom Output"</strong> above to drop sample lecture recording and notes into the pipeline.
+                    </div>
+                  </div>
+                </div>
+                <!-- File Stability Lock Bar -->
+                <div id="stabilityProgressContainer" class="mt-4 pt-3 border-t border-stone-100 dark:border-stone-800 hidden">
+                  <div class="flex justify-between text-[10px] font-mono text-stone-500 mb-1">
+                    <span>Write Stability Lock:</span>
+                    <span id="stabilityCountdown">10s Debounce</span>
+                  </div>
+                  <div class="w-full bg-stone-200 dark:bg-stone-800 h-1.5 rounded-full overflow-hidden">
+                    <div id="stabilityBar" class="bg-blue-600 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column: 7-Signal Matching & State Machine Output -->
+            <div class="lg:col-span-8 flex flex-col space-y-4">
+              <!-- Confidence Engine & Match Signals Card -->
+              <div class="p-5 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xs">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-stone-100 dark:border-stone-800 mb-4">
+                  <div>
+                    <span class="text-[11px] font-mono text-stone-400 uppercase font-bold">Deterministic 7-Signal Matching Engine</span>
+                    <h4 class="text-sm font-bold text-stone-900 dark:text-stone-100 mt-0.5" id="matchingTitle">Idle • Ready for File Signal Verification</h4>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <span class="text-xs font-mono text-stone-500">Confidence:</span>
+                    <span id="confidencePill" class="text-sm font-mono font-extrabold px-3 py-1 rounded-lg bg-stone-100 text-stone-600 dark:bg-stone-800 dark:text-stone-400">
+                      0%
+                    </span>
+                  </div>
+                </div>
+
+                <!-- 7 Signals Progress Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono text-[11px]" id="signalsGrid">
+                  <div class="p-2.5 rounded-lg bg-stone-50 dark:bg-stone-950 border border-stone-200/80 dark:border-stone-800">
+                    <div class="text-stone-400">Time Overlap (35%)</div>
+                    <div class="font-bold text-stone-800 dark:text-stone-200 text-xs mt-1" id="sigTime">0 / 35</div>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-stone-50 dark:bg-stone-950 border border-stone-200/80 dark:border-stone-800">
+                    <div class="text-stone-400">Room 603 (15%)</div>
+                    <div class="font-bold text-stone-800 dark:text-stone-200 text-xs mt-1" id="sigRoom">0 / 15</div>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-stone-50 dark:bg-stone-950 border border-stone-200/80 dark:border-stone-800">
+                    <div class="text-stone-400">Duration 60m (15%)</div>
+                    <div class="font-bold text-stone-800 dark:text-stone-200 text-xs mt-1" id="sigDuration">0 / 15</div>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-stone-50 dark:bg-stone-950 border border-stone-200/80 dark:border-stone-800">
+                    <div class="text-stone-400">Board OCR (15%)</div>
+                    <div class="font-bold text-stone-800 dark:text-stone-200 text-xs mt-1" id="sigOcr">0 / 15</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Live Action / Delivery Stage Card -->
+              <div id="liveActionCard" class="p-5 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xs flex-1 flex flex-col justify-center">
+                <div class="text-center py-8 text-stone-400 font-mono text-xs">
+                  <span class="text-2xl block mb-2">🎯</span>
+                  The automated lifecycle pipeline will execute here:
+                  <div class="flex items-center justify-center space-x-2 mt-3 text-[11px] text-stone-500">
+                    <span>DETECTED</span> ➔ <span>PROCESSING</span> ➔ <span>MATCHED</span> ➔ <span>UPLOADING</span> ➔ <span>DELIVERED</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Screenshot Images View (Shown when tabs 1 to 5 are clicked) -->
+        <div id="screenshotContainer" class="p-2 sm:p-4 bg-stone-50 dark:bg-stone-950 hidden">
           <img id="previewImg" src="./images/centrix-home-portal.png" alt="Centrix Interface" class="w-full rounded-xl border border-stone-200 dark:border-stone-800 shadow-sm transition-opacity duration-300">
         </div>
 
         <!-- Caption bar -->
         <div class="px-6 py-3.5 bg-stone-100/80 dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 text-center font-mono text-xs text-stone-600 dark:text-stone-400">
-          <span id="previewDesc">01 // The clean editorial entrance portal with Google Workspace SSO and 1-click local access for classroom workstations.</span>
+          <span id="previewDesc">⚡ Interactive Sandbox // Click "Simulate Classroom Output" to test live ingestion, 7-signal confidence scoring, and 1-tap review approval.</span>
         </div>
       </div>
     </div>
@@ -1175,8 +1315,8 @@
     const savedTheme = localStorage.getItem('centrix_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     applyTheme(savedTheme);
 
-    // Tab Switcher
-    const tabs = [
+    // Tab Switcher & Interactive Simulator Engine
+    const screenshotTabs = [
       { img: './images/centrix-home-portal.png', title: '• Home Portal', desc: '01 // The clean editorial entrance portal with Google Workspace SSO and 1-click local access for classroom workstations.' },
       { img: './images/centrix-screen-1-live.png', title: '• Live Ingest Monitor', desc: '02 // Active room telemetry (Room 603 - Pune PCMC Vidyapeeth) with 24-hour upload throughput status cards.' },
       { img: './images/centrix-screen-2-review.png', title: '• Review & Approval Hub', desc: '03 // Verification queue where processed lectures are cataloged, verified, and linked directly to Google Drive batch destinations.' },
@@ -1185,23 +1325,428 @@
     ];
 
     function switchTab(index) {
+      const simContainer = document.getElementById('interactiveSimulator');
+      const screenshotContainer = document.getElementById('screenshotContainer');
       const img = document.getElementById('previewImg');
-      img.style.opacity = '0.3';
-      setTimeout(() => {
-        img.src = tabs[index].img;
-        document.getElementById('windowTabLabel').textContent = tabs[index].title;
-        document.getElementById('previewDesc').textContent = tabs[index].desc;
-        img.style.opacity = '1';
-      }, 150);
+      const tabLabel = document.getElementById('windowTabLabel');
+      const desc = document.getElementById('previewDesc');
+
+      if (index === 0) {
+        // Show Interactive Simulator Sandbox
+        if (screenshotContainer) screenshotContainer.classList.add('hidden');
+        if (simContainer) simContainer.classList.remove('hidden');
+        if (tabLabel) tabLabel.textContent = '• Live Interactive Simulator';
+        if (desc) desc.textContent = '⚡ Interactive Sandbox // Click "Simulate Classroom Output" to test live ingestion, 7-signal confidence scoring, and 1-tap review approval.';
+      } else {
+        // Show Screenshot View
+        if (simContainer) simContainer.classList.add('hidden');
+        if (screenshotContainer) screenshotContainer.classList.remove('hidden');
+        const screenData = screenshotTabs[index - 1];
+        if (img && screenData) {
+          img.style.opacity = '0.3';
+          setTimeout(() => {
+            img.src = screenData.img;
+            if (tabLabel) tabLabel.textContent = screenData.title;
+            if (desc) desc.textContent = screenData.desc;
+            img.style.opacity = '1';
+          }, 150);
+        }
+      }
       
       const btns = document.querySelectorAll('.tab-btn');
       btns.forEach((btn, i) => {
         if (i === index) {
-          btn.className = 'tab-btn active px-4 py-2 rounded-lg font-mono text-xs font-semibold bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950 shadow-sm transition';
+          if (i === 0) {
+            btn.className = 'tab-btn active px-4 py-2 rounded-lg font-mono text-xs font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md transition flex items-center space-x-1.5';
+          } else {
+            btn.className = 'tab-btn active px-4 py-2 rounded-lg font-mono text-xs font-semibold bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950 shadow-sm transition';
+          }
         } else {
           btn.className = 'tab-btn px-4 py-2 rounded-lg font-mono text-xs font-medium text-stone-600 dark:text-stone-400 bg-white/80 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white transition';
         }
       });
+    }
+
+    // ==========================================
+    // INTERACTIVE SANDBOX ENGINE LOGIC
+    // ==========================================
+    let currentScenario = 'auto';
+    let isSimRunning = false;
+    let simTimer = null;
+
+    function selectScenario(type) {
+      if (isSimRunning) return;
+      currentScenario = type;
+
+      const btnAuto = document.getElementById('btn-scen-auto');
+      const btnSwap = document.getElementById('btn-scen-swap');
+      const btnCorrupt = document.getElementById('btn-scen-corrupt');
+
+      const activeClass = 'px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800 transition';
+      const inactiveClass = 'px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-stone-100 text-stone-600 border border-stone-200 dark:bg-stone-800 dark:text-stone-400 dark:border-stone-700 hover:bg-stone-200 dark:hover:bg-stone-700 transition';
+
+      if (btnAuto) btnAuto.className = (type === 'auto') ? activeClass : inactiveClass;
+      if (btnSwap) btnSwap.className = (type === 'swap') ? activeClass : inactiveClass;
+      if (btnCorrupt) btnCorrupt.className = (type === 'corrupt') ? activeClass : inactiveClass;
+
+      resetSimulation(false);
+    }
+
+    function resetSimulation(resetScenario = true) {
+      if (simTimer) clearTimeout(simTimer);
+      isSimRunning = false;
+
+      const btn = document.getElementById('btnRunSim');
+      if (btn) {
+        btn.disabled = false;
+        btn.classList.remove('opacity-60', 'cursor-not-allowed');
+      }
+      const playIcon = document.getElementById('simPlayIcon');
+      if (playIcon) playIcon.textContent = '▶';
+      const btnLabel = document.getElementById('simBtnLabel');
+      if (btnLabel) btnLabel.textContent = 'Simulate Classroom Output';
+
+      const watcherBadge = document.getElementById('watcherBadge');
+      if (watcherBadge) {
+        watcherBadge.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800 text-stone-500';
+        watcherBadge.textContent = 'AWAITING OBS';
+      }
+
+      const fileList = document.getElementById('detectedFilesList');
+      if (fileList) {
+        fileList.innerHTML = `
+          <div class="p-2.5 rounded-lg bg-stone-100/70 dark:bg-stone-800/50 border border-stone-200/60 dark:border-stone-700/60 text-stone-400 text-center py-6">
+            Click <strong class="text-stone-700 dark:text-stone-300">"Simulate Classroom Output"</strong> above to drop sample lecture recording and notes into the pipeline.
+          </div>`;
+      }
+
+      const stabContainer = document.getElementById('stabilityProgressContainer');
+      if (stabContainer) stabContainer.classList.add('hidden');
+      const stabBar = document.getElementById('stabilityBar');
+      if (stabBar) stabBar.style.width = '0%';
+
+      const matchTitle = document.getElementById('matchingTitle');
+      if (matchTitle) matchTitle.textContent = 'Idle • Ready for File Signal Verification';
+
+      const confPill = document.getElementById('confidencePill');
+      if (confPill) {
+        confPill.className = 'text-sm font-mono font-extrabold px-3 py-1 rounded-lg bg-stone-100 text-stone-600 dark:bg-stone-800 dark:text-stone-400';
+        confPill.textContent = '0%';
+      }
+
+      const sTime = document.getElementById('sigTime'); if (sTime) sTime.textContent = '0 / 35';
+      const sRoom = document.getElementById('sigRoom'); if (sRoom) sRoom.textContent = '0 / 15';
+      const sDur = document.getElementById('sigDuration'); if (sDur) sDur.textContent = '0 / 15';
+      const sOcr = document.getElementById('sigOcr'); if (sOcr) sOcr.textContent = '0 / 15';
+
+      const actionCard = document.getElementById('liveActionCard');
+      if (actionCard) {
+        actionCard.innerHTML = `
+          <div class="text-center py-8 text-stone-400 font-mono text-xs">
+            <span class="text-2xl block mb-2">🎯</span>
+            The automated lifecycle pipeline will execute here:
+            <div class="flex items-center justify-center space-x-2 mt-3 text-[11px] text-stone-500">
+              <span>DETECTED</span> ➔ <span>PROCESSING</span> ➔ <span>MATCHED</span> ➔ <span>UPLOADING</span> ➔ <span>DELIVERED</span>
+            </div>
+          </div>`;
+      }
+    }
+
+    function runSimulation() {
+      if (isSimRunning) return;
+      isSimRunning = true;
+
+      const btn = document.getElementById('btnRunSim');
+      if (btn) {
+        btn.disabled = true;
+        btn.classList.add('opacity-60', 'cursor-not-allowed');
+      }
+      const playIcon = document.getElementById('simPlayIcon');
+      if (playIcon) playIcon.textContent = '⏳';
+      const btnLabel = document.getElementById('simBtnLabel');
+      if (btnLabel) btnLabel.textContent = 'Running Pipeline...';
+
+      const now = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      const timeStr = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}`;
+
+      let videoName = `${timeStr}_Physics_Class11.mp4`;
+      let notesName = `${timeStr}_Physics_Notes.pdf`;
+      let videoSize = '2.42 GB';
+
+      if (currentScenario === 'swap') {
+        videoName = `${timeStr}_Chemistry_Sub.mp4`;
+        notesName = `${timeStr}_Notes_DrVerma.pdf`;
+        videoSize = '2.15 GB';
+      } else if (currentScenario === 'corrupt') {
+        videoName = `${timeStr}_Corrupt_PowerCut.mp4`;
+        notesName = '(None - OBS aborted)';
+        videoSize = '1.20 MB (Corrupt)';
+      }
+
+      // Step 1: File Ingestion Detected
+      const watcherBadge = document.getElementById('watcherBadge');
+      if (watcherBadge) {
+        watcherBadge.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-400 font-semibold animate-pulse';
+        watcherBadge.textContent = 'OBS WRITE LOCKING (10s)';
+      }
+
+      const fileList = document.getElementById('detectedFilesList');
+      if (fileList) {
+        fileList.innerHTML = `
+          <div class="p-2.5 rounded-lg bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 transition">
+            <div class="flex items-center justify-between font-bold text-stone-800 dark:text-stone-200">
+              <span class="truncate">📹 ${videoName}</span>
+              <span class="text-[10px] text-blue-600 dark:text-blue-400">${videoSize}</span>
+            </div>
+            <div class="text-[10px] text-stone-500 mt-1 flex justify-between">
+              <span>Handle: FileShare.None</span>
+              <span>Stability Check...</span>
+            </div>
+          </div>
+          ${currentScenario !== 'corrupt' ? `
+          <div class="p-2.5 rounded-lg bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 transition">
+            <div class="flex items-center justify-between font-bold text-stone-800 dark:text-stone-200">
+              <span class="truncate">📄 ${notesName}</span>
+              <span class="text-[10px] text-emerald-600 dark:text-emerald-400">8.4 MB</span>
+            </div>
+            <div class="text-[10px] text-stone-500 mt-1 flex justify-between">
+              <span>MaxHub Digital Board</span>
+              <span>Vector Text Ready</span>
+            </div>
+          </div>` : ''}
+        `;
+      }
+
+      // Show stability progress
+      const stabContainer = document.getElementById('stabilityProgressContainer');
+      const stabBar = document.getElementById('stabilityBar');
+      const stabCountdown = document.getElementById('stabilityCountdown');
+      if (stabContainer) stabContainer.classList.remove('hidden');
+      
+      let prog = 0;
+      const progInterval = setInterval(() => {
+        prog += 25;
+        if (stabBar) stabBar.style.width = `${prog}%`;
+        if (stabCountdown) stabCountdown.textContent = `${Math.max(0, 10 - Math.round(prog / 10))}s Remaining`;
+        if (prog >= 100) {
+          clearInterval(progInterval);
+          executeMatchingStage();
+        }
+      }, 250);
+
+      function executeMatchingStage() {
+        if (watcherBadge) {
+          watcherBadge.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold';
+          watcherBadge.textContent = 'FILE STABLE & RELEASED';
+        }
+        if (stabCountdown) stabCountdown.textContent = '✓ Exclusive Lock Verified';
+
+        const matchTitle = document.getElementById('matchingTitle');
+        const confPill = document.getElementById('confidencePill');
+        const sTime = document.getElementById('sigTime');
+        const sRoom = document.getElementById('sigRoom');
+        const sDur = document.getElementById('sigDuration');
+        const sOcr = document.getElementById('sigOcr');
+        const actionCard = document.getElementById('liveActionCard');
+
+        if (currentScenario === 'corrupt') {
+          // Scenario 3: Corrupt Video Handling
+          if (matchTitle) matchTitle.textContent = 'Container Integrity Check Failed: Missing moov Atom';
+          if (confPill) {
+            confPill.className = 'text-sm font-mono font-extrabold px-3 py-1 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400';
+            confPill.textContent = 'HALTED';
+          }
+          if (actionCard) {
+            actionCard.innerHTML = `
+              <div class="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-700 dark:text-rose-300 font-mono text-xs">
+                <div class="flex items-center space-x-2 font-bold mb-1.5 text-sm">
+                  <span>🚨</span>
+                  <span>CORRUPTED_RECORDING DETECTED</span>
+                </div>
+                <p class="leading-relaxed text-[11px] mb-3">
+                  Rust <code>video_validator.rs</code> scanned the MP4 container and detected an incomplete atom structure. OBS terminated abruptly due to power loss.
+                </p>
+                <div class="p-2.5 rounded bg-white/80 dark:bg-stone-900 border border-rose-500/20 text-[10px] flex justify-between">
+                  <span>Safety Policy: Zero Bandwidth Wasted</span>
+                  <strong>Flagged for Local Recovery</strong>
+                </div>
+              </div>`;
+          }
+          finishSim();
+          return;
+        }
+
+        if (currentScenario === 'auto') {
+          // Scenario 1: Standard Auto Match
+          if (matchTitle) matchTitle.textContent = 'Matched: 35-LJ252MA • Physics (Class 11) • Mr. Sharma';
+          if (confPill) {
+            confPill.className = 'text-sm font-mono font-extrabold px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 animate-pulse';
+            confPill.textContent = '94%';
+          }
+          if (sTime) sTime.innerHTML = '<span class="text-emerald-600 dark:text-emerald-400">35 / 35 ✓</span>';
+          if (sRoom) sRoom.innerHTML = '<span class="text-emerald-600 dark:text-emerald-400">15 / 15 ✓</span>';
+          if (sDur) sDur.innerHTML = '<span class="text-emerald-600 dark:text-emerald-400">15 / 15 ✓</span>';
+          if (sOcr) sOcr.innerHTML = '<span class="text-emerald-600 dark:text-emerald-400">14 / 15 ✓</span>';
+
+          if (actionCard) {
+            actionCard.innerHTML = `
+              <div class="p-4 rounded-xl bg-emerald-500/5 dark:bg-emerald-950/20 border border-emerald-500/30 font-mono text-xs">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500 text-white">AUTO_ASSIGNED (&ge;85%)</span>
+                  <span class="text-[11px] text-stone-500">Zero Operator Touch</span>
+                </div>
+                <div class="text-[11px] text-stone-700 dark:text-stone-300 mb-3 space-y-1">
+                  <div><strong>Destination Path:</strong> <code>[Drive] / Vidyapeeth_Pune / Physics / 2026-09-20 /</code></div>
+                  <div><strong>Standardized Name:</strong> <code>Physics_Class11_LawsOfMotion.mp4</code></div>
+                </div>
+                <!-- Resumable Upload Progress -->
+                <div class="space-y-1 pt-2 border-t border-emerald-500/20">
+                  <div class="flex justify-between text-[10px] text-stone-500">
+                    <span>Google Drive Chunked Stream (10MB Chunks):</span>
+                    <span id="uploadPercentage">0%</span>
+                  </div>
+                  <div class="w-full bg-stone-200 dark:bg-stone-800 h-2 rounded-full overflow-hidden">
+                    <div id="driveUploadBar" class="bg-gradient-to-r from-emerald-500 to-blue-600 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                  </div>
+                </div>
+              </div>`;
+          }
+
+          let up = 0;
+          const upInterval = setInterval(() => {
+            up += 25;
+            const upBar = document.getElementById('driveUploadBar');
+            const upPct = document.getElementById('uploadPercentage');
+            if (upBar) upBar.style.width = `${up}%`;
+            if (upPct) upPct.textContent = `${up}% (${Math.round(2.42 * up / 100 * 10) / 10} GB / 2.42 GB)`;
+
+            if (up >= 100) {
+              clearInterval(upInterval);
+              if (actionCard) {
+                actionCard.innerHTML = `
+                  <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/40 font-mono text-xs">
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="inline-flex items-center space-x-1 text-emerald-700 dark:text-emerald-400 font-bold">
+                        <span>✓</span>
+                        <span>DELIVERED TO GOOGLE DRIVE</span>
+                      </span>
+                      <span class="text-[10px] text-stone-500">Turnaround: 18s</span>
+                    </div>
+                    <p class="text-[11px] text-stone-600 dark:text-stone-400 mb-3">
+                      Lecture video and MaxHub PDF notes paired and delivered directly from classroom PC with zero cloud egress cost.
+                    </p>
+                    <div class="flex items-center space-x-3">
+                      <a href="#showcase" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-semibold transition flex items-center space-x-1">
+                        <span>Open in Drive ↗</span>
+                      </a>
+                      <span class="text-[10px] text-stone-400">Drive ID: 1BxiMVs...98NA</span>
+                    </div>
+                  </div>`;
+              }
+              finishSim();
+            }
+          }, 300);
+
+        } else if (currentScenario === 'swap') {
+          // Scenario 2: Teacher Swap / Substitution (Triggers Interactive 1-Tap Review Card!)
+          if (matchTitle) matchTitle.textContent = 'Discrepancy: Timetable Physics vs Board OCR Dr. Verma (Chemistry)';
+          if (confPill) {
+            confPill.className = 'text-sm font-mono font-extrabold px-3 py-1 rounded-lg bg-amber-500/10 text-amber-700 dark:text-amber-400 animate-pulse';
+            confPill.textContent = '74%';
+          }
+          if (sTime) sTime.innerHTML = '<span class="text-emerald-600 dark:text-emerald-400">35 / 35 ✓</span>';
+          if (sRoom) sRoom.innerHTML = '<span class="text-emerald-600 dark:text-emerald-400">15 / 15 ✓</span>';
+          if (sDur) sDur.innerHTML = '<span class="text-emerald-600 dark:text-emerald-400">15 / 15 ✓</span>';
+          if (sOcr) sOcr.innerHTML = '<span class="text-amber-600 dark:text-amber-400">9 / 15 (Swap)</span>';
+
+          if (actionCard) {
+            actionCard.innerHTML = `
+              <div class="p-4 rounded-xl bg-amber-500/10 border-2 border-amber-500/40 shadow-sm font-mono text-xs transition-all">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded text-[10px] font-bold bg-amber-500 text-stone-950">
+                    <span>⚠️</span>
+                    <span>1-TAP REVIEW REQUIRED (60% - 84%)</span>
+                  </span>
+                  <span class="text-[10px] text-amber-700 dark:text-amber-400 font-semibold">Teacher Swap Detected</span>
+                </div>
+                
+                <!-- Discrepancy comparison -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 my-2.5 p-2 rounded-lg bg-white/80 dark:bg-stone-900/80 border border-amber-500/20 text-[11px]">
+                  <div>
+                    <span class="text-stone-400 text-[10px] block">TIMETABLE SCHEDULED:</span>
+                    <strong class="text-stone-700 dark:text-stone-300">Mr. Sharma • Physics</strong>
+                  </div>
+                  <div>
+                    <span class="text-stone-400 text-[10px] block">SMARTBOARD OCR EXTRACTED:</span>
+                    <strong class="text-amber-600 dark:text-amber-400">Dr. Verma • Chemistry (Emergency Sub)</strong>
+                  </div>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-amber-500/20">
+                  <span class="text-[10px] text-stone-500">Test human-in-the-loop action:</span>
+                  <button type="button" onclick="confirmReviewSwap()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold shadow-sm transition transform active:scale-95 flex items-center space-x-1.5 cursor-pointer">
+                    <span>✓ 1-Tap Approve Substitute</span>
+                  </button>
+                </div>
+              </div>`;
+          }
+          finishSim(false);
+        }
+      }
+
+      function finishSim(enableButton = true) {
+        if (enableButton) {
+          isSimRunning = false;
+          if (btn) {
+            btn.disabled = false;
+            btn.classList.remove('opacity-60', 'cursor-not-allowed');
+          }
+          if (playIcon) playIcon.textContent = '▶';
+          if (btnLabel) btnLabel.textContent = 'Simulate Classroom Output';
+        }
+      }
+    }
+
+    // 1-Tap Review Approval function for the interactive card
+    function confirmReviewSwap() {
+      const actionCard = document.getElementById('liveActionCard');
+      const confPill = document.getElementById('confidencePill');
+      if (confPill) {
+        confPill.className = 'text-sm font-mono font-extrabold px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400';
+        confPill.textContent = '100% (CONFIRMED)';
+      }
+
+      if (actionCard) {
+        actionCard.innerHTML = `
+          <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/40 font-mono text-xs animate-fadeIn">
+            <div class="flex items-center justify-between mb-2">
+              <span class="inline-flex items-center space-x-1 text-emerald-700 dark:text-emerald-400 font-bold">
+                <span>✓</span>
+                <span>SUBSTITUTE CONFIRMED &amp; AUTO-HEALED</span>
+              </span>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500 text-white font-bold">DELIVERED</span>
+            </div>
+            <p class="text-[11px] text-stone-600 dark:text-stone-400 mb-2">
+              Centrix corrected lecture metadata from <em>Physics (Mr. Sharma)</em> to <strong>Chemistry (Dr. Verma)</strong> and delivered to the correct Chemistry Drive batch folder without misplacement.
+            </p>
+            <div class="flex items-center space-x-3 text-[10px] text-stone-500">
+              <span>Path: /Vidyapeeth_Pune/Chemistry/Dr_Verma/</span>
+              <span class="text-emerald-600 dark:text-emerald-400 font-semibold">100% Audit Trail Saved</span>
+            </div>
+          </div>`;
+      }
+
+      const btn = document.getElementById('btnRunSim');
+      if (btn) {
+        btn.disabled = false;
+        btn.classList.remove('opacity-60', 'cursor-not-allowed');
+      }
+      const playIcon = document.getElementById('simPlayIcon');
+      if (playIcon) playIcon.textContent = '▶';
+      const btnLabel = document.getElementById('simBtnLabel');
+      if (btnLabel) btnLabel.textContent = 'Simulate Classroom Output';
+      isSimRunning = false;
     }
 
     // ==========================================
