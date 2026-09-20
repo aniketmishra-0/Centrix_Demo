@@ -104,7 +104,7 @@
         { q: 'Why does Centrix incur ₹0 in cloud compute transcoding fleet costs?', label: '☁️ ₹0 Server Transcoding' },
         { q: 'How many operational staff hours are saved per month nationwide?', label: '⏳ 35,000+ Hours Saved' },
         { q: 'How does Centrix automate the internal PC to Drive to YouTube pipeline?', label: '⚡ PC ➔ Drive ➔ YT Pipeline' },
-        { q: 'What physical equipment costs does Centrix eliminate?', label: '💾 Pen-Drive & Hardware Waste' }
+        { q: 'How does Centrix eliminate manual Google Drive drag-and-drop for 2 to 6 Floor Incharges (FOTs)?', label: '🖱️ FOT Drag-and-Drop Automation' }
       ]
     },
     {
@@ -508,18 +508,21 @@
           "• <strong>ROOM_OPERATOR:</strong> सिर्फ लोकल रूम का अपलोड स्टेटस देखना।"
     },
     {
-      id: 'hardware_waste_elimination',
+      id: 'fot_drag_and_drop_elimination',
       matches: [
-        'pen drive', 'pen-drive', 'usb', 'external hard drive', 'hardware waste', 
-        'courier', 'pen drive kharcha', 'pen drive loss'
+        'fot', 'floor incharge', 'drag and drop', 'drag drop', 'manual upload', 
+        'manually drag', 'fot workflow', 'floor operations team', 'drag and drop drive',
+        'fot drag and drop', 'manual drive upload', 'floor incharges'
       ],
-      en: "<strong>Elimination of Pen-Drives &amp; Physical Hardware Logistics:</strong><br />" +
-          "• <strong>Before Centrix:</strong> Centers purchased dozens of high-capacity USB drives monthly. Operators walked room to room copying files, risking USB drive failures, viruses, and physical loss.<br />" +
-          "• <strong>With Centrix:</strong> Zero physical media required. 100% automated direct cloud ingest over center broadband, eliminating recurring hardware procurement and replacement costs.<br />" +
-          "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>⚡ Source: [Database/Migrations/20240901_InitialCreate.sql:1-40]</span>",
-      hi: "<strong>पेन ड्राइव और हार्डवेयर खर्चे का पूर्ण खात्मा:</strong><br />" +
-          "• <strong>पहले की स्थिति:</strong> हर सेंटर पर दर्जनों पेन ड्राइव खरीदी जाती थीं, जिनमें वायरस आने, खराब होने या खोने का भारी रिस्क रहता था।<br />" +
-          "• <strong>Centrix के बाद:</strong> पेन ड्राइव का उपयोग 0% हो गया। सारा डेटा सीधे क्लासरूम PC से सुरक्षित क्लाउड में जाता है, जिससे हर महीने हज़ारों रुपये की बचत होती है।"
+      en: "<strong>Elimination of Manual Google Drive Drag-and-Drop for 2 to 6 Floor Incharges (FOTs):</strong><br />" +
+          "• <strong>Before Centrix:</strong> In each offline center, 2, 3, 4, or up to 5–6 Floor Incharges (FOTs) spend hours every day locating classroom recordings and smartboard notes post-lecture, verifying batch names, and manually dragging-and-dropping them into Google Drive folders.<br />" +
+          "• <strong>Operational Bottleneck:</strong> Repetitive drag-and-drop across dozens of classrooms leads to files dropped into wrong batch folders, 6–12 hour upload backlogs, and staff fatigue.<br />" +
+          "• <strong>With Centrix:</strong> 100% automated background streaming. Upon lecture completion, Centrix automatically matches the timetable slot and uploads video and notes directly into the right Google Drive folder in &lt; 30 minutes, freeing 2 to 6 FOTs completely from manual upload duties.<br />" +
+          "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>⚡ Source: [LectureAgent/Services/LectureIngestService.cs:42-88]</span>",
+      hi: "<strong>2 से 6 फ्लोर इंचार्जेस (FOTs) के मैन्युअल गूगल ड्राइव ड्रैग-एंड-ड्रॉप का खात्मा:</strong><br />" +
+          "• <strong>पहले की स्थिति:</strong> हर सेंटर पर 2, 3, 4 या 5-6 फ्लोर इंचार्जेस (FOTs) होते हैं, जिन्हें क्लास खत्म होने के बाद वीडियो और नोट्स ढूंढकर मैन्युअल रूप से गूगल ड्राइव में ड्रैग-एंड-ड्रॉप करना पड़ता था।<br />" +
+          "• <strong>समस्या:</strong> मैन्युअल ड्रैग-एंड-ड्रॉप से फाइलों का गलत बैच में जाने का खतरा रहता था और अपलोड में 6 से 12 घंटे की देरी होती थी।<br />" +
+          "• <strong>Centrix के बाद:</strong> 100% ऑटोमैटिक बैकग्राउंड अपलोड। क्लास खत्म होते ही Centrix अपने आप सही ड्राइव फोल्डर में 30 मिनट के अंदर वीडियो और PDF अपलोड कर देता है, जिससे FOTs का पूरा समय बचता है।"
     },
     {
       id: 'pdf_detection_and_upload',
@@ -590,14 +593,14 @@
       en: "<strong>Internal Classroom PC ➔ Google Drive ➔ YouTube Pipeline:</strong><br />" +
           "Centrix is an <strong>internal operational automation tool</strong> engineered specifically for PhysicsWallah Vidyapeeth centers:<br />" +
           "• <strong>Step 1: Classroom PC Edge Ingestion:</strong> OBS lecture recordings (.mkv, .mp4) and MaxHub smartboard notes (.pdf) are detected, validated with a 10s stability lock, and matched to timetable slots with &ge;85% confidence.<br />" +
-          "• <strong>Step 2: Automated Google Drive Sync:</strong> Using 10MB chunked resumable streaming, both the video and notes are uploaded directly into the designated center/batch folder on Google Drive in <strong>&lt; 30 minutes</strong> with zero manual pen-drive transfers.<br />" +
+          "• <strong>Step 2: Automated Google Drive Sync:</strong> Using 10MB chunked resumable streaming, both the video and notes are uploaded directly into the designated center/batch folder on Google Drive in <strong>&lt; 30 minutes</strong> with zero manual drag-and-drop by Floor Incharges (FOTs).<br />" +
           "• <strong>Step 3: Drive ➔ YouTube Distribution Pipeline:</strong> Once verified on Drive, lectures are queued and distributed directly to YouTube (unlisted/catalog channels) via automated pipeline, completely freeing center operators from manual YouTube uploads.<br />" +
           "• <strong>Internal Tooling Only:</strong> Centrix operates as an internal backend engine for center operators, coordinators, and video teams—it is not a public or student-facing application.<br />" +
           "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>⚡ Source: [LectureAgent/Services/LectureIngestService.cs:42-88]</span>",
       hi: "<strong>इंटरनल क्लासरूम PC ➔ Google Drive ➔ YouTube पाइपलाइन:</strong><br />" +
           "Centrix एक <strong>इंटरनल ऑपरेशनल ऑटोमेशन टूल</strong> है जिसे विद्यापीठ सेंटर्स के बैकएंड ऑपरेशंस के लिए बनाया गया है:<br />" +
           "• <strong>स्टेप 1 (क्लासरूम PC):</strong> OBS वीडियो और MaxHub PDF नोट्स क्लास खत्म होते ही 10s स्टेबिलिटी लॉक और 7-सिग्नल टाइमटेबल मैचिंग के साथ ऑटोमैटिकली डिटेक्ट होते हैं।<br />" +
-          "• <strong>स्टेप 2 (Google Drive सिंक):</strong> वीडियो और नोट्स बिना किसी पेन-ड्राइव के सीधे <strong>Google Drive के सही बैच/क्लास फोल्डर</strong> में 30 मिनट के अंदर सुरक्षित अपलोड होते हैं।<br />" +
+          "• <strong>स्टेप 2 (Google Drive सिंक):</strong> वीडियो और नोट्स बिना किसी मैन्युअल ड्रैग-एंड-ड्रॉप के सीधे <strong>Google Drive के सही बैच/क्लास फोल्डर</strong> में 30 मिनट के अंदर सुरक्षित अपलोड होते हैं।<br />" +
           "• <strong>स्टेप 3 (Drive से YouTube पाइपलाइन):</strong> ड्राइव पर अपलोड और वेरिफाई होने के बाद, इंटरनल ऑटोमेशन पाइपलाइन वीडियो को सीधे YouTube (अनलिस्टेड/आर्काइव चैनल) में शेड्यूल और डिस्ट्रीब्यूट कर देती है।<br />" +
           "• <strong>100% इंटरनल टूल:</strong> यह सेंटर कोऑर्डिनेटर्स, वीडियो एडिटर्स और ऑपरेशंस टीम के लिए एक इंटरनल टूल है—स्टूडेंट्स का इससे सीधा कोई इंटरफेस नहीं है।"
     },
@@ -639,8 +642,8 @@
       ],
       en: "<strong>Senior Leadership Strategic &amp; Operational Impact:</strong><br />" +
           "Designed for executive leadership (Alakh Sir, Prateek Sir, VP of Operations, CTO), Centrix transforms classroom lecture operations from a manual bottleneck into an autonomous competitive advantage:<br />" +
-          "• <strong>Substantially Lower Than Current Spend:</strong> Slashes ongoing operational costs down to a fraction of current manual expenses by completely eliminating recurring physical flash drives, courier logistics, coordinator overtime, and lost lecture re-shoots.<br />" +
-          "• <strong>35,000+ Staff Hours Reclaimed Monthly:</strong> Eliminates ~40 minutes of manual labor per lecture (walking flash drives, manual renaming, folder sorting, YouTube metadata entry), freeing staff to focus on center operations and student experience.<br />" +
+          "• <strong>Substantially Lower Than Current Spend:</strong> Slashes ongoing operational costs down to a fraction of current manual expenses by completely eliminating manual drag-and-drop to Google Drive performed by 2 to 6 Floor Incharges (FOTs) per center, operator overtime, and lost lecture re-shoots.<br />" +
+          "• <strong>Reclaims 2 to 6 Floor Incharges (FOTs) per Center:</strong> Eliminates 2 to 3 hours of repetitive daily drag-and-drop labor per FOT (manual renaming, folder sorting, browser upload monitoring), freeing 35,000+ staff hours monthly for offline center operations and student experience.<br />" +
           "• <strong>$0 Server Transcoding Fleet Bill:</strong> Hash computation, packet chunking, and PDF cover OCR run at the edge on existing classroom PCs, incurring <strong>zero EC2 or cloud transcoding fleet costs</strong>.<br />" +
           "• <strong>96% Faster Distribution SLA (&lt; 30 Mins):</strong> Reduces delivery turnaround from 6–12 hours of manual lag down to under 30 minutes automated pipeline from Classroom PC ➔ Drive ➔ YouTube queue.<br />" +
           "• <strong>&lt; 0.01% Misclassification Rate:</strong> 7-signal deterministic timetable engine guarantees lectures land in the exact batch folder, ending wrong-upload incidents.<br />" +
@@ -648,8 +651,8 @@
           "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>⚡ Source: [Executive Briefing: Centrix Nationwide FinOps &amp; Operational Scale Model]</span>",
       hi: "<strong>सीनियर लीडरशिप (अलख सर, प्रतीक सर, VP, CTO) के लिए रणनीतिक और परिचालन प्रभाव:</strong><br />" +
           "Centrix ऑफलाइन विद्यापीठ ऑपरेशंस को मैन्युअल सिरदर्द से निकालकर 100% ऑटोमेटेड सिस्टम बनाता है:<br />" +
-          "• <strong>वर्तमान खर्चे से काफी कम (Substantially Lower OPEX):</strong> पेन ड्राइव, कूरियर लॉजिस्टिक्स, ऑपरेटर ओवरटाइम और छूटी हुई क्लासों के दोबारा शूट का भारी खर्चा खत्म होकर सिर्फ एक छोटा सा हिस्सा रह जाता है।<br />" +
-          "• <strong>35,000+ घंटे हर महीने मुक्त:</strong> हर क्लास पर लगने वाले 40 मिनट (पेन ड्राइव में कॉपी करना, नाम बदलना, यूट्यूब अपलोड करना) बचते हैं, जिससे स्टाफ स्टूडेंट्स और सेंटर ऑपरेशंस पर ध्यान दे सकता है।<br />" +
+          "• <strong>वर्तमान खर्चे से काफी कम (Substantially Lower OPEX):</strong> हर सेंटर पर 2 से 6 फ्लोर इंचार्जेस (FOTs) द्वारा मैन्युअल ड्रैग-एंड-ड्रॉप, ऑपरेटर ओवरटाइम और छूटी हुई क्लासों के दोबारा शूट का भारी खर्चा खत्म होकर सिर्फ एक छोटा सा हिस्सा रह जाता है।<br />" +
+          "• <strong>2 से 6 FOTs का समय मुक्त (35,000+ घंटे हर महीने बचत):</strong> हर सेंटर पर 2 से 6 फ्लोर इंचार्जेस का रोज़ाना 2-3 घंटे का मैन्युअल ड्रैग-एंड-ड्रॉप का काम खत्म होता है, जिससे स्टाफ स्टूडेंट्स और सेंटर ऑपरेशंस पर ध्यान दे सकता है।<br />" +
           "• <strong>$0 सर्वर/क्लाउड ट्रांसकोडिंग बिल:</strong> सारी प्रोसेसिंग क्लासरूम के मौजूदा कंप्यूटर पर ही हो जाती है, इसलिए AWS या क्लाउड सर्वर का कोई भारी बिल नहीं आता।<br />" +
           "• <strong>96% तेज डिस्ट्रीब्यूशन (&lt; 30 मिनट):</strong> जहाँ पहले लेक्चर्स पहुंचने में 6 से 12 घंटे लगते थे, Centrix से क्लास खत्म होने के 30 मिनट के अंदर वीडियो और नोट्स ड्राइव और यूट्यूब कतार में पहुंच जाते हैं।<br />" +
           "• <strong>&lt; 0.01% मिसक्लासिफिकेशन:</strong> 7-सिग्नल मैचिंग से गलत बैच में वीडियो जाने की समस्या पूरी तरह खत्म हो जाती है।<br />" +
