@@ -108,75 +108,82 @@
 <body class="bg-[#F5F3EF] text-stone-900 dark:bg-[#0E0F12] dark:text-stone-100 transition-colors duration-300 min-h-screen selection:bg-blue-600 selection:text-white antialiased font-sans">
 
   <!-- Sticky Navbar -->
-  <header class="sticky top-0 z-50 border-b border-stone-300/70 dark:border-stone-800/80 bg-[#F5F3EF]/90 dark:bg-[#0E0F12]/90 glass-nav px-6 py-3.5">
-    <div class="max-w-6xl mx-auto flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <img src="./images/centrix-logo.png" alt="Centrix Logo" class="w-8 h-8 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs">
-        <span class="font-extrabold text-lg tracking-tight font-mono text-stone-900 dark:text-white">CENTRIX</span>
-        <span id="headerVersionBadge" data-centrix-version class="hidden sm:inline-block text-xs px-2.5 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 font-mono font-semibold">v1.0.4 Ready</span>
-      </div>
+  <header class="sticky top-0 z-50 border-b border-stone-200/80 dark:border-stone-800/80 bg-[#F5F3EF]/90 dark:bg-[#0E0F12]/90 backdrop-blur-md glass-nav px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      
+      <!-- Brand & Version -->
+      <a href="#" class="flex items-center space-x-2.5 group shrink-0">
+        <img src="./images/centrix-logo.png" alt="Centrix Logo" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs group-hover:scale-105 transition-transform">
+        <span class="font-extrabold text-base sm:text-lg tracking-tight font-mono text-stone-900 dark:text-white">CENTRIX</span>
+        <span id="headerVersionBadge" data-centrix-version class="hidden sm:inline-block text-[11px] px-2 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 font-mono font-semibold">v1.0.4 Ready</span>
+      </a>
 
-      <div class="flex items-center space-x-3 sm:space-x-5">
-        <a href="#showcase" class="hidden md:inline-block text-xs font-mono text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition">Showcase</a>
-        <a href="#how-to-use" class="hidden md:inline-block text-xs font-mono text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition">How to Use</a>
-        <a href="#google-json-protocol" class="hidden lg:inline-block text-xs font-mono text-amber-600 dark:text-amber-400 hover:text-stone-900 dark:hover:text-white transition">Google JSON</a>
-        <a href="#executive-roi" class="hidden md:inline-block text-xs font-mono text-blue-600 dark:text-blue-400 hover:text-stone-900 dark:hover:text-white transition">Leadership ROI</a>
-        <a href="#qa" class="hidden md:inline-block text-xs font-mono text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition">Live Q&amp;A</a>
-        <a href="#pilot" class="hidden sm:inline-block text-xs font-mono text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition">Pilot Request</a>
+      <!-- Center Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-1 lg:space-x-1.5 text-xs font-mono font-medium text-stone-600 dark:text-stone-400">
+        <a href="#showcase" class="px-2.5 py-1 rounded-md hover:text-stone-900 dark:hover:text-white hover:bg-stone-200/60 dark:hover:bg-stone-800/60 transition">Showcase</a>
+        <a href="#how-to-use" class="px-2.5 py-1 rounded-md hover:text-stone-900 dark:hover:text-white hover:bg-stone-200/60 dark:hover:bg-stone-800/60 transition">How to Use</a>
+        <a href="#google-json-protocol" class="px-2.5 py-1 rounded-md text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-950/30 transition">Google JSON</a>
+        <a href="#executive-roi" class="px-2.5 py-1 rounded-md text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition">Leadership ROI</a>
+        <a href="#qa" class="px-2.5 py-1 rounded-md hover:text-stone-900 dark:hover:text-white hover:bg-stone-200/60 dark:hover:bg-stone-800/60 transition">Live Q&amp;A</a>
+        <a href="#pilot" class="px-2.5 py-1 rounded-md hover:text-stone-900 dark:hover:text-white hover:bg-stone-200/60 dark:hover:bg-stone-800/60 transition">Pilot</a>
+      </nav>
 
+      <!-- Right Action Area -->
+      <div class="flex items-center space-x-2 sm:space-x-3 shrink-0">
         <!-- Premium iOS Style Dark/Light Sliding Toggle -->
-        <button onclick="toggleTheme()" aria-label="Toggle Theme" class="relative inline-flex h-8 w-14 items-center rounded-full bg-stone-300/80 dark:bg-stone-800 border border-stone-300 dark:border-stone-700 p-1 transition-colors duration-300 focus:outline-none shadow-inner">
-          <div id="toggleKnob" class="h-6 w-6 rounded-full bg-white dark:bg-stone-900 shadow-sm transform transition-transform duration-300 flex items-center justify-center text-xs translate-x-0 dark:translate-x-6">
+        <button onclick="toggleTheme()" aria-label="Toggle Theme" class="relative inline-flex h-7 w-12 items-center rounded-full bg-stone-300/80 dark:bg-stone-800 border border-stone-300 dark:border-stone-700 p-1 transition-colors duration-200 focus:outline-none shadow-inner cursor-pointer" title="Toggle dark / light theme">
+          <div id="toggleKnob" class="h-5 w-5 rounded-full bg-white dark:bg-stone-900 shadow-sm transform transition-transform duration-200 flex items-center justify-center text-[10px] translate-x-0 dark:translate-x-5">
             <span id="knobEmoji">☀️</span>
           </div>
         </button>
 
-        <!-- Download Centrix Desktop App Button (Opens Windows / macOS Choice Modal) -->
+        <!-- Download Centrix Desktop App Button -->
         <button onclick="openDownloadModal()" id="headerDownloadAppBtn" type="button" 
-                class="inline-flex items-center space-x-2 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-xs px-3.5 py-2 rounded-xl shadow-sm transition transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
-          <span class="text-sm">📥</span>
-          <span class="hidden sm:inline">Download Centrix App</span>
-          <span class="sm:hidden">Download App</span>
-          <span id="headerBtnVerBadge" class="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 dark:text-emerald-700 font-bold ml-0.5">v1.0.4</span>
+                class="inline-flex items-center space-x-1.5 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-xs px-3 py-1.5 rounded-lg shadow-xs transition transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+          <span class="text-xs">📥</span>
+          <span>Download</span>
+          <span class="hidden sm:inline">Centrix</span>
+          <span id="headerBtnVerBadge" class="hidden lg:inline text-[9px] px-1 py-0.2 rounded-full bg-emerald-500/20 text-emerald-400 dark:text-emerald-700 font-bold">v1.0.4</span>
         </button>
       </div>
+
     </div>
   </header>
 
   <!-- Hero Section -->
-  <section class="max-w-6xl mx-auto px-6 pt-16 pb-12">
+  <section class="max-w-6xl mx-auto px-6 pt-8 sm:pt-12 pb-10 sm:pb-12">
     <div class="max-w-3xl">
-      <div class="inline-flex items-center space-x-2 text-xs font-mono uppercase tracking-widest text-stone-500 dark:text-stone-400 mb-4 border-b border-stone-300 dark:border-stone-800 pb-1">
+      <div class="inline-flex items-center space-x-2 text-xs font-mono uppercase tracking-widest text-stone-500 dark:text-stone-400 mb-3 border-b border-stone-300 dark:border-stone-800 pb-1">
         <span>PhysicsWallah Classroom Operations</span>
         <span>•</span>
         <span>Vidyapeeth &amp; Pathshala</span>
       </div>
 
-      <h1 class="text-4xl sm:text-6xl font-serif tracking-tight text-stone-900 dark:text-stone-50 mb-6 leading-[1.1]">
+      <h1 class="text-4xl sm:text-6xl font-serif tracking-tight text-stone-900 dark:text-stone-50 mb-5 leading-[1.1]">
         A quiet <em>editorial</em> take on classroom lecture capture.
       </h1>
 
-      <p class="text-base sm:text-lg text-stone-600 dark:text-stone-400 leading-relaxed mb-8 max-w-2xl font-normal">
+      <p class="text-base sm:text-lg text-stone-600 dark:text-stone-400 leading-relaxed mb-6 max-w-2xl font-normal">
         Watches OBS recording folders. Matches timetable schedules with zero manual overhead. Uploads automatically to Google Drive batch folders and YouTube with 100% offline resilience.
       </p>
 
-      <div class="flex flex-wrap items-center gap-3 mb-10">
+      <div class="flex flex-wrap items-center gap-3 mb-8">
         <button onclick="openDownloadModal()" type="button" 
-                class="inline-flex items-center space-x-2.5 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-sm px-6 py-3.5 rounded-xl shadow-md transition transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+                class="inline-flex items-center space-x-2.5 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-sm px-6 py-3 rounded-xl shadow-md transition transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
           <span class="text-base">📥</span>
           <span>Download Centrix App</span>
           <span class="text-xs opacity-75 font-normal ml-0.5">(Windows / Mac)</span>
         </button>
         <a data-download-platform="windows" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" 
-           class="inline-flex items-center space-x-1.5 bg-stone-200/70 hover:bg-stone-300/70 dark:bg-stone-800/60 dark:hover:bg-stone-700/60 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-xs sm:text-sm px-3.5 py-3.5 rounded-xl transition" title="Direct download Windows .exe installer">
+           class="inline-flex items-center space-x-1.5 bg-stone-200/70 hover:bg-stone-300/70 dark:bg-stone-800/60 dark:hover:bg-stone-700/60 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-xs sm:text-sm px-3.5 py-3 rounded-xl transition" title="Direct download Windows .exe installer">
           <span>🪟 .exe</span>
         </a>
         <a data-download-platform="mac" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" 
-           class="inline-flex items-center space-x-1.5 bg-stone-200/70 hover:bg-stone-300/70 dark:bg-stone-800/60 dark:hover:bg-stone-700/60 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-xs sm:text-sm px-3.5 py-3.5 rounded-xl transition" title="Direct download macOS .dmg disk image">
+           class="inline-flex items-center space-x-1.5 bg-stone-200/70 hover:bg-stone-300/70 dark:bg-stone-800/60 dark:hover:bg-stone-700/60 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-xs sm:text-sm px-3.5 py-3 rounded-xl transition" title="Direct download macOS .dmg disk image">
           <span>🍎 .dmg</span>
         </a>
         <a href="#pilot" 
-           class="inline-flex items-center space-x-2 text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 font-mono font-medium text-xs sm:text-sm px-3 py-3.5 transition">
+           class="inline-flex items-center space-x-2 text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 font-mono font-medium text-xs sm:text-sm px-3 py-3 transition">
           <span>Request Pilot →</span>
         </a>
       </div>
@@ -1678,12 +1685,12 @@
       const knobEmoji = document.getElementById('knobEmoji');
       if (theme === 'dark') {
         document.documentElement.classList.add('dark');
-        knob.classList.add('translate-x-6');
+        knob.classList.add('translate-x-5');
         knob.classList.remove('translate-x-0');
         knobEmoji.textContent = '🌙';
       } else {
         document.documentElement.classList.remove('dark');
-        knob.classList.remove('translate-x-6');
+        knob.classList.remove('translate-x-5');
         knob.classList.add('translate-x-0');
         knobEmoji.textContent = '☀️';
       }
