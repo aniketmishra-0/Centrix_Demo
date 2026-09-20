@@ -1064,7 +1064,7 @@
       },
       {
         id: 'security',
-        matches: ['security', 'dpapi', 'encryption', 'encrypt', 'keys', 'token', 'credential', 'oauth', 'safe', 'privacy', 'password', 'leak', 'safe hai'],
+        matches: ['security', 'dpapi', 'encryption', 'encrypt', 'keys', 'token', 'credential', 'oauth', 'safe', 'privacy', 'password', 'leak', 'safe hai', 'vault'],
         en: "<strong>Enterprise-Grade Security:</strong><br />" +
             "• <strong>Zero Hardcoded Secrets:</strong> No API keys or tokens are stored in the installer or codebase.<br />" +
             "• <strong>Windows DPAPI Vault:</strong> Google Drive OAuth refresh tokens are encrypted at the OS level using Windows DPAPI (machine/user scope).<br />" +
@@ -1286,7 +1286,7 @@
       },
       {
         id: 'database_spec',
-        matches: ['database_schema.md', 'database schema', 'sqlite tables', 'wal mode', 'devices table', 'lecture_sessions', 'upload_queue', 'outbox', 'schema'],
+        matches: ['sqlite', 'database', 'db', 'database_schema.md', 'database schema', 'sqlite tables', 'wal mode', 'devices table', 'lecture_sessions', 'upload_queue', 'outbox', 'schema'],
         en: "<strong>Database Schema &amp; Storage Architecture:</strong><br />" +
             "Centrix separates storage into two specialized tiers:<br />" +
             "• <strong>Center-Local SQLite 3 (WAL Mode):</strong><br />" +
@@ -1956,10 +1956,9 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
 
       let systemPromptText = CENTRIX_SYSTEM_PROMPT;
       if (ragResult && ragResult.contextPrompt) {
-        systemPromptText = ragResult.contextPrompt + '\n' + langDirective;
-      } else {
-        systemPromptText = CENTRIX_SYSTEM_PROMPT + '\n' + langDirective;
+        systemPromptText += '\n\n' + ragResult.contextPrompt;
       }
+      systemPromptText += '\n\n' + langDirective + '\n[MANDATORY COMPLETENESS: Always deliver a complete, highly structured, impressive, and comprehensive answer with clear bullet points, exact architectural details, quantitative benchmarks, and clickable code citations. NEVER provide short 1-2 sentence summaries or truncated responses.]';
 
       // Route 1: OpenRouter Key (sk-or-...)
       if (cleanKey.startsWith('sk-or-')) {
@@ -1981,7 +1980,7 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
           },
           body: JSON.stringify({
             model: 'openrouter/free',
-            max_tokens: 500,
+            max_tokens: 1000,
             temperature: 0.6,
             messages: messages
           })
@@ -1998,7 +1997,7 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
             },
             body: JSON.stringify({
               model: 'google/gemini-2.5-flash',
-              max_tokens: 450,
+              max_tokens: 1000,
               temperature: 0.6,
               messages: messages
             })
@@ -2338,15 +2337,6 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         qLower.includes('queue') || qLower.includes('vault') || qLower.includes('dpapi')
       );
 
-      // Query live Gemini model with strict grounding and conversational memory
-      if (apiKey && apiKey.length > 8) {
-        try {
-          return await askGeminiFlash(qTrim, apiKey, history, ragResult);
-        } catch (err) {
-          console.warn('Gemini live query notice, falling back to local intelligence:', err);
-        }
-      }
-
       const isHi = isHindiQuery(qTrim);
       const tokens = qClean.split(/\s+/).filter(t => t.length > 1);
 
@@ -2402,14 +2392,23 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         return generateClientCodebaseResponse(ragResult, qTrim);
       }
 
-      // 3. If matched with moderate confidence in knowledge corpus
+      // 3. Moderate Confidence Match in knowledge corpus
       if (highestScore >= 12 && bestMatch) {
         const reply = isHi ? bestMatch.hi : bestMatch.en;
         const text = Array.isArray(reply) ? reply[Math.floor(Math.random() * reply.length)] : reply;
         return renderCitations(text);
       }
 
-      // 4. If general codebase query, provide focused component summary without code dump
+      // 4. Live Gemini Flash model for open-ended or unique queries
+      if (apiKey && apiKey.length > 8) {
+        try {
+          return await askGeminiFlash(qTrim, apiKey, history, ragResult);
+        } catch (err) {
+          console.warn('Gemini live query notice, falling back to local intelligence:', err);
+        }
+      }
+
+      // 5. If general codebase query, provide focused component summary without code dump
       if (isCodebaseQuery && ragResult) {
         return generateClientCodebaseResponse(ragResult, qTrim);
       }
