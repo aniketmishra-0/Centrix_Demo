@@ -209,133 +209,263 @@
           </div>
         </div>
 
-        <!-- 1. Interactive Simulator Sandbox View (Active by default) -->
-        <div id="interactiveSimulator" class="p-4 sm:p-6 bg-stone-50 dark:bg-stone-950 min-h-[540px] flex flex-col justify-between">
-          <!-- Simulator Control Toolbar -->
-          <div class="p-4 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xs mb-6">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div>
-                <div class="text-xs font-mono uppercase tracking-wider text-stone-400 font-bold mb-1">Select Classroom Scenario to Test:</div>
-                <div class="flex flex-wrap gap-2" id="scenarioButtons">
-                  <button type="button" onclick="selectScenario('auto')" id="btn-scen-auto" class="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800 transition">
-                    ⚡ 1. Regular Lecture (&ge;85% Auto-Match)
-                  </button>
-                  <button type="button" onclick="selectScenario('swap')" id="btn-scen-swap" class="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-stone-100 text-stone-600 border border-stone-200 dark:bg-stone-800 dark:text-stone-400 dark:border-stone-700 hover:bg-stone-200 dark:hover:bg-stone-700 transition">
-                    🔄 2. Teacher Swap (1-Tap Review Card)
-                  </button>
-                  <button type="button" onclick="selectScenario('corrupt')" id="btn-scen-corrupt" class="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-stone-100 text-stone-600 border border-stone-200 dark:bg-stone-800 dark:text-stone-400 dark:border-stone-700 hover:bg-stone-200 dark:hover:bg-stone-700 transition">
-                    ⚠️ 3. Corrupt Recording (Broken Header)
-                  </button>
+        <!-- 1. Interactive Centrix App UI (Pixel-Perfect 100% Real Layout) -->
+        <div id="interactiveSimulator" class="w-full bg-[#F8F6F2] dark:bg-[#121211] text-[#121110] dark:text-[#F0EDE6] min-h-[620px] flex flex-col lg:flex-row font-sans antialiased text-left border-t border-[#E2DDD5] dark:border-[#2B2B28]">
+          
+          <!-- REAL CENTRIX SIDEBAR -->
+          <aside class="w-full lg:w-56 bg-[#F8F6F2] dark:bg-[#161614] border-b lg:border-b-0 lg:border-r border-[#E2DDD5] dark:border-[#2B2B28] p-3 flex flex-col justify-between shrink-0">
+            <div>
+              <!-- Centrix Logo & Center Badge -->
+              <div class="flex items-center space-x-2.5 px-2 py-2">
+                <img src="./images/centrix-logo.png" class="w-7 h-7 rounded-full shadow-xs" alt="Centrix Logo">
+                <div>
+                  <div class="font-mono font-extrabold text-sm tracking-tight text-stone-900 dark:text-stone-50">Centrix</div>
+                  <div class="text-[9px] font-mono text-stone-500 dark:text-stone-400 uppercase tracking-wider">PUNE - PCMC VIDYAPEETH</div>
                 </div>
               </div>
 
-              <div class="flex items-center gap-2 shrink-0">
-                <button type="button" id="btnRunSim" onclick="runSimulation()" class="px-5 py-2.5 rounded-xl font-mono text-xs font-bold bg-stone-900 hover:bg-stone-800 text-white dark:bg-stone-100 dark:hover:bg-white dark:text-stone-950 shadow-md transition transform active:scale-95 flex items-center space-x-2">
-                  <span id="simPlayIcon">▶</span>
-                  <span id="simBtnLabel">Simulate Classroom Output</span>
+              <!-- Live Status Pill -->
+              <div class="mt-2.5 mx-1 flex items-center justify-between px-2.5 py-1 rounded bg-[#EFECE6] dark:bg-[#20201D] border border-[#E2DDD5] dark:border-[#2E2E2A] text-[10px] font-mono">
+                <span class="flex items-center space-x-1.5 text-emerald-600 dark:text-emerald-400">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span class="font-bold">LIVE</span>
+                </span>
+                <span class="text-[9px] text-stone-400">active</span>
+              </div>
+
+              <!-- Menu Items -->
+              <div class="mt-4">
+                <div class="px-2.5 pb-1 text-[10px] font-mono uppercase tracking-widest text-stone-400 font-semibold">MENU</div>
+                <nav class="space-y-1">
+                  <button type="button" onclick="setAppScreen('live')" id="app-nav-live" class="w-full flex items-center justify-between px-3 py-2 text-xs font-mono font-bold bg-[#121110] text-[#F8F6F2] dark:bg-stone-100 dark:text-[#121110] rounded shadow-xs transition cursor-pointer">
+                    <span class="flex items-center space-x-2.5">
+                      <span class="text-xs">((o))</span>
+                      <span>LIVE</span>
+                    </span>
+                  </button>
+                  <button type="button" onclick="setAppScreen('review')" id="app-nav-review" class="w-full flex items-center justify-between px-3 py-2 text-xs font-mono text-stone-600 dark:text-stone-400 hover:bg-[#EFECE6] dark:hover:bg-[#222220] rounded transition cursor-pointer">
+                    <span class="flex items-center space-x-2.5">
+                      <span class="text-xs">✓</span>
+                      <span>REVIEW</span>
+                    </span>
+                    <span id="appReviewBadge" class="hidden px-1.5 py-0.2 bg-red-600 text-white rounded text-[9px] font-bold">1</span>
+                  </button>
+                  <button type="button" class="w-full flex items-center space-x-2.5 px-3 py-2 text-xs font-mono text-stone-600 dark:text-stone-400 hover:bg-[#EFECE6] dark:hover:bg-[#222220] rounded transition opacity-70">
+                    <span class="text-xs">📅</span>
+                    <span>SCHEDULE</span>
+                  </button>
+                  <button type="button" class="w-full flex items-center space-x-2.5 px-3 py-2 text-xs font-mono text-stone-600 dark:text-stone-400 hover:bg-[#EFECE6] dark:hover:bg-[#222220] rounded transition opacity-70">
+                    <span class="text-xs">📈</span>
+                    <span>STUDIO</span>
+                  </button>
+                  <button type="button" class="w-full flex items-center space-x-2.5 px-3 py-2 text-xs font-mono text-stone-600 dark:text-stone-400 hover:bg-[#EFECE6] dark:hover:bg-[#222220] rounded transition opacity-70">
+                    <span class="text-xs">🏢</span>
+                    <span>CENTER</span>
+                  </button>
+                  <button type="button" class="w-full flex items-center space-x-2.5 px-3 py-2 text-xs font-mono text-stone-600 dark:text-stone-400 hover:bg-[#EFECE6] dark:hover:bg-[#222220] rounded transition opacity-70">
+                    <span class="text-xs">⚙</span>
+                    <span>CONTROLS</span>
+                  </button>
+                </nav>
+              </div>
+            </div>
+
+            <!-- Profile card at bottom of sidebar -->
+            <div class="mt-4 pt-3 border-t border-[#E2DDD5] dark:border-[#2B2B28]">
+              <div class="p-2 rounded bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] flex items-center space-x-2 shadow-xs">
+                <div class="w-7 h-7 rounded-full bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-950 flex items-center justify-center font-bold text-xs">AM</div>
+                <div class="overflow-hidden">
+                  <div class="text-[11px] font-bold text-stone-900 dark:text-stone-100 truncate">Aniket Mishra</div>
+                  <div class="text-[9px] font-mono text-stone-400 truncate">aniket.mishra2@pw.live</div>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- REAL CENTRIX MAIN WORKSPACE -->
+          <div class="flex-1 flex flex-col bg-[#F8F6F2] dark:bg-[#121211] overflow-hidden">
+            
+            <!-- Real Centrix Top Bar -->
+            <div class="px-5 py-3 border-b border-[#E2DDD5] dark:border-[#2B2B28] flex flex-wrap items-center justify-between gap-3 bg-[#F8F6F2] dark:bg-[#151513]">
+              <div class="flex items-center space-x-3">
+                <span class="text-xs text-stone-400">▣</span>
+                <h3 id="appHeaderTitle" class="text-xl font-serif tracking-tight font-bold text-stone-900 dark:text-stone-50">LIVE</h3>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 font-mono text-xs">
+                <div class="px-3 py-1 rounded bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] text-stone-700 dark:text-stone-300 shadow-xs">
+                  🏛 PUNE - PCMC VIDYAPEETH ▾
+                </div>
+                <div class="px-3 py-1 rounded bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] text-stone-700 dark:text-stone-300 shadow-xs">
+                  CLASSROOM: <strong class="text-stone-900 dark:text-stone-100">ROOM 603 (THIS PC) ▾</strong>
+                </div>
+                <button type="button" class="relative p-1.5 rounded bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] text-stone-700 dark:text-stone-300 shadow-xs">
+                  🔔
+                  <span id="appBellBadge" class="hidden absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-red-600 animate-ping"></span>
                 </button>
-                <button type="button" onclick="resetSimulation()" title="Reset Simulator" class="p-2.5 rounded-xl font-mono text-xs text-stone-500 hover:text-stone-800 dark:hover:text-stone-200 bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 transition">
-                  ↺
+                <button type="button" onclick="resetRealApp()" class="px-2.5 py-1 rounded bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 transition shadow-xs cursor-pointer">
+                  ↻ REFRESH
                 </button>
               </div>
             </div>
-          </div>
 
-          <!-- Live Telemetry & Pipeline View -->
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1">
-            <!-- Left Column: Edge Device & File Watcher Status -->
-            <div class="lg:col-span-4 flex flex-col space-y-4">
-              <div class="p-4 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xs">
-                <div class="flex items-center justify-between pb-2 border-b border-stone-100 dark:border-stone-800 mb-3">
-                  <span class="text-[11px] font-mono text-stone-400 uppercase font-bold">Node Telemetry</span>
-                  <span class="inline-flex items-center space-x-1 text-[11px] font-mono text-emerald-600 dark:text-emerald-400">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                    <span>ONLINE</span>
-                  </span>
+            <!-- SIMULATOR CONTROL BAR (Inside the app window) -->
+            <div class="px-5 py-2.5 bg-gradient-to-r from-blue-600/10 via-indigo-600/5 to-amber-600/10 border-b border-[#E2DDD5] dark:border-[#2B2B28] flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center space-x-2 text-xs font-mono">
+                <span class="px-2 py-0.5 rounded bg-blue-600 text-white font-bold text-[10px]">LIVE SIMULATOR</span>
+                <span class="text-stone-600 dark:text-stone-400 hidden sm:inline">Test real classroom events:</span>
+              </div>
+              <div class="flex flex-wrap items-center gap-2">
+                <button type="button" onclick="simulateClassroomDrop('auto')" class="px-3 py-1.5 rounded-lg bg-stone-900 hover:bg-stone-800 text-white dark:bg-stone-100 dark:hover:bg-white dark:text-stone-950 text-xs font-mono font-bold shadow-xs transition flex items-center space-x-1.5 cursor-pointer transform active:scale-95">
+                  <span>⚡ 1. Drop Physics Lecture (Auto-Match)</span>
+                </button>
+                <button type="button" onclick="simulateClassroomDrop('swap')" class="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-mono font-bold shadow-xs transition flex items-center space-x-1.5 cursor-pointer transform active:scale-95">
+                  <span>🔄 2. Teacher Swap (1-Tap Review)</span>
+                </button>
+                <button type="button" onclick="resetRealApp()" class="px-2.5 py-1.5 rounded-lg bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 text-xs font-mono hover:bg-stone-300 transition cursor-pointer">
+                  <span>↻ Reset</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- SCREEN 1: LIVE INGEST WORKSPACE -->
+            <div id="screen-live" class="p-5 flex-1 flex flex-col space-y-5 overflow-y-auto">
+              <!-- 4 Real Metric Cards -->
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Stat 1: Uploaded (24h) -->
+                <div class="p-4 rounded-xl bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] shadow-xs flex items-center justify-between">
+                  <div>
+                    <div class="text-[10px] font-mono text-stone-400 uppercase tracking-wider">01 · UPLOADED (24H)</div>
+                    <div class="text-2xl font-mono font-bold text-stone-900 dark:text-stone-100 mt-1" id="stat-uploaded-num">0 <span class="text-xs font-normal text-stone-400 font-sans">in Drive</span></div>
+                  </div>
+                  <span class="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center text-xs font-bold">✓</span>
                 </div>
-                <div class="space-y-1.5 font-mono text-xs text-stone-600 dark:text-stone-400">
-                  <div class="flex justify-between"><span>Node:</span> <strong class="text-stone-800 dark:text-stone-200">Room 603 (PCMC)</strong></div>
-                  <div class="flex justify-between"><span>Batch:</span> <strong class="text-stone-800 dark:text-stone-200" id="simBatchCode">35-LJ252MA 2026</strong></div>
-                  <div class="flex justify-between"><span>Database:</span> <span class="text-blue-600 dark:text-blue-400">SQLite WAL</span></div>
-                  <div class="flex justify-between"><span>Storage:</span> <span class="text-purple-600 dark:text-purple-400">Drive Direct (0 Egress)</span></div>
+
+                <!-- Stat 2: Drive Queue -->
+                <div class="p-4 rounded-xl bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] shadow-xs flex items-center justify-between">
+                  <div>
+                    <div class="text-[10px] font-mono text-stone-400 uppercase tracking-wider">02 · DRIVE QUEUE</div>
+                    <div class="text-2xl font-mono font-bold text-stone-900 dark:text-stone-100 mt-1" id="stat-queue-num">0 <span class="text-xs font-normal text-stone-400 font-sans">in transit</span></div>
+                  </div>
+                  <span class="w-6 h-6 rounded-full bg-blue-500/10 text-blue-600 flex items-center justify-center text-xs">☁</span>
+                </div>
+
+                <!-- Stat 3: Pending Reviews -->
+                <div class="p-4 rounded-xl bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] shadow-xs flex items-center justify-between">
+                  <div>
+                    <div class="text-[10px] font-mono text-stone-400 uppercase tracking-wider">03 · PENDING REVIEWS</div>
+                    <div class="text-2xl font-mono font-bold text-stone-900 dark:text-stone-100 mt-1" id="stat-pending-num">0 <span class="text-xs font-normal text-stone-400 font-sans">all reviewed</span></div>
+                  </div>
+                  <span class="w-6 h-6 rounded-full bg-amber-500/10 text-amber-600 flex items-center justify-center text-xs font-bold">!</span>
+                </div>
+
+                <!-- Stat 4: Failed (24h) -->
+                <div class="p-4 rounded-xl bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] shadow-xs flex items-center justify-between">
+                  <div>
+                    <div class="text-[10px] font-mono text-stone-400 uppercase tracking-wider">04 · FAILED (24H)</div>
+                    <div class="text-2xl font-mono font-bold text-stone-900 dark:text-stone-100 mt-1">0 <span class="text-xs font-normal text-stone-400 font-sans">0 errors</span></div>
+                  </div>
+                  <span class="w-6 h-6 rounded-full bg-stone-500/10 text-stone-400 flex items-center justify-center text-xs">↻</span>
                 </div>
               </div>
 
-              <!-- Detected Files Card -->
-              <div class="p-4 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xs flex-1 flex flex-col justify-between">
+              <!-- Main Queue Card (Swaps between Empty State and Live Ingestion) -->
+              <div id="liveQueueContainer" class="p-8 rounded-xl bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] shadow-xs flex-1 flex flex-col items-center justify-center text-center">
+                <div class="w-12 h-12 rounded-xl bg-stone-100 dark:bg-stone-800 text-stone-400 flex items-center justify-center text-xl mb-3">
+                  ☁
+                </div>
+                <h4 class="text-base font-serif font-bold text-stone-900 dark:text-stone-100">Upload Queue is Clear</h4>
+                <p class="text-xs text-stone-500 dark:text-stone-400 max-w-sm mt-1">
+                  No transfers in flight or completed in the last 24 hours for Room 603.
+                </p>
+                <div class="mt-4 inline-flex items-center space-x-2 text-xs font-mono text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 px-3 py-1.5 rounded-lg border border-blue-200 dark:border-blue-900/50">
+                  <span>💡 Click <strong>"1. Drop Physics Lecture"</strong> above to test automatic ingestion!</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SCREEN 2: REVIEW & APPROVAL HUB WORKSPACE -->
+            <div id="screen-review" class="p-5 flex-1 flex flex-col space-y-5 overflow-y-auto hidden">
+              <!-- Review 6 Stats Bar -->
+              <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 text-center p-3 rounded-xl bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] shadow-xs font-mono">
+                <div class="border-r border-[#E2DDD5] dark:border-[#2B2B28] last:border-0"><div class="text-lg font-bold" id="rev-total">4</div><div class="text-[9px] text-stone-400">TOTAL</div></div>
+                <div class="border-r border-[#E2DDD5] dark:border-[#2B2B28] last:border-0"><div class="text-lg font-bold text-emerald-600" id="rev-uploaded">3</div><div class="text-[9px] text-stone-400">UPLOADED</div></div>
+                <div class="border-r border-[#E2DDD5] dark:border-[#2B2B28] last:border-0"><div class="text-lg font-bold">0</div><div class="text-[9px] text-stone-400">MATCHED</div></div>
+                <div class="border-r border-[#E2DDD5] dark:border-[#2B2B28] last:border-0"><div class="text-lg font-bold">0</div><div class="text-[9px] text-stone-400">UNMATCHED</div></div>
+                <div class="border-r border-[#E2DDD5] dark:border-[#2B2B28] last:border-0"><div class="text-lg font-bold">0</div><div class="text-[9px] text-stone-400">FAILED</div></div>
+                <div><div class="text-lg font-bold text-amber-600" id="rev-pending">0</div><div class="text-[9px] text-stone-400">PENDING</div></div>
+              </div>
+
+              <!-- Queue Title & Upload File Banner -->
+              <div class="p-4 rounded-xl bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                  <div class="flex items-center justify-between pb-2 border-b border-stone-100 dark:border-stone-800 mb-3">
-                    <span class="text-[11px] font-mono text-stone-400 uppercase font-bold">Edge Ingest Queue</span>
-                    <span id="watcherBadge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800 text-stone-500">AWAITING OBS</span>
+                  <div class="text-[10px] font-mono text-stone-400 uppercase">QUEUE · LECTURE VERIFICATION</div>
+                  <h4 class="text-base font-serif font-bold text-stone-900 dark:text-stone-100">Review &amp; Approval Hub</h4>
+                  <p class="text-xs text-stone-500">Lectures stay here until successfully uploaded to Google Drive</p>
+                </div>
+                <span class="px-2.5 py-1 rounded text-xs font-mono bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 font-semibold self-start sm:self-auto">ALL CLEAR</span>
+              </div>
+
+              <!-- Matches Pending Verification Container -->
+              <div>
+                <div class="flex items-center justify-between pb-2 mb-2 font-mono text-xs">
+                  <span class="text-stone-500 uppercase font-semibold">MATCHES PENDING VERIFICATION (<span id="pendingCountLabel">0</span>)</span>
+                  <span class="text-[10px] px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800 text-stone-400" id="pendingStatusBadge">0 PENDING</span>
+                </div>
+
+                <div id="pendingCardsContainer">
+                  <div class="p-6 rounded-xl bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] text-center shadow-xs">
+                    <div class="w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center mx-auto mb-2 text-sm font-bold">✓</div>
+                    <div class="font-serif font-bold text-sm text-stone-900 dark:text-stone-100">All lecture matches verified</div>
+                    <div class="text-xs font-mono text-stone-400 mt-0.5">// no lectures waiting for batch confirmation.</div>
                   </div>
-                  <div class="space-y-2.5 font-mono text-xs" id="detectedFilesList">
-                    <div class="p-2.5 rounded-lg bg-stone-100/70 dark:bg-stone-800/50 border border-stone-200/60 dark:border-stone-700/60 text-stone-400 text-center py-6">
-                      Click <strong class="text-stone-700 dark:text-stone-300">"Simulate Classroom Output"</strong> above to drop sample lecture recording and notes into the pipeline.
+                </div>
+              </div>
+
+              <!-- Archive: Delivered Lectures Section -->
+              <div class="pt-2">
+                <div class="flex items-center justify-between pb-2 mb-2 font-mono text-xs">
+                  <div>
+                    <span class="text-stone-500 uppercase font-semibold">ARCHIVE · VERIFIED UPLOADS</span>
+                    <span class="text-[11px] text-stone-400 ml-2 font-serif font-bold text-stone-800 dark:text-stone-200">Delivered Lectures (<span id="deliveredCount">3</span>)</span>
+                  </div>
+                  <span class="text-[10px] text-stone-400">// QC &amp; distribution ready</span>
+                </div>
+
+                <!-- Delivered Cards Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs" id="deliveredGrid">
+                  <!-- Card 1 -->
+                  <div class="p-3.5 rounded-xl bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] shadow-xs flex flex-col justify-between">
+                    <div>
+                      <div class="flex items-center justify-between mb-1">
+                        <strong class="text-stone-900 dark:text-stone-100">27-AJ273MA 2026 / Botany</strong>
+                        <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 font-bold">UPLOADED</span>
+                      </div>
+                      <div class="text-[10px] text-stone-400 mb-3">Room 101 · LSN-20260918-7A7DFE6A</div>
+                    </div>
+                    <div class="p-2 rounded bg-stone-50 dark:bg-[#151513] border border-[#E2DDD5] dark:border-[#2B2B28] flex items-center justify-between">
+                      <span class="text-[10px] text-stone-500 truncate">📁 27-AJ273MA 2026/Botany</span>
+                      <a href="#showcase" class="px-2 py-1 rounded bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-stone-800 dark:text-stone-200 text-[10px] font-bold hover:bg-stone-100 transition">OPEN IN DRIVE ↗</a>
+                    </div>
+                  </div>
+
+                  <!-- Card 2 -->
+                  <div class="p-3.5 rounded-xl bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] shadow-xs flex flex-col justify-between">
+                    <div>
+                      <div class="flex items-center justify-between mb-1">
+                        <strong class="text-stone-900 dark:text-stone-100">JEE-2026 / PHYSICS</strong>
+                        <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 font-bold">UPLOADED</span>
+                      </div>
+                      <div class="text-[10px] text-stone-400 mb-3">Room 603 · LSN-20260917-F7109503</div>
+                    </div>
+                    <div class="p-2 rounded bg-stone-50 dark:bg-[#151513] border border-[#E2DDD5] dark:border-[#2B2B28] flex items-center justify-between">
+                      <span class="text-[10px] text-stone-500 truncate">📁 JEE-2026/PHYSICS</span>
+                      <a href="#showcase" class="px-2 py-1 rounded bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-stone-800 dark:text-stone-200 text-[10px] font-bold hover:bg-stone-100 transition">OPEN IN DRIVE ↗</a>
                     </div>
                   </div>
                 </div>
-                <!-- File Stability Lock Bar -->
-                <div id="stabilityProgressContainer" class="mt-4 pt-3 border-t border-stone-100 dark:border-stone-800 hidden">
-                  <div class="flex justify-between text-[10px] font-mono text-stone-500 mb-1">
-                    <span>Write Stability Lock:</span>
-                    <span id="stabilityCountdown">10s Debounce</span>
-                  </div>
-                  <div class="w-full bg-stone-200 dark:bg-stone-800 h-1.5 rounded-full overflow-hidden">
-                    <div id="stabilityBar" class="bg-blue-600 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
-                  </div>
-                </div>
               </div>
             </div>
 
-            <!-- Right Column: 7-Signal Matching & State Machine Output -->
-            <div class="lg:col-span-8 flex flex-col space-y-4">
-              <!-- Confidence Engine & Match Signals Card -->
-              <div class="p-5 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xs">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-stone-100 dark:border-stone-800 mb-4">
-                  <div>
-                    <span class="text-[11px] font-mono text-stone-400 uppercase font-bold">Deterministic 7-Signal Matching Engine</span>
-                    <h4 class="text-sm font-bold text-stone-900 dark:text-stone-100 mt-0.5" id="matchingTitle">Idle • Ready for File Signal Verification</h4>
-                  </div>
-                  <div class="flex items-center space-x-2">
-                    <span class="text-xs font-mono text-stone-500">Confidence:</span>
-                    <span id="confidencePill" class="text-sm font-mono font-extrabold px-3 py-1 rounded-lg bg-stone-100 text-stone-600 dark:bg-stone-800 dark:text-stone-400">
-                      0%
-                    </span>
-                  </div>
-                </div>
-
-                <!-- 7 Signals Progress Grid -->
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono text-[11px]" id="signalsGrid">
-                  <div class="p-2.5 rounded-lg bg-stone-50 dark:bg-stone-950 border border-stone-200/80 dark:border-stone-800">
-                    <div class="text-stone-400">Time Overlap (35%)</div>
-                    <div class="font-bold text-stone-800 dark:text-stone-200 text-xs mt-1" id="sigTime">0 / 35</div>
-                  </div>
-                  <div class="p-2.5 rounded-lg bg-stone-50 dark:bg-stone-950 border border-stone-200/80 dark:border-stone-800">
-                    <div class="text-stone-400">Room 603 (15%)</div>
-                    <div class="font-bold text-stone-800 dark:text-stone-200 text-xs mt-1" id="sigRoom">0 / 15</div>
-                  </div>
-                  <div class="p-2.5 rounded-lg bg-stone-50 dark:bg-stone-950 border border-stone-200/80 dark:border-stone-800">
-                    <div class="text-stone-400">Duration 60m (15%)</div>
-                    <div class="font-bold text-stone-800 dark:text-stone-200 text-xs mt-1" id="sigDuration">0 / 15</div>
-                  </div>
-                  <div class="p-2.5 rounded-lg bg-stone-50 dark:bg-stone-950 border border-stone-200/80 dark:border-stone-800">
-                    <div class="text-stone-400">Board OCR (15%)</div>
-                    <div class="font-bold text-stone-800 dark:text-stone-200 text-xs mt-1" id="sigOcr">0 / 15</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Live Action / Delivery Stage Card -->
-              <div id="liveActionCard" class="p-5 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xs flex-1 flex flex-col justify-center">
-                <div class="text-center py-8 text-stone-400 font-mono text-xs">
-                  <span class="text-2xl block mb-2">🎯</span>
-                  The automated lifecycle pipeline will execute here:
-                  <div class="flex items-center justify-center space-x-2 mt-3 text-[11px] text-stone-500">
-                    <span>DETECTED</span> ➔ <span>PROCESSING</span> ➔ <span>MATCHED</span> ➔ <span>UPLOADING</span> ➔ <span>DELIVERED</span>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -1368,385 +1498,339 @@
     }
 
     // ==========================================
-    // INTERACTIVE SANDBOX ENGINE LOGIC
+    // REAL CENTRIX APP SIMULATOR CONTROLLER
     // ==========================================
-    let currentScenario = 'auto';
-    let isSimRunning = false;
-    let simTimer = null;
+    let currentAppScreen = 'live';
+    let isAppSimActive = false;
 
-    function selectScenario(type) {
-      if (isSimRunning) return;
-      currentScenario = type;
+    function setAppScreen(screen) {
+      currentAppScreen = screen;
+      const viewLive = document.getElementById('screen-live');
+      const viewReview = document.getElementById('screen-review');
+      const title = document.getElementById('appHeaderTitle');
+      const navLive = document.getElementById('app-nav-live');
+      const navReview = document.getElementById('app-nav-review');
 
-      const btnAuto = document.getElementById('btn-scen-auto');
-      const btnSwap = document.getElementById('btn-scen-swap');
-      const btnCorrupt = document.getElementById('btn-scen-corrupt');
+      const activeNavClass = 'w-full flex items-center justify-between px-3 py-2 text-xs font-mono font-bold bg-[#121110] text-[#F8F6F2] dark:bg-stone-100 dark:text-[#121110] rounded shadow-xs transition cursor-pointer';
+      const inactiveNavClass = 'w-full flex items-center justify-between px-3 py-2 text-xs font-mono text-stone-600 dark:text-stone-400 hover:bg-[#EFECE6] dark:hover:bg-[#222220] rounded transition cursor-pointer';
 
-      const activeClass = 'px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800 transition';
-      const inactiveClass = 'px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-stone-100 text-stone-600 border border-stone-200 dark:bg-stone-800 dark:text-stone-400 dark:border-stone-700 hover:bg-stone-200 dark:hover:bg-stone-700 transition';
-
-      if (btnAuto) btnAuto.className = (type === 'auto') ? activeClass : inactiveClass;
-      if (btnSwap) btnSwap.className = (type === 'swap') ? activeClass : inactiveClass;
-      if (btnCorrupt) btnCorrupt.className = (type === 'corrupt') ? activeClass : inactiveClass;
-
-      resetSimulation(false);
-    }
-
-    function resetSimulation(resetScenario = true) {
-      if (simTimer) clearTimeout(simTimer);
-      isSimRunning = false;
-
-      const btn = document.getElementById('btnRunSim');
-      if (btn) {
-        btn.disabled = false;
-        btn.classList.remove('opacity-60', 'cursor-not-allowed');
-      }
-      const playIcon = document.getElementById('simPlayIcon');
-      if (playIcon) playIcon.textContent = '▶';
-      const btnLabel = document.getElementById('simBtnLabel');
-      if (btnLabel) btnLabel.textContent = 'Simulate Classroom Output';
-
-      const watcherBadge = document.getElementById('watcherBadge');
-      if (watcherBadge) {
-        watcherBadge.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800 text-stone-500';
-        watcherBadge.textContent = 'AWAITING OBS';
-      }
-
-      const fileList = document.getElementById('detectedFilesList');
-      if (fileList) {
-        fileList.innerHTML = `
-          <div class="p-2.5 rounded-lg bg-stone-100/70 dark:bg-stone-800/50 border border-stone-200/60 dark:border-stone-700/60 text-stone-400 text-center py-6">
-            Click <strong class="text-stone-700 dark:text-stone-300">"Simulate Classroom Output"</strong> above to drop sample lecture recording and notes into the pipeline.
-          </div>`;
-      }
-
-      const stabContainer = document.getElementById('stabilityProgressContainer');
-      if (stabContainer) stabContainer.classList.add('hidden');
-      const stabBar = document.getElementById('stabilityBar');
-      if (stabBar) stabBar.style.width = '0%';
-
-      const matchTitle = document.getElementById('matchingTitle');
-      if (matchTitle) matchTitle.textContent = 'Idle • Ready for File Signal Verification';
-
-      const confPill = document.getElementById('confidencePill');
-      if (confPill) {
-        confPill.className = 'text-sm font-mono font-extrabold px-3 py-1 rounded-lg bg-stone-100 text-stone-600 dark:bg-stone-800 dark:text-stone-400';
-        confPill.textContent = '0%';
-      }
-
-      const sTime = document.getElementById('sigTime'); if (sTime) sTime.textContent = '0 / 35';
-      const sRoom = document.getElementById('sigRoom'); if (sRoom) sRoom.textContent = '0 / 15';
-      const sDur = document.getElementById('sigDuration'); if (sDur) sDur.textContent = '0 / 15';
-      const sOcr = document.getElementById('sigOcr'); if (sOcr) sOcr.textContent = '0 / 15';
-
-      const actionCard = document.getElementById('liveActionCard');
-      if (actionCard) {
-        actionCard.innerHTML = `
-          <div class="text-center py-8 text-stone-400 font-mono text-xs">
-            <span class="text-2xl block mb-2">🎯</span>
-            The automated lifecycle pipeline will execute here:
-            <div class="flex items-center justify-center space-x-2 mt-3 text-[11px] text-stone-500">
-              <span>DETECTED</span> ➔ <span>PROCESSING</span> ➔ <span>MATCHED</span> ➔ <span>UPLOADING</span> ➔ <span>DELIVERED</span>
-            </div>
-          </div>`;
+      if (screen === 'live') {
+        if (viewLive) viewLive.classList.remove('hidden');
+        if (viewReview) viewReview.classList.add('hidden');
+        if (title) title.textContent = 'LIVE';
+        if (navLive) navLive.className = activeNavClass;
+        if (navReview) navReview.className = inactiveNavClass;
+      } else if (screen === 'review') {
+        if (viewLive) viewLive.classList.add('hidden');
+        if (viewReview) viewReview.classList.remove('hidden');
+        if (title) title.textContent = 'REVIEW';
+        if (navReview) navReview.className = activeNavClass;
+        if (navLive) navLive.className = inactiveNavClass;
       }
     }
 
-    function runSimulation() {
-      if (isSimRunning) return;
-      isSimRunning = true;
-
-      const btn = document.getElementById('btnRunSim');
-      if (btn) {
-        btn.disabled = true;
-        btn.classList.add('opacity-60', 'cursor-not-allowed');
-      }
-      const playIcon = document.getElementById('simPlayIcon');
-      if (playIcon) playIcon.textContent = '⏳';
-      const btnLabel = document.getElementById('simBtnLabel');
-      if (btnLabel) btnLabel.textContent = 'Running Pipeline...';
+    function simulateClassroomDrop(scenario) {
+      if (isAppSimActive) return;
+      isAppSimActive = true;
 
       const now = new Date();
       const pad = (n) => String(n).padStart(2, '0');
       const timeStr = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}`;
 
-      let videoName = `${timeStr}_Physics_Class11.mp4`;
-      let notesName = `${timeStr}_Physics_Notes.pdf`;
-      let videoSize = '2.42 GB';
+      if (scenario === 'auto') {
+        // SCENARIO 1: Full Auto-Match
+        setAppScreen('live');
 
-      if (currentScenario === 'swap') {
-        videoName = `${timeStr}_Chemistry_Sub.mp4`;
-        notesName = `${timeStr}_Notes_DrVerma.pdf`;
-        videoSize = '2.15 GB';
-      } else if (currentScenario === 'corrupt') {
-        videoName = `${timeStr}_Corrupt_PowerCut.mp4`;
-        notesName = '(None - OBS aborted)';
-        videoSize = '1.20 MB (Corrupt)';
-      }
+        // Increment Queue Stat
+        const statQueue = document.getElementById('stat-queue-num');
+        if (statQueue) statQueue.innerHTML = `1 <span class="text-xs font-normal text-stone-400 font-sans">in transit</span>`;
 
-      // Step 1: File Ingestion Detected
-      const watcherBadge = document.getElementById('watcherBadge');
-      if (watcherBadge) {
-        watcherBadge.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-400 font-semibold animate-pulse';
-        watcherBadge.textContent = 'OBS WRITE LOCKING (10s)';
-      }
-
-      const fileList = document.getElementById('detectedFilesList');
-      if (fileList) {
-        fileList.innerHTML = `
-          <div class="p-2.5 rounded-lg bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 transition">
-            <div class="flex items-center justify-between font-bold text-stone-800 dark:text-stone-200">
-              <span class="truncate">📹 ${videoName}</span>
-              <span class="text-[10px] text-blue-600 dark:text-blue-400">${videoSize}</span>
-            </div>
-            <div class="text-[10px] text-stone-500 mt-1 flex justify-between">
-              <span>Handle: FileShare.None</span>
-              <span>Stability Check...</span>
-            </div>
-          </div>
-          ${currentScenario !== 'corrupt' ? `
-          <div class="p-2.5 rounded-lg bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 transition">
-            <div class="flex items-center justify-between font-bold text-stone-800 dark:text-stone-200">
-              <span class="truncate">📄 ${notesName}</span>
-              <span class="text-[10px] text-emerald-600 dark:text-emerald-400">8.4 MB</span>
-            </div>
-            <div class="text-[10px] text-stone-500 mt-1 flex justify-between">
-              <span>MaxHub Digital Board</span>
-              <span>Vector Text Ready</span>
-            </div>
-          </div>` : ''}
-        `;
-      }
-
-      // Show stability progress
-      const stabContainer = document.getElementById('stabilityProgressContainer');
-      const stabBar = document.getElementById('stabilityBar');
-      const stabCountdown = document.getElementById('stabilityCountdown');
-      if (stabContainer) stabContainer.classList.remove('hidden');
-      
-      let prog = 0;
-      const progInterval = setInterval(() => {
-        prog += 25;
-        if (stabBar) stabBar.style.width = `${prog}%`;
-        if (stabCountdown) stabCountdown.textContent = `${Math.max(0, 10 - Math.round(prog / 10))}s Remaining`;
-        if (prog >= 100) {
-          clearInterval(progInterval);
-          executeMatchingStage();
-        }
-      }, 250);
-
-      function executeMatchingStage() {
-        if (watcherBadge) {
-          watcherBadge.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold';
-          watcherBadge.textContent = 'FILE STABLE & RELEASED';
-        }
-        if (stabCountdown) stabCountdown.textContent = '✓ Exclusive Lock Verified';
-
-        const matchTitle = document.getElementById('matchingTitle');
-        const confPill = document.getElementById('confidencePill');
-        const sTime = document.getElementById('sigTime');
-        const sRoom = document.getElementById('sigRoom');
-        const sDur = document.getElementById('sigDuration');
-        const sOcr = document.getElementById('sigOcr');
-        const actionCard = document.getElementById('liveActionCard');
-
-        if (currentScenario === 'corrupt') {
-          // Scenario 3: Corrupt Video Handling
-          if (matchTitle) matchTitle.textContent = 'Container Integrity Check Failed: Missing moov Atom';
-          if (confPill) {
-            confPill.className = 'text-sm font-mono font-extrabold px-3 py-1 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400';
-            confPill.textContent = 'HALTED';
-          }
-          if (actionCard) {
-            actionCard.innerHTML = `
-              <div class="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-700 dark:text-rose-300 font-mono text-xs">
-                <div class="flex items-center space-x-2 font-bold mb-1.5 text-sm">
-                  <span>🚨</span>
-                  <span>CORRUPTED_RECORDING DETECTED</span>
+        // Render Active Ingest & Upload Card
+        const queueCont = document.getElementById('liveQueueContainer');
+        if (queueCont) {
+          queueCont.className = 'p-6 rounded-xl bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] shadow-xs flex-1 flex flex-col justify-between text-left';
+          queueCont.innerHTML = `
+            <div class="space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#E2DDD5] dark:border-[#2B2B28]">
+                <div class="flex items-center space-x-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-blue-500 animate-ping"></span>
+                  <strong class="font-mono text-xs text-stone-900 dark:text-stone-100">${timeStr}_Physics_Class11.mp4</strong>
                 </div>
-                <p class="leading-relaxed text-[11px] mb-3">
-                  Rust <code>video_validator.rs</code> scanned the MP4 container and detected an incomplete atom structure. OBS terminated abruptly due to power loss.
-                </p>
-                <div class="p-2.5 rounded bg-white/80 dark:bg-stone-900 border border-rose-500/20 text-[10px] flex justify-between">
-                  <span>Safety Policy: Zero Bandwidth Wasted</span>
-                  <strong>Flagged for Local Recovery</strong>
+                <div class="flex items-center space-x-2 font-mono text-xs">
+                  <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 font-bold text-[10px]">AUTO_ASSIGNED (94%)</span>
+                  <span class="text-stone-400 text-[10px]">2.42 GB</span>
                 </div>
-              </div>`;
-          }
-          finishSim();
-          return;
+              </div>
+
+              <!-- Metadata details -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs">
+                <div class="p-2.5 rounded bg-stone-50 dark:bg-[#151513] border border-[#E2DDD5] dark:border-[#2B2B28]">
+                  <span class="text-stone-400 text-[10px] block">BATCH CODE:</span>
+                  <strong>35-LJ252MA 2026</strong>
+                </div>
+                <div class="p-2.5 rounded bg-stone-50 dark:bg-[#151513] border border-[#E2DDD5] dark:border-[#2B2B28]">
+                  <span class="text-stone-400 text-[10px] block">SUBJECT &amp; FACULTY:</span>
+                  <strong>Physics (Mr. Sharma)</strong>
+                </div>
+                <div class="p-2.5 rounded bg-stone-50 dark:bg-[#151513] border border-[#E2DDD5] dark:border-[#2B2B28]">
+                  <span class="text-stone-400 text-[10px] block">NOTES PAIRING:</span>
+                  <span class="text-emerald-600 dark:text-emerald-400 font-semibold">✓ MaxHub PDF Paired</span>
+                </div>
+              </div>
+
+              <!-- Live Upload Progress -->
+              <div class="pt-2">
+                <div class="flex justify-between font-mono text-[10px] text-stone-500 mb-1">
+                  <span>Chunked Resumable Upload (Google Drive API v3):</span>
+                  <span id="appUploadPct" class="font-bold">0%</span>
+                </div>
+                <div class="w-full bg-stone-200 dark:bg-stone-800 h-2.5 rounded-full overflow-hidden">
+                  <div id="appUploadBar" class="bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-[#E2DDD5] dark:border-[#2B2B28] flex items-center justify-between text-stone-400 font-mono text-[10px]">
+              <span>Edge Session ID: LSN-${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}-7A7D</span>
+              <span class="text-blue-600 dark:text-blue-400">Direct-to-Drive • $0 Cloud Egress</span>
+            </div>`;
         }
 
-        if (currentScenario === 'auto') {
-          // Scenario 1: Standard Auto Match
-          if (matchTitle) matchTitle.textContent = 'Matched: 35-LJ252MA • Physics (Class 11) • Mr. Sharma';
-          if (confPill) {
-            confPill.className = 'text-sm font-mono font-extrabold px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 animate-pulse';
-            confPill.textContent = '94%';
-          }
-          if (sTime) sTime.innerHTML = '<span class="text-emerald-600 dark:text-emerald-400">35 / 35 ✓</span>';
-          if (sRoom) sRoom.innerHTML = '<span class="text-emerald-600 dark:text-emerald-400">15 / 15 ✓</span>';
-          if (sDur) sDur.innerHTML = '<span class="text-emerald-600 dark:text-emerald-400">15 / 15 ✓</span>';
-          if (sOcr) sOcr.innerHTML = '<span class="text-emerald-600 dark:text-emerald-400">14 / 15 ✓</span>';
+        let pct = 0;
+        const uploadTimer = setInterval(() => {
+          pct += 25;
+          const bar = document.getElementById('appUploadBar');
+          const lbl = document.getElementById('appUploadPct');
+          if (bar) bar.style.width = `${pct}%`;
+          if (lbl) lbl.textContent = `${pct}% (${Math.round(2.42 * pct / 100 * 10) / 10} GB / 2.42 GB)`;
 
-          if (actionCard) {
-            actionCard.innerHTML = `
-              <div class="p-4 rounded-xl bg-emerald-500/5 dark:bg-emerald-950/20 border border-emerald-500/30 font-mono text-xs">
-                <div class="flex items-center justify-between mb-2">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500 text-white">AUTO_ASSIGNED (&ge;85%)</span>
-                  <span class="text-[11px] text-stone-500">Zero Operator Touch</span>
-                </div>
-                <div class="text-[11px] text-stone-700 dark:text-stone-300 mb-3 space-y-1">
-                  <div><strong>Destination Path:</strong> <code>[Drive] / Vidyapeeth_Pune / Physics / 2026-09-20 /</code></div>
-                  <div><strong>Standardized Name:</strong> <code>Physics_Class11_LawsOfMotion.mp4</code></div>
-                </div>
-                <!-- Resumable Upload Progress -->
-                <div class="space-y-1 pt-2 border-t border-emerald-500/20">
-                  <div class="flex justify-between text-[10px] text-stone-500">
-                    <span>Google Drive Chunked Stream (10MB Chunks):</span>
-                    <span id="uploadPercentage">0%</span>
-                  </div>
-                  <div class="w-full bg-stone-200 dark:bg-stone-800 h-2 rounded-full overflow-hidden">
-                    <div id="driveUploadBar" class="bg-gradient-to-r from-emerald-500 to-blue-600 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
-                  </div>
-                </div>
-              </div>`;
-          }
+          if (pct >= 100) {
+            clearInterval(uploadTimer);
+            isAppSimActive = false;
 
-          let up = 0;
-          const upInterval = setInterval(() => {
-            up += 25;
-            const upBar = document.getElementById('driveUploadBar');
-            const upPct = document.getElementById('uploadPercentage');
-            if (upBar) upBar.style.width = `${up}%`;
-            if (upPct) upPct.textContent = `${up}% (${Math.round(2.42 * up / 100 * 10) / 10} GB / 2.42 GB)`;
+            // Update stats: Queue -> 0, Uploaded -> 1
+            const sq = document.getElementById('stat-queue-num');
+            if (sq) sq.innerHTML = `0 <span class="text-xs font-normal text-stone-400 font-sans">in transit</span>`;
+            const su = document.getElementById('stat-uploaded-num');
+            if (su) su.innerHTML = `1 <span class="text-xs font-normal text-stone-400 font-sans">in Drive</span>`;
 
-            if (up >= 100) {
-              clearInterval(upInterval);
-              if (actionCard) {
-                actionCard.innerHTML = `
-                  <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/40 font-mono text-xs">
-                    <div class="flex items-center justify-between mb-2">
-                      <span class="inline-flex items-center space-x-1 text-emerald-700 dark:text-emerald-400 font-bold">
-                        <span>✓</span>
-                        <span>DELIVERED TO GOOGLE DRIVE</span>
-                      </span>
-                      <span class="text-[10px] text-stone-500">Turnaround: 18s</span>
+            // Success Card
+            if (queueCont) {
+              queueCont.innerHTML = `
+                <div class="w-full text-left font-mono text-xs space-y-3">
+                  <div class="flex items-center justify-between pb-3 border-b border-[#E2DDD5] dark:border-[#2B2B28]">
+                    <div class="flex items-center space-x-2 text-emerald-600 dark:text-emerald-400 font-bold">
+                      <span class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs">✓</span>
+                      <span>DELIVERED TO GOOGLE DRIVE (2.42 GB)</span>
                     </div>
-                    <p class="text-[11px] text-stone-600 dark:text-stone-400 mb-3">
-                      Lecture video and MaxHub PDF notes paired and delivered directly from classroom PC with zero cloud egress cost.
-                    </p>
-                    <div class="flex items-center space-x-3">
-                      <a href="#showcase" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-semibold transition flex items-center space-x-1">
-                        <span>Open in Drive ↗</span>
-                      </a>
-                      <span class="text-[10px] text-stone-400">Drive ID: 1BxiMVs...98NA</span>
-                    </div>
-                  </div>`;
-              }
-              finishSim();
+                    <span class="text-[10px] text-stone-400 font-mono">Turnaround: 14 seconds</span>
+                  </div>
+
+                  <p class="text-stone-600 dark:text-stone-400 text-xs leading-relaxed">
+                    Lecture recording and MaxHub digital notes paired automatically and delivered into destination batch folder:
+                    <code class="block mt-1 p-2 rounded bg-stone-100 dark:bg-[#151513] text-[11px] text-stone-800 dark:text-stone-200">
+                      [Drive] / Vidyapeeth_Pune / Room_603 / Physics / 2026-09-20 / Physics_Class11_NewtonLaws.mp4
+                    </code>
+                  </p>
+
+                  <div class="flex items-center space-x-3 pt-2">
+                    <a href="#showcase" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold transition flex items-center space-x-1">
+                      <span>OPEN IN DRIVE ↗</span>
+                    </a>
+                    <span class="text-[11px] text-stone-400">Drive File ID: 1BxiMVs...98NA</span>
+                  </div>
+                </div>`;
             }
-          }, 300);
-
-        } else if (currentScenario === 'swap') {
-          // Scenario 2: Teacher Swap / Substitution (Triggers Interactive 1-Tap Review Card!)
-          if (matchTitle) matchTitle.textContent = 'Discrepancy: Timetable Physics vs Board OCR Dr. Verma (Chemistry)';
-          if (confPill) {
-            confPill.className = 'text-sm font-mono font-extrabold px-3 py-1 rounded-lg bg-amber-500/10 text-amber-700 dark:text-amber-400 animate-pulse';
-            confPill.textContent = '74%';
           }
-          if (sTime) sTime.innerHTML = '<span class="text-emerald-600 dark:text-emerald-400">35 / 35 ✓</span>';
-          if (sRoom) sRoom.innerHTML = '<span class="text-emerald-600 dark:text-emerald-400">15 / 15 ✓</span>';
-          if (sDur) sDur.innerHTML = '<span class="text-emerald-600 dark:text-emerald-400">15 / 15 ✓</span>';
-          if (sOcr) sOcr.innerHTML = '<span class="text-amber-600 dark:text-amber-400">9 / 15 (Swap)</span>';
+        }, 350);
 
-          if (actionCard) {
-            actionCard.innerHTML = `
-              <div class="p-4 rounded-xl bg-amber-500/10 border-2 border-amber-500/40 shadow-sm font-mono text-xs transition-all">
-                <div class="flex items-center justify-between mb-2">
-                  <span class="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded text-[10px] font-bold bg-amber-500 text-stone-950">
-                    <span>⚠️</span>
-                    <span>1-TAP REVIEW REQUIRED (60% - 84%)</span>
-                  </span>
-                  <span class="text-[10px] text-amber-700 dark:text-amber-400 font-semibold">Teacher Swap Detected</span>
-                </div>
-                
-                <!-- Discrepancy comparison -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 my-2.5 p-2 rounded-lg bg-white/80 dark:bg-stone-900/80 border border-amber-500/20 text-[11px]">
-                  <div>
-                    <span class="text-stone-400 text-[10px] block">TIMETABLE SCHEDULED:</span>
-                    <strong class="text-stone-700 dark:text-stone-300">Mr. Sharma • Physics</strong>
-                  </div>
-                  <div>
-                    <span class="text-stone-400 text-[10px] block">SMARTBOARD OCR EXTRACTED:</span>
-                    <strong class="text-amber-600 dark:text-amber-400">Dr. Verma • Chemistry (Emergency Sub)</strong>
-                  </div>
-                </div>
+      } else if (scenario === 'swap') {
+        // SCENARIO 2: Teacher Swap / Substitution (Triggers Yellow Review Card in Review Hub)
+        isAppSimActive = false;
 
-                <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-amber-500/20">
-                  <span class="text-[10px] text-stone-500">Test human-in-the-loop action:</span>
-                  <button type="button" onclick="confirmReviewSwap()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold shadow-sm transition transform active:scale-95 flex items-center space-x-1.5 cursor-pointer">
-                    <span>✓ 1-Tap Approve Substitute</span>
-                  </button>
-                </div>
-              </div>`;
-          }
-          finishSim(false);
+        // 1. Update Badges & Counters
+        const bell = document.getElementById('appBellBadge');
+        if (bell) bell.classList.remove('hidden');
+
+        const navBadge = document.getElementById('appReviewBadge');
+        if (navBadge) navBadge.classList.remove('hidden');
+
+        const statPend = document.getElementById('stat-pending-num');
+        if (statPend) statPend.innerHTML = `<span class="text-amber-600">1</span> <span class="text-xs font-normal text-amber-600 font-sans">PENDING</span>`;
+
+        const revPend = document.getElementById('rev-pending');
+        if (revPend) revPend.textContent = '1';
+
+        const pCount = document.getElementById('pendingCountLabel');
+        if (pCount) pCount.textContent = '1';
+
+        const pBadge = document.getElementById('pendingStatusBadge');
+        if (pBadge) {
+          pBadge.className = 'text-[10px] px-2 py-0.5 rounded bg-amber-100 text-amber-800 dark:bg-amber-950/40 dark:text-amber-400 font-bold';
+          pBadge.textContent = '1 PENDING VERIFICATION';
         }
-      }
 
-      function finishSim(enableButton = true) {
-        if (enableButton) {
-          isSimRunning = false;
-          if (btn) {
-            btn.disabled = false;
-            btn.classList.remove('opacity-60', 'cursor-not-allowed');
-          }
-          if (playIcon) playIcon.textContent = '▶';
-          if (btnLabel) btnLabel.textContent = 'Simulate Classroom Output';
+        // 2. Render Interactive Review Card in Review Hub
+        const pCont = document.getElementById('pendingCardsContainer');
+        if (pCont) {
+          pCont.innerHTML = `
+            <div id="realReviewItem" class="p-4 rounded-xl bg-amber-500/10 border-2 border-amber-500/50 shadow-sm font-mono text-xs transition-all">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2 pb-2 border-b border-amber-500/20">
+                <div>
+                  <strong class="text-sm font-bold text-stone-900 dark:text-stone-100">35-LJ252MA 2026 / Chemistry (Emergency Substitute)</strong>
+                  <div class="text-[10px] text-stone-400">Room 603 · LSN-${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}-SWAP</div>
+                </div>
+                <span class="px-2 py-0.5 rounded bg-amber-500 text-stone-950 font-bold text-[10px] self-start sm:self-auto">
+                  REVIEW REQUIRED (74%)
+                </span>
+              </div>
+
+              <!-- Discrepancy comparison box -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 my-3 p-3 rounded-lg bg-white dark:bg-[#1B1B19] border border-amber-500/20 text-xs">
+                <div>
+                  <span class="text-stone-400 text-[10px] block font-semibold">SCHEDULED IN TIMETABLE:</span>
+                  <strong class="text-stone-700 dark:text-stone-300">Mr. Sharma · Class 11 Physics</strong>
+                </div>
+                <div>
+                  <span class="text-stone-400 text-[10px] block font-semibold">DETECTED ON SMARTBOARD OCR:</span>
+                  <strong class="text-amber-600 dark:text-amber-400">Dr. Verma · Chemistry (Emergency Substitute)</strong>
+                </div>
+              </div>
+
+              <!-- Action button bar -->
+              <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-amber-500/20">
+                <span class="text-[11px] text-stone-500">Centrix auto-healed substitute route. Click to approve:</span>
+                <button type="button" onclick="confirmRealAppReview()" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold shadow-xs transition transform active:scale-95 cursor-pointer flex items-center space-x-1.5">
+                  <span>✓ 1-TAP APPROVE &amp; ROUTE TO DRIVE</span>
+                </button>
+              </div>
+            </div>`;
         }
+
+        // 3. Switch directly to Review Screen so the user immediately sees the review card!
+        setAppScreen('review');
       }
     }
 
-    // 1-Tap Review Approval function for the interactive card
-    function confirmReviewSwap() {
-      const actionCard = document.getElementById('liveActionCard');
-      const confPill = document.getElementById('confidencePill');
-      if (confPill) {
-        confPill.className = 'text-sm font-mono font-extrabold px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400';
-        confPill.textContent = '100% (CONFIRMED)';
+    function confirmRealAppReview() {
+      // 1. Update review item into success banner
+      const item = document.getElementById('realReviewItem');
+      if (item) {
+        item.className = 'p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/40 font-mono text-xs animate-fadeIn';
+        item.innerHTML = `
+          <div class="flex items-center justify-between mb-1.5">
+            <strong class="text-emerald-700 dark:text-emerald-400 font-bold flex items-center space-x-1.5 text-sm">
+              <span>✓</span>
+              <span>SUBSTITUTE CONFIRMED &amp; DELIVERED</span>
+            </strong>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500 text-white font-bold">DELIVERED</span>
+          </div>
+          <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
+            Lecture session corrected from <em>Physics</em> to <strong>Chemistry (Dr. Verma)</strong>. Uploaded to Chemistry batch destination folder with 100% audit log trail.
+          </p>`;
       }
 
-      if (actionCard) {
-        actionCard.innerHTML = `
-          <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/40 font-mono text-xs animate-fadeIn">
-            <div class="flex items-center justify-between mb-2">
-              <span class="inline-flex items-center space-x-1 text-emerald-700 dark:text-emerald-400 font-bold">
-                <span>✓</span>
-                <span>SUBSTITUTE CONFIRMED &amp; AUTO-HEALED</span>
-              </span>
-              <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500 text-white font-bold">DELIVERED</span>
+      // 2. Clear Badges
+      const bell = document.getElementById('appBellBadge'); if (bell) bell.classList.add('hidden');
+      const navBadge = document.getElementById('appReviewBadge'); if (navBadge) navBadge.classList.add('hidden');
+      const statPend = document.getElementById('stat-pending-num'); if (statPend) statPend.innerHTML = `0 <span class="text-xs font-normal text-stone-400 font-sans">all reviewed</span>`;
+      const revPend = document.getElementById('rev-pending'); if (revPend) revPend.textContent = '0';
+      const pCount = document.getElementById('pendingCountLabel'); if (pCount) pCount.textContent = '0';
+      const pBadge = document.getElementById('pendingStatusBadge');
+      if (pBadge) {
+        pBadge.className = 'text-[10px] px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800 text-stone-400';
+        pBadge.textContent = '0 PENDING';
+      }
+
+      // 3. Increment Delivered Archive count
+      const delCount = document.getElementById('deliveredCount');
+      if (delCount) delCount.textContent = '4';
+      const revUploaded = document.getElementById('rev-uploaded');
+      if (revUploaded) revUploaded.textContent = '4';
+
+      // 4. Add new card to delivered grid
+      const delGrid = document.getElementById('deliveredGrid');
+      if (delGrid) {
+        const newCard = document.createElement('div');
+        newCard.className = 'p-3.5 rounded-xl bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] shadow-xs flex flex-col justify-between animate-fadeIn';
+        newCard.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <strong class="text-stone-900 dark:text-stone-100">35-LJ252MA 2026 / Chemistry</strong>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 font-bold">UPLOADED</span>
             </div>
-            <p class="text-[11px] text-stone-600 dark:text-stone-400 mb-2">
-              Centrix corrected lecture metadata from <em>Physics (Mr. Sharma)</em> to <strong>Chemistry (Dr. Verma)</strong> and delivered to the correct Chemistry Drive batch folder without misplacement.
-            </p>
-            <div class="flex items-center space-x-3 text-[10px] text-stone-500">
-              <span>Path: /Vidyapeeth_Pune/Chemistry/Dr_Verma/</span>
-              <span class="text-emerald-600 dark:text-emerald-400 font-semibold">100% Audit Trail Saved</span>
-            </div>
+            <div class="text-[10px] text-stone-400 mb-3">Room 603 · Sub: Dr. Verma</div>
+          </div>
+          <div class="p-2 rounded bg-stone-50 dark:bg-[#151513] border border-[#E2DDD5] dark:border-[#2B2B28] flex items-center justify-between">
+            <span class="text-[10px] text-stone-500 truncate">📁 35-LJ252MA/Chemistry</span>
+            <a href="#showcase" class="px-2 py-1 rounded bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-stone-800 dark:text-stone-200 text-[10px] font-bold hover:bg-stone-100 transition">OPEN IN DRIVE ↗</a>
+          </div>`;
+        delGrid.prepend(newCard);
+      }
+    }
+
+    function resetRealApp() {
+      isAppSimActive = false;
+      setAppScreen('live');
+
+      const statUploaded = document.getElementById('stat-uploaded-num');
+      if (statUploaded) statUploaded.innerHTML = `0 <span class="text-xs font-normal text-stone-400 font-sans">in Drive</span>`;
+
+      const statQueue = document.getElementById('stat-queue-num');
+      if (statQueue) statQueue.innerHTML = `0 <span class="text-xs font-normal text-stone-400 font-sans">in transit</span>`;
+
+      const statPending = document.getElementById('stat-pending-num');
+      if (statPending) statPending.innerHTML = `0 <span class="text-xs font-normal text-stone-400 font-sans">all reviewed</span>`;
+
+      const bell = document.getElementById('appBellBadge');
+      if (bell) bell.classList.add('hidden');
+
+      const navBadge = document.getElementById('appReviewBadge');
+      if (navBadge) navBadge.classList.add('hidden');
+
+      const revUploaded = document.getElementById('rev-uploaded');
+      if (revUploaded) revUploaded.textContent = '3';
+
+      const revPend = document.getElementById('rev-pending');
+      if (revPend) revPend.textContent = '0';
+
+      const pCount = document.getElementById('pendingCountLabel');
+      if (pCount) pCount.textContent = '0';
+
+      const delCount = document.getElementById('deliveredCount');
+      if (delCount) delCount.textContent = '3';
+
+      const pBadge = document.getElementById('pendingStatusBadge');
+      if (pBadge) {
+        pBadge.className = 'text-[10px] px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800 text-stone-400';
+        pBadge.textContent = '0 PENDING';
+      }
+
+      const queueCont = document.getElementById('liveQueueContainer');
+      if (queueCont) {
+        queueCont.className = 'p-8 rounded-xl bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] shadow-xs flex-1 flex flex-col items-center justify-center text-center';
+        queueCont.innerHTML = `
+          <div class="w-12 h-12 rounded-xl bg-stone-100 dark:bg-stone-800 text-stone-400 flex items-center justify-center text-xl mb-3">
+            ☁
+          </div>
+          <h4 class="text-base font-serif font-bold text-stone-900 dark:text-stone-100">Upload Queue is Clear</h4>
+          <p class="text-xs text-stone-500 dark:text-stone-400 max-w-sm mt-1">
+            No transfers in flight or completed in the last 24 hours for Room 603.
+          </p>
+          <div class="mt-4 inline-flex items-center space-x-2 text-xs font-mono text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 px-3 py-1.5 rounded-lg border border-blue-200 dark:border-blue-900/50">
+            <span>💡 Click <strong>"1. Drop Physics Lecture"</strong> above to test automatic ingestion!</span>
           </div>`;
       }
 
-      const btn = document.getElementById('btnRunSim');
-      if (btn) {
-        btn.disabled = false;
-        btn.classList.remove('opacity-60', 'cursor-not-allowed');
+      const pCont = document.getElementById('pendingCardsContainer');
+      if (pCont) {
+        pCont.innerHTML = `
+          <div class="p-6 rounded-xl bg-white dark:bg-[#1B1B19] border border-[#E2DDD5] dark:border-[#2B2B28] text-center shadow-xs">
+            <div class="w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center mx-auto mb-2 text-sm font-bold">✓</div>
+            <div class="font-serif font-bold text-sm text-stone-900 dark:text-stone-100">All lecture matches verified</div>
+            <div class="text-xs font-mono text-stone-400 mt-0.5">// no lectures waiting for batch confirmation.</div>
+          </div>`;
       }
-      const playIcon = document.getElementById('simPlayIcon');
-      if (playIcon) playIcon.textContent = '▶';
-      const btnLabel = document.getElementById('simBtnLabel');
-      if (btnLabel) btnLabel.textContent = 'Simulate Classroom Output';
-      isSimRunning = false;
     }
 
     // ==========================================
