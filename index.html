@@ -1325,97 +1325,108 @@
   </div>
 
   <!-- ========================================================================= -->
+  <!-- ========================================================================= -->
   <!-- Centrix Desktop App Download Platform Modal (Windows & macOS)            -->
   <!-- ========================================================================= -->
-  <div id="downloadModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm transition-all select-none" onclick="handleDownloadModalBackdropClick(event)">
-    <div class="relative w-full max-w-2xl bg-[#FBF9F5] dark:bg-[#151513] border border-stone-300 dark:border-stone-800 rounded-2xl shadow-2xl overflow-hidden transform transition-all text-stone-900 dark:text-stone-100">
+  <div id="downloadModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-sm transition-all select-none" onclick="handleDownloadModalBackdropClick(event)">
+    <div class="relative w-full max-w-2xl max-h-[92vh] sm:max-h-[85vh] flex flex-col bg-[#FBF9F5] dark:bg-[#151513] border border-stone-300 dark:border-stone-800 rounded-2xl shadow-2xl overflow-hidden transform transition-all text-stone-900 dark:text-stone-100 my-auto">
       
-      <!-- Modal Header -->
-      <div class="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-stone-200 dark:border-stone-800 bg-[#F4F1EA] dark:bg-[#1A1A18]">
-        <div class="flex items-center space-x-3">
+      <!-- Modal Header (Fixed at top, never scrolls away) -->
+      <div class="flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4 border-b border-stone-200 dark:border-stone-800 bg-[#F4F1EA] dark:bg-[#1A1A18] shrink-0">
+        <div class="flex items-center space-x-2.5 sm:space-x-3">
           <img src="./images/centrix-logo.png" alt="Centrix Logo" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0">
           <div>
             <div class="flex items-center space-x-2">
-              <h3 class="font-mono font-extrabold text-sm sm:text-base tracking-tight">Download Centrix Desktop App</h3>
+              <h3 class="font-mono font-extrabold text-sm sm:text-base tracking-tight">Download Centrix App</h3>
               <span data-centrix-version class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400">v1.0.4 Ready</span>
             </div>
-            <p class="text-[11px] sm:text-xs text-stone-500 dark:text-stone-400 font-sans">PhysicsWallah Classroom Lecture Capture &amp; Cloud Delivery Workstation</p>
+            <p class="text-[10px] sm:text-xs text-stone-500 dark:text-stone-400 font-sans truncate max-w-[210px] sm:max-w-none">PW Classroom Automation Workstation Build</p>
           </div>
         </div>
-        <button onclick="closeDownloadModal()" class="p-1.5 rounded-lg text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-stone-200 dark:hover:bg-stone-800 transition cursor-pointer text-lg leading-none" title="Close">
+        <button onclick="closeDownloadModal()" class="w-8 h-8 flex items-center justify-center rounded-xl bg-stone-200/70 hover:bg-stone-300 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-500 hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200 transition cursor-pointer text-base shrink-0 ml-2" title="Close (Esc)">
           ✕
         </button>
       </div>
 
-      <!-- Modal Body: 2 Platform Choice Cards -->
-      <div class="p-5 sm:p-6">
-        <p class="text-xs font-mono uppercase tracking-wider text-stone-500 dark:text-stone-400 mb-4">Choose your workstation platform:</p>
+      <!-- Modal Body (Scrollable with smooth touch scrolling on mobile) -->
+      <div class="flex-1 overflow-y-auto overscroll-contain p-3.5 sm:p-6" style="-webkit-overflow-scrolling: touch;">
+        <p class="text-[11px] sm:text-xs font-mono uppercase tracking-wider text-stone-500 dark:text-stone-400 mb-3 sm:mb-4">Select your operating system:</p>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div id="modalPlatformsGrid" class="flex flex-col md:grid md:grid-cols-2 gap-3 sm:gap-4">
           
           <!-- Windows Card -->
-          <div class="relative flex flex-col justify-between p-5 rounded-xl border-2 border-stone-200 dark:border-stone-800 hover:border-blue-500/70 dark:hover:border-blue-500/70 bg-white dark:bg-stone-900/70 shadow-xs hover:shadow-md transition group">
-            <div id="winRecommendedBadge" class="hidden absolute -top-2.5 right-4 bg-blue-600 text-white font-mono text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-xs">
-              ✓ Recommended for this PC
+          <div id="modalWinCard" class="relative flex flex-col justify-between p-4 sm:p-5 rounded-xl border-2 border-stone-200 dark:border-stone-800 hover:border-blue-500/70 dark:hover:border-blue-500/70 bg-white dark:bg-stone-900/70 shadow-xs transition group">
+            <div id="winRecommendedBadge" class="hidden absolute -top-2.5 right-3 sm:right-4 bg-blue-600 text-white font-mono text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs">
+              ✓ Recommended
             </div>
             <div>
-              <div class="flex items-center justify-between mb-3">
-                <span class="text-3xl">🪟</span>
-                <span class="font-mono text-xs text-stone-500 dark:text-stone-400" id="modalWinMeta">v1.0.4 • ~208MB</span>
+              <div class="flex items-center justify-between mb-2 sm:mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="text-2xl sm:text-3xl">🪟</span>
+                  <div>
+                    <h4 class="font-bold text-sm sm:text-base group-hover:text-blue-600 dark:group-hover:text-blue-400 transition leading-tight">Windows 10 / 11</h4>
+                    <span class="text-[10px] font-mono text-stone-400 sm:hidden">64-bit Workstation</span>
+                  </div>
+                </div>
+                <span class="font-mono text-[11px] sm:text-xs text-stone-500 dark:text-stone-400" id="modalWinMeta">v1.0.4 • ~208MB</span>
               </div>
-              <h4 class="font-bold text-base mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">Windows 10 / 11</h4>
-              <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed mb-4">
-                Native background automation service for classroom Windows workstations. Silent OBS watcher, auto-start on boot, and hardware DPAPI vault.
+              <p class="text-[11px] sm:text-xs text-stone-600 dark:text-stone-400 leading-relaxed mb-3">
+                Native background automation service for classroom PCs. Silent OBS folder watcher, boot auto-start &amp; DPAPI hardware vault.
               </p>
-              <ul class="text-[11px] font-mono text-stone-500 dark:text-stone-400 space-y-1 mb-5">
+              <ul class="text-[10px] sm:text-[11px] font-mono text-stone-500 dark:text-stone-400 space-y-1 mb-4 hidden sm:block">
                 <li class="flex items-center space-x-1.5"><span class="text-blue-500">✓</span><span>Windows 10 / 11 (64-bit)</span></li>
                 <li class="flex items-center space-x-1.5"><span class="text-blue-500">✓</span><span>Auto-starts with Windows service</span></li>
                 <li class="flex items-center space-x-1.5"><span class="text-blue-500">✓</span><span>.NET 8 bundled (No setup required)</span></li>
               </ul>
             </div>
             <a data-download-platform="windows" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe"
-               class="w-full inline-flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white font-mono font-semibold text-xs py-3 px-4 rounded-xl shadow-sm transition transform active:scale-95">
+               class="w-full inline-flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white font-mono font-semibold text-xs py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl shadow-sm transition transform active:scale-95 cursor-pointer">
               <span>🪟 Download Windows (.exe)</span>
             </a>
           </div>
 
           <!-- macOS Card -->
-          <div class="relative flex flex-col justify-between p-5 rounded-xl border-2 border-stone-200 dark:border-stone-800 hover:border-emerald-500/70 dark:hover:border-emerald-500/70 bg-white dark:bg-stone-900/70 shadow-xs hover:shadow-md transition group">
-            <div id="macRecommendedBadge" class="hidden absolute -top-2.5 right-4 bg-emerald-600 text-white font-mono text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-xs">
-              ✓ Recommended for your Mac
+          <div id="modalMacCard" class="relative flex flex-col justify-between p-4 sm:p-5 rounded-xl border-2 border-stone-200 dark:border-stone-800 hover:border-emerald-500/70 dark:hover:border-emerald-500/70 bg-white dark:bg-stone-900/70 shadow-xs transition group">
+            <div id="macRecommendedBadge" class="hidden absolute -top-2.5 right-3 sm:right-4 bg-emerald-600 text-white font-mono text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs">
+              ✓ Recommended
             </div>
             <div>
-              <div class="flex items-center justify-between mb-3">
-                <span class="text-3xl">🍎</span>
-                <span class="font-mono text-xs text-stone-500 dark:text-stone-400" id="modalMacMeta">v1.0.4 • ~26MB</span>
+              <div class="flex items-center justify-between mb-2 sm:mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="text-2xl sm:text-3xl">🍎</span>
+                  <div>
+                    <h4 class="font-bold text-sm sm:text-base group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition leading-tight">macOS Universal</h4>
+                    <span class="text-[10px] font-mono text-stone-400 sm:hidden">Apple Silicon &amp; Intel</span>
+                  </div>
+                </div>
+                <span class="font-mono text-[11px] sm:text-xs text-stone-500 dark:text-stone-400" id="modalMacMeta">v1.0.4 • ~26MB</span>
               </div>
-              <h4 class="font-bold text-base mb-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">macOS Universal</h4>
-              <p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed mb-4">
-                Universal application package for Mac workstations and review operators. Fast native execution on Apple Silicon (M1–M4) and Intel.
+              <p class="text-[11px] sm:text-xs text-stone-600 dark:text-stone-400 leading-relaxed mb-3">
+                Universal application package for Mac workstations and review operators. Fast native execution on Apple Silicon (M1–M4) &amp; Intel.
               </p>
-              <ul class="text-[11px] font-mono text-stone-500 dark:text-stone-400 space-y-1 mb-5">
+              <ul class="text-[10px] sm:text-[11px] font-mono text-stone-500 dark:text-stone-400 space-y-1 mb-4 hidden sm:block">
                 <li class="flex items-center space-x-1.5"><span class="text-emerald-500">✓</span><span>macOS 12 Monterey or newer</span></li>
                 <li class="flex items-center space-x-1.5"><span class="text-emerald-500">✓</span><span>Apple Silicon (M-series) &amp; Intel</span></li>
                 <li class="flex items-center space-x-1.5"><span class="text-emerald-500">✓</span><span>Drag-and-Drop .dmg Installer</span></li>
               </ul>
             </div>
             <a data-download-platform="mac" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg"
-               class="w-full inline-flex items-center justify-center space-x-2 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-xs py-3 px-4 rounded-xl shadow-sm transition transform active:scale-95">
+               class="w-full inline-flex items-center justify-center space-x-2 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-xs py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl shadow-sm transition transform active:scale-95 cursor-pointer">
               <span>🍎 Download macOS (.dmg)</span>
             </a>
             <div class="mt-2.5 p-2 rounded-lg bg-stone-100 dark:bg-stone-800/70 border border-stone-200 dark:border-stone-700/70 text-[10px] font-mono text-stone-600 dark:text-stone-300 leading-snug">
-              <span class="font-bold text-amber-600 dark:text-amber-400">⚡ First Run on Mac:</span> If Gatekeeper says <em>"is damaged"</em>, drag to Applications and run:<br/>
-              <code class="text-[10px] bg-stone-200/90 dark:bg-stone-900 px-1 py-0.5 rounded text-emerald-600 dark:text-emerald-400 select-all font-bold block mt-1">xattr -cr /Applications/Centrix.app</code>
+              <span class="font-bold text-amber-600 dark:text-amber-400">⚡ First Run on Mac:</span> If Gatekeeper says <em>"is damaged"</em>, run in Terminal:<br/>
+              <code class="text-[9.5px] bg-stone-200/90 dark:bg-stone-900 px-1 py-0.5 rounded text-emerald-600 dark:text-emerald-400 select-all font-bold block mt-1 break-all">xattr -cr /Applications/Centrix.app</code>
             </div>
           </div>
 
         </div>
 
         <!-- Footnote inside modal -->
-        <div class="mt-5 p-3 rounded-xl bg-stone-100 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700/60 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-stone-500 dark:text-stone-400 gap-2">
-          <div class="flex items-center space-x-2">
+        <div class="mt-3.5 sm:mt-5 p-2.5 sm:p-3 rounded-xl bg-stone-100 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700/60 flex flex-col sm:flex-row items-center justify-between text-[10px] sm:text-[11px] font-mono text-stone-500 dark:text-stone-400 gap-1.5 sm:gap-2">
+          <div class="flex items-center space-x-1.5 sm:space-x-2">
             <span>🛡️</span>
-            <span>Always auto-fetches the latest certified GitHub production build</span>
+            <span>Auto-syncs latest certified GitHub release</span>
           </div>
           <a href="#how-to-use" onclick="closeDownloadModal()" class="underline hover:text-stone-800 dark:hover:text-stone-200 transition">View 3-Step Setup Guide →</a>
         </div>
@@ -2474,16 +2485,26 @@
       modal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
 
-      // Auto-highlight recommended card based on visitor OS
-      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0 || navigator.userAgent.toUpperCase().indexOf('MAC') >= 0;
+      // Auto-highlight recommended card based on visitor OS & reorder cards for mobile view
+      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0 || 
+                    navigator.userAgent.toUpperCase().indexOf('MAC') >= 0 ||
+                    navigator.userAgent.toUpperCase().indexOf('IPHONE') >= 0 ||
+                    navigator.userAgent.toUpperCase().indexOf('IPAD') >= 0;
       const macBadge = document.getElementById('macRecommendedBadge');
       const winBadge = document.getElementById('winRecommendedBadge');
+      const macCard = document.getElementById('modalMacCard');
+      const winCard = document.getElementById('modalWinCard');
+
       if (isMac) {
         if (macBadge) macBadge.classList.remove('hidden');
         if (winBadge) winBadge.classList.add('hidden');
+        if (macCard) macCard.style.order = '-1';
+        if (winCard) winCard.style.order = '1';
       } else {
         if (winBadge) winBadge.classList.remove('hidden');
         if (macBadge) macBadge.classList.add('hidden');
+        if (winCard) winCard.style.order = '-1';
+        if (macCard) macCard.style.order = '1';
       }
     }
 
