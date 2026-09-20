@@ -113,7 +113,7 @@
       <div class="flex items-center space-x-3">
         <img src="./images/centrix-logo.png" alt="Centrix Logo" class="w-8 h-8 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs">
         <span class="font-extrabold text-lg tracking-tight font-mono text-stone-900 dark:text-white">CENTRIX</span>
-        <span class="hidden sm:inline-block text-xs px-2.5 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 font-mono font-semibold">v1.0.4 Ready</span>
+        <span id="headerVersionBadge" data-centrix-version class="hidden sm:inline-block text-xs px-2.5 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 font-mono font-semibold">v1.0.4 Ready</span>
       </div>
 
       <div class="flex items-center space-x-3 sm:space-x-5">
@@ -131,10 +131,10 @@
           </div>
         </button>
 
-        <!-- Direct Download Button Dropdown (Auto-detects Windows or macOS) -->
+        <!-- Direct Download Button Dropdown (Auto-detects Windows or macOS, Auto-fetches Latest Release) -->
         <div class="relative inline-block text-left" id="headerDownloadDropdownContainer">
           <div class="inline-flex rounded-lg shadow-sm">
-            <a id="headerPrimaryDownloadBtn" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" 
+            <a id="headerPrimaryDownloadBtn" data-download-platform="auto" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" 
                class="inline-flex items-center space-x-1.5 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-xs px-3.5 py-2 rounded-l-lg transition active:scale-95">
               <span id="headerPrimaryDownloadLabel">↓ Download .dmg (Mac)</span>
             </a>
@@ -143,14 +143,14 @@
               ▾
             </button>
           </div>
-          <div id="headerDlMenu" class="hidden absolute right-0 mt-1.5 w-60 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-lg p-1.5 z-50 font-mono text-xs">
-            <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" class="flex items-center justify-between p-2 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition">
+          <div id="headerDlMenu" class="hidden absolute right-0 mt-1.5 w-64 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-lg p-1.5 z-50 font-mono text-xs">
+            <a id="headerDlWinItem" data-download-platform="windows" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" class="flex items-center justify-between p-2 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition">
               <span class="font-bold flex items-center space-x-1.5"><span>🪟</span><span>Windows (.exe)</span></span>
-              <span class="text-[10px] text-stone-400 font-normal">v1.0.4 • 208MB</span>
+              <span id="headerDlWinMeta" class="text-[10px] text-stone-400 font-normal">v1.0.4 • 208MB</span>
             </a>
-            <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" class="flex items-center justify-between p-2 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition">
+            <a id="headerDlMacItem" data-download-platform="mac" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" class="flex items-center justify-between p-2 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition">
               <span class="font-bold flex items-center space-x-1.5"><span>🍎</span><span>macOS (.dmg)</span></span>
-              <span class="text-[10px] text-stone-400 font-normal">v1.0.4 • 26MB</span>
+              <span id="headerDlMacMeta" class="text-[10px] text-stone-400 font-normal">v1.0.4 • 26MB</span>
             </a>
           </div>
         </div>
@@ -176,12 +176,12 @@
       </p>
 
       <div class="flex flex-wrap items-center gap-3 mb-10">
-        <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" 
+        <a data-download-platform="windows" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" 
            class="inline-flex items-center space-x-2 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-sm px-5 py-3 rounded-xl shadow-md transition transform hover:-translate-y-0.5 active:translate-y-0">
           <span>🪟</span>
           <span>Download Windows (.exe)</span>
         </a>
-        <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" 
+        <a data-download-platform="mac" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" 
            class="inline-flex items-center space-x-2 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-sm px-5 py-3 rounded-xl shadow-md transition transform hover:-translate-y-0.5 active:translate-y-0">
           <span>🍎</span>
           <span>Download macOS (.dmg)</span>
@@ -244,7 +244,7 @@
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
               <span>LIVE EDGE</span>
             </span>
-            <span class="text-xs font-mono text-stone-400 hidden sm:inline">Centrix v1.0.4</span>
+            <span id="simulatorVersionLabel" class="text-xs font-mono text-stone-400 hidden sm:inline">Centrix v1.0.4</span>
           </div>
         </div>
 
@@ -1213,11 +1213,11 @@
            class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-emerald-600 hover:bg-emerald-500 text-white font-mono font-semibold text-sm px-6 py-3.5 rounded-xl shadow-sm transition active:scale-95">
           <span>🚀 Request Pilot</span>
         </a>
-        <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" 
+        <a data-download-platform="windows" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" 
            class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-sm px-4 py-3.5 rounded-xl transition">
           <span>🪟 Windows (.exe)</span>
         </a>
-        <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" 
+        <a data-download-platform="mac" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" 
            class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-sm px-4 py-3.5 rounded-xl transition">
           <span>🍎 macOS (.dmg)</span>
         </a>
@@ -2325,20 +2325,122 @@
       askQuestion("How do I obtain or download the authorized google_credentials.json configuration file for Centrix?");
     }
 
-    // Download Dropdown & OS Detection
-    function setupPlatformDownloads() {
+    // =========================================================================
+    // Live GitHub Release Sync & OS-Aware Installer Router
+    // Ensures all .dmg (macOS) and .exe (Windows) buttons ALWAYS download the newest
+    // released binary dynamically from GitHub Releases, with instant localStorage cache.
+    // =========================================================================
+    const CENTRIX_GITHUB_REPO = 'aniketmishra-0/Centrix_Demo';
+    const CENTRIX_RELEASE_CACHE_KEY = 'centrix_live_release_v2';
+    
+    // Reliable default baseline
+    let centrixRelease = {
+      tag: 'v1.0.4',
+      macUrl: 'https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg',
+      macSize: '26 MB',
+      winUrl: 'https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe',
+      winSize: '208 MB'
+    };
+
+    function applyReleaseToDom(rel) {
+      if (!rel) return;
+      
+      // 1. Update all macOS .dmg download links
+      document.querySelectorAll('a[data-download-platform="mac"]').forEach(a => {
+        if (rel.macUrl) a.href = rel.macUrl;
+      });
+
+      // 2. Update all Windows .exe download links
+      document.querySelectorAll('a[data-download-platform="windows"]').forEach(a => {
+        if (rel.winUrl) a.href = rel.winUrl;
+      });
+
+      // 3. Update version tags & badges
+      if (rel.tag) {
+        document.querySelectorAll('[data-centrix-version]').forEach(el => {
+          el.textContent = `${rel.tag} Ready`;
+        });
+        const simVer = document.getElementById('simulatorVersionLabel');
+        if (simVer) simVer.textContent = `Centrix ${rel.tag}`;
+      }
+
+      // 4. Update dropdown metadata labels
+      const winMeta = document.getElementById('headerDlWinMeta');
+      if (winMeta) winMeta.textContent = `${rel.tag || 'Latest'} • ${rel.winSize || '208MB'}`;
+      const macMeta = document.getElementById('headerDlMacMeta');
+      if (macMeta) macMeta.textContent = `${rel.tag || 'Latest'} • ${rel.macSize || '26MB'}`;
+
+      // 5. Update Header Primary Button with Client OS Auto-detection
       const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0 || navigator.userAgent.toUpperCase().indexOf('MAC') >= 0;
-      const btn = document.getElementById('headerPrimaryDownloadBtn');
-      const label = document.getElementById('headerPrimaryDownloadLabel');
-      if (btn && label) {
+      const primaryBtn = document.getElementById('headerPrimaryDownloadBtn');
+      const primaryLabel = document.getElementById('headerPrimaryDownloadLabel');
+      if (primaryBtn && primaryLabel) {
         if (isMac) {
-          btn.href = 'https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg';
-          label.innerHTML = '🍎 Download .dmg';
+          primaryBtn.href = rel.macUrl || 'https://github.com/aniketmishra-0/Centrix_Demo/releases/latest';
+          primaryLabel.innerHTML = '🍎 Download .dmg';
+          primaryBtn.setAttribute('title', `Download Centrix ${rel.tag || ''} for macOS (${rel.macSize || '26MB'})`);
         } else {
-          btn.href = 'https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe';
-          label.innerHTML = '🪟 Download .exe';
+          primaryBtn.href = rel.winUrl || 'https://github.com/aniketmishra-0/Centrix_Demo/releases/latest/download/Centrix-Setup.exe';
+          primaryLabel.innerHTML = '🪟 Download .exe';
+          primaryBtn.setAttribute('title', `Download Centrix ${rel.tag || ''} for Windows (${rel.winSize || '208MB'})`);
         }
       }
+    }
+
+    async function syncLatestReleaseFromGitHub() {
+      // Step A: Load from localStorage cache first for 0ms instantaneous display
+      try {
+        const cached = localStorage.getItem(CENTRIX_RELEASE_CACHE_KEY);
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (parsed && parsed.tag) {
+            centrixRelease = { ...centrixRelease, ...parsed };
+            applyReleaseToDom(centrixRelease);
+          }
+        }
+      } catch (e) {
+        console.warn('Centrix: Cache read error', e);
+      }
+
+      // Step B: Asynchronously query GitHub Releases API for the latest uploaded assets
+      try {
+        const resp = await fetch(`https://api.github.com/repos/${CENTRIX_GITHUB_REPO}/releases/latest`, {
+          headers: { 'Accept': 'application/vnd.github.v3+json' },
+          cache: 'no-cache'
+        });
+        if (resp.ok) {
+          const data = await resp.json();
+          if (data && data.assets && Array.isArray(data.assets)) {
+            const dmgAsset = data.assets.find(a => a.name && a.name.toLowerCase().endsWith('.dmg'));
+            const exeAsset = data.assets.find(a => a.name && a.name.toLowerCase().endsWith('.exe') && !a.name.toLowerCase().includes('agent-only')) ||
+                             data.assets.find(a => a.name && a.name.toLowerCase().endsWith('.exe'));
+
+            const tag = data.tag_name || centrixRelease.tag;
+            const macUrl = dmgAsset ? dmgAsset.browser_download_url : centrixRelease.macUrl;
+            const macSize = dmgAsset ? `${Math.round(dmgAsset.size / (1024 * 1024))}MB` : centrixRelease.macSize;
+            const winUrl = exeAsset ? exeAsset.browser_download_url : centrixRelease.winUrl;
+            const winSize = exeAsset ? `${Math.round(exeAsset.size / (1024 * 1024))}MB` : centrixRelease.winSize;
+
+            centrixRelease = { tag, macUrl, macSize, winUrl, winSize, timestamp: Date.now() };
+            try {
+              localStorage.setItem(CENTRIX_RELEASE_CACHE_KEY, JSON.stringify(centrixRelease));
+            } catch (err) {}
+            applyReleaseToDom(centrixRelease);
+          }
+        } else {
+          // In case of GitHub API rate limit, ensure Windows links point to latest redirect
+          document.querySelectorAll('a[data-download-platform="windows"]').forEach(a => {
+            a.href = `https://github.com/${CENTRIX_GITHUB_REPO}/releases/latest/download/Centrix-Setup.exe`;
+          });
+        }
+      } catch (err) {
+        console.warn('Centrix: GitHub latest release fetch error, using active baseline.', err);
+      }
+    }
+
+    function setupPlatformDownloads() {
+      applyReleaseToDom(centrixRelease);
+      syncLatestReleaseFromGitHub();
     }
 
     function toggleDownloadMenu(menuId) {
@@ -2467,8 +2569,8 @@
       {
         id: 'install',
         title: 'Installation & Google JSON Binding',
-        keywords: ['install', 'setup', 'kaise install', 'download', 'deploy', 'rollout', 'requirements', 'onboarding', 'pilot'],
-        answer: "<strong>Enterprise 3-Step Setup with Google JSON:</strong><br />1. Download <code>Centrix-Setup.exe</code> (v1.0.4) directly from this page.<br />2. Run the installer on classroom Windows 10/11 PCs. Select your center (e.g. Pune - PCMC Vidyapeeth) and assign the Room ID.<br />3. Import <code>google_credentials.json</code> (Google OAuth Desktop Client) to authenticate Google Drive & YouTube via 1-click browser sign-in. Tokens are sealed into the Windows DPAPI hardware vault with machine GUID entropy."
+        keywords: ['install', 'setup', 'kaise install', 'download', 'dmg', 'mac', 'macos', 'deploy', 'rollout', 'requirements', 'onboarding', 'pilot'],
+        answer: "<strong>Enterprise 3-Step Setup with Google JSON:</strong><br />1. Download <code>Centrix-Setup.exe</code> (Windows) or <code>Centrix.dmg</code> (macOS) directly using the top download buttons on this page (always delivers the latest production release).<br />2. Run the installer on classroom workstations/PCs. Select your center (e.g. Pune - PCMC Vidyapeeth) and assign the Room ID.<br />3. Import <code>google_credentials.json</code> (Google OAuth Desktop Client) to authenticate Google Drive & YouTube via 1-click browser sign-in. Tokens are sealed into the hardware vault with machine GUID entropy."
       },
       {
         id: 'google_credentials',
@@ -2743,15 +2845,15 @@
       },
       {
         id: 'install',
-        matches: ['install', 'setup', 'download', 'exe', 'requirements', 'windows 10', 'windows 11', 'kaise install'],
+        matches: ['install', 'setup', 'download', 'exe', 'dmg', 'mac', 'macos', 'requirements', 'windows 10', 'windows 11', 'kaise install'],
         en: "<strong>3-Step Installation:</strong><br />" +
-            "1. Download <code>Centrix-Setup.exe</code> (v1.0.4) using the top download button on this page.<br />" +
-            "2. Run the installer on classroom Windows 10/11 PCs.<br />" +
-            "3. Select your Vidyapeeth center, room number, and link your OBS recording folder. Centrix starts automatically with Windows.",
+            "1. Download <code>Centrix-Setup.exe</code> (Windows) or <code>Centrix.dmg</code> (macOS) using the top download buttons on this page (always provides the latest production build).<br />" +
+            "2. Run the installer on classroom PCs or workstations.<br />" +
+            "3. Select your Vidyapeeth center, room number, and link your OBS recording folder. Centrix starts automatically in the background.",
         hi: "<strong>इंस्टॉल करने का 3-स्टेप तरीका:</strong><br />" +
-            "1. इस पेज के ऊपर दिए गए 'Download .exe' बटन से <code>Centrix-Setup.exe</code> (v1.0.4) डाउनलोड करें।<br />" +
-            "2. क्लासरूम के Windows 10 या 11 PC पर इंस्टॉलर रन करें।<br />" +
-            "3. अपना सेंटर, रूम नंबर और OBS फोल्डर चुनें। इसके बाद Centrix हर बार Windows ऑन होने पर खुद बैकग्राउंड में चलने लगेगा।"
+            "1. इस पेज के ऊपर दिए गए डाउनलोड बटन से Windows के लिए <code>Centrix-Setup.exe</code> या Mac के लिए <code>Centrix.dmg</code> डाउनलोड करें (यहाँ से हमेशा लेटेस्ट वर्शन ही डाउनलोड होगा)।<br />" +
+            "2. क्लासरूम के PC/वर्कस्टेशन पर इंस्टॉलर रन करें।<br />" +
+            "3. अपना सेंटर, रूम नंबर और OBS फोल्डर चुनें। इसके बाद Centrix बैकग्राउंड में ऑटोमैटिक चलने लगेगा।"
       },
       {
         id: 'creator_owner',
