@@ -98,7 +98,7 @@
         { q: 'How much operational expenditure does Centrix eliminate compared to current costs?', label: '📉 Major Cost Reduction' },
         { q: 'Why does Centrix incur ₹0 in cloud compute transcoding fleet costs?', label: '☁️ ₹0 Server Transcoding' },
         { q: 'How many operational staff hours are saved per month nationwide?', label: '⏳ 3,000+ Hours Saved' },
-        { q: 'How does Centrix reduce student churn and doubt resolution delays?', label: '🎓 Student Delivery & SLA' },
+        { q: 'How does Centrix automate the internal PC to Drive to YouTube pipeline?', label: '⚡ PC ➔ Drive ➔ YT Pipeline' },
         { q: 'What physical equipment costs does Centrix eliminate?', label: '💾 Pen-Drive & Hardware Waste' }
       ]
     },
@@ -108,7 +108,7 @@
       description: 'Zero disruption, smartboard touch inputs, and seamless faculty experience.',
       questions: [
         { q: 'Does a teacher need to learn or operate any new software during class?', label: '🚫 Zero Faculty Disruption' },
-        { q: 'How fast do lectures reach students on the PhysicsWallah App?', label: '⚡ <30 Min Delivery SLA' },
+        { q: 'How fast does Centrix sync lectures from PC to Drive and queue for YouTube?', label: '⚡ <30 Min Pipeline SLA' },
         { q: 'Does Centrix interfere with OBS Studio recording hotkeys or smartboards?', label: '🖥️ Smartboard Touch Friendly' },
         { q: 'Can center operators review or override lecture batch mappings manually?', label: '🖱️ 1-Click Review Portal' }
       ]
@@ -227,7 +227,7 @@
           "• In offline centers, faculties occasionally swap slots due to travel or sudden illness.<br />" +
           "• <strong>Multi-Signal Resilience:</strong> Because Time Overlap (35%), Room ID (15%), and Duration Consistency (15%) total 65%, a lecture with an unannounced substitute still achieves a 0.70–0.78 confidence score.<br />" +
           "• <strong>1-Click Coordinator Prompt:</strong> Rather than dumping the file into an unknown folder, Centrix surfaces the session on the coordinator dashboard: <em>'Room 204: Chemistry Slot matches Batch-A (74% confidence - Faculty Mismatch) — Confirm?'</em>.<br />" +
-          "• One click instantly updates metadata and commits the upload, ensuring 0% student delivery delay.<br />" +
+          "• One click instantly updates metadata and commits the upload, ensuring 0% operational pipeline delay.<br />" +
           "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>⚡ Source: [ReviewQueue/src/ReviewQueue.tsx:42-78]</span>",
       hi: "<strong>सब्सटीट्यूट टीचर या फैकल्टी बदलाव की स्थिति (Substitute Faculty):</strong><br />" +
           "• अगर किसी क्लास में अचानक दूसरे टीचर पढ़ाने आ जाएं, तो भी Centrix परेशान नहीं होता।<br />" +
@@ -573,6 +573,27 @@
           "• <strong>क्लासरूम की वास्तविक स्थिति:</strong> शिक्षक पहले OBS वीडियो रिकॉर्डिंग बंद करते हैं, फिर 5-10 मिनट बाद MaxHub स्क्रीन से 'Export to PDF' दबाते हैं।<br />" +
           "• <strong>एक्सटेंडेड पेयरिंग विंडो:</strong> <code>ApplicationServices.cs</code> का <code>TryFindExistingSessionAsync</code> PDF और डॉक्युमेंट्स के लिए 15 मिनट की अतिरिक्त विंडो रखता है ताकि उसी रूम के वीडियो सेशन से PDF आसानी से जुड़ जाए।<br />" +
           "• <strong>एक साथ अपलोड:</strong> वीडियो और नोट्स दोनों एक ही <code>LectureSession</code> का हिस्सा बन जाते हैं और एक ही गूगल ड्राइव फोल्डर में अपलोड होते हैं।"
+    },
+    {
+      id: 'pc_drive_youtube_pipeline',
+      matches: [
+        'pc to drive', 'drive to yt', 'drive to youtube', 'pc to drive to youtube', 
+        'pipeline', 'internal tool', 'turnaround', 'how fast', 'fast does centrix', 
+        'pipeline sla', 'upload turnaround', 'students ki baat', 'students', 'student'
+      ],
+      en: "<strong>Internal Classroom PC ➔ Google Drive ➔ YouTube Pipeline:</strong><br />" +
+          "Centrix is an <strong>internal operational automation tool</strong> engineered specifically for PhysicsWallah Vidyapeeth centers:<br />" +
+          "• <strong>Step 1: Classroom PC Edge Ingestion:</strong> OBS lecture recordings (.mkv, .mp4) and MaxHub smartboard notes (.pdf) are detected, validated with a 10s stability lock, and matched to timetable slots with &ge;85% confidence.<br />" +
+          "• <strong>Step 2: Automated Google Drive Sync:</strong> Using 10MB chunked resumable streaming, both the video and notes are uploaded directly into the designated center/batch folder on Google Drive in <strong>&lt; 30 minutes</strong> with zero manual pen-drive transfers.<br />" +
+          "• <strong>Step 3: Drive ➔ YouTube Distribution Pipeline:</strong> Once verified on Drive, lectures are queued and distributed directly to YouTube (unlisted/catalog channels) via automated pipeline, completely freeing center operators from manual YouTube uploads.<br />" +
+          "• <strong>Internal Tooling Only:</strong> Centrix operates as an internal backend engine for center operators, coordinators, and video teams—it is not a public or student-facing application.<br />" +
+          "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>⚡ Source: [LectureAgent/Services/LectureIngestService.cs:42-88]</span>",
+      hi: "<strong>इंटरनल क्लासरूम PC ➔ Google Drive ➔ YouTube पाइपलाइन:</strong><br />" +
+          "Centrix एक <strong>इंटरनल ऑपरेशनल ऑटोमेशन टूल</strong> है जिसे विद्यापीठ सेंटर्स के बैकएंड ऑपरेशंस के लिए बनाया गया है:<br />" +
+          "• <strong>स्टेप 1 (क्लासरूम PC):</strong> OBS वीडियो और MaxHub PDF नोट्स क्लास खत्म होते ही 10s स्टेबिलिटी लॉक और 7-सिग्नल टाइमटेबल मैचिंग के साथ ऑटोमैटिकली डिटेक्ट होते हैं।<br />" +
+          "• <strong>स्टेप 2 (Google Drive सिंक):</strong> वीडियो और नोट्स बिना किसी पेन-ड्राइव के सीधे <strong>Google Drive के सही बैच/क्लास फोल्डर</strong> में 30 मिनट के अंदर सुरक्षित अपलोड होते हैं।<br />" +
+          "• <strong>स्टेप 3 (Drive से YouTube पाइपलाइन):</strong> ड्राइव पर अपलोड और वेरिफाई होने के बाद, इंटरनल ऑटोमेशन पाइपलाइन वीडियो को सीधे YouTube (अनलिस्टेड/आर्काइव चैनल) में शेड्यूल और डिस्ट्रीब्यूट कर देती है।<br />" +
+          "• <strong>100% इंटरनल टूल:</strong> यह सेंटर कोऑर्डिनेटर्स, वीडियो एडिटर्स और ऑपरेशंस टीम के लिए एक इंटरनल टूल है—स्टूडेंट्स का इससे सीधा कोई इंटरफेस नहीं है।"
     }
   ];
 
