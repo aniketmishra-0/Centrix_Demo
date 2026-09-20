@@ -352,41 +352,46 @@
         </div>
       </div>
 
-      <!-- Quick Questions Chips -->
-      <div class="flex flex-wrap justify-center gap-2 mb-6">
-        <button onclick="askQuestion('Where is authentication implemented?')" class="px-3.5 py-1.5 rounded-full border border-blue-400 dark:border-blue-700 bg-blue-50/70 dark:bg-blue-900/30 font-mono text-xs text-blue-700 dark:text-blue-300 hover:border-blue-600 transition shadow-xs">
-          🔑 Locate Auth
-        </button>
-        <button onclick="askQuestion('How does attendance get saved from UI to database?')" class="px-3.5 py-1.5 rounded-full border border-emerald-400 dark:border-emerald-700 bg-emerald-50/70 dark:bg-emerald-900/30 font-mono text-xs text-emerald-700 dark:text-emerald-300 hover:border-emerald-600 transition shadow-xs">
-          🔄 Trace Save Flow (UI→DB)
-        </button>
-        <button onclick="askQuestion('What happens if MatchSessionAsync changes?')" class="px-3.5 py-1.5 rounded-full border border-purple-400 dark:border-purple-700 bg-purple-50/70 dark:bg-purple-900/30 font-mono text-xs text-purple-700 dark:text-purple-300 hover:border-purple-600 transition shadow-xs">
-          ⚠️ Impact Analysis
-        </button>
-        <button onclick="askQuestion('How to use Centrix step by step?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
-          📖 How to Use?
-        </button>
-        <button onclick="askQuestion('How does the 7-signal matching algorithm score lectures?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
-          🎯 7-Signal Matching
-        </button>
-        <button onclick="askQuestion('What is the local SQLite database schema and durable queues?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
-          🗄️ SQLite WAL Schema
-        </button>
-        <button onclick="askQuestion('How are Google Drive credentials secured with DPAPI?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
-          🛡️ DPAPI Security
-        </button>
-        <button onclick="askQuestion('Centrix lagane ke baad abhi ke kharche se kitna kam hoga?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
-          💰 Current Cost Se Kam
-        </button>
-        <button onclick="askQuestion('What happens if the internet disconnects?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
-          📡 Internet Outage?
-        </button>
-        <button onclick="askQuestion('Will Centrix slow down teaching PCs?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
-          ⚡ PC Performance?
-        </button>
-        <button onclick="askQuestion('How does it handle classes running 30 mins late?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
-          ⏱️ Overtime Classes?
-        </button>
+      <!-- Suggested Question Explorer (1000+ Corpus Across 10 Technical Pillars) -->
+      <div class="mb-6 p-4 rounded-2xl border border-stone-300 dark:border-stone-800 bg-stone-50/70 dark:bg-stone-900/60 backdrop-blur-sm space-y-3.5 shadow-xs">
+        
+        <!-- Category Selector Tabs (Scrollable on mobile) -->
+        <div class="flex items-center justify-between gap-2 pb-2 border-b border-stone-200/80 dark:border-stone-800/80">
+          <div class="flex items-center space-x-1.5 overflow-x-auto no-scrollbar py-0.5" id="questionCategoryTabs">
+            <!-- Populated dynamically by renderQuestionCategoryTabs() -->
+          </div>
+          <div class="hidden sm:flex items-center space-x-2 shrink-0">
+            <button onclick="askRandomQuestion()" class="inline-flex items-center space-x-1 px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition text-[11px] font-mono font-semibold cursor-pointer" title="Ask a random impressive question from the 1000+ corpus">
+              <span>🎲 Random</span>
+            </button>
+            <button onclick="openQuestionDirectoryModal()" class="inline-flex items-center space-x-1 px-2.5 py-1 rounded-lg bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-300 dark:hover:bg-stone-700 transition text-[11px] font-mono font-semibold cursor-pointer" title="Browse full 1000+ Question Directory">
+              <span>📚 1000+ Directory</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Category Description & Language Pill -->
+        <div class="flex items-center justify-between text-[11px] font-mono text-stone-500 dark:text-stone-400 px-1">
+          <span id="activeCategoryDesc" class="truncate mr-2">🌟 The most critical and frequently asked questions about Centrix.</span>
+          <span class="shrink-0 px-2 py-0.5 rounded-full bg-stone-200/70 dark:bg-stone-800 text-stone-600 dark:text-stone-400 text-[10px]">
+            🇮🇳 English • Hindi • Hinglish
+          </span>
+        </div>
+
+        <!-- Dynamic Question Chips Container -->
+        <div id="questionChipsContainer" class="flex flex-wrap gap-2 pt-1">
+          <!-- Populated by JavaScript renderQuestionCategory() -->
+        </div>
+
+        <!-- Mobile Action Buttons -->
+        <div class="flex sm:hidden items-center justify-between gap-2 pt-2 border-t border-stone-200/60 dark:border-stone-800/60">
+          <button onclick="askRandomQuestion()" class="flex-1 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 text-xs font-mono font-semibold flex items-center justify-center space-x-1 cursor-pointer">
+            <span>🎲 Random Question</span>
+          </button>
+          <button onclick="openQuestionDirectoryModal()" class="flex-1 py-1.5 rounded-lg bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 text-xs font-mono font-semibold flex items-center justify-center space-x-1 cursor-pointer">
+            <span>📚 1000+ Directory</span>
+          </button>
+        </div>
       </div>
 
       <!-- Live Chat / Answer Display Box -->
@@ -708,7 +713,54 @@
     </div>
   </div>
 
+  <!-- 1000+ Question Directory Modal -->
+  <div id="questionDirectoryModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs transition-all">
+    <div class="relative w-full max-w-3xl max-h-[88vh] flex flex-col bg-white dark:bg-[#14151a] border border-stone-300 dark:border-stone-800 rounded-3xl shadow-2xl overflow-hidden">
+      <!-- Modal Header -->
+      <div class="p-5 sm:p-6 border-b border-stone-200 dark:border-stone-800 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-2xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl font-bold">
+            📚
+          </div>
+          <div>
+            <h3 class="font-bold text-base sm:text-lg text-stone-900 dark:text-stone-100 flex items-center space-x-2">
+              <span>1000+ Question Directory</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-semibold">10 Pillars</span>
+            </h3>
+            <p class="text-xs text-stone-500 dark:text-stone-400 mt-0.5">Explore curated killer questions across architecture, 7-signal matching, offline sync &amp; security</p>
+          </div>
+        </div>
+        <button onclick="closeQuestionDirectoryModal()" class="p-2 rounded-xl text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 transition cursor-pointer" title="Close Modal">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+
+      <!-- Search Filter Bar -->
+      <div class="px-5 sm:px-6 py-3 bg-stone-50/80 dark:bg-stone-900/60 border-b border-stone-200 dark:border-stone-800">
+        <div class="relative">
+          <input type="text" id="directorySearchInput" oninput="filterQuestionDirectory(this.value)" placeholder="Search across questions (e.g. DPAPI, 30 min late, offline, rust, cost, timetable, substitute)..."
+                 class="w-full bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-xl pl-9 pr-4 py-2 text-xs sm:text-sm text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-blue-500 font-sans">
+          <span class="absolute left-3 top-2.5 text-stone-400 text-xs">🔍</span>
+        </div>
+      </div>
+
+      <!-- Question Directory List -->
+      <div id="directoryContentList" class="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6">
+        <!-- Rendered by renderQuestionDirectoryModal() -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-3 sm:p-4 bg-stone-100/70 dark:bg-stone-900/90 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between text-xs font-mono text-stone-500 dark:text-stone-400">
+        <span>Click any question to ask Centrix AI</span>
+        <button onclick="closeQuestionDirectoryModal()" class="px-4 py-1.5 rounded-xl bg-stone-200 dark:bg-stone-800 hover:bg-stone-300 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 font-semibold transition cursor-pointer">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script src="./js/default-codebase.js"></script>
+  <script src="./js/centrix-question-bank.js"></script>
   <script src="./js/codebase-engine.js"></script>
 
   <!-- Interactive JavaScript Logic -->
@@ -1314,7 +1366,10 @@
       }
     ];
 
-    // ==========================================
+    // Merge expanded 1000+ technical question bank corpus if loaded
+    if (typeof window !== 'undefined' && Array.isArray(window.CENTRIX_EXPANDED_INTENTS)) {
+      conversationalIntents.push(...window.CENTRIX_EXPANDED_INTENTS);
+    }
     // GEMINI FLASH STRICT SPECIFICATION ENGINE
     // Strictly grounded in official Centrix .md documentation:
     // (ARCHITECTURE, MATCHING_ENGINE_SPEC, DATABASE_SCHEMA,
@@ -1560,6 +1615,14 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         if (badgeTextFloat) badgeTextFloat.textContent = 'Live';
         if (badgeTextQA) badgeTextQA.textContent = '⚡ Centrix AI Ready';
       }
+    }
+
+    function renderCitations(html) {
+      if (!html) return '';
+      return html.replace(/\[([a-zA-Z0-9_\-\.\/]+\.[a-zA-Z0-9]+):(\d+)(?:-(\d+))?\](?:\(source:[^)]+\))?/g, (match, file, start, end) => {
+        const eLine = end || start;
+        return `<button type="button" class="citation-link" onclick="openCodeViewer('${file}', ${start}, ${eLine})" title="Inspect source: ${file}:${start}-${eLine}"><span class="text-blue-500">📄</span> <span>${file}:${start}-${eLine}</span></button>`;
+      });
     }
 
     function formatMarkdown(text, modelLabel = 'Centrix AI') {
@@ -2159,7 +2222,7 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       }
 
       // Immediate Gate 2: "How are you" / "Kaise ho" small talk
-      const qClean = qLower.replace(/[^a-z0-9\s#\.\+]/g, ' ');
+      const qClean = qLower.replace(/[^a-z0-9\u0900-\u097F\s#\.\+]/g, ' ');
       const qWords = qClean.split(/\s+/).filter(Boolean);
       if (qClean.includes('how are you') || qClean.includes('how r u') || qClean.includes('how are u') || qClean.includes('kaise ho') || qClean.includes('kaise hai') || qClean.includes('kya haal') || qClean.includes('kaisa hai') || qClean.includes('kaisa chal raha')) {
         const isHi = isHindiQuery(qTrim);
@@ -2256,7 +2319,8 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
 
       if (highestScore >= 14 && bestMatch) {
         const reply = isHi ? bestMatch.hi : bestMatch.en;
-        return Array.isArray(reply) ? reply[Math.floor(Math.random() * reply.length)] : reply;
+        const text = Array.isArray(reply) ? reply[Math.floor(Math.random() * reply.length)] : reply;
+        return renderCitations(text);
       }
 
       // Context-aware fallback strictly grounded in user's detected language
@@ -2317,6 +2381,7 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         }
         closeCodeViewer();
         closeImpactModal();
+        closeQuestionDirectoryModal();
       }
     });
 
@@ -2389,10 +2454,143 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       history.scrollTop = history.scrollHeight;
     }
 
+    // ==============================================================
+    // 1000+ Question Bank & Interactive Category Explorer
+    // ==============================================================
+    let currentQuestionCategory = 'popular';
+
+    function renderQuestionCategoryTabs() {
+      const container = document.getElementById('questionCategoryTabs');
+      if (!container || !window.CENTRIX_QUESTION_CATEGORIES) return;
+
+      container.innerHTML = window.CENTRIX_QUESTION_CATEGORIES.map(cat => {
+        const isActive = cat.id === currentQuestionCategory;
+        const activeClass = isActive 
+          ? 'bg-blue-600 text-white font-semibold shadow-xs' 
+          : 'bg-stone-200/80 dark:bg-stone-800/80 text-stone-700 dark:text-stone-300 hover:bg-stone-300 dark:hover:bg-stone-700';
+        return `<button type="button" onclick="renderQuestionCategory('${cat.id}')" class="whitespace-nowrap px-3 py-1 rounded-full font-mono text-[11px] transition cursor-pointer ${activeClass}">
+          ${cat.name}
+        </button>`;
+      }).join('');
+    }
+
+    function renderQuestionCategory(categoryId) {
+      currentQuestionCategory = categoryId;
+      renderQuestionCategoryTabs();
+
+      const cat = window.CENTRIX_QUESTION_CATEGORIES ? window.CENTRIX_QUESTION_CATEGORIES.find(c => c.id === categoryId) : null;
+      if (!cat) return;
+
+      const descEl = document.getElementById('activeCategoryDesc');
+      if (descEl) descEl.textContent = cat.description;
+
+      const chipsContainer = document.getElementById('questionChipsContainer');
+      if (!chipsContainer) return;
+
+      chipsContainer.innerHTML = cat.questions.map(item => {
+        const safeQ = item.q.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        return `<button type="button" onclick="askQuestion('${safeQ}')" class="group flex items-center space-x-1.5 px-3 py-1.5 rounded-full border border-stone-300/80 dark:border-stone-700/80 bg-white/90 dark:bg-stone-900/90 font-mono text-xs text-stone-800 dark:text-stone-200 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-xs transition cursor-pointer">
+          <span class="text-blue-500 group-hover:scale-110 transition-transform">⚡</span>
+          <span>${item.label || item.q}</span>
+        </button>`;
+      }).join('');
+    }
+
+    function askRandomQuestion() {
+      if (!window.CENTRIX_QUESTION_CATEGORIES || !window.CENTRIX_QUESTION_CATEGORIES.length) return;
+      const allQuestions = [];
+      window.CENTRIX_QUESTION_CATEGORIES.forEach(c => {
+        c.questions.forEach(q => allQuestions.push(q.q));
+      });
+      if (allQuestions.length === 0) return;
+      const randomQ = allQuestions[Math.floor(Math.random() * allQuestions.length)];
+      askQuestion(randomQ);
+    }
+
+    function openQuestionDirectoryModal() {
+      const modal = document.getElementById('questionDirectoryModal');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      const searchInput = document.getElementById('directorySearchInput');
+      if (searchInput) {
+        searchInput.value = '';
+        setTimeout(() => searchInput.focus(), 50);
+      }
+      renderQuestionDirectoryModal('');
+    }
+
+    function closeQuestionDirectoryModal() {
+      const modal = document.getElementById('questionDirectoryModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function renderQuestionDirectoryModal(filterText = '') {
+      const listContainer = document.getElementById('directoryContentList');
+      if (!listContainer || !window.CENTRIX_QUESTION_CATEGORIES) return;
+
+      const f = (filterText || '').trim().toLowerCase();
+      let matchedCount = 0;
+
+      const html = window.CENTRIX_QUESTION_CATEGORIES.map(cat => {
+        const filteredQuestions = f 
+          ? cat.questions.filter(q => q.q.toLowerCase().includes(f) || (q.label && q.label.toLowerCase().includes(f)))
+          : cat.questions;
+
+        if (filteredQuestions.length === 0) return '';
+        matchedCount += filteredQuestions.length;
+
+        return `
+          <div class="space-y-2.5">
+            <div class="flex items-center justify-between pb-1.5 border-b border-stone-200 dark:border-stone-800">
+              <h4 class="font-bold text-sm text-stone-900 dark:text-stone-100 flex items-center space-x-2">
+                <span>${cat.name}</span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400">${filteredQuestions.length}</span>
+              </h4>
+              <span class="text-[11px] font-mono text-stone-500 dark:text-stone-400 hidden sm:inline">${cat.description}</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              ${filteredQuestions.map(item => {
+                const safeQ = item.q.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+                return `
+                <button type="button" onclick="askQuestion('${safeQ}')" class="text-left p-3 rounded-xl border border-stone-200 dark:border-stone-800 hover:border-blue-500 hover:bg-blue-50/40 dark:hover:bg-blue-950/20 transition group cursor-pointer flex flex-col justify-between">
+                  <div class="font-semibold text-xs text-stone-900 dark:text-stone-100 group-hover:text-blue-600 dark:group-hover:text-blue-400">${item.label || item.q}</div>
+                  <div class="text-[11px] text-stone-500 dark:text-stone-400 mt-1 line-clamp-2">${item.q}</div>
+                </button>
+              `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }).filter(Boolean).join('');
+
+      if (matchedCount === 0) {
+        listContainer.innerHTML = `
+          <div class="text-center py-12 text-stone-500 dark:text-stone-400 font-mono text-xs">
+            <div class="text-2xl mb-2">🔍</div>
+            No questions matched "${escapeHtml(filterText)}". Try searching for "DPAPI", "offline", "timetable", "matching", "cost", or "rust".
+          </div>
+        `;
+      } else {
+        listContainer.innerHTML = html;
+      }
+    }
+
+    function filterQuestionDirectory(val) {
+      renderQuestionDirectoryModal(val);
+    }
+
     // On-Page Inline Chat Controls
     function askQuestion(q) {
-      document.getElementById('userInput').value = q;
-      handleChatSubmit(new Event('submit'));
+      closeQuestionDirectoryModal();
+      const input = document.getElementById('userInput');
+      if (input) {
+        input.value = q;
+        handleChatSubmit(new Event('submit'));
+        const qaSection = document.getElementById('qa');
+        if (qaSection) {
+          qaSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
     }
 
     async function handleChatSubmit(e) {
@@ -2600,6 +2798,10 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
     updateGeminiStatusUI();
     // Initialize Codebase Repository Status
     setTimeout(updateRepoStatusBar, 200);
+    // Initialize 1000+ Question Category Explorer
+    if (typeof renderQuestionCategory === 'function') {
+      renderQuestionCategory('popular');
+    }
   </script>
 </body>
 </html>

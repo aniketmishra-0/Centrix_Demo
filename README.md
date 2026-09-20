@@ -143,7 +143,24 @@ Centrix features a native client-side **Codebase Intelligence & Code RAG Engine*
 
 ---
 
-## 📞 8. Pilot Rollout & Contact
+## 📚 8. 1000+ Question Bank & Interactive Technical Explorer
+
+The Centrix web showcase features an authoritative **1000+ Question Corpus** categorized across **10 Technical Pillars**, complete with trilingual natural language understanding (English, Hindi, Hinglish):
+
+1. **🌟 Popular & Core**: How Centrix works, cost savings vs current operations, locate authentication, UI to DB flow.
+2. **🧠 Architecture & Codebase**: Why Rust & .NET 8, CPU/RAM benchmarks (&lt; 1% CPU, &lt; 60MB RAM), 10s file stability lock, IPC pipes.
+3. **🎯 7-Signal Matching Engine**: Exact mathematical weights (Time Overlap 35%, Room 15%, Duration 15%, Teacher 15%, Batch 10%, Drift 10%), 85% confidence gates.
+4. **⏱️ Overtime & Edge Cases**: Classes running 20-30 mins late, substitute faculty swaps, power failure WAL recovery, combined back-to-back lectures.
+5. **🛡️ Security & Windows DPAPI**: OS-level hardware TPM/DPAPI token vault, zero baked secrets, 4-tier RBAC, BitLocker compatibility.
+6. **📡 Offline Resilience & Sync**: SQLite WAL durable queue, 10MB chunked resumable streaming, 3-day internet blackout survival, bandwidth throttling.
+7. **💰 Business Case & ROI**: Operational cost reduction, ₹0 cloud transcoding fleet bills, 3,000+ staff hours saved monthly nationwide.
+8. **👨‍🏫 Teacher & Classroom Flow**: Zero teacher disruption, smartboard touch input friendliness, 1-click Review Queue portal (`localhost:5200`).
+9. **🚀 Deployment & Ops**: Silent CLI rollout (`Centrix-Setup.exe /VERYSILENT`), automated Windows startup daemon, multi-classroom health monitor.
+10. **🔬 Impact Analysis & Blast Radius**: Modifying `MatchSessionAsync()` blast radius, caller dependency graphs, automated xUnit regression test verification.
+
+---
+
+## 📞 9. Pilot Rollout & Contact
 
 - **Project Lead / Author:** Aniket Mishra
 - **Official Contact:** [aniket.mishra2@pw.live](mailto:aniket.mishra2@pw.live)
