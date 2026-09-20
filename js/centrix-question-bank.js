@@ -608,25 +608,26 @@
         'json file', 'json setup', 'google auth json', 'oauth json', 'google ka json', 
         'json kyu lagta hai', 'json file kyu', 'json file kaise', 'google credentials json', 
         'config/google_credentials.json', 'json kyu chahiye', 'setup wizard json', 
-        'oauth desktop json', 'json bind', 'json import'
+        'oauth desktop json', 'json bind', 'json import', 'download json', 'get json'
       ],
       en: "<strong>Google OAuth Credentials Protocol (<code>google_credentials.json</code>):</strong><br />" +
-          "During Centrix installation, the setup wizard prompts for the Google OAuth client JSON file. Here is the complete architectural rationale and protocol:<br />" +
-          "• <strong>Zero Baked Secrets Principle:</strong> Centrix strictly refuses to compile Google OAuth client secrets or API keys into binaries or public repositories. Hardcoding secrets would create an unacceptable enterprise vulnerability across 442+ centers.<br />" +
-          "• <strong>Obtaining the JSON:</strong> The center IT coordinator downloads the authorized OAuth 2.0 Desktop Application client JSON from Google Cloud Console (<code>APIs &amp; Services ➔ Credentials ➔ OAuth Client ID ➔ Desktop App</code>).<br />" +
-          "• <strong>Setup Wizard Ingestion (<code>SetupWizardForm.cs:673</code>):</strong> In the desktop wizard, the operator selects the JSON file. Centrix validates the JSON structure and copies it to <code>C:\\ProgramData\\Centrix\\config\\google_credentials.json</code>.<br />" +
-          "• <strong>One-Click Browser Authorization:</strong> Centrix triggers <code>Centrix.exe --authorize-google</code>, launching the default browser. The operator signs in once with the center's Google Workspace account and approves Drive &amp; YouTube scopes.<br />" +
-          "• <strong>Hardware DPAPI Encryption Vault:</strong> Centrix intercepts the OAuth refresh token and immediately encrypts it using <strong>Windows DPAPI (<code>CryptProtectData</code>)</strong> bound with motherboard/CPU GUID entropy. The plaintext secret is never exposed on disk.<br />" +
+          "During Centrix installation, the setup wizard prompts for the Google OAuth client JSON file. In compliance with enterprise security:<br />" +
+          "• <strong>Zero Baked Secrets Principle:</strong> Centrix strictly refuses to compile Google OAuth client secrets or API keys into binaries or public repositories.<br />" +
+          "• <strong>Direct Download Link:</strong> Authorized coordinators can download the template configuration file directly here:<br />" +
+          "<a href='config/google_credentials.json' download='google_credentials.json' class='inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-mono text-xs font-semibold my-2'><span>📥 Download google_credentials.json</span></a><br />" +
+          "• <strong>Official Center Keys:</strong> For production keys, contact Project Lead Aniket Mishra (<a href='mailto:aniket.mishra2@pw.live' class='text-blue-600 dark:text-blue-400 underline'>aniket.mishra2@pw.live</a>).<br />" +
+          "• <strong>Setup Wizard Ingestion (<code>SetupWizardForm.cs:673</code>):</strong> In the desktop wizard, the operator selects the JSON file. Centrix copies it to <code>C:\\ProgramData\\Centrix\\config\\google_credentials.json</code>.<br />" +
+          "• <strong>Hardware DPAPI Encryption Vault:</strong> Centrix triggers <code>Centrix.exe --authorize-google</code> for 1-click browser sign-in. The returned OAuth refresh token is sealed using <strong>Windows DPAPI (<code>CryptProtectData</code>)</strong> bound to motherboard GUID entropy.<br />" +
           "• <strong>Permanent Hands-Off Automation:</strong> Once bound during setup, operators never need to sign in again. All future lecture uploads stream autonomously in the background.<br />" +
           "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>⚡ Source: [LectureAgent.Desktop/SetupWizardForm.cs:660-725] &amp; [LectureAgent/Commands/AuthorizeGoogleCommand.cs:25-85]</span>",
       hi: "<strong>Google OAuth क्रेडेंशियल्स प्रोटोकॉल (<code>google_credentials.json</code> सेटअप):</strong><br />" +
-          "Centrix इंस्टॉल करते समय सेटअप विज़ार्ड में Google OAuth JSON फाइल की आवश्यकता होती है। इसका पूरा तकनीकी कारण और तरीका निम्नलिखित है:<br />" +
-          "• <strong>ज़ीरो बेक्ड सीक्रेट्स (Zero Baked Secrets):</strong> Centrix के कोड या इंस्टॉलर में कोई भी Google API Key या पासवर्ड पहले से हार्डकोड नहीं किया जाता, ताकि सुरक्षा 100% बनी रहे और कभी कोई टोकन लीक न हो सके।<br />" +
-          "• <strong>JSON फाइल कहाँ से मिलती है:</strong> Google Cloud Console से विद्यापीठ का अधिकृत Google OAuth Desktop Client JSON फाइल (<code>APIs &amp; Services ➔ Credentials</code>) डाउनलोड किया जाता है।<br />" +
+          "Centrix इंस्टॉल करते समय सेटअप विज़ार्ड में Google OAuth JSON फाइल की आवश्यकता होती है:<br />" +
+          "• <strong>ज़ीरो बेक्ड सीक्रेट्स (Zero Baked Secrets):</strong> सुरक्षा कारणों से कोड या इंस्टॉलर में कोई भी Google API Key या पासवर्ड पहले से हार्डकोड नहीं किया जाता।<br />" +
+          "• <strong>सीधा डाउनलोड लिंक:</strong> आप नीचे दिए गए बटन से JSON टेम्पलेट डाउनलोड कर सकते हैं:<br />" +
+          "<a href='config/google_credentials.json' download='google_credentials.json' class='inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-mono text-xs font-semibold my-2'><span>📥 Download google_credentials.json</span></a><br />" +
+          "• <strong>प्रोडक्शन फाइल हेतु संपर्क:</strong> विद्यापीठ सेंटर IT टीम अधिकृत प्रोडक्शन क्रेडेंशियल्स के लिए सीधे प्रोजेक्ट लीड अनिकेत मिश्रा (<a href='mailto:aniket.mishra2@pw.live' class='text-blue-600 dark:text-blue-400 underline'>aniket.mishra2@pw.live</a>) से संपर्क कर सकती है।<br />" +
           "• <strong>सेटअप विज़ार्ड में 1-क्लिक चयन:</strong> क्लासरूम PC पर <code>Centrix-Setup.exe</code> चलाते समय विज़ार्ड यह फाइल मांगता है। यह इसे सुरक्षित रूप से <code>C:\\ProgramData\\Centrix\\config\\google_credentials.json</code> में कॉपी करता है।<br />" +
-          "• <strong>1-क्लिक ब्राउज़र ऑथेंटिकेशन:</strong> विज़ार्ड <code>Centrix.exe --authorize-google</code> चलाकर ब्राउज़र में 1-क्लिक साइन-इन खोलता है। सेंटर के आधिकारिक गूगल अकाउंट से एक बार लॉगिन किया जाता है।<br />" +
-          "• <strong>Windows DPAPI हार्डवेयर एन्क्रिप्शन:</strong> गूगल से मिले रिफ्रेश टोकन को कंप्यूटर के मदरबोर्ड GUID से Windows DPAPI द्वारा हमेशा के लिए एन्क्रिप्ट करके <code>data/google-drive-token</code> में सुरक्षित रखा जाता है।<br />" +
-          "• <strong>लाइफटाइम ऑटोमेशन:</strong> एक बार 1 मिनट का सेटअप पूरा होने के बाद टीचर या ऑपरेटर को कभी कोई लॉगिन या पासवर्ड नहीं डालना पड़ता। सारी रिकॉर्डिंग्स अपने आप अपलोड होती हैं।"
+          "• <strong>Windows DPAPI हार्डवेयर एन्क्रिप्शन:</strong> गूगल से मिले रिफ्रेश टोकन को कंप्यूटर के मदरबोर्ड GUID से Windows DPAPI द्वारा हमेशा के लिए एन्क्रिप्ट करके <code>data/google-drive-token</code> में सुरक्षित रखा जाता है। दोबारा कभी लॉगिन नहीं करना पड़ता।"
     },
     {
       id: 'senior_leadership_roi',
@@ -636,20 +637,20 @@
         'executives', 'business impact', 'senior impact', 'management impact', 
         'savings per month', 'executive roi', 'business value'
       ],
-      en: "<strong>Senior Leadership Business Case &amp; Enterprise ROI Analysis:</strong><br />" +
-          "Designed for senior leadership (Alakh Sir, Prateek Sir, VP of Operations, CTO), Centrix transforms classroom lecture operations from a manual bottleneck into an autonomous competitive moat:<br />" +
-          "• <strong>Direct Monthly Savings (₹18.5+ Lakhs / Month):</strong> Across 442+ Vidyapeeth classrooms running 4 lectures/day (~53,000 lectures/month), Centrix saves over <strong>₹2.22 Crores annually</strong> by eliminating manual operator overtime, pen drive wear/loss, courier logistics, and missed lecture remediation.<br />" +
-          "• <strong>35,000+ Staff Hours Reclaimed Monthly:</strong> Replaces ~25 minutes of manual labor per lecture (walking pen drives, manual renaming, folder sorting, YouTube metadata entry), freeing staff to focus on center operations and student experience.<br />" +
-          "• <strong>₹0 Server Transcoding Fleet Bill:</strong> Hash computation, packet chunking, and PDF cover OCR run at the edge on existing classroom PCs, incurring <strong>zero EC2 or cloud transcoding fleet costs</strong>.<br />" +
+      en: "<strong>Senior Leadership Strategic &amp; Operational Impact:</strong><br />" +
+          "Designed for executive leadership (Alakh Sir, Prateek Sir, VP of Operations, CTO), Centrix transforms classroom lecture operations from a manual bottleneck into an autonomous competitive advantage:<br />" +
+          "• <strong>Substantially Lower Than Current Spend:</strong> Slashes ongoing operational costs down to a fraction of current manual expenses by completely eliminating recurring physical flash drives, courier logistics, coordinator overtime, and lost lecture re-shoots.<br />" +
+          "• <strong>35,000+ Staff Hours Reclaimed Monthly:</strong> Eliminates ~40 minutes of manual labor per lecture (walking flash drives, manual renaming, folder sorting, YouTube metadata entry), freeing staff to focus on center operations and student experience.<br />" +
+          "• <strong>$0 Server Transcoding Fleet Bill:</strong> Hash computation, packet chunking, and PDF cover OCR run at the edge on existing classroom PCs, incurring <strong>zero EC2 or cloud transcoding fleet costs</strong>.<br />" +
           "• <strong>96% Faster Distribution SLA (&lt; 30 Mins):</strong> Reduces delivery turnaround from 6–12 hours of manual lag down to under 30 minutes automated pipeline from Classroom PC ➔ Drive ➔ YouTube queue.<br />" +
           "• <strong>&lt; 0.01% Misclassification Rate:</strong> 7-signal deterministic timetable engine guarantees lectures land in the exact batch folder, ending wrong-upload incidents.<br />" +
           "• <strong>Zero Faculty Friction:</strong> Requires 0 minutes of teacher training; faculty conducts class in OBS Studio and touches no extra software.<br />" +
           "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>⚡ Source: [Executive Briefing: Centrix Nationwide FinOps &amp; Operational Scale Model]</span>",
-      hi: "<strong>सीनियर लीडरशिप (अलख सर, प्रतीक सर, VP, CTO) के लिए ROI और व्यावसायिक प्रभाव:</strong><br />" +
+      hi: "<strong>सीनियर लीडरशिप (अलख सर, प्रतीक सर, VP, CTO) के लिए रणनीतिक और परिचालन प्रभाव:</strong><br />" +
           "Centrix ऑफलाइन विद्यापीठ ऑपरेशंस को मैन्युअल सिरदर्द से निकालकर 100% ऑटोमेटेड सिस्टम बनाता है:<br />" +
-          "• <strong>₹18.5+ लाख प्रति माह की सीधी बचत:</strong> 442+ क्लासरूम्स में रोज़ाना 4 लेक्चर्स (लगभग 53,000 लेक्चर्स/माह) पर Centrix सालाना <strong>₹2.22 करोड़ से अधिक</strong> की बचत करता है। पेन ड्राइव, ऑपरेटर ओवरटाइम और मैन्युअल गलतियों का खर्चा शून्य हो जाता है।<br />" +
-          "• <strong>35,000+ घंटे हर महीने मुक्त:</strong> हर क्लास पर लगने वाले 25 मिनट (पेन ड्राइव में कॉपी करना, नाम बदलना, यूट्यूब अपलोड करना) बचते हैं, जिससे स्टाफ स्टूडेंट्स और सेंटर ऑपरेशंस पर ध्यान दे सकता है।<br />" +
-          "• <strong>₹0 सर्वर/क्लाउड ट्रांसकोडिंग बिल:</strong> सारी प्रोसेसिंग क्लासरूम के मौजूदा कंप्यूटर पर ही हो जाती है, इसलिए AWS या क्लाउड सर्वर का कोई भारी बिल नहीं आता।<br />" +
+          "• <strong>वर्तमान खर्चे से काफी कम (Substantially Lower OPEX):</strong> पेन ड्राइव, कूरियर लॉजिस्टिक्स, ऑपरेटर ओवरटाइम और छूटी हुई क्लासों के दोबारा शूट का भारी खर्चा खत्म होकर सिर्फ एक छोटा सा हिस्सा रह जाता है।<br />" +
+          "• <strong>35,000+ घंटे हर महीने मुक्त:</strong> हर क्लास पर लगने वाले 40 मिनट (पेन ड्राइव में कॉपी करना, नाम बदलना, यूट्यूब अपलोड करना) बचते हैं, जिससे स्टाफ स्टूडेंट्स और सेंटर ऑपरेशंस पर ध्यान दे सकता है।<br />" +
+          "• <strong>$0 सर्वर/क्लाउड ट्रांसकोडिंग बिल:</strong> सारी प्रोसेसिंग क्लासरूम के मौजूदा कंप्यूटर पर ही हो जाती है, इसलिए AWS या क्लाउड सर्वर का कोई भारी बिल नहीं आता।<br />" +
           "• <strong>96% तेज डिस्ट्रीब्यूशन (&lt; 30 मिनट):</strong> जहाँ पहले लेक्चर्स पहुंचने में 6 से 12 घंटे लगते थे, Centrix से क्लास खत्म होने के 30 मिनट के अंदर वीडियो और नोट्स ड्राइव और यूट्यूब कतार में पहुंच जाते हैं।<br />" +
           "• <strong>&lt; 0.01% मिसक्लासिफिकेशन:</strong> 7-सिग्नल मैचिंग से गलत बैच में वीडियो जाने की समस्या पूरी तरह खत्म हो जाती है।<br />" +
           "• <strong>टीचर्स के लिए 0% रुकावट:</strong> टीचर्स को कोई नया सॉफ्टवेयर सीखने की ज़रूरत नहीं है—वे सामान्य रूप से OBS में पढ़ाते हैं।"
