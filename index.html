@@ -2979,15 +2979,27 @@
       },
       {
         id: 'install',
-        matches: ['install', 'setup', 'download', 'exe', 'dmg', 'mac', 'macos', 'requirements', 'windows 10', 'windows 11', 'kaise install'],
-        en: "<strong>3-Step Installation:</strong><br />" +
-            "1. Download <code>Centrix-Setup.exe</code> (Windows) or <code>Centrix.dmg</code> (macOS) using the top download buttons on this page (always provides the latest production build).<br />" +
-            "2. Run the installer on classroom PCs or workstations.<br />" +
-            "3. Select your Vidyapeeth center, room number, and link your OBS recording folder. Centrix starts automatically in the background.",
-        hi: "<strong>इंस्टॉल करने का 3-स्टेप तरीका:</strong><br />" +
-            "1. इस पेज के ऊपर दिए गए डाउनलोड बटन से Windows के लिए <code>Centrix-Setup.exe</code> या Mac के लिए <code>Centrix.dmg</code> डाउनलोड करें (यहाँ से हमेशा लेटेस्ट वर्शन ही डाउनलोड होगा)।<br />" +
-            "2. क्लासरूम के PC/वर्कस्टेशन पर इंस्टॉलर रन करें।<br />" +
-            "3. अपना सेंटर, रूम नंबर और OBS फोल्डर चुनें। इसके बाद Centrix बैकग्राउंड में ऑटोमैटिक चलने लगेगा।"
+        matches: ['install', 'setup', 'download', 'exe', 'dmg', 'mac', 'macos', 'windows', 'requirements', 'windows 10', 'windows 11', 'kaise install', 'kaha se download', 'kaise download'],
+        en: "<strong>Direct Downloads &amp; 3-Step Setup:</strong><br />" +
+            "Centrix is available for Windows 10/11 (64-bit) and macOS Universal (Apple Silicon &amp; Intel):<br />" +
+            "<div class='my-2.5 flex flex-wrap gap-2'>" +
+            "  <button type='button' onclick='openDownloadModal()' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-950 font-mono text-xs font-semibold cursor-pointer shadow-xs'><span>📥</span><span>Open Download Dialog</span></button>" +
+            "  <a data-download-platform='mac' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🍎</span><span>Download macOS (.dmg)</span></a>" +
+            "  <a data-download-platform='windows' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🪟</span><span>Download Windows (.exe)</span></a>" +
+            "</div>" +
+            "1. Download the installer for your operating system.<br />" +
+            "2. Run setup on the workstation PC.<br />" +
+            "3. Select Vidyapeeth center, room number &amp; link OBS recording folder. Centrix runs automatically in the background.",
+        hi: "<strong>डायरेक्ट डाउनलोड और 3-स्टेप इंस्टॉलेशन:</strong><br />" +
+            "Centrix, Windows 10/11 (64-bit) और macOS Universal दोनों के लिए उपलब्ध है:<br />" +
+            "<div class='my-2.5 flex flex-wrap gap-2'>" +
+            "  <button type='button' onclick='openDownloadModal()' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-950 font-mono text-xs font-semibold cursor-pointer shadow-xs'><span>📥</span><span>डाउनलोड डायलॉग खोलें</span></button>" +
+            "  <a data-download-platform='mac' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🍎</span><span>macOS (.dmg) डाउनलोड</span></a>" +
+            "  <a data-download-platform='windows' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🪟</span><span>Windows (.exe) डाउनलोड</span></a>" +
+            "</div>" +
+            "1. ऊपर दिए गए बटन से अपने OS के अनुसार .exe या .dmg डाउनलोड करें।<br />" +
+            "2. इंस्टॉलर रन करके क्लासरूम का PC सेटअप करें।<br />" +
+            "3. अपना सेंटर, रूम नंबर और OBS फोल्डर चुनें। Centrix बैकग्राउंड में ऑटोमैटिक चलने लगेगा।"
       },
       {
         id: 'creator_owner',
@@ -3898,7 +3910,7 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         messages.push({ role: 'user', content: query });
 
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 12000);
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
 
         let response = null;
         try {
@@ -4221,10 +4233,12 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       const qTrim = query.trim();
       const apiKey = getActiveApiKey();
       const qLower = qTrim.toLowerCase();
+      const isHi = isHindiQuery(qTrim);
+      const qClean = qLower.replace(/[^a-z0-9\u0900-\u097F\s#\.\+]/g, ' ');
+      const qWords = qClean.split(/\s+/).filter(Boolean);
 
       // Immediate Gate 1: PW Identity verification
       if (qLower.includes('pw.live') || qLower.includes('@pw.live')) {
-        const isHi = isHindiQuery(qTrim);
         const emailMatch = qTrim.match(/[a-zA-Z0-9._%+-]+@pw\.live/i);
         if (emailMatch) {
           localStorage.setItem('centrix_verified_pw_email', emailMatch[0]);
@@ -4240,10 +4254,7 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       }
 
       // Immediate Gate 2: "How are you" / "Kaise ho" small talk
-      const qClean = qLower.replace(/[^a-z0-9\u0900-\u097F\s#\.\+]/g, ' ');
-      const qWords = qClean.split(/\s+/).filter(Boolean);
       if (qClean.includes('how are you') || qClean.includes('how r u') || qClean.includes('how are u') || qClean.includes('kaise ho') || qClean.includes('kaise hai') || qClean.includes('kya haal') || qClean.includes('kaisa hai') || qClean.includes('kaisa chal raha')) {
-        const isHi = isHindiQuery(qTrim);
         const item = conversationalIntents.find(i => i.id === 'how_are_you');
         if (item) {
           const reply = isHi ? item.hi : item.en;
@@ -4254,7 +4265,6 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       // Immediate Gate 3: Simple greeting ("Hi", "Hello", "Hey", "Namaste", "Pranam", etc.)
       const greetingWords = ['hi', 'hello', 'hey', 'hay', 'namaste', 'pranam', 'sup', 'yo', 'halo', 'good morning', 'good afternoon', 'good evening'];
       if (qWords.length <= 3 && qWords.some(w => greetingWords.includes(w))) {
-        const isHi = isHindiQuery(qTrim);
         const item = conversationalIntents.find(i => i.id === 'greetings');
         if (item) {
           const reply = isHi ? item.hi : item.en;
@@ -4262,10 +4272,13 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         }
       }
 
-      // Immediate Gate 4: EXACT match against official preset questions (e.g. clicking a question button)
+      // Immediate Gate 4: EXACT or direct keyword match against conversationalIntents (e.g. "dmg", "download", etc.)
       let exactPresetMatch = null;
       for (const item of conversationalIntents) {
-        if (item.matches && item.matches.some(m => qClean === m.toLowerCase().trim())) {
+        if (item.matches && item.matches.some(m => {
+          const mClean = m.toLowerCase().trim();
+          return qClean === mClean || (qWords.length <= 4 && qWords.includes(mClean));
+        })) {
           exactPresetMatch = item;
           break;
         }
@@ -4274,6 +4287,12 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         const reply = isHi ? exactPresetMatch.hi : exactPresetMatch.en;
         const text = Array.isArray(reply) ? reply[Math.floor(Math.random() * reply.length)] : reply;
         return renderCitations(text);
+      }
+
+      // Immediate Gate 5: High-confidence local intent match (0ms instant response)
+      const fastLocal = getSmartLocalFallback(qTrim, qClean, isHi, null, true);
+      if (fastLocal) {
+        return fastLocal;
       }
 
       // Execute CodebaseEngine RAG retrieval for context enrichment
@@ -4286,9 +4305,21 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         }
       }
 
+      // If RAG has deep structural match (DATA_FLOW, LOCATE, IMPACT_ANALYSIS, ARCHITECTURE), reply locally instantly
+      if (ragResult && (
+        ragResult.intent === 'DATA_FLOW' ||
+        ragResult.intent === 'IMPACT_ANALYSIS' ||
+        ragResult.intent === 'LOCATE' ||
+        ragResult.intent === 'ARCHITECTURE' ||
+        qLower.includes('save flow') || qLower.includes('ui to db') ||
+        qLower.includes('impact') || qLower.includes('blast radius')
+      )) {
+        return generateClientCodebaseResponse(ragResult, qTrim);
+      }
+
       // =========================================================================
       // PRIMARY BRAIN: Live Gemini / AI Intelligence (Dynamic natural language understanding)
-      // When apiKey is present, let Gemini understand and answer the user intelligently!
+      // When apiKey is present, query OpenRouter / Gemini with 4-second timeout
       // =========================================================================
       if (apiKey && apiKey.length > 8) {
         try {
@@ -4304,10 +4335,10 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       // =========================================================================
       // FALLBACK BRAIN: Smart Local Knowledge Base (With strict topic disambiguation)
       // =========================================================================
-      return getSmartLocalFallback(qTrim, qClean, isHi, ragResult);
+      return getSmartLocalFallback(qTrim, qClean, isHi, ragResult, false);
     }
 
-    function getSmartLocalFallback(qTrim, qClean, isHi, ragResult) {
+    function getSmartLocalFallback(qTrim, qClean, isHi, ragResult, onlyHighScore = false) {
       const qLower = qTrim.toLowerCase();
       const isVideoQuery = /\b(video|videos|recording|recordings|lecture|lectures|mkv|mp4|obs)\b/i.test(qLower);
       const isPdfQuery = /\b(pdf|notes|smartboard|maxhub|slide|slides|pptx|ppt|handout|handouts)\b/i.test(qLower);
@@ -4383,10 +4414,15 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         }
       });
 
-      if (highestScore >= 18 && bestMatch) {
+      const threshold = onlyHighScore ? 24 : 18;
+      if (highestScore >= threshold && bestMatch) {
         const reply = isHi ? bestMatch.hi : bestMatch.en;
         const text = Array.isArray(reply) ? reply[Math.floor(Math.random() * reply.length)] : reply;
         return renderCitations(text);
+      }
+
+      if (onlyHighScore) {
+        return null;
       }
 
       // If general codebase query, provide focused component summary without code dump
@@ -4515,24 +4551,42 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       history.appendChild(typingDiv);
       history.scrollTop = history.scrollHeight;
 
-      // Generate response from AI engine with conversational history
-      const reply = await askAI(q, floatChatContext);
-      floatChatContext.push({ role: 'user', content: q });
-      floatChatContext.push({ role: 'assistant', content: reply.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim() });
+      try {
+        // Generate response from AI engine with conversational history
+        const reply = await askAI(q, floatChatContext);
+        floatChatContext.push({ role: 'user', content: q });
+        floatChatContext.push({ role: 'assistant', content: (reply || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim() });
 
-      const ind = document.getElementById('floatTypingIndicator');
-      if (ind) ind.remove();
-
-      const botDiv = document.createElement('div');
-      botDiv.className = 'flex items-start space-x-2.5';
-      botDiv.innerHTML = `
-        <img src="./images/centrix-logo.png" alt="Centrix Bot" class="w-6 h-6 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0 mt-0.5">
-        <div class="bg-stone-100 dark:bg-stone-800/80 rounded-2xl rounded-tl-sm p-3 text-stone-800 dark:text-stone-200 text-xs max-w-[88%] leading-relaxed shadow-xs">
-          ${reply}
-        </div>
-      `;
-      history.appendChild(botDiv);
-      history.scrollTop = history.scrollHeight;
+        const botDiv = document.createElement('div');
+        botDiv.className = 'flex items-start space-x-2.5';
+        botDiv.innerHTML = `
+          <img src="./images/centrix-logo.png" alt="Centrix Bot" class="w-6 h-6 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0 mt-0.5">
+          <div class="bg-stone-100 dark:bg-stone-800/80 rounded-2xl rounded-tl-sm p-3 text-stone-800 dark:text-stone-200 text-xs max-w-[88%] leading-relaxed shadow-xs">
+            ${reply}
+          </div>
+        `;
+        history.appendChild(botDiv);
+      } catch (err) {
+        console.error('Centrix Chat Error:', err);
+        const botDiv = document.createElement('div');
+        botDiv.className = 'flex items-start space-x-2.5';
+        botDiv.innerHTML = `
+          <img src="./images/centrix-logo.png" alt="Centrix Bot" class="w-6 h-6 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0 mt-0.5">
+          <div class="bg-stone-100 dark:bg-stone-800/80 rounded-2xl rounded-tl-sm p-3 text-stone-800 dark:text-stone-200 text-xs max-w-[88%] leading-relaxed shadow-xs">
+            <strong>Direct Centrix Downloads:</strong><br />
+            Aap direct installer niche diye buttons se download kar sakte hain:<br />
+            <div class='my-2 flex flex-wrap gap-2'>
+              <a data-download-platform='mac' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🍎</span><span>Download macOS (.dmg)</span></a>
+              <a data-download-platform='windows' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🪟</span><span>Download Windows (.exe)</span></a>
+            </div>
+          </div>
+        `;
+        history.appendChild(botDiv);
+      } finally {
+        const ind = document.getElementById('floatTypingIndicator');
+        if (ind) ind.remove();
+        history.scrollTop = history.scrollHeight;
+      }
     }
 
     // ==============================================================
@@ -4704,24 +4758,42 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       history.appendChild(typingDiv);
       history.scrollTop = history.scrollHeight;
 
-      // Determine response from AI engine with conversational history
-      const reply = await askAI(q, inlineChatContext);
-      inlineChatContext.push({ role: 'user', content: q });
-      inlineChatContext.push({ role: 'assistant', content: reply.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim() });
+      try {
+        // Determine response from AI engine with conversational history
+        const reply = await askAI(q, inlineChatContext);
+        inlineChatContext.push({ role: 'user', content: q });
+        inlineChatContext.push({ role: 'assistant', content: (reply || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim() });
 
-      const ind = document.getElementById('typingIndicator');
-      if (ind) ind.remove();
-
-      const botDiv = document.createElement('div');
-      botDiv.className = 'flex items-start space-x-3';
-      botDiv.innerHTML = `
-        <img src="./images/centrix-logo.png" alt="Centrix Bot" class="w-7 h-7 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0 mt-0.5">
-        <div class="bg-stone-100 dark:bg-stone-800/80 rounded-2xl rounded-tl-sm p-4 text-stone-800 dark:text-stone-200 text-xs sm:text-sm max-w-[85%] leading-relaxed shadow-xs">
-          ${reply}
-        </div>
-      `;
-      history.appendChild(botDiv);
-      history.scrollTop = history.scrollHeight;
+        const botDiv = document.createElement('div');
+        botDiv.className = 'flex items-start space-x-3';
+        botDiv.innerHTML = `
+          <img src="./images/centrix-logo.png" alt="Centrix Bot" class="w-7 h-7 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0 mt-0.5">
+          <div class="bg-stone-100 dark:bg-stone-800/80 rounded-2xl rounded-tl-sm p-4 text-stone-800 dark:text-stone-200 text-xs sm:text-sm max-w-[85%] leading-relaxed shadow-xs">
+            ${reply}
+          </div>
+        `;
+        history.appendChild(botDiv);
+      } catch (err) {
+        console.error('Centrix Chat Error:', err);
+        const botDiv = document.createElement('div');
+        botDiv.className = 'flex items-start space-x-3';
+        botDiv.innerHTML = `
+          <img src="./images/centrix-logo.png" alt="Centrix Bot" class="w-7 h-7 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs shrink-0 mt-0.5">
+          <div class="bg-stone-100 dark:bg-stone-800/80 rounded-2xl rounded-tl-sm p-4 text-stone-800 dark:text-stone-200 text-xs sm:text-sm max-w-[85%] leading-relaxed shadow-xs">
+            <strong>Direct Centrix Downloads:</strong><br />
+            Aap direct installer niche diye buttons se download kar sakte hain:<br />
+            <div class='my-2.5 flex flex-wrap gap-2'>
+              <a data-download-platform='mac' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🍎</span><span>Download macOS (.dmg)</span></a>
+              <a data-download-platform='windows' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🪟</span><span>Download Windows (.exe)</span></a>
+            </div>
+          </div>
+        `;
+        history.appendChild(botDiv);
+      } finally {
+        const ind = document.getElementById('typingIndicator');
+        if (ind) ind.remove();
+        history.scrollTop = history.scrollHeight;
+      }
     }
 
     function escapeHtml(text) {
