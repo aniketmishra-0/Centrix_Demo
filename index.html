@@ -874,12 +874,14 @@
 
     // Bilingual Language Detector (Hindi/Hinglish vs English)
     function isHindiQuery(q) {
+      if (/[\u0900-\u097F]/.test(q)) return true;
       const hindiStems = [
         'kya', 'hai', 'kaise', 'kare', 'hoga', 'bhai', 'nahi', 'chahiye', 'chalaye', 
         'karte', 'hota', 'aur', 'agar', 'koi', 'batao', 'karu', 'raha', 'isme', 'kitna', 
         'kab', 'kuch', 'pe', 'se', 'ko', 'mera', 'meri', 'mere', 'tum', 'aap', 'bol', 
         'baat', 'shuru', 'madad', 'namaste', 'dhanyawad', 'shukriya', 'kripya', 'gaya', 
-        'chali', 'bijli', 'der', 'sakte', 'bhi', 'bataye', 'padhana', 'sikhao'
+        'chali', 'bijli', 'der', 'sakte', 'bhi', 'bataye', 'padhana', 'sikhao', 'kahan',
+        'kaha', 'kidhar', 'samjhao', 'badla', 'bana', 'konsa', 'konsi', 'kaun', 'kyun'
       ];
       const tokens = q.toLowerCase().split(/[^a-z0-9]+/);
       return tokens.some(t => hindiStems.includes(t));
@@ -1336,7 +1338,8 @@
         'kab', 'kuch', 'pe', 'se', 'ko', 'mera', 'meri', 'mere', 'tum', 'aap', 'bol', 
         'baat', 'shuru', 'madad', 'namaste', 'dhanyawad', 'shukriya', 'kripya', 'gaya', 
         'chali', 'bijli', 'der', 'sakte', 'bhi', 'bataye', 'padhana', 'sikhao', 'kharcha',
-        'bataiye', 'kaisa', 'kaun', 'kyun'
+        'bataiye', 'kaisa', 'kaun', 'kyun', 'kahan', 'kaha', 'kidhar', 'hua', 'h', 'ka',
+        'ki', 'ke', 'me', 'samjhao', 'badla', 'konsa', 'konsi', 'kisme', 'kis'
       ];
       const tokens = q.toLowerCase().split(/[^a-z0-9]+/);
       if (tokens.some(t => hindiStems.includes(t))) return 'Hinglish';
@@ -1940,36 +1943,78 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
     function generateClientCodebaseResponse(ragResult, query) {
       const { intent, chunks, impact } = ragResult;
       const qLower = query.toLowerCase();
+      const userLang = detectLanguage(query); // 'Hindi', 'Hinglish', or 'English'
 
-      // 1. DATA_FLOW
-      if (intent === 'DATA_FLOW' || qLower.includes('attendance get saved') || qLower.includes('save') || qLower.includes('flow')) {
+      // ==========================================================
+      // 1. DATA_FLOW (UI to DB Trace)
+      // ==========================================================
+      if (intent === 'DATA_FLOW' || qLower.includes('attendance get saved') || qLower.includes('save') || qLower.includes('flow') || qLower.includes('kaise save') || qLower.includes('kaise jata')) {
         let text = `[INTENT:DATA_FLOW]\n\n`;
-        text += `### Multi-Hop Data Flow: UI Interaction ➔ Database Persistence\n\n`;
-        text += `Here is how classroom lecture capture and attendance verification flows end-to-end across the Centrix architecture:\n\n`;
-        text += `1. **UI Layer Confirmation**:\n   Teacher verifies lecture attendance and session details in [ReviewQueue/src/ReviewQueue.tsx:42-78](source:ReviewQueue/src/ReviewQueue.tsx:42-78). The user clicks 'Confirm & Upload', which invokes the local state dispatcher.\n\n`;
-        text += `2. **Client Session Hook & Offline Buffer**:\n   [ReviewQueue/src/useLectureSession.ts:15-54](source:ReviewQueue/src/useLectureSession.ts:15-54) batches pending uploads into an indexedDB persistent queue via \`syncOfflineQueue()\`, preventing data loss during network outages.\n\n`;
-        text += `3. **API Transport Layer**:\n   [ReviewQueue/src/apiClient.ts:25-50](source:ReviewQueue/src/apiClient.ts:25-50) sends a \`POST /api/v1/lectures/sync\` request carrying JWT Bearer authorization and SHA-256 payload integrity headers.\n\n`;
-        text += `4. **Ingestion & Validation Pipeline**:\n   [LectureAgent/Services/LectureIngestService.cs:42-88](source:LectureAgent/Services/LectureIngestService.cs:42-88) receives the stream, validates room hardware identifiers, and enqueues the session into the processing pipeline.\n\n`;
-        text += `5. **7-Signal Timetable Matching Engine**:\n   [LectureAgent/Services/TimetableMatchingEngine.cs:30-85](source:LectureAgent/Services/TimetableMatchingEngine.cs:30-85) executes \`MatchSessionAsync()\`, scoring room ID, timestamp window, instructor ID, and camera signatures to reach high confidence (>= 0.85).\n\n`;
-        text += `6. **Database Persistence & ACID Audit**:\n   [Database/Migrations/20240901_InitialCreate.sql:1-40](source:Database/Migrations/20240901_InitialCreate.sql:1-40) commits the session into the \`LectureSessions\` table and logs verification into \`AuditLogs\` within a single transaction.`;
+
+        if (userLang === 'Hindi') {
+          text += `### मल्टी-हॉप डेटा फ्लो: UI इंटरैक्शन ➔ डेटाबेस स्टोरेज (UI से DB तक)\n\n`;
+          text += `Centrix में क्लासरूम लेक्चर अटेंडेंस और वीडियो सिंक कैसे काम करता है:\n\n`;
+          text += `1. **UI लेयर कन्फर्मेशन**:\n   क्लास कोऑर्डिनेटर या शिक्षक [ReviewQueue/src/ReviewQueue.tsx:42-78](source:ReviewQueue/src/ReviewQueue.tsx:42-78) में लेक्चर अटेंडेंस विवरण की पुष्टि करते हैं और 'Confirm & Upload' पर क्लिक करते हैं।\n\n`;
+          text += `2. **क्लाइंट सेशन हुक & ऑफलाइन कतार**:\n   [ReviewQueue/src/useLectureSession.ts:15-54](source:ReviewQueue/src/useLectureSession.ts:15-54) इंटरनेट न होने पर भी IndexedDB ऑफलाइन कतार में डेटा सुरक्षित रखता है (\`syncOfflineQueue()\`), जिससे डेटा लॉस नहीं होता।\n\n`;
+          text += `3. **API ट्रांसपोर्ट लेयर**:\n   [ReviewQueue/src/apiClient.ts:25-50](source:ReviewQueue/src/apiClient.ts:25-50) \`POST /api/v1/lectures/sync\` रिक्वेस्ट को Bearer JWT ऑथराइजेशन और SHA-256 चेकसम के साथ भेजता है।\n\n`;
+          text += `4. **इंजेशन & वैलिडेशन पाइपलाइन**:\n   [LectureAgent/Services/LectureIngestService.cs:42-88](source:LectureAgent/Services/LectureIngestService.cs:42-88) बैकएंड पर स्ट्रीम प्राप्त करता है और क्लासरूम हार्डवेयर पहचान की पुष्टि करता है।\n\n`;
+          text += `5. **7-सिग्नल टाइमटेबल मैचिंग इंजन**:\n   [LectureAgent/Services/TimetableMatchingEngine.cs:30-85](source:LectureAgent/Services/TimetableMatchingEngine.cs:30-85) \`MatchSessionAsync()\` चलाकर टाइमटेबल, रूम और फैकल्टी को मैच करता है (कॉन्फिडेंस &ge; 0.85)।\n\n`;
+          text += `6. **डेटाबेस स्टोरेज (ACID ट्रांजैक्शन)**:\n   [Database/Migrations/20240901_InitialCreate.sql:1-40](source:Database/Migrations/20240901_InitialCreate.sql:1-40) \`LectureSessions\` और \`AuditLogs\` टेबल में एक साथ डेटा सुरक्षित सेव करता है।`;
+        } else if (userLang === 'Hinglish') {
+          text += `### Multi-Hop Data Flow: UI Interaction ➔ Database Persistence (UI se DB tak ka Flow)\n\n`;
+          text += `Centrix me classroom lecture attendance aur video capture UI se lekar database tak step-by-step kaise save hota hai:\n\n`;
+          text += `1. **UI Layer Confirmation**:\n   Teacher ya coordinator [ReviewQueue/src/ReviewQueue.tsx:42-78](source:ReviewQueue/src/ReviewQueue.tsx:42-78) me lecture details verify karke 'Confirm & Upload' par click karte hain.\n\n`;
+          text += `2. **Client Session Hook & Offline Queue**:\n   [ReviewQueue/src/useLectureSession.ts:15-54](source:ReviewQueue/src/useLectureSession.ts:15-54) \`syncOfflineQueue()\` ke through IndexedDB me data buffer karta hai, jisse internet disconnect hone par bhi lecture safe rehta hai.\n\n`;
+          text += `3. **API Transport Layer**:\n   [ReviewQueue/src/apiClient.ts:25-50](source:ReviewQueue/src/apiClient.ts:25-50) \`POST /api/v1/lectures/sync\` request bhejta hai JWT Bearer token aur SHA-256 integrity hash ke sath.\n\n`;
+          text += `4. **Ingestion & Validation Pipeline**:\n   [LectureAgent/Services/LectureIngestService.cs:42-88](source:LectureAgent/Services/LectureIngestService.cs:42-88) stream receive karke classroom PC hardware credentials validate karta hai.\n\n`;
+          text += `5. **7-Signal Timetable Matching Engine**:\n   [LectureAgent/Services/TimetableMatchingEngine.cs:30-85](source:LectureAgent/Services/TimetableMatchingEngine.cs:30-85) \`MatchSessionAsync()\` run karke 85%+ confidence score ke sath schedule match nikaalta hai.\n\n`;
+          text += `6. **Database Persistence & ACID Audit**:\n   [Database/Migrations/20240901_InitialCreate.sql:1-40](source:Database/Migrations/20240901_InitialCreate.sql:1-40) atomic transaction me \`LectureSessions\` aur \`AuditLogs\` table me save kar deta hai.`;
+        } else {
+          text += `### Multi-Hop Data Flow: UI Interaction ➔ Database Persistence\n\n`;
+          text += `Here is how classroom lecture capture and attendance verification flows end-to-end across the Centrix architecture:\n\n`;
+          text += `1. **UI Layer Confirmation**:\n   Teacher verifies lecture attendance and session details in [ReviewQueue/src/ReviewQueue.tsx:42-78](source:ReviewQueue/src/ReviewQueue.tsx:42-78). The user clicks 'Confirm & Upload', which invokes the local state dispatcher.\n\n`;
+          text += `2. **Client Session Hook & Offline Buffer**:\n   [ReviewQueue/src/useLectureSession.ts:15-54](source:ReviewQueue/src/useLectureSession.ts:15-54) batches pending uploads into an indexedDB persistent queue via \`syncOfflineQueue()\`, preventing data loss during network outages.\n\n`;
+          text += `3. **API Transport Layer**:\n   [ReviewQueue/src/apiClient.ts:25-50](source:ReviewQueue/src/apiClient.ts:25-50) sends a \`POST /api/v1/lectures/sync\` request carrying JWT Bearer authorization and SHA-256 payload integrity headers.\n\n`;
+          text += `4. **Ingestion & Validation Pipeline**:\n   [LectureAgent/Services/LectureIngestService.cs:42-88](source:LectureAgent/Services/LectureIngestService.cs:42-88) receives the stream, validates room hardware identifiers, and enqueues the session into the processing pipeline.\n\n`;
+          text += `5. **7-Signal Timetable Matching Engine**:\n   [LectureAgent/Services/TimetableMatchingEngine.cs:30-85](source:LectureAgent/Services/TimetableMatchingEngine.cs:30-85) executes \`MatchSessionAsync()\`, scoring room ID, timestamp window, instructor ID, and camera signatures to reach high confidence (>= 0.85).\n\n`;
+          text += `6. **Database Persistence & ACID Audit**:\n   [Database/Migrations/20240901_InitialCreate.sql:1-40](source:Database/Migrations/20240901_InitialCreate.sql:1-40) commits the session into the \`LectureSessions\` table and logs verification into \`AuditLogs\` within a single transaction.`;
+        }
+
         return formatMarkdown(text, 'Centrix Codebase RAG');
       }
 
-      // 2. LOCATE
-      if (intent === 'LOCATE' || qLower.includes('where is') || qLower.includes('authentication') || qLower.includes('login') || qLower.includes('auth')) {
+      // ==========================================================
+      // 2. LOCATE (Authentication / Symbols / Files)
+      // ==========================================================
+      if (intent === 'LOCATE' || qLower.includes('where is') || qLower.includes('authentication') || qLower.includes('login') || qLower.includes('auth') || qLower.includes('kahan') || qLower.includes('kidhar') || qLower.includes('कहाँ')) {
         let text = `[INTENT:LOCATE]\n\n`;
-        if (qLower.includes('auth') || qLower.includes('login') || qLower.includes('authentication')) {
-          text += `### Authentication & Authorization Implementation\n\n`;
-          text += `Authentication and credential security in Centrix are partitioned across three hardened boundaries:\n\n`;
-          text += `- **Hardware-Bound Credential Storage**:\n  [LectureAgent/Vault/dpapi_vault.rs:1-35](source:LectureAgent/Vault/dpapi_vault.rs:1-35) uses Windows DPAPI (\`CryptProtectData\`) with machine-guid entropy to encrypt Google Drive tokens directly to the classroom PC motherboard.\n\n`;
-          text += `- **Ingest Service Authorization**:\n  [LectureAgent/Services/LectureIngestService.cs:11-111](source:LectureAgent/Services/LectureIngestService.cs:11-111) verifies session HMAC tokens, room assignment credentials, and API handshake before ingesting files.\n\n`;
-          text += `- **Frontend API Client Bearer Auth**:\n  [ReviewQueue/src/apiClient.ts:1-68](source:ReviewQueue/src/apiClient.ts:1-68) injects \`Authorization: Bearer <token>\` on every request, with automatic retry and exponential backoff.`;
+
+        if (qLower.includes('auth') || qLower.includes('login') || qLower.includes('authentication') || qLower.includes('कहाँ')) {
+          if (userLang === 'Hindi') {
+            text += `### ऑथेंटिकेशन और सुरक्षा का क्रियान्वयन (Authentication Implementation)\n\n`;
+            text += `Centrix में ऑथेंटिकेशन और क्रेडेंशियल सुरक्षा 3 मुख्य स्तरों (Layers) पर लागू है:\n\n`;
+            text += `- **हार्डवेयर-बाउंड क्रेडेंशियल स्टोरेज (Rust DPAPI)**:\n  [LectureAgent/Vault/dpapi_vault.rs:1-35](source:LectureAgent/Vault/dpapi_vault.rs:1-35) Windows DPAPI (\`CryptProtectData\`) और मदरबोर्ड GUID का उपयोग करके Google Drive टोकन को एन्क्रिप्ट करता है।\n\n`;
+            text += `- **इंजेशन सर्विस ऑथराइजेशन (.NET 8)**:\n  [LectureAgent/Services/LectureIngestService.cs:11-111](source:LectureAgent/Services/LectureIngestService.cs:11-111) सेशन HMAC टोकन, रूम असाइनमेंट और API हैंडशेक को मान्य करता है।\n\n`;
+            text += `- **फ्रंटएंड API क्लाइंट Bearer Auth**:\n  [ReviewQueue/src/apiClient.ts:1-68](source:ReviewQueue/src/apiClient.ts:1-68) हर रिक्वेस्ट के साथ \`Authorization: Bearer <token>\` इंजेक्ट करता है और ऑटोमैटिक एक्सपोनेंशियल बैकऑफ़ रीट्राय संभालता है।`;
+          } else if (userLang === 'Hinglish') {
+            text += `### Authentication & Security Implementation (Auth Kahan Hai)\n\n`;
+            text += `Centrix me authentication aur credential security 3 core layers me implemented hai:\n\n`;
+            text += `- **Hardware-Bound Credential Storage (Rust DPAPI)**:\n  [LectureAgent/Vault/dpapi_vault.rs:1-35](source:LectureAgent/Vault/dpapi_vault.rs:1-35) me Windows DPAPI motherboard GUID ke sath Google Drive tokens encrypt karta hai.\n\n`;
+            text += `- **Ingest Service Authorization (.NET Core)**:\n  [LectureAgent/Services/LectureIngestService.cs:11-111](source:LectureAgent/Services/LectureIngestService.cs:11-111) me session HMAC tokens aur room handshake credentials check hote hain.\n\n`;
+            text += `- **Frontend API Client Bearer Auth**:\n  [ReviewQueue/src/apiClient.ts:1-68](source:ReviewQueue/src/apiClient.ts:1-68) har request ke sath \`Authorization: Bearer <token>\` bhejta hai aur automatic retry handle karta hai.`;
+          } else {
+            text += `### Authentication & Authorization Implementation\n\n`;
+            text += `Authentication and credential security in Centrix are partitioned across three hardened boundaries:\n\n`;
+            text += `- **Hardware-Bound Credential Storage**:\n  [LectureAgent/Vault/dpapi_vault.rs:1-35](source:LectureAgent/Vault/dpapi_vault.rs:1-35) uses Windows DPAPI (\`CryptProtectData\`) with machine-guid entropy to encrypt Google Drive tokens directly to the classroom PC motherboard.\n\n`;
+            text += `- **Ingest Service Authorization**:\n  [LectureAgent/Services/LectureIngestService.cs:11-111](source:LectureAgent/Services/LectureIngestService.cs:11-111) verifies session HMAC tokens, room assignment credentials, and API handshake before ingesting files.\n\n`;
+            text += `- **Frontend API Client Bearer Auth**:\n  [ReviewQueue/src/apiClient.ts:1-68](source:ReviewQueue/src/apiClient.ts:1-68) injects \`Authorization: Bearer <token>\` on every request, with automatic retry and exponential backoff.`;
+          }
           return formatMarkdown(text, 'Centrix Codebase RAG');
         }
 
-        text += `### Located Symbols in Codebase\n\n`;
+        // Generic locate
+        text += userLang === 'Hindi' ? `### कोडबेस में मिले मुख्य सिंबल्स\n\n` : (userLang === 'Hinglish' ? `### Codebase me mile symbols\n\n` : `### Located Symbols in Codebase\n\n`);
         if (chunks.length > 0) {
-          text += `Found relevant source implementations:\n\n`;
           chunks.slice(0, 4).forEach(c => {
             text += `- **${c.symbolName}** (\`${c.symbolKind}\` in [${c.filePath}:${c.startLine}-${c.endLine}](source:${c.filePath}:${c.startLine}-${c.endLine}))\n`;
             if (c.signature) text += `  \`${c.signature}\`\n`;
@@ -1980,55 +2025,109 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         return formatMarkdown(text, 'Centrix Codebase RAG');
       }
 
-      // 3. IMPACT ANALYSIS
+      // ==========================================================
+      // 3. IMPACT ANALYSIS (What breaks if X changes)
+      // ==========================================================
       if (intent === 'IMPACT_ANALYSIS' || impact) {
         let text = `[INTENT:IMPACT_ANALYSIS]\n\n`;
         if (impact && impact.found) {
-          text += `### Impact Analysis for \`${impact.target}\`\n\n`;
-          text += `- **Target File**: [${impact.filePath}:${impact.symbol ? impact.symbol.startLine : 1}-${impact.symbol ? impact.symbol.endLine : 50}](source:${impact.filePath}:${impact.symbol ? impact.symbol.startLine : 1}-${impact.symbol ? impact.symbol.endLine : 50})\n`;
-          text += `- **Risk Score**: **${impact.riskScore}** (Direct Callers: ${impact.callerCount})\n\n`;
+          if (userLang === 'Hindi') {
+            text += `### \`${impact.target}\` के बदलाव पर इम्पैक्ट एनालिसिस\n\n`;
+            text += `- **टारगेट फ़ाइल**: [${impact.filePath}:${impact.symbol ? impact.symbol.startLine : 1}-${impact.symbol ? impact.symbol.endLine : 50}](source:${impact.filePath}:${impact.symbol ? impact.symbol.startLine : 1}-${impact.symbol ? impact.symbol.endLine : 50})\n`;
+            text += `- **रिस्क लेवल**: **${impact.riskScore}** (डायरेक्ट कॉलर्स: ${impact.callerCount})\n\n`;
 
-          if (impact.upstreamCallers.length > 0) {
-            text += `#### Affected Upstream Callers (What will break if modified):\n`;
-            impact.upstreamCallers.forEach(c => {
-              text += `- \`${c.source}\` in [${c.file}:${c.line}](source:${c.file}:${c.line})\n`;
-            });
-            text += `\n`;
+            if (impact.upstreamCallers.length > 0) {
+              text += `#### प्रभावित होने वाले कॉलर्स (अगर इसे बदला गया तो इन पर असर पड़ेगा):\n`;
+              impact.upstreamCallers.forEach(c => {
+                text += `- \`${c.source}\` फ़ाइल [${c.file}:${c.line}](source:${c.file}:${c.line}) में\n`;
+              });
+              text += `\n`;
+            }
+
+            text += `#### आवश्यक टेस्ट वेरिफिकेशन:\n`;
+            text += `\`${impact.target}\` में बदलाव के बाद [Tests/MatchingEngineTests.cs:1-60](source:Tests/MatchingEngineTests.cs:1-60) का ऑटोमेटेड xUnit टेस्ट सूट रन करना अनिवार्य है।`;
+          } else if (userLang === 'Hinglish') {
+            text += `### \`${impact.target}\` badalne par kya asar hoga (Impact Analysis)\n\n`;
+            text += `- **Target File**: [${impact.filePath}:${impact.symbol ? impact.symbol.startLine : 1}-${impact.symbol ? impact.symbol.endLine : 50}](source:${impact.filePath}:${impact.symbol ? impact.symbol.startLine : 1}-${impact.symbol ? impact.symbol.endLine : 50})\n`;
+            text += `- **Risk Score**: **${impact.riskScore}** (Direct Callers: ${impact.callerCount})\n\n`;
+
+            if (impact.upstreamCallers.length > 0) {
+              text += `#### Affected Upstream Callers (Ye tootege ya in par effect padega):\n`;
+              impact.upstreamCallers.forEach(c => {
+                text += `- \`${c.source}\` in [${c.file}:${c.line}](source:${c.file}:${c.line})\n`;
+              });
+              text += `\n`;
+            }
+
+            text += `#### Automated Test Verification:\n`;
+            text += `\`${impact.target}\` change karne ke baad [Tests/MatchingEngineTests.cs:1-60](source:Tests/MatchingEngineTests.cs:1-60) ke unit tests pass hona zaroori hai.`;
+          } else {
+            text += `### Impact Analysis for \`${impact.target}\`\n\n`;
+            text += `- **Target File**: [${impact.filePath}:${impact.symbol ? impact.symbol.startLine : 1}-${impact.symbol ? impact.symbol.endLine : 50}](source:${impact.filePath}:${impact.symbol ? impact.symbol.startLine : 1}-${impact.symbol ? impact.symbol.endLine : 50})\n`;
+            text += `- **Risk Score**: **${impact.riskScore}** (Direct Callers: ${impact.callerCount})\n\n`;
+
+            if (impact.upstreamCallers.length > 0) {
+              text += `#### Affected Upstream Callers (What will break if modified):\n`;
+              impact.upstreamCallers.forEach(c => {
+                text += `- \`${c.source}\` in [${c.file}:${c.line}](source:${c.file}:${c.line})\n`;
+              });
+              text += `\n`;
+            }
+
+            text += `#### Automated Test Verification:\n`;
+            text += `Modifications to \`${impact.target}\` require running unit & integration tests in [Tests/MatchingEngineTests.cs:1-60](source:Tests/MatchingEngineTests.cs:1-60).`;
           }
-
-          if (impact.downstreamDependencies.length > 0) {
-            text += `#### Downstream Dependencies:\n`;
-            impact.downstreamDependencies.slice(0, 4).forEach(d => {
-              text += `- Calls \`${d.target}\` (type: ${d.type})\n`;
-            });
-            text += `\n`;
-          }
-
-          text += `#### Automated Test Verification:\n`;
-          text += `Modifications to \`${impact.target}\` require running unit & integration tests in [Tests/MatchingEngineTests.cs:1-60](source:Tests/MatchingEngineTests.cs:1-60).`;
         } else {
-          text += `Target symbol or method analyzed. When core scheduling or ingestion algorithms change, ensure downstream queue managers and xUnit tests in [Tests/MatchingEngineTests.cs:1-60](source:Tests/MatchingEngineTests.cs:1-60) are verified.`;
+          text += userLang === 'Hindi'
+            ? `सिंबल या फ़ंक्शन का एनालिसिस पूरा हुआ। जब भी कोर इंजेशन या मैचिंग लॉजिक बदले, [Tests/MatchingEngineTests.cs:1-60](source:Tests/MatchingEngineTests.cs:1-60) को अवश्य चलाएं।`
+            : `Target symbol analyzed. Always verify regression with [Tests/MatchingEngineTests.cs:1-60](source:Tests/MatchingEngineTests.cs:1-60).`;
         }
         return formatMarkdown(text, 'Centrix Codebase RAG');
       }
 
+      // ==========================================================
       // 4. ARCHITECTURE / TECH STACK
-      if (intent === 'ARCHITECTURE' || qLower.includes('architecture') || qLower.includes('language') || qLower.includes('stack') || qLower.includes('codebase')) {
+      // ==========================================================
+      if (intent === 'ARCHITECTURE' || qLower.includes('architecture') || qLower.includes('language') || qLower.includes('stack') || qLower.includes('codebase') || qLower.includes('bana') || qLower.includes('संरचना')) {
         let text = `[INTENT:ARCHITECTURE]\n\n`;
-        text += window.CodebaseEngine.explainRepository();
-        text += `\n\n### Key Source Entrypoints:\n`;
-        text += `- Backend Ingest Pipeline: [LectureAgent/Services/LectureIngestService.cs:11-111](source:LectureAgent/Services/LectureIngestService.cs:11-111)\n`;
-        text += `- Matching Algorithm: [LectureAgent/Services/TimetableMatchingEngine.cs:1-85](source:LectureAgent/Services/TimetableMatchingEngine.cs:1-85)\n`;
-        text += `- Rust Hardware DPAPI: [LectureAgent/Vault/dpapi_vault.rs:1-35](source:LectureAgent/Vault/dpapi_vault.rs:1-35)\n`;
-        text += `- React Review Queue: [ReviewQueue/src/ReviewQueue.tsx:1-80](source:ReviewQueue/src/ReviewQueue.tsx:1-80)\n`;
-        text += `- Database Schema: [Database/Migrations/20240901_InitialCreate.sql:1-40](source:Database/Migrations/20240901_InitialCreate.sql:1-40)\n`;
-        text += `- Automated Tests: [Tests/MatchingEngineTests.cs:1-60](source:Tests/MatchingEngineTests.cs:1-60)`;
+
+        if (userLang === 'Hindi') {
+          text += `### Centrix कोडबेस आर्किटेक्चर और टेक्नोलॉजी स्टैक\n\n`;
+          text += `Centrix एक आधुनिक ऑफलाइन-फर्स्ट मल्टी-लैंग्वेज सिस्टम है जो 4 प्रमुख लेयर्स पर बना है:\n\n`;
+          text += `- **बैकएंड कोर (.NET 8 / C#)**: [LectureAgent/Services/LectureIngestService.cs:11-111](source:LectureAgent/Services/LectureIngestService.cs:11-111) और [LectureAgent/Services/TimetableMatchingEngine.cs:1-85](source:LectureAgent/Services/TimetableMatchingEngine.cs:1-85) जो 7-सिग्नल एल्गोरिद्म चलाते हैं।\n`;
+          text += `- **हाई-परफॉर्मेंस नेटिव एजेंट (Rust)**: [LectureAgent/Vault/dpapi_vault.rs:1-35](source:LectureAgent/Vault/dpapi_vault.rs:1-35) हार्डवेयर TPM/DPAPI सिक्योरिटी और डिस्क वॉचर के लिए।\n`;
+          text += `- **फ्रंटएंड यूआई (React 18 / TypeScript)**: [ReviewQueue/src/ReviewQueue.tsx:1-80](source:ReviewQueue/src/ReviewQueue.tsx:1-80) और [ReviewQueue/src/useLectureSession.ts:1-54](source:ReviewQueue/src/useLectureSession.ts:1-54)।\n`;
+          text += `- **डेटाबेस लेयर (SQL)**: [Database/Migrations/20240901_InitialCreate.sql:1-40](source:Database/Migrations/20240901_InitialCreate.sql:1-40) जो लेक्चर्स और ऑडिट लॉग्स मैनेज करता है।\n`;
+          text += `- **ऑटोमेटेड टेस्ट सूट (xUnit / C#)**: [Tests/MatchingEngineTests.cs:1-60](source:Tests/MatchingEngineTests.cs:1-60) ओवर-टाइम और टाइमटेबल मैचिंग टेस्ट करता है।`;
+        } else if (userLang === 'Hinglish') {
+          text += `### Centrix Codebase Architecture aur Tech Stack Overview\n\n`;
+          text += `Centrix ek modern offline-first multi-language architecture par bana hai jisme ye technologies use hui hain:\n\n`;
+          text += `- **Backend Core (.NET 8 / C#)**: [LectureAgent/Services/LectureIngestService.cs:11-111](source:LectureAgent/Services/LectureIngestService.cs:11-111) aur [LectureAgent/Services/TimetableMatchingEngine.cs:1-85](source:LectureAgent/Services/TimetableMatchingEngine.cs:1-85) (7-signal matching engine).\n`;
+          text += `- **Native Background Agent (Rust)**: [LectureAgent/Vault/dpapi_vault.rs:1-35](source:LectureAgent/Vault/dpapi_vault.rs:1-35) (motherboard TPM bound hardware encryption).\n`;
+          text += `- **Frontend UI (React 18 / TypeScript)**: [ReviewQueue/src/ReviewQueue.tsx:1-80](source:ReviewQueue/src/ReviewQueue.tsx:1-80) aur [ReviewQueue/src/useLectureSession.ts:1-54](source:ReviewQueue/src/useLectureSession.ts:1-54) (offline-first sync).\n`;
+          text += `- **Database Layer (SQL)**: [Database/Migrations/20240901_InitialCreate.sql:1-40](source:Database/Migrations/20240901_InitialCreate.sql:1-40) (ACID transactions).\n`;
+          text += `- **Automated Tests (xUnit / C#)**: [Tests/MatchingEngineTests.cs:1-60](source:Tests/MatchingEngineTests.cs:1-60) (time-window & confidence scoring tests).`;
+        } else {
+          text += window.CodebaseEngine.explainRepository();
+          text += `\n\n### Key Source Entrypoints:\n`;
+          text += `- Backend Ingest Pipeline: [LectureAgent/Services/LectureIngestService.cs:11-111](source:LectureAgent/Services/LectureIngestService.cs:11-111)\n`;
+          text += `- Matching Algorithm: [LectureAgent/Services/TimetableMatchingEngine.cs:1-85](source:LectureAgent/Services/TimetableMatchingEngine.cs:1-85)\n`;
+          text += `- Rust Hardware DPAPI: [LectureAgent/Vault/dpapi_vault.rs:1-35](source:LectureAgent/Vault/dpapi_vault.rs:1-35)\n`;
+          text += `- React Review Queue: [ReviewQueue/src/ReviewQueue.tsx:1-80](source:ReviewQueue/src/ReviewQueue.tsx:1-80)\n`;
+          text += `- Database Schema: [Database/Migrations/20240901_InitialCreate.sql:1-40](source:Database/Migrations/20240901_InitialCreate.sql:1-40)\n`;
+          text += `- Automated Tests: [Tests/MatchingEngineTests.cs:1-60](source:Tests/MatchingEngineTests.cs:1-60)`;
+        }
+
         return formatMarkdown(text, 'Centrix Codebase RAG');
       }
 
+      // ==========================================================
       // 5. EXPLAIN / GENERAL
-      let text = `### Codebase Context & Explanation\n\n`;
-      text += `Retrieved **${chunks.length} grounded code sections** for your query:\n\n`;
+      // ==========================================================
+      let text = userLang === 'Hindi'
+        ? `### कोडबेस संदर्भ और विवरण\n\nआपके प्रश्न के लिए **${chunks.length} कोड सेक्शन्स** मिले हैं:\n\n`
+        : (userLang === 'Hinglish' ? `### Codebase Context & Explanation\n\nAapke question ke liye **${chunks.length} grounded code sections** retrieve hue hain:\n\n` : `### Codebase Context & Explanation\n\nRetrieved **${chunks.length} grounded code sections** for your query:\n\n`);
+
       chunks.slice(0, 3).forEach(c => {
         text += `#### [${c.filePath}:${c.startLine}-${c.endLine}](source:${c.filePath}:${c.startLine}-${c.endLine}) (${c.symbolKind}: \`${c.symbolName}\`)\n`;
         if (c.docstring) text += `> ${c.docstring}\n\n`;

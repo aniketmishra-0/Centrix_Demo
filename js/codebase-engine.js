@@ -754,39 +754,51 @@
 
     static _tokenize(text) {
       if (!text) return new Set();
-      // Split camelCase, snake_case, and non-alphanumeric
+      // Hindi & English common stop words
+      const stopWords = new Set(['hai', 'kya', 'kaise', 'hoga', 'kaha', 'kahan', 'kidhar', 'batao', 'samjhao', 'isme', 'aur', 'agar', 'nahi', 'raha', 'wali', 'wala', 'the', 'and', 'for', 'with', 'from', 'this', 'that', 'are', 'was', 'were']);
       const cleaned = text
         .replace(/([a-z])([A-Z])/g, '$1 $2')
         .replace(/[_\.\(\)\[\]\{\};:,\/\\"'`=><\-+*&|!]/g, ' ')
         .toLowerCase();
-      const words = cleaned.split(/\s+/).filter(w => w.length > 2);
+      const words = cleaned.split(/\s+/).filter(w => w.length > 2 && !stopWords.has(w));
       return new Set(words);
     }
   }
 
   // -------------------------------------------------------------
-  // 6. Intent Classifier
+  // 6. Intent Classifier (Trilingual: English, Hinglish, Hindi)
   // -------------------------------------------------------------
   class IntentDetector {
     static detect(query) {
       const q = query.toLowerCase();
 
-      if (/(where is|where are|locate|find file|which file|path to|show me where)/i.test(q)) {
+      // LOCATE: English + Hinglish + Hindi
+      if (/(where is|where are|locate|find file|which file|path to|show me where|kahan|kaha|kidhar|dhundo|khojo|kis file|कहाँ|किधर|ढूंढ|खोज)/i.test(q)) {
         return 'LOCATE';
       }
-      if (/(what happens if|if i change|impact of|breaks if|depends on|what calls|who uses)/i.test(q)) {
+
+      // IMPACT ANALYSIS: English + Hinglish + Hindi
+      if (/(what happens if|if i change|impact of|breaks if|depends on|what calls|who uses|kya hoga|badla to|change kare|kya asar|kya effect|kya impact|kya tootega|kya padega|kisko affect|क्या होगा|क्या असर|अगर बदल)/i.test(q)) {
         return 'IMPACT_ANALYSIS';
       }
-      if (/(flow|pipeline|how does .* get saved|from ui to|lifecycle|path from|step by step|data flow|trace)/i.test(q)) {
+
+      // DATA FLOW: English + Hinglish + Hindi
+      if (/(flow|pipeline|how does .* get saved|from ui to|lifecycle|path from|step by step|data flow|trace|kaise save|kaise jata|database tak|kya flow|kaise pahunch|kaise kaam karta|डेटा फ्लो|कैसे सेव|लाइफसाइकिल)/i.test(q)) {
         return 'DATA_FLOW';
       }
-      if (/(architecture|system design|overview|how is the project structured|stack|tech stack|high level)/i.test(q)) {
+
+      // ARCHITECTURE: English + Hinglish + Hindi
+      if (/(architecture|system design|overview|how is the project structured|stack|tech stack|high level|kaise bana|kisme bana|language|stack|आर्किटेक्चर|संरचना|लैंग्वेज|प्रोग्रामिंग)/i.test(q)) {
         return 'ARCHITECTURE';
       }
-      if (/(bug|error|why is|fix|failing|issue|exception|debug)/i.test(q)) {
+
+      // DEBUG: English + Hinglish + Hindi
+      if (/(bug|error|why is|fix|failing|issue|exception|debug|galti|kyu fail|chal nahi raha|दिक्कत|समस्या|एरर)/i.test(q)) {
         return 'DEBUG';
       }
-      if (/(how does|explain|what does|how is|describe|usage)/i.test(q)) {
+
+      // EXPLAIN: English + Hinglish + Hindi
+      if (/(how does|explain|what does|how is|describe|usage|samjhao|batao|kya karta|kaise work|समझाओ|बताओ|डिटेल)/i.test(q)) {
         return 'EXPLAIN';
       }
 
