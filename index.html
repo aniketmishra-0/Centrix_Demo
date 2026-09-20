@@ -1663,9 +1663,11 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       html = html.replace(/^\s*[\-\*]\s+(.*)$/gm, '• $1<br />');
       // Numbered list lines
       html = html.replace(/^\s*(\d+)\.\s+(.*)$/gm, '$1. $2<br />');
-      // Headings ### Title
+      // Headings ####, ###, ##
+      html = html.replace(/^####\s+(.*)$/gm, '<h5 class="font-semibold text-xs text-stone-800 dark:text-stone-200 mt-2 mb-1">$1</h5>');
       html = html.replace(/^###\s+(.*)$/gm, '<h4 class="font-bold text-sm text-stone-900 dark:text-stone-100 mt-2.5 mb-1">$1</h4>');
       html = html.replace(/^##\s+(.*)$/gm, '<h3 class="font-bold text-base text-stone-900 dark:text-stone-100 mt-3 mb-1.5">$1</h3>');
+      html = html.replace(/#{2,}/g, ''); // Safety: clean up any rogue unparsed hashtags
       // Paragraph breaks
       html = html.replace(/\n\n+/g, '<br /><br />').replace(/\n/g, '<br />');
 
@@ -1788,12 +1790,17 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
 
     function highlightSyntaxTokens(code, lang) {
       if (!code) return '';
-      const keywords = /\b(public|private|protected|internal|class|interface|struct|record|async|await|return|import|export|from|function|const|let|var|if|else|switch|case|break|try|catch|throw|namespace|using|impl|fn|pub|mut|match|SELECT|FROM|WHERE|INSERT|INTO|UPDATE|CREATE|TABLE|PRIMARY|KEY|NOT|NULL|FOREIGN|REFERENCES|DEFAULT)\b/g;
-      let res = code.replace(keywords, '<span class="tok-keyword">$1</span>');
-      res = res.replace(/(['"`])(.*?)\1/g, '<span class="tok-string">$1$2$1</span>');
-      res = res.replace(/(\/\/.*$|\/\*.*?\*\/|#.*$|--.*$)/g, '<span class="tok-comment">$1</span>');
-      res = res.replace(/\b(\d+)\b/g, '<span class="tok-num">$1</span>');
-      return res;
+      // Single-pass tokenizer: comments -> strings -> keywords -> numbers
+      // This prevents subsequent replaces from matching class="tok-keyword" attributes
+      const tokenRegex = /(\/\/.*$|\/\*.*?\*\/|#.*$|--.*$)|(&quot;.*?&quot;|&#039;.*?&#039;|`.*?`|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|\b(public|private|protected|internal|class|interface|struct|record|async|await|return|import|export|from|function|const|let|var|if|else|switch|case|break|try|catch|throw|namespace|using|impl|fn|pub|mut|match|SELECT|FROM|WHERE|INSERT|INTO|UPDATE|CREATE|TABLE|PRIMARY|KEY|NOT|NULL|FOREIGN|REFERENCES|DEFAULT)\b|\b(\d+)\b/g;
+
+      return code.replace(tokenRegex, (match, comment, str, kw, num) => {
+        if (comment) return `<span class="tok-comment">${comment}</span>`;
+        if (str) return `<span class="tok-string">${str}</span>`;
+        if (kw) return `<span class="tok-keyword">${kw}</span>`;
+        if (num) return `<span class="tok-num">${num}</span>`;
+        return match;
+      });
     }
 
     // ==============================================================
@@ -2185,17 +2192,42 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       }
 
       // ==========================================================
-      // 5. EXPLAIN / GENERAL
+      // 5. EXPLAIN / GENERAL (Clean, Direct & Relevant - No raw code spam)
       // ==========================================================
-      let text = userLang === 'Hindi'
-        ? `### कोडबेस संदर्भ और विवरण\n\nआपके प्रश्न के लिए **${chunks.length} कोड सेक्शन्स** मिले हैं:\n\n`
-        : (userLang === 'Hinglish' ? `### Codebase Context & Explanation\n\nAapke question ke liye **${chunks.length} grounded code sections** retrieve hue hain:\n\n` : `### Codebase Context & Explanation\n\nRetrieved **${chunks.length} grounded code sections** for your query:\n\n`);
+      if (chunks.length === 0) {
+        return userLang === 'Hindi'
+          ? "आपके प्रश्न के लिए सीधे कोई कोड सिंबल नहीं मिला। आप मुझसे 7-सिग्नल मैचिंग, DPAPI सिक्योरिटी, या SQLite स्कीमा के बारे में पूछ सकते हैं।"
+          : "No direct codebase symbol found. Feel free to ask about the 7-signal matching engine, DPAPI security, or SQLite WAL queue.";
+      }
 
-      chunks.slice(0, 3).forEach(c => {
-        text += `#### [${c.filePath}:${c.startLine}-${c.endLine}](source:${c.filePath}:${c.startLine}-${c.endLine}) (${c.symbolKind}: \`${c.symbolName}\`)\n`;
-        if (c.docstring) text += `> ${c.docstring}\n\n`;
-        text += `\`\`\`${c.language}\n${c.code.split('\n').slice(0, 10).join('\n')}\n...\n\`\`\`\n\n`;
-      });
+      const topChunk = chunks[0];
+      let text = '';
+      if (userLang === 'Hindi') {
+        text += `### संबंधित कोड मॉड्यूल: \`${topChunk.symbolName}\`\n\n`;
+        text += `- **फ़ाइल**: [${topChunk.filePath}:${topChunk.startLine}-${topChunk.endLine}](source:${topChunk.filePath}:${topChunk.startLine}-${topChunk.endLine})\n`;
+        text += `- **प्रकार**: \`${topChunk.symbolKind}\` (${topChunk.language.toUpperCase()})\n`;
+        if (topChunk.docstring) {
+          text += `- **विवरण**: ${topChunk.docstring}\n`;
+        }
+        text += `\n> 💡 इस फ़ाइल का विस्तृत कोड देखने के लिए ऊपर दिए गए नीले फ़ाइल लिंक पर क्लिक करें।`;
+      } else if (userLang === 'Hinglish') {
+        text += `### Relevant Code Module: \`${topChunk.symbolName}\`\n\n`;
+        text += `- **File**: [${topChunk.filePath}:${topChunk.startLine}-${topChunk.endLine}](source:${topChunk.filePath}:${topChunk.startLine}-${topChunk.endLine})\n`;
+        text += `- **Type**: \`${topChunk.symbolKind}\` (${topChunk.language.toUpperCase()})\n`;
+        if (topChunk.docstring) {
+          text += `- **Details**: ${topChunk.docstring}\n`;
+        }
+        text += `\n> 💡 Is file ka code inspect karne ke liye upar diye gaye file link par click karein.`;
+      } else {
+        text += `### Relevant Code Module: \`${topChunk.symbolName}\`\n\n`;
+        text += `- **File**: [${topChunk.filePath}:${topChunk.startLine}-${topChunk.endLine}](source:${topChunk.filePath}:${topChunk.startLine}-${topChunk.endLine})\n`;
+        text += `- **Kind**: \`${topChunk.symbolKind}\` (${topChunk.language.toUpperCase()})\n`;
+        if (topChunk.docstring) {
+          text += `- **Overview**: ${topChunk.docstring}\n`;
+        }
+        text += `\n> 💡 Click the file link above to inspect the full implementation in the Code Drawer.`;
+      }
+
       return formatMarkdown(text, 'Centrix Codebase RAG');
     }
 
@@ -2270,21 +2302,14 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         try {
           return await askGeminiFlash(qTrim, apiKey, history, ragResult);
         } catch (err) {
-          console.warn('Gemini live query notice, falling back to client-side Codebase RAG:', err);
+          console.warn('Gemini live query notice, falling back to local intelligence:', err);
         }
-      }
-
-      // If codebase query without API key, use client-side Codebase RAG
-      if (isCodebaseQuery && ragResult) {
-        return generateClientCodebaseResponse(ragResult, qTrim);
       }
 
       const isHi = isHindiQuery(qTrim);
       const tokens = qClean.split(/\s+/).filter(t => t.length > 1);
 
-      // 200ms natural typing simulation delay
-      await new Promise(r => setTimeout(r, 200));
-
+      // 1. High-Confidence Knowledge Corpus & Intent Matching (Direct answers for what was asked)
       let bestMatch = null;
       let highestScore = 0;
 
@@ -2317,10 +2342,35 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         }
       });
 
-      if (highestScore >= 14 && bestMatch) {
+      if (highestScore >= 16 && bestMatch) {
         const reply = isHi ? bestMatch.hi : bestMatch.en;
         const text = Array.isArray(reply) ? reply[Math.floor(Math.random() * reply.length)] : reply;
         return renderCitations(text);
+      }
+
+      // 2. Specific Codebase Architecture & Deep Dive Intent (DATA_FLOW, LOCATE, IMPACT_ANALYSIS)
+      if (ragResult && (
+        ragResult.intent === 'DATA_FLOW' ||
+        ragResult.intent === 'IMPACT_ANALYSIS' ||
+        ragResult.intent === 'LOCATE' ||
+        ragResult.intent === 'ARCHITECTURE' ||
+        qLower.includes('save flow') || qLower.includes('ui to db') ||
+        qLower.includes('impact') || qLower.includes('blast radius') ||
+        qLower.includes('where is auth') || qLower.includes('locate')
+      )) {
+        return generateClientCodebaseResponse(ragResult, qTrim);
+      }
+
+      // 3. If matched with moderate confidence in knowledge corpus
+      if (highestScore >= 12 && bestMatch) {
+        const reply = isHi ? bestMatch.hi : bestMatch.en;
+        const text = Array.isArray(reply) ? reply[Math.floor(Math.random() * reply.length)] : reply;
+        return renderCitations(text);
+      }
+
+      // 4. If general codebase query, provide focused component summary without code dump
+      if (isCodebaseQuery && ragResult) {
+        return generateClientCodebaseResponse(ragResult, qTrim);
       }
 
       // Context-aware fallback strictly grounded in user's detected language
