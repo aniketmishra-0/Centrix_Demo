@@ -13,11 +13,16 @@
 
 <br />
 
+<div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
 <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe">
-  <img src="https://img.shields.io/badge/⬇️%20DOWNLOAD-CENTRIX%20SETUP%20(.EXE)-0052CC?style=for-the-badge&logoColor=white" height="42" />
+  <img src="https://img.shields.io/badge/⬇️%20WINDOWS%20INSTALLER-CENTRIX%20(.EXE)-0052CC?style=for-the-badge&logoColor=white" height="40" />
 </a>
+<a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg">
+  <img src="https://img.shields.io/badge/⬇️%20MACOS%20PACKAGE-CENTRIX%20(.DMG)-107C41?style=for-the-badge&logoColor=white" height="40" />
+</a>
+</div>
 
-<p><em>* Self-contained Windows installer (v1.0.4 • ~209 MB) — Zero external runtime dependencies.</em></p>
+<p><em>* Self-contained installers (v1.0.4) for Windows 10/11 (208 MB) and macOS (26 MB) — Zero external runtime dependencies.</em></p>
 
 </div>
 

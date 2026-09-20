@@ -131,11 +131,29 @@
           </div>
         </button>
 
-        <!-- Direct Download Button -->
-        <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" 
-           class="inline-flex items-center space-x-1.5 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-xs px-4 py-2 rounded-lg shadow-sm transition active:scale-95">
-          <span>↓ Download .exe</span>
-        </a>
+        <!-- Direct Download Button Dropdown (Auto-detects Windows or macOS) -->
+        <div class="relative inline-block text-left" id="headerDownloadDropdownContainer">
+          <div class="inline-flex rounded-lg shadow-sm">
+            <a id="headerPrimaryDownloadBtn" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" 
+               class="inline-flex items-center space-x-1.5 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-xs px-3.5 py-2 rounded-l-lg transition active:scale-95">
+              <span id="headerPrimaryDownloadLabel">↓ Download .dmg (Mac)</span>
+            </a>
+            <button onclick="toggleDownloadMenu('headerDlMenu')" type="button" aria-label="More download options" 
+                    class="bg-stone-800 hover:bg-stone-700 dark:bg-stone-200 dark:hover:bg-stone-300 text-white dark:text-stone-950 px-2 py-2 rounded-r-lg border-l border-stone-700 dark:border-stone-300 transition cursor-pointer">
+              ▾
+            </button>
+          </div>
+          <div id="headerDlMenu" class="hidden absolute right-0 mt-1.5 w-60 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-lg p-1.5 z-50 font-mono text-xs">
+            <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" class="flex items-center justify-between p-2 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition">
+              <span class="font-bold flex items-center space-x-1.5"><span>🪟</span><span>Windows (.exe)</span></span>
+              <span class="text-[10px] text-stone-400 font-normal">v1.0.4 • 208MB</span>
+            </a>
+            <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" class="flex items-center justify-between p-2 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition">
+              <span class="font-bold flex items-center space-x-1.5"><span>🍎</span><span>macOS (.dmg)</span></span>
+              <span class="text-[10px] text-stone-400 font-normal">v1.0.4 • 26MB</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -159,11 +177,17 @@
 
       <div class="flex flex-wrap items-center gap-3 mb-10">
         <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" 
-           class="inline-flex items-center space-x-3 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-sm px-6 py-3.5 rounded-xl shadow-md transition transform hover:-translate-y-0.5 active:translate-y-0">
-          <span>↓ Download Centrix-Setup.exe (v1.0.4)</span>
+           class="inline-flex items-center space-x-2 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-sm px-5 py-3 rounded-xl shadow-md transition transform hover:-translate-y-0.5 active:translate-y-0">
+          <span>🪟</span>
+          <span>Download Windows (.exe)</span>
+        </a>
+        <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" 
+           class="inline-flex items-center space-x-2 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-sm px-5 py-3 rounded-xl shadow-md transition transform hover:-translate-y-0.5 active:translate-y-0">
+          <span>🍎</span>
+          <span>Download macOS (.dmg)</span>
         </a>
         <a href="#pilot" 
-           class="inline-flex items-center space-x-2 bg-stone-200/70 hover:bg-stone-300/70 dark:bg-stone-800/60 dark:hover:bg-stone-700/60 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-sm px-5 py-3.5 rounded-xl transition">
+           class="inline-flex items-center space-x-2 bg-stone-200/70 hover:bg-stone-300/70 dark:bg-stone-800/60 dark:hover:bg-stone-700/60 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-sm px-4 py-3 rounded-xl transition">
           <span>Request Center Pilot →</span>
         </a>
       </div>
@@ -1187,11 +1211,15 @@
       <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
         <a href="mailto:aniket.mishra2@pw.live?subject=Centrix%20Pilot%20Request%20-%20[Center%20Name]&body=Hi%20Aniket,%0A%0AWe%20would%20like%20to%20request%20a%20pilot%20deployment%20of%20Centrix%20for%20our%20center:%0A%0ACenter%20Name:%20%0ANumber%20of%20Classrooms:%20%0AContact%20Person:%20%0A%0ABest%20regards," 
            class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-emerald-600 hover:bg-emerald-500 text-white font-mono font-semibold text-sm px-6 py-3.5 rounded-xl shadow-sm transition active:scale-95">
-          <span>🚀 Request Pilot for Your Center</span>
+          <span>🚀 Request Pilot</span>
         </a>
         <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" 
-           class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-sm px-5 py-3.5 rounded-xl transition">
-          <span>↓ Download Standalone .exe</span>
+           class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-sm px-4 py-3.5 rounded-xl transition">
+          <span>🪟 Windows (.exe)</span>
+        </a>
+        <a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" 
+           class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-sm px-4 py-3.5 rounded-xl transition">
+          <span>🍎 macOS (.dmg)</span>
         </a>
       </div>
 
@@ -2297,11 +2325,45 @@
       askQuestion("How do I obtain or download the authorized google_credentials.json configuration file for Centrix?");
     }
 
-    // Initialize calculator after DOM is loaded
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', updateExecutiveCalculator);
-    } else {
+    // Download Dropdown & OS Detection
+    function setupPlatformDownloads() {
+      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0 || navigator.userAgent.toUpperCase().indexOf('MAC') >= 0;
+      const btn = document.getElementById('headerPrimaryDownloadBtn');
+      const label = document.getElementById('headerPrimaryDownloadLabel');
+      if (btn && label) {
+        if (isMac) {
+          btn.href = 'https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg';
+          label.innerHTML = '🍎 Download .dmg';
+        } else {
+          btn.href = 'https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe';
+          label.innerHTML = '🪟 Download .exe';
+        }
+      }
+    }
+
+    function toggleDownloadMenu(menuId) {
+      const menu = document.getElementById(menuId);
+      if (menu) menu.classList.toggle('hidden');
+    }
+
+    document.addEventListener('click', (e) => {
+      const container = document.getElementById('headerDownloadDropdownContainer');
+      const menu = document.getElementById('headerDlMenu');
+      if (container && menu && !container.contains(e.target)) {
+        menu.classList.add('hidden');
+      }
+    });
+
+    // Initialize calculator & downloads after DOM is loaded
+    function initCentrixPage() {
       updateExecutiveCalculator();
+      setupPlatformDownloads();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initCentrixPage);
+    } else {
+      initCentrixPage();
     }
 
     // ==========================================
