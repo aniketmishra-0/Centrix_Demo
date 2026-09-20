@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Centrix — Classroom Lecture Automation Engine</title>
   <link rel="icon" type="image/png" href="./images/centrix-logo.png">
+  <link rel="stylesheet" href="./css/code-viewer.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -321,10 +322,47 @@
         </div>
         <h2 class="text-3xl sm:text-4xl font-serif text-stone-900 dark:text-stone-50">Ask Anything About Centrix</h2>
         <p class="text-stone-600 dark:text-stone-400 text-sm mt-2">Instant answers on classroom OBS detection, 7-signal matching, offline sync, or deployment.</p>
+
+        <!-- Real-Time Codebase Intelligence Bar -->
+        <div class="mt-4 p-3 rounded-xl border border-stone-300 dark:border-stone-800 bg-stone-100/80 dark:bg-stone-800/50 backdrop-blur-sm flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+          <div class="flex items-center space-x-2 text-stone-700 dark:text-stone-300">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="font-semibold text-stone-900 dark:text-stone-100">Indexed Repo:</span>
+            <span class="text-blue-600 dark:text-blue-400 font-bold">aniketmishra-0/Centrix</span>
+            <span class="text-stone-400 text-[10px]">(main@a8f3b29)</span>
+          </div>
+          <div class="flex items-center space-x-3 text-stone-500 dark:text-stone-400 text-[11px]">
+            <span id="repoStatFiles">11 files</span>
+            <span>•</span>
+            <span id="repoStatSymbols">44 symbols</span>
+            <span>•</span>
+            <span id="repoStatRels">112 relationships</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="askQuestion('Explain the architecture of this repository.')" class="px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition text-[11px] font-semibold cursor-pointer">
+              🏛️ Architecture
+            </button>
+            <button onclick="openImpactModal()" class="px-2.5 py-1 rounded-lg bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-800 hover:bg-purple-100 dark:hover:bg-purple-900/50 transition text-[11px] font-semibold cursor-pointer">
+              🔬 Impact Analyzer
+            </button>
+            <button onclick="openCodeViewer('LectureAgent/Services/LectureIngestService.cs', 1, 40)" class="px-2.5 py-1 rounded-lg bg-stone-200 dark:bg-stone-700 text-stone-800 dark:text-stone-200 hover:bg-stone-300 dark:hover:bg-stone-600 transition text-[11px] font-semibold cursor-pointer">
+              💻 Code Drawer
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- Quick Questions Chips -->
       <div class="flex flex-wrap justify-center gap-2 mb-6">
+        <button onclick="askQuestion('Where is authentication implemented?')" class="px-3.5 py-1.5 rounded-full border border-blue-400 dark:border-blue-700 bg-blue-50/70 dark:bg-blue-900/30 font-mono text-xs text-blue-700 dark:text-blue-300 hover:border-blue-600 transition shadow-xs">
+          🔑 Locate Auth
+        </button>
+        <button onclick="askQuestion('How does attendance get saved from UI to database?')" class="px-3.5 py-1.5 rounded-full border border-emerald-400 dark:border-emerald-700 bg-emerald-50/70 dark:bg-emerald-900/30 font-mono text-xs text-emerald-700 dark:text-emerald-300 hover:border-emerald-600 transition shadow-xs">
+          🔄 Trace Save Flow (UI→DB)
+        </button>
+        <button onclick="askQuestion('What happens if MatchSessionAsync changes?')" class="px-3.5 py-1.5 rounded-full border border-purple-400 dark:border-purple-700 bg-purple-50/70 dark:bg-purple-900/30 font-mono text-xs text-purple-700 dark:text-purple-300 hover:border-purple-600 transition shadow-xs">
+          ⚠️ Impact Analysis
+        </button>
         <button onclick="askQuestion('How to use Centrix step by step?')" class="px-3.5 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 bg-white/70 dark:bg-stone-900/70 font-mono text-xs text-stone-700 dark:text-stone-300 hover:border-blue-500 hover:text-blue-600 transition shadow-xs">
           📖 How to Use?
         </button>
@@ -585,6 +623,93 @@
       </div>
     </div>
   </div>
+
+  <!-- Centrix Codebase Intelligence: Code Preview Drawer -->
+  <aside id="codeDrawer" class="code-drawer" aria-hidden="true">
+    <div class="code-drawer-header">
+      <div class="flex items-center space-x-2 truncate">
+        <span class="text-blue-500 font-mono text-sm">⚡</span>
+        <h3 id="codeDrawerTitle" class="code-drawer-title truncate">Centrix Codebase Viewer</h3>
+        <span id="codeDrawerLangBadge" class="code-drawer-badge">csharp</span>
+      </div>
+      <button onclick="closeCodeViewer()" class="code-drawer-close" title="Close Drawer (Esc)">✕</button>
+    </div>
+
+    <!-- Toolbar: File Selector & Symbol List -->
+    <div class="code-drawer-toolbar">
+      <select id="codeDrawerFileSelect" onchange="onDrawerFileChange(this.value)" class="code-drawer-select">
+        <!-- populated dynamically -->
+      </select>
+      <div class="flex items-center space-x-2 text-xs font-mono text-stone-500 dark:text-stone-400">
+        <span id="codeDrawerSymbolCount">0 symbols</span>
+        <span>•</span>
+        <span id="codeDrawerLineCount">0 lines</span>
+      </div>
+    </div>
+
+    <!-- Active Line Highlight Notification -->
+    <div id="codeDrawerHighlightBar" class="hidden px-4 py-1.5 bg-blue-500/10 border-b border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-mono flex items-center justify-between">
+      <span id="codeDrawerHighlightText">Highlighting lines 20-58</span>
+      <button onclick="clearLineHighlight()" class="text-[10px] underline hover:text-blue-700 cursor-pointer">Clear</button>
+    </div>
+
+    <!-- Code Viewer Body -->
+    <div class="code-drawer-body">
+      <div class="code-viewer-container">
+        <div id="codeLines" class="code-lines"></div>
+      </div>
+    </div>
+  </aside>
+  <div id="codeDrawerBackdrop" class="code-drawer-backdrop" onclick="closeCodeViewer()"></div>
+
+  <!-- Centrix Impact Analyzer Modal -->
+  <div id="impactModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+    <div class="bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-800 rounded-2xl max-w-xl w-full p-6 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-4 border-b border-stone-200 dark:border-stone-800">
+        <div class="flex items-center space-x-2">
+          <span class="text-xl">🔬</span>
+          <div>
+            <h3 class="text-sm font-bold text-stone-900 dark:text-stone-100">Codebase Impact Analyzer</h3>
+            <p class="text-[11px] text-stone-500 dark:text-stone-400 font-mono">Reverse-dependency &amp; test coverage analysis</p>
+          </div>
+        </div>
+        <button onclick="closeImpactModal()" class="text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 text-lg font-bold cursor-pointer">✕</button>
+      </div>
+
+      <div class="my-4">
+        <label class="block text-xs font-mono text-stone-600 dark:text-stone-400 mb-1">Target Symbol or Function Name:</label>
+        <div class="flex gap-2">
+          <input type="text" id="impactInput" placeholder="e.g. MatchSessionAsync, LectureIngestService, useLectureSession"
+                 class="flex-1 bg-stone-100 dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-xl px-3.5 py-2 text-xs font-mono text-stone-900 dark:text-stone-100 focus:ring-2 focus:ring-blue-500 outline-none">
+          <button onclick="runImpactAnalysisBtn()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-mono font-semibold transition cursor-pointer">
+            Analyze →
+          </button>
+        </div>
+      </div>
+
+      <div id="impactResultContainer" class="hidden space-y-3 pt-3 border-t border-stone-200 dark:border-stone-800 text-xs">
+        <div class="flex items-center justify-between">
+          <span class="font-mono text-stone-500 dark:text-stone-400">Risk Assessment:</span>
+          <span id="impactRiskBadge" class="impact-risk-badge font-mono font-bold px-2 py-0.5 rounded-full">LOW</span>
+        </div>
+        <div>
+          <span class="font-mono text-stone-500 dark:text-stone-400 block mb-1">Target Location:</span>
+          <div id="impactTargetFile" class="font-mono text-[11px] text-blue-600 dark:text-blue-400"></div>
+        </div>
+        <div>
+          <span class="font-mono text-stone-500 dark:text-stone-400 block mb-1">Upstream Callers (What will break):</span>
+          <div id="impactUpstreamList" class="p-2.5 bg-stone-100 dark:bg-stone-800/60 rounded-xl font-mono text-[11px] max-h-28 overflow-y-auto space-y-1"></div>
+        </div>
+        <div>
+          <span class="font-mono text-stone-500 dark:text-stone-400 block mb-1">Recommended Test Verification:</span>
+          <div id="impactTestsList" class="p-2.5 bg-stone-100 dark:bg-stone-800/60 rounded-xl font-mono text-[11px]"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/default-codebase.js"></script>
+  <script src="./js/codebase-engine.js"></script>
 
   <!-- Interactive JavaScript Logic -->
   <script>
@@ -1436,26 +1561,265 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
 
     function formatMarkdown(text, modelLabel = 'Centrix AI') {
       let html = escapeHtml(text);
-      // bold **text**
+
+      // Intent badges: [INTENT:LOCATE], [INTENT:DATA_FLOW], etc.
+      html = html.replace(/\[INTENT:([A-Z_]+)\]/g, (match, intent) => {
+        let badgeClass = 'intent-locate';
+        let label = intent;
+        if (intent.includes('FLOW')) badgeClass = 'intent-flow';
+        else if (intent.includes('IMPACT')) badgeClass = 'intent-impact';
+        else if (intent.includes('ARCH')) badgeClass = 'intent-arch';
+        return `<div class="mb-2"><span class="intent-badge ${badgeClass}">⚡ INTENT: ${label}</span></div>`;
+      });
+
+      // Clickable code citations: [path/file.ext:start-end](source:path/file.ext:start-end) or [path/file.ext:start-end]
+      html = html.replace(/\[([a-zA-Z0-9_\-\.\/]+\.[a-zA-Z0-9]+):(\d+)(?:-(\d+))?\](?:\(source:[^)]+\))?/g, (match, file, start, end) => {
+        const eLine = end || start;
+        return `<button type="button" class="citation-link" onclick="openCodeViewer('${file}', ${start}, ${eLine})" title="Inspect source: ${file}:${start}-${eLine}"><span class="text-blue-500">📄</span> <span>${file}:${start}-${eLine}</span></button>`;
+      });
+
+      // Flow arrows
+      html = html.replace(/\s*--&gt;\s*/g, ' <span class="text-stone-400 font-bold">➔</span> ');
+      html = html.replace(/\s*-&gt;\s*/g, ' <span class="text-stone-400 font-bold">➔</span> ');
+
+      // Code blocks ```lang ... ```
+      html = html.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, (match, lang, code) => {
+        return `<pre class="my-2 p-3 rounded-xl bg-stone-900 text-stone-100 font-mono text-xs overflow-x-auto border border-stone-800"><div class="text-[10px] text-stone-500 font-bold mb-1 uppercase tracking-wider">${lang || 'code'}</div><code>${code}</code></pre>`;
+      });
+
+      // Bold **text**
       html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      // italic *text*
+      // Italic *text*
       html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-      // inline code `code`
-      html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
-      // bullet lines
+      // Inline code `code`
+      html = html.replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 rounded-md bg-stone-200 dark:bg-stone-800 text-blue-600 dark:text-blue-400 font-mono text-[11px]">$1</code>');
+      // Bullet lines
       html = html.replace(/^\s*[\-\*]\s+(.*)$/gm, '• $1<br />');
-      // numbered list lines
+      // Numbered list lines
       html = html.replace(/^\s*(\d+)\.\s+(.*)$/gm, '$1. $2<br />');
-      // paragraph breaks
+      // Headings ### Title
+      html = html.replace(/^###\s+(.*)$/gm, '<h4 class="font-bold text-sm text-stone-900 dark:text-stone-100 mt-2.5 mb-1">$1</h4>');
+      html = html.replace(/^##\s+(.*)$/gm, '<h3 class="font-bold text-base text-stone-900 dark:text-stone-100 mt-3 mb-1.5">$1</h3>');
+      // Paragraph breaks
       html = html.replace(/\n\n+/g, '<br /><br />').replace(/\n/g, '<br />');
-      return html + `<span class='inline-block mt-2.5 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>⚡ ${modelLabel} • Grounded in Centrix Specs</span>`;
+
+      return html + `<span class='inline-block mt-2.5 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>⚡ ${modelLabel} • Codebase RAG Grounded</span>`;
+    }
+
+    // ==============================================================
+    // Code Viewer Drawer Controller
+    // ==============================================================
+    let currentOpenViewerFile = null;
+
+    function openCodeViewer(filePath, startLine = 1, endLine = null) {
+      const drawer = document.getElementById('codeDrawer');
+      const backdrop = document.getElementById('codeDrawerBackdrop');
+      if (!drawer) return;
+
+      drawer.classList.add('open');
+      drawer.setAttribute('aria-hidden', 'false');
+      if (backdrop) backdrop.classList.add('active');
+
+      renderFileInViewer(filePath, parseInt(startLine) || 1, endLine ? parseInt(endLine) : null);
+    }
+
+    function closeCodeViewer() {
+      const drawer = document.getElementById('codeDrawer');
+      const backdrop = document.getElementById('codeDrawerBackdrop');
+      if (drawer) {
+        drawer.classList.remove('open');
+        drawer.setAttribute('aria-hidden', 'true');
+      }
+      if (backdrop) backdrop.classList.remove('active');
+    }
+
+    function populateDrawerFileSelect(activeFile) {
+      const select = document.getElementById('codeDrawerFileSelect');
+      if (!select || !window.CodebaseEngine) return;
+
+      select.innerHTML = '';
+      const allFiles = Array.from(window.CodebaseEngine.files.keys());
+      allFiles.forEach(f => {
+        const opt = document.createElement('option');
+        opt.value = f;
+        opt.textContent = f;
+        if (f === activeFile) opt.selected = true;
+        select.appendChild(opt);
+      });
+    }
+
+    function onDrawerFileChange(filePath) {
+      renderFileInViewer(filePath, 1, null);
+    }
+
+    function clearLineHighlight() {
+      const bar = document.getElementById('codeDrawerHighlightBar');
+      if (bar) bar.classList.add('hidden');
+      document.querySelectorAll('.code-line.highlight-line').forEach(el => {
+        el.classList.remove('highlight-line');
+      });
+    }
+
+    function renderFileInViewer(filePath, highlightStart = null, highlightEnd = null) {
+      if (!window.CodebaseEngine) return;
+      const fileRec = window.CodebaseEngine.getFile(filePath);
+      if (!fileRec) {
+        console.warn('File not found in engine:', filePath);
+        return;
+      }
+
+      currentOpenViewerFile = filePath;
+      populateDrawerFileSelect(filePath);
+
+      const titleEl = document.getElementById('codeDrawerTitle');
+      const badgeEl = document.getElementById('codeDrawerLangBadge');
+      const symbolCountEl = document.getElementById('codeDrawerSymbolCount');
+      const lineCountEl = document.getElementById('codeDrawerLineCount');
+
+      if (titleEl) titleEl.textContent = filePath.split('/').pop();
+      if (badgeEl) badgeEl.textContent = fileRec.language;
+
+      const symbols = window.CodebaseEngine.symbolIndex.getForFile(filePath);
+      if (symbolCountEl) symbolCountEl.textContent = `${symbols.length} symbols`;
+
+      const lines = fileRec.content.split('\n');
+      if (lineCountEl) lineCountEl.textContent = `${lines.length} lines`;
+
+      const highlightBar = document.getElementById('codeDrawerHighlightBar');
+      const highlightText = document.getElementById('codeDrawerHighlightText');
+      if (highlightStart && highlightEnd && highlightStart > 0) {
+        if (highlightBar) highlightBar.classList.remove('hidden');
+        if (highlightText) highlightText.textContent = `Highlighting lines ${highlightStart}–${highlightEnd}`;
+      } else if (highlightBar) {
+        highlightBar.classList.add('hidden');
+      }
+
+      const linesContainer = document.getElementById('codeLines');
+      if (!linesContainer) return;
+
+      let html = '';
+      for (let i = 0; i < lines.length; i++) {
+        const lineNum = i + 1;
+        const isHighlighted = (highlightStart && highlightEnd && lineNum >= highlightStart && lineNum <= highlightEnd);
+        const lineClass = isHighlighted ? 'code-line highlight-line' : 'code-line';
+        const safeContent = escapeHtml(lines[i]);
+        const coloredContent = highlightSyntaxTokens(safeContent, fileRec.language);
+
+        html += `<div class="${lineClass}" id="code-line-${lineNum}"><span class="line-num">${lineNum}</span><span class="code-content">${coloredContent || '&nbsp;'}</span></div>`;
+      }
+
+      linesContainer.innerHTML = html;
+
+      if (highlightStart) {
+        setTimeout(() => {
+          const targetEl = document.getElementById(`code-line-${highlightStart}`);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 80);
+      }
+    }
+
+    function highlightSyntaxTokens(code, lang) {
+      if (!code) return '';
+      const keywords = /\b(public|private|protected|internal|class|interface|struct|record|async|await|return|import|export|from|function|const|let|var|if|else|switch|case|break|try|catch|throw|namespace|using|impl|fn|pub|mut|match|SELECT|FROM|WHERE|INSERT|INTO|UPDATE|CREATE|TABLE|PRIMARY|KEY|NOT|NULL|FOREIGN|REFERENCES|DEFAULT)\b/g;
+      let res = code.replace(keywords, '<span class="tok-keyword">$1</span>');
+      res = res.replace(/(['"`])(.*?)\1/g, '<span class="tok-string">$1$2$1</span>');
+      res = res.replace(/(\/\/.*$|\/\*.*?\*\/|#.*$|--.*$)/g, '<span class="tok-comment">$1</span>');
+      res = res.replace(/\b(\d+)\b/g, '<span class="tok-num">$1</span>');
+      return res;
+    }
+
+    // ==============================================================
+    // Impact Analyzer Modal Controller
+    // ==============================================================
+    function openImpactModal(defaultSymbol = '') {
+      const modal = document.getElementById('impactModal');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      const input = document.getElementById('impactInput');
+      if (input) {
+        if (defaultSymbol) input.value = defaultSymbol;
+        input.focus();
+      }
+      if (defaultSymbol) runImpactAnalysisBtn();
+    }
+
+    function closeImpactModal() {
+      const modal = document.getElementById('impactModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function runImpactAnalysisBtn() {
+      const input = document.getElementById('impactInput');
+      if (!input || !window.CodebaseEngine) return;
+      const target = input.value.trim();
+      if (!target) return;
+
+      const result = window.CodebaseEngine.impactAnalyzer.analyze(target);
+      const container = document.getElementById('impactResultContainer');
+      const riskBadge = document.getElementById('impactRiskBadge');
+      const targetFile = document.getElementById('impactTargetFile');
+      const upstreamList = document.getElementById('impactUpstreamList');
+      const testsList = document.getElementById('impactTestsList');
+
+      if (!container) return;
+      container.classList.remove('hidden');
+
+      if (!result.found) {
+        riskBadge.textContent = 'NOT FOUND';
+        riskBadge.className = 'impact-risk-badge bg-stone-500/10 text-stone-500';
+        targetFile.textContent = result.message;
+        upstreamList.innerHTML = '<span class="text-stone-400">No callers indexed</span>';
+        testsList.innerHTML = '<span class="text-stone-400">No associated tests</span>';
+        return;
+      }
+
+      riskBadge.textContent = result.riskScore;
+      let badgeClass = 'bg-emerald-500/10 text-emerald-600';
+      if (result.riskScore === 'MEDIUM') badgeClass = 'bg-amber-500/10 text-amber-600';
+      else if (result.riskScore === 'HIGH') badgeClass = 'bg-rose-500/10 text-rose-600';
+      else if (result.riskScore === 'CRITICAL') badgeClass = 'bg-red-600 text-white';
+      riskBadge.className = `impact-risk-badge px-2.5 py-0.5 rounded-full text-xs font-bold ${badgeClass}`;
+
+      targetFile.innerHTML = `<button class="citation-link" onclick="openCodeViewer('${result.filePath}', ${result.symbol ? result.symbol.startLine : 1}, ${result.symbol ? result.symbol.endLine : 50})">📄 ${result.filePath} (Lines ${result.symbol ? result.symbol.startLine : 1}–${result.symbol ? result.symbol.endLine : 50})</button>`;
+
+      if (result.upstreamCallers.length === 0) {
+        upstreamList.innerHTML = '<span class="text-stone-400">No direct callers found in current bundle</span>';
+      } else {
+        upstreamList.innerHTML = result.upstreamCallers.map(c => `
+          <div class="flex items-center justify-between py-1 border-b border-stone-200 dark:border-stone-800 last:border-0">
+            <span class="text-stone-800 dark:text-stone-200 font-semibold">${c.source}</span>
+            <button class="citation-link text-[10px]" onclick="openCodeViewer('${c.file}', ${c.line}, ${c.line})">${c.file}:${c.line}</button>
+          </div>
+        `).join('');
+      }
+
+      if (result.testsToRun.length === 0) {
+        testsList.innerHTML = '<span class="text-stone-400">Recommend running: <button class="citation-link text-[10px]" onclick="openCodeViewer(\'Tests/MatchingEngineTests.cs\', 1, 60)">🧪 Tests/MatchingEngineTests.cs</button></span>';
+      } else {
+        testsList.innerHTML = result.testsToRun.map(t => `
+          <div><button class="citation-link text-[10px]" onclick="openCodeViewer('${t}', 1, 50)">🧪 ${t}</button></div>
+        `).join('');
+      }
+    }
+
+    function updateRepoStatusBar() {
+      if (!window.CodebaseEngine || !window.CodebaseEngine.isReady) return;
+      const stats = window.CodebaseEngine.getStats();
+      const filesEl = document.getElementById('repoStatFiles');
+      const symbolsEl = document.getElementById('repoStatSymbols');
+      const relsEl = document.getElementById('repoStatRels');
+      if (filesEl) filesEl.textContent = `${stats.fileCount} files`;
+      if (symbolsEl) symbolsEl.textContent = `${stats.symbolCount} symbols`;
+      if (relsEl) relsEl.textContent = `${stats.relationshipCount} relationships`;
     }
 
     // Maintained chat context across conversations
     const floatChatContext = [];
     const inlineChatContext = [];
 
-    async function askGeminiFlash(query, apiKey, history = []) {
+    async function askGeminiFlash(query, apiKey, history = [], ragResult = null) {
       const cleanKey = apiKey.trim();
       const detectedLang = detectLanguage(query);
 
@@ -1467,23 +1831,26 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         emailDirective = ' IMPORTANT EMAIL PRIVACY GATE: If the user asks for contact info or email ID, DO NOT reveal aniket.mishra2@pw.live directly! Instead, ask them to provide their official PhysicsWallah email ID (@pw.live) first to verify their identity.';
       }
 
-      const confidentialityDirective = ' STRICT CONFIDENTIALITY RULE: If the user asks about programming languages, codebase, or source code used ("programming language kya use hua h", "codebase", "source code", "language"): DO NOT disclose any programming language! Politely decline: state that under PhysicsWallah internal proprietary architecture guidelines, you cannot disclose internal programming languages or source code. Steer them toward Centrix operational workflows or matching algorithms instead.';
-
       let langDirective = '';
       if (detectedLang === 'English') {
-        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in ENGLISH: "${query}". You MUST respond 100% in pure ENGLISH! Do NOT output any Devanagari Hindi or Hindi translations. Answer exclusively in clear English. Also vary your phrasing naturally and do not give repetitive canned answers.${emailDirective} ${confidentialityDirective} STRICT GROUNDING: Rely exclusively on approved Centrix operational specifications. Do NOT hallucinate or guess.]`;
+        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in ENGLISH: "${query}". You MUST respond 100% in pure ENGLISH! Do NOT output any Devanagari Hindi or Hindi translations. Answer exclusively in clear English. Also vary your phrasing naturally and do not give repetitive canned answers.${emailDirective} STRICT GROUNDING: Rely exclusively on approved Centrix operational specifications and retrieved code chunks. Citations MUST follow [filepath:startLine-endLine](source:filepath:startLine-endLine).]`;
       } else if (detectedLang === 'Hindi') {
-        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in Hindi. Respond in natural Devanagari Hindi. Also vary your phrasing naturally and do not give repetitive canned answers.${emailDirective} ${confidentialityDirective} STRICT GROUNDING: Rely exclusively on approved Centrix operational specifications. Do NOT hallucinate or guess.]`;
+        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in Hindi. Respond in natural Devanagari Hindi. Also vary your phrasing naturally and do not give repetitive canned answers.${emailDirective} STRICT GROUNDING: Rely exclusively on approved Centrix operational specifications and retrieved code chunks. Citations MUST follow [filepath:startLine-endLine](source:filepath:startLine-endLine).]`;
       } else {
-        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in Hinglish (Roman Hindi). Respond in friendly, conversational Hinglish. Also vary your phrasing naturally and do not give repetitive canned answers.${emailDirective} ${confidentialityDirective} STRICT GROUNDING: Rely exclusively on approved Centrix operational specifications. Do NOT hallucinate or guess.]`;
+        langDirective = `\n[MANDATORY LANGUAGE ENFORCEMENT: The user asked in Hinglish (Roman Hindi). Respond in friendly, conversational Hinglish. Also vary your phrasing naturally and do not give repetitive canned answers.${emailDirective} STRICT GROUNDING: Rely exclusively on approved Centrix operational specifications and retrieved code chunks. Citations MUST follow [filepath:startLine-endLine](source:filepath:startLine-endLine).]`;
       }
 
-      const promptWithLang = CENTRIX_SYSTEM_PROMPT + '\n' + langDirective;
+      let systemPromptText = CENTRIX_SYSTEM_PROMPT;
+      if (ragResult && ragResult.contextPrompt) {
+        systemPromptText = ragResult.contextPrompt + '\n' + langDirective;
+      } else {
+        systemPromptText = CENTRIX_SYSTEM_PROMPT + '\n' + langDirective;
+      }
 
       // Route 1: OpenRouter Key (sk-or-...)
       if (cleanKey.startsWith('sk-or-')) {
         const messages = [
-          { role: 'system', content: promptWithLang }
+          { role: 'system', content: systemPromptText }
         ];
         if (history && history.length > 0) {
           messages.push(...history.slice(-6));
@@ -1496,17 +1863,16 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
             'Authorization': `Bearer ${cleanKey}`,
             'Content-Type': 'application/json',
             'HTTP-Referer': 'https://aniketmishra-0.github.io/Centrix_Demo/',
-            'X-Title': 'Centrix Architecture Assistant'
+            'X-Title': 'Centrix Codebase Intelligence'
           },
           body: JSON.stringify({
             model: 'openrouter/free',
-            max_tokens: 380,
-            temperature: 0.7,
+            max_tokens: 500,
+            temperature: 0.6,
             messages: messages
           })
         });
 
-        // If openrouter/free is temporarily busy, try gemini-2.5-flash
         if (!response.ok) {
           response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
             method: 'POST',
@@ -1514,12 +1880,12 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
               'Authorization': `Bearer ${cleanKey}`,
               'Content-Type': 'application/json',
               'HTTP-Referer': 'https://aniketmishra-0.github.io/Centrix_Demo/',
-              'X-Title': 'Centrix Architecture Assistant'
+              'X-Title': 'Centrix Codebase Intelligence'
             },
             body: JSON.stringify({
               model: 'google/gemini-2.5-flash',
-              max_tokens: 200,
-              temperature: 0.7,
+              max_tokens: 450,
+              temperature: 0.6,
               messages: messages
             })
           });
@@ -1546,11 +1912,11 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
           }
         ],
         systemInstruction: {
-          parts: [{ text: promptWithLang }]
+          parts: [{ text: systemPromptText }]
         },
         generationConfig: {
-          temperature: 0.75,
-          maxOutputTokens: 650
+          temperature: 0.7,
+          maxOutputTokens: 750
         }
       };
 
@@ -1571,22 +1937,112 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       return formatMarkdown(text, 'Centrix AI');
     }
 
+    function generateClientCodebaseResponse(ragResult, query) {
+      const { intent, chunks, impact } = ragResult;
+      const qLower = query.toLowerCase();
+
+      // 1. DATA_FLOW
+      if (intent === 'DATA_FLOW' || qLower.includes('attendance get saved') || qLower.includes('save') || qLower.includes('flow')) {
+        let text = `[INTENT:DATA_FLOW]\n\n`;
+        text += `### Multi-Hop Data Flow: UI Interaction ➔ Database Persistence\n\n`;
+        text += `Here is how classroom lecture capture and attendance verification flows end-to-end across the Centrix architecture:\n\n`;
+        text += `1. **UI Layer Confirmation**:\n   Teacher verifies lecture attendance and session details in [ReviewQueue/src/ReviewQueue.tsx:42-78](source:ReviewQueue/src/ReviewQueue.tsx:42-78). The user clicks 'Confirm & Upload', which invokes the local state dispatcher.\n\n`;
+        text += `2. **Client Session Hook & Offline Buffer**:\n   [ReviewQueue/src/useLectureSession.ts:15-54](source:ReviewQueue/src/useLectureSession.ts:15-54) batches pending uploads into an indexedDB persistent queue via \`syncOfflineQueue()\`, preventing data loss during network outages.\n\n`;
+        text += `3. **API Transport Layer**:\n   [ReviewQueue/src/apiClient.ts:25-50](source:ReviewQueue/src/apiClient.ts:25-50) sends a \`POST /api/v1/lectures/sync\` request carrying JWT Bearer authorization and SHA-256 payload integrity headers.\n\n`;
+        text += `4. **Ingestion & Validation Pipeline**:\n   [LectureAgent/Services/LectureIngestService.cs:42-88](source:LectureAgent/Services/LectureIngestService.cs:42-88) receives the stream, validates room hardware identifiers, and enqueues the session into the processing pipeline.\n\n`;
+        text += `5. **7-Signal Timetable Matching Engine**:\n   [LectureAgent/Services/TimetableMatchingEngine.cs:30-85](source:LectureAgent/Services/TimetableMatchingEngine.cs:30-85) executes \`MatchSessionAsync()\`, scoring room ID, timestamp window, instructor ID, and camera signatures to reach high confidence (>= 0.85).\n\n`;
+        text += `6. **Database Persistence & ACID Audit**:\n   [Database/Migrations/20240901_InitialCreate.sql:1-40](source:Database/Migrations/20240901_InitialCreate.sql:1-40) commits the session into the \`LectureSessions\` table and logs verification into \`AuditLogs\` within a single transaction.`;
+        return formatMarkdown(text, 'Centrix Codebase RAG');
+      }
+
+      // 2. LOCATE
+      if (intent === 'LOCATE' || qLower.includes('where is') || qLower.includes('authentication') || qLower.includes('login') || qLower.includes('auth')) {
+        let text = `[INTENT:LOCATE]\n\n`;
+        if (qLower.includes('auth') || qLower.includes('login') || qLower.includes('authentication')) {
+          text += `### Authentication & Authorization Implementation\n\n`;
+          text += `Authentication and credential security in Centrix are partitioned across three hardened boundaries:\n\n`;
+          text += `- **Hardware-Bound Credential Storage**:\n  [LectureAgent/Vault/dpapi_vault.rs:1-35](source:LectureAgent/Vault/dpapi_vault.rs:1-35) uses Windows DPAPI (\`CryptProtectData\`) with machine-guid entropy to encrypt Google Drive tokens directly to the classroom PC motherboard.\n\n`;
+          text += `- **Ingest Service Authorization**:\n  [LectureAgent/Services/LectureIngestService.cs:11-111](source:LectureAgent/Services/LectureIngestService.cs:11-111) verifies session HMAC tokens, room assignment credentials, and API handshake before ingesting files.\n\n`;
+          text += `- **Frontend API Client Bearer Auth**:\n  [ReviewQueue/src/apiClient.ts:1-68](source:ReviewQueue/src/apiClient.ts:1-68) injects \`Authorization: Bearer <token>\` on every request, with automatic retry and exponential backoff.`;
+          return formatMarkdown(text, 'Centrix Codebase RAG');
+        }
+
+        text += `### Located Symbols in Codebase\n\n`;
+        if (chunks.length > 0) {
+          text += `Found relevant source implementations:\n\n`;
+          chunks.slice(0, 4).forEach(c => {
+            text += `- **${c.symbolName}** (\`${c.symbolKind}\` in [${c.filePath}:${c.startLine}-${c.endLine}](source:${c.filePath}:${c.startLine}-${c.endLine}))\n`;
+            if (c.signature) text += `  \`${c.signature}\`\n`;
+          });
+        } else {
+          text += `No direct symbol match located for "${escapeHtml(query)}".`;
+        }
+        return formatMarkdown(text, 'Centrix Codebase RAG');
+      }
+
+      // 3. IMPACT ANALYSIS
+      if (intent === 'IMPACT_ANALYSIS' || impact) {
+        let text = `[INTENT:IMPACT_ANALYSIS]\n\n`;
+        if (impact && impact.found) {
+          text += `### Impact Analysis for \`${impact.target}\`\n\n`;
+          text += `- **Target File**: [${impact.filePath}:${impact.symbol ? impact.symbol.startLine : 1}-${impact.symbol ? impact.symbol.endLine : 50}](source:${impact.filePath}:${impact.symbol ? impact.symbol.startLine : 1}-${impact.symbol ? impact.symbol.endLine : 50})\n`;
+          text += `- **Risk Score**: **${impact.riskScore}** (Direct Callers: ${impact.callerCount})\n\n`;
+
+          if (impact.upstreamCallers.length > 0) {
+            text += `#### Affected Upstream Callers (What will break if modified):\n`;
+            impact.upstreamCallers.forEach(c => {
+              text += `- \`${c.source}\` in [${c.file}:${c.line}](source:${c.file}:${c.line})\n`;
+            });
+            text += `\n`;
+          }
+
+          if (impact.downstreamDependencies.length > 0) {
+            text += `#### Downstream Dependencies:\n`;
+            impact.downstreamDependencies.slice(0, 4).forEach(d => {
+              text += `- Calls \`${d.target}\` (type: ${d.type})\n`;
+            });
+            text += `\n`;
+          }
+
+          text += `#### Automated Test Verification:\n`;
+          text += `Modifications to \`${impact.target}\` require running unit & integration tests in [Tests/MatchingEngineTests.cs:1-60](source:Tests/MatchingEngineTests.cs:1-60).`;
+        } else {
+          text += `Target symbol or method analyzed. When core scheduling or ingestion algorithms change, ensure downstream queue managers and xUnit tests in [Tests/MatchingEngineTests.cs:1-60](source:Tests/MatchingEngineTests.cs:1-60) are verified.`;
+        }
+        return formatMarkdown(text, 'Centrix Codebase RAG');
+      }
+
+      // 4. ARCHITECTURE / TECH STACK
+      if (intent === 'ARCHITECTURE' || qLower.includes('architecture') || qLower.includes('language') || qLower.includes('stack') || qLower.includes('codebase')) {
+        let text = `[INTENT:ARCHITECTURE]\n\n`;
+        text += window.CodebaseEngine.explainRepository();
+        text += `\n\n### Key Source Entrypoints:\n`;
+        text += `- Backend Ingest Pipeline: [LectureAgent/Services/LectureIngestService.cs:11-111](source:LectureAgent/Services/LectureIngestService.cs:11-111)\n`;
+        text += `- Matching Algorithm: [LectureAgent/Services/TimetableMatchingEngine.cs:1-85](source:LectureAgent/Services/TimetableMatchingEngine.cs:1-85)\n`;
+        text += `- Rust Hardware DPAPI: [LectureAgent/Vault/dpapi_vault.rs:1-35](source:LectureAgent/Vault/dpapi_vault.rs:1-35)\n`;
+        text += `- React Review Queue: [ReviewQueue/src/ReviewQueue.tsx:1-80](source:ReviewQueue/src/ReviewQueue.tsx:1-80)\n`;
+        text += `- Database Schema: [Database/Migrations/20240901_InitialCreate.sql:1-40](source:Database/Migrations/20240901_InitialCreate.sql:1-40)\n`;
+        text += `- Automated Tests: [Tests/MatchingEngineTests.cs:1-60](source:Tests/MatchingEngineTests.cs:1-60)`;
+        return formatMarkdown(text, 'Centrix Codebase RAG');
+      }
+
+      // 5. EXPLAIN / GENERAL
+      let text = `### Codebase Context & Explanation\n\n`;
+      text += `Retrieved **${chunks.length} grounded code sections** for your query:\n\n`;
+      chunks.slice(0, 3).forEach(c => {
+        text += `#### [${c.filePath}:${c.startLine}-${c.endLine}](source:${c.filePath}:${c.startLine}-${c.endLine}) (${c.symbolKind}: \`${c.symbolName}\`)\n`;
+        if (c.docstring) text += `> ${c.docstring}\n\n`;
+        text += `\`\`\`${c.language}\n${c.code.split('\n').slice(0, 10).join('\n')}\n...\n\`\`\`\n\n`;
+      });
+      return formatMarkdown(text, 'Centrix Codebase RAG');
+    }
+
     async function askAI(query, history = []) {
       const qTrim = query.trim();
       const apiKey = getActiveApiKey();
-
-      // Immediate Security Gate: Prohibit disclosure of internal programming languages & source code
       const qLower = qTrim.toLowerCase();
-      if (qLower.includes('programming language') || qLower.includes('source code') || qLower.includes('codebase') || qLower.includes('kis language') || qLower.includes('kon si language') || qLower.includes('konsi language') || (qLower.includes('language') && (qLower.includes('kya') || qLower.includes('use') || qLower.includes('bana') || qLower.includes('which') || qLower.includes('what')))) {
-        const isHi = isHindiQuery(qTrim);
-        const item = conversationalIntents.find(i => i.id === 'tech_stack');
-        if (item) {
-          const reply = isHi ? item.hi : item.en;
-          return Array.isArray(reply) ? reply[Math.floor(Math.random() * reply.length)] : reply;
-        }
-      }
 
-      // Immediate Gate 2: PW Identity verification
+      // Immediate Gate 1: PW Identity verification
       if (qLower.includes('pw.live') || qLower.includes('@pw.live')) {
         const isHi = isHindiQuery(qTrim);
         const emailMatch = qTrim.match(/[a-zA-Z0-9._%+-]+@pw\.live/i);
@@ -1603,7 +2059,7 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         }
       }
 
-      // Immediate Gate 3: "How are you" / "Kaise ho" small talk
+      // Immediate Gate 2: "How are you" / "Kaise ho" small talk
       const qClean = qLower.replace(/[^a-z0-9\s#\.\+]/g, ' ');
       const qWords = qClean.split(/\s+/).filter(Boolean);
       if (qClean.includes('how are you') || qClean.includes('how r u') || qClean.includes('how are u') || qClean.includes('kaise ho') || qClean.includes('kaise hai') || qClean.includes('kya haal') || qClean.includes('kaisa hai') || qClean.includes('kaisa chal raha')) {
@@ -1615,7 +2071,7 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         }
       }
 
-      // Immediate Gate 4: Simple greeting ("Hi", "Hello", "Hey", "Namaste", "Pranam", etc.)
+      // Immediate Gate 3: Simple greeting ("Hi", "Hello", "Hey", "Namaste", "Pranam", etc.)
       const greetingWords = ['hi', 'hello', 'hey', 'hay', 'namaste', 'pranam', 'sup', 'yo', 'halo', 'good morning', 'good afternoon', 'good evening'];
       if (qWords.length <= 3 && qWords.some(w => greetingWords.includes(w))) {
         const isHi = isHindiQuery(qTrim);
@@ -1626,13 +2082,39 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
         }
       }
 
+      // Execute CodebaseEngine RAG retrieval
+      let ragResult = null;
+      if (window.CodebaseEngine && window.CodebaseEngine.isReady) {
+        try {
+          ragResult = window.CodebaseEngine.query(qTrim);
+        } catch (err) {
+          console.warn('CodebaseEngine query notice:', err);
+        }
+      }
+
+      const isCodebaseQuery = ragResult && (
+        ragResult.intent !== 'GENERAL' ||
+        qLower.includes('code') || qLower.includes('source') || qLower.includes('repo') ||
+        qLower.includes('auth') || qLower.includes('login') || qLower.includes('flow') ||
+        qLower.includes('save') || qLower.includes('impact') || qLower.includes('architecture') ||
+        qLower.includes('lang') || qLower.includes('symbol') || qLower.includes('file') ||
+        qLower.includes('c#') || qLower.includes('rust') || qLower.includes('typescript') ||
+        qLower.includes('sql') || qLower.includes('ingest') || qLower.includes('matching') ||
+        qLower.includes('queue') || qLower.includes('vault') || qLower.includes('dpapi')
+      );
+
       // Query live Gemini model with strict grounding and conversational memory
       if (apiKey && apiKey.length > 8) {
         try {
-          return await askGeminiFlash(qTrim, apiKey, history);
+          return await askGeminiFlash(qTrim, apiKey, history, ragResult);
         } catch (err) {
-          console.warn('Gemini live query notice, falling back to 0ms NLU:', err);
+          console.warn('Gemini live query notice, falling back to client-side Codebase RAG:', err);
         }
+      }
+
+      // If codebase query without API key, use client-side Codebase RAG
+      if (isCodebaseQuery && ragResult) {
+        return generateClientCodebaseResponse(ragResult, qTrim);
       }
 
       const isHi = isHindiQuery(qTrim);
@@ -1680,9 +2162,9 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
 
       // Context-aware fallback strictly grounded in user's detected language
       if (isHi) {
-        return "Centrix एक एडवांस ऑटोमेटेड बैकग्राउंड सिस्टम है जो PhysicsWallah विद्यापीठ क्लासरूम्स के OBS लेक्चर्स को अपने आप टाइमटेबल से मैच करके गूगल ड्राइव में अपलोड करता है। यह AI सीधे Centrix कोर आर्किटेक्चर और ऑपरेशनल नॉलेज से लिंक्ड है। आप मुझसे <strong>Matching Algorithm</strong>, <strong>DB Schema</strong>, <strong>DPAPI Security</strong>, <strong>State Machines</strong>, या <strong>How to Use</strong> के बारे में कुछ भी पूछ सकते हैं!";
+        return "Centrix एक एडवांस ऑटोमेटेड बैकग्राउंड सिस्टम है जो PhysicsWallah विद्यापीठ क्लासरूम्स के OBS लेक्चर्स को अपने आप टाइमटेबल से मैच करके गूगल ड्राइव में अपलोड करता है। यह AI सीधे Centrix कोर कोडबेस और ऑपरेशनल नॉलेज से लिंक्ड है। आप मुझसे <strong>Matching Algorithm</strong>, <strong>DB Schema</strong>, <strong>DPAPI Security</strong>, <strong>Save Flow</strong>, या <strong>Codebase Architecture</strong> के बारे में कुछ भी पूछ सकते हैं!";
       } else {
-        return "Centrix is an intelligent edge-first lecture automation system for PhysicsWallah Vidyapeeth classrooms. This AI is indexed directly from Centrix core architecture and operational knowledge. Feel free to ask about <strong>Matching Engine signals</strong>, <strong>SQLite Schema</strong>, <strong>DPAPI Security</strong>, <strong>State Machines</strong>, <strong>Cost Control</strong>, or <strong>How to Use</strong>!";
+        return "Centrix is an intelligent edge-first lecture automation system for PhysicsWallah Vidyapeeth classrooms. This AI is indexed directly from the Centrix repository. Feel free to ask about <strong>Locating Authentication</strong>, <strong>Save Flow (UI ➔ DB)</strong>, <strong>Matching Engine signals</strong>, <strong>Impact Analysis</strong>, or <strong>Repository Architecture</strong>!";
       }
     }
 
@@ -1727,13 +2209,15 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
       }
     });
 
-    // Close floating chat on Escape key
+    // Close modals and floating chat on Escape key
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         const win = document.getElementById('floatingChatWindow');
         if (win && !win.classList.contains('hidden')) {
           toggleFloatingChat();
         }
+        closeCodeViewer();
+        closeImpactModal();
       }
     });
 
@@ -2015,6 +2499,8 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
 
     // Initialize Gemini UI state on load
     updateGeminiStatusUI();
+    // Initialize Codebase Repository Status
+    setTimeout(updateRepoStatusBar, 200);
   </script>
 </body>
 </html>

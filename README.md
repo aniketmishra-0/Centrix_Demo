@@ -131,7 +131,19 @@ Project stakeholders and repository maintainers can monitor access and downloads
 
 ---
 
-## 📞 7. Pilot Rollout & Contact
+## 🧠 7. Codebase Intelligence & Repository RAG Engine
+
+Centrix features a native client-side **Codebase Intelligence & Code RAG Engine** that analyzes actual repository source code, symbols, dependency graphs, and test suites:
+
+- **Multi-Language AST Parsing**: Client-side lexing and symbol extraction across **C# (.NET 8)**, **Rust**, **React / TypeScript**, and **SQL DDL**.
+- **Code Relationship Graph**: Traces bidirectional dependencies (`calls`, `called_by`, `imports`, `implements`, `routes_to`, `db_access`) across all tiers.
+- **End-to-End Multi-Hop Flow Tracing**: Visualizes and verifies data flow across boundaries (UI ➔ Hook ➔ Transport ➔ Ingest Service ➔ Matching Engine ➔ DB Schema).
+- **Reverse-Dependency Impact Analyzer**: Analyzes blast radius and calculates risk scores (`LOW`, `MEDIUM`, `HIGH`, `CRITICAL`) when symbols or functions change.
+- **Clickable Code Citations & Slide-out Drawer**: Answers cite source code with exact line ranges (`[path/file.ext:start-end]`) that open an interactive code viewer with line highlighting.
+
+---
+
+## 📞 8. Pilot Rollout & Contact
 
 - **Project Lead / Author:** Aniket Mishra
 - **Official Contact:** [aniket.mishra2@pw.live](mailto:aniket.mishra2@pw.live)

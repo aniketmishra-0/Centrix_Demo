@@ -1,0 +1,328 @@
+/* ==========================================================================
+   Centrix Codebase Intelligence & Code Viewer Styles
+   ========================================================================== */
+
+/* Slide-out Code Preview Drawer */
+.code-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 680px;
+  background-color: #ffffff;
+  z-index: 100;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: -15px 0 45px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+.dark .code-drawer {
+  background-color: #121418;
+  border-left: 1px border-stone-800;
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.8);
+}
+
+.code-drawer.open {
+  transform: translateX(0);
+}
+
+.code-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}
+
+.dark .code-drawer-header {
+  border-bottom-color: #27272a;
+  background-color: #18181b;
+}
+
+.code-drawer-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.dark .code-drawer-title {
+  color: #f3f4f6;
+}
+
+.code-drawer-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+}
+
+.dark .code-drawer-badge {
+  background-color: rgba(37, 99, 235, 0.2);
+  color: #93c5fd;
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+.code-drawer-close {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  line-height: 1;
+}
+
+.code-drawer-close:hover {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.dark .code-drawer-close:hover {
+  background-color: #27272a;
+  color: #f3f4f6;
+}
+
+.code-drawer-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dark .code-drawer-toolbar {
+  background-color: #141416;
+  border-bottom-color: #27272a;
+}
+
+.code-drawer-select {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  color: #1f2937;
+  max-width: 320px;
+  outline: none;
+}
+
+.dark .code-drawer-select {
+  background-color: #1f242c;
+  border-color: #374151;
+  color: #e5e7eb;
+}
+
+.code-drawer-body {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.code-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 99;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.code-drawer-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Code Syntax & Pre Container */
+.code-viewer-container {
+  flex: 1;
+  overflow: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  background-color: #f9f8f6;
+  color: #24292e;
+}
+
+.dark .code-viewer-container {
+  background-color: #0d1117;
+  color: #c9d1d9;
+}
+
+/* Line Number Gutter */
+.code-line {
+  display: flex;
+  padding: 0 16px;
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+.code-line:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.dark .code-line:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.code-line.highlight-line {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+  border-left: 3px solid #2563eb;
+}
+
+.dark .code-line.highlight-line {
+  background-color: rgba(59, 130, 246, 0.22) !important;
+  border-left: 3px solid #60a5fa;
+}
+
+.line-num {
+  width: 44px;
+  min-width: 44px;
+  text-align: right;
+  padding-right: 16px;
+  color: #8c959f;
+  user-select: none;
+  font-size: 11px;
+}
+
+.dark .line-num {
+  color: #484f58;
+}
+
+.code-content {
+  flex: 1;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* Syntax Highlighting Tokens */
+.tok-keyword { color: #cf222e; font-weight: 600; }
+.dark .tok-keyword { color: #ff7b72; font-weight: 600; }
+
+.tok-fn { color: #8250df; font-weight: 600; }
+.dark .tok-fn { color: #d2a8ff; font-weight: 600; }
+
+.tok-class { color: #953800; font-weight: 600; }
+.dark .tok-class { color: #ffa657; font-weight: 600; }
+
+.tok-string { color: #0a3069; }
+.dark .tok-string { color: #a5d6ff; }
+
+.tok-comment { color: #6e7781; font-style: italic; }
+.dark .tok-comment { color: #8b949e; font-style: italic; }
+
+.tok-decorator { color: #116329; }
+.dark .tok-decorator { color: #7ee787; }
+
+.tok-num { color: #0550ae; }
+.dark .tok-num { color: #79c0ff; }
+
+/* Clickable Citation Badges in Chat */
+.citation-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: rgba(37, 99, 235, 0.08);
+  color: #1d4ed8;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 2px 2px;
+}
+
+.dark .citation-link {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.citation-link:hover {
+  background-color: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+}
+
+/* Code Flow Diagrams */
+.code-flow-node {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: #111827;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.dark .code-flow-node {
+  background-color: #1f242c;
+  border-color: #2d333b;
+  color: #f3f4f6;
+}
+
+.code-flow-arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #6b7280;
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+.dark .code-flow-arrow {
+  color: #9ca3af;
+}
+
+/* Intent Badges */
+.intent-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  margin-bottom: 6px;
+}
+
+.intent-locate { background-color: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+.dark .intent-locate { background-color: rgba(30, 58, 138, 0.3); color: #93c5fd; border-color: #1e40af; }
+
+.intent-flow { background-color: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+.dark .intent-flow { background-color: rgba(20, 83, 45, 0.3); color: #86efac; border-color: #166534; }
+
+.intent-impact { background-color: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+.dark .intent-impact { background-color: rgba(124, 45, 18, 0.3); color: #fdba74; border-color: #9a3412; }
+
+.intent-arch { background-color: #faf5ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+.dark .intent-arch { background-color: rgba(88, 28, 135, 0.3); color: #d8b4fe; border-color: #6b21a8; }
