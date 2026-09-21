@@ -2520,17 +2520,46 @@
     function applyReleaseToDom(rel) {
       if (!rel) return;
       
-      // 1. Update all macOS .dmg download links
+      const macExt = rel.macExt || (rel.macUrl && rel.macUrl.toLowerCase().endsWith('.zip') ? '.zip' : '.dmg');
+      const winExt = rel.winExt || (rel.winUrl && rel.winUrl.toLowerCase().endsWith('.zip') ? '.zip' : (rel.winUrl && rel.winUrl.toLowerCase().endsWith('.msi') ? '.msi' : '.exe'));
+
+      // 1. Update all macOS download links & button labels
       document.querySelectorAll('a[data-download-platform="mac"]').forEach(a => {
         if (rel.macUrl) a.href = rel.macUrl;
+        const textNodes = a.querySelectorAll('span');
+        textNodes.forEach(span => {
+          if (span.textContent.includes('Download macOS')) {
+            span.textContent = `🍎 Download macOS (${macExt})`;
+          } else if (span.textContent.includes('Mac)')) {
+            span.textContent = `🍎 ${macExt} (Mac)`;
+          }
+        });
       });
 
-      // 2. Update all Windows .exe download links
+      // 2. Update all Windows download links & button labels
       document.querySelectorAll('a[data-download-platform="windows"]').forEach(a => {
         if (rel.winUrl) a.href = rel.winUrl;
+        const textNodes = a.querySelectorAll('span');
+        textNodes.forEach(span => {
+          if (span.textContent.includes('Download Windows')) {
+            span.textContent = `🪟 Download Windows (${winExt})`;
+          } else if (span.textContent.includes('Windows)')) {
+            span.textContent = `🪟 ${winExt} (Windows)`;
+          }
+        });
       });
 
-      // 3. Update version tags & badges
+      // 3. Update Hero Main Button Subtitle with actual extension
+      const heroMainBtn = document.getElementById('heroMainDownloadBtn');
+      if (heroMainBtn) {
+        const sub = heroMainBtn.querySelector('.os-sub');
+        const os = detectUserOS();
+        if (sub) {
+          sub.textContent = (os === 'mac') ? `(${macExt} Universal)` : `(${winExt} 64-bit)`;
+        }
+      }
+
+      // 4. Update version tags & badges
       if (rel.tag) {
         document.querySelectorAll('[data-centrix-version]').forEach(el => {
           el.textContent = `${rel.tag} Ready`;
@@ -2541,7 +2570,7 @@
         if (headerBadge) headerBadge.textContent = rel.tag;
       }
 
-      // 4. Update modal platform metadata
+      // 5. Update modal platform metadata
       const modalWinMeta = document.getElementById('modalWinMeta');
       if (modalWinMeta) modalWinMeta.textContent = `${rel.tag || 'Latest'} • ~${rel.winSize || '209MB'}`;
       const modalMacMeta = document.getElementById('modalMacMeta');
@@ -2638,17 +2667,34 @@
         if (resp.ok) {
           const data = await resp.json();
           if (data && data.assets && Array.isArray(data.assets)) {
-            const dmgAsset = data.assets.find(a => a.name && a.name.toLowerCase().endsWith('.dmg'));
+            // Mac detection: .dmg first, then mac-specific .zip / .pkg / .tar.gz
+            const dmgAsset = data.assets.find(a => a.name && a.name.toLowerCase().endsWith('.dmg')) ||
+                             data.assets.find(a => a.name && (a.name.toLowerCase().includes('mac') || a.name.toLowerCase().includes('darwin') || a.name.toLowerCase().includes('apple')) && a.name.toLowerCase().endsWith('.zip')) ||
+                             data.assets.find(a => a.name && a.name.toLowerCase().endsWith('.pkg')) ||
+                             data.assets.find(a => a.name && (a.name.toLowerCase().includes('mac') || a.name.toLowerCase().includes('darwin')) && a.name.toLowerCase().endsWith('.tar.gz'));
+
+            // Windows detection: .exe first, then .msi, then win-specific .zip
             const exeAsset = data.assets.find(a => a.name && a.name.toLowerCase().endsWith('.exe') && !a.name.toLowerCase().includes('agent-only')) ||
-                             data.assets.find(a => a.name && a.name.toLowerCase().endsWith('.exe'));
+                             data.assets.find(a => a.name && a.name.toLowerCase().endsWith('.exe')) ||
+                             data.assets.find(a => a.name && a.name.toLowerCase().endsWith('.msi')) ||
+                             data.assets.find(a => a.name && (a.name.toLowerCase().includes('win') || a.name.toLowerCase().includes('setup') || a.name.toLowerCase().includes('pc')) && a.name.toLowerCase().endsWith('.zip'));
+
+            // Generic zip asset fallback if platform specific zip wasn't found
+            const genericZip = data.assets.find(a => a.name && a.name.toLowerCase().endsWith('.zip'));
+
+            const activeMacAsset = dmgAsset || (genericZip && !exeAsset ? genericZip : null);
+            const activeWinAsset = exeAsset || (genericZip && !dmgAsset ? genericZip : null);
 
             const tag = data.tag_name || centrixRelease.tag;
-            const macUrl = dmgAsset ? dmgAsset.browser_download_url : centrixRelease.macUrl;
-            const macSize = dmgAsset ? `${Math.round(dmgAsset.size / (1024 * 1024))}MB` : centrixRelease.macSize;
-            const winUrl = exeAsset ? exeAsset.browser_download_url : centrixRelease.winUrl;
-            const winSize = exeAsset ? `${Math.round(exeAsset.size / (1024 * 1024))}MB` : centrixRelease.winSize;
+            const macUrl = activeMacAsset ? activeMacAsset.browser_download_url : centrixRelease.macUrl;
+            const macSize = activeMacAsset ? `${Math.round(activeMacAsset.size / (1024 * 1024))}MB` : centrixRelease.macSize;
+            const macExt = activeMacAsset && activeMacAsset.name ? (activeMacAsset.name.toLowerCase().endsWith('.zip') ? '.zip' : (activeMacAsset.name.toLowerCase().endsWith('.tar.gz') ? '.tar.gz' : '.dmg')) : '.dmg';
 
-            centrixRelease = { tag, macUrl, macSize, winUrl, winSize, timestamp: Date.now() };
+            const winUrl = activeWinAsset ? activeWinAsset.browser_download_url : centrixRelease.winUrl;
+            const winSize = activeWinAsset ? `${Math.round(activeWinAsset.size / (1024 * 1024))}MB` : centrixRelease.winSize;
+            const winExt = activeWinAsset && activeWinAsset.name ? (activeWinAsset.name.toLowerCase().endsWith('.zip') ? '.zip' : (activeWinAsset.name.toLowerCase().endsWith('.msi') ? '.msi' : '.exe')) : '.exe';
+
+            centrixRelease = { tag, macUrl, macSize, macExt, winUrl, winSize, winExt, timestamp: Date.now() };
             try {
               localStorage.setItem(CENTRIX_RELEASE_CACHE_KEY, JSON.stringify(centrixRelease));
             } catch (err) {}
