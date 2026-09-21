@@ -115,7 +115,7 @@
       <a href="#" class="flex items-center space-x-2.5 group shrink-0">
         <img src="./images/centrix-logo.png" alt="Centrix Logo" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-stone-300 dark:border-stone-700 shadow-xs group-hover:scale-105 transition-transform">
         <span class="font-extrabold text-base sm:text-lg tracking-tight font-mono text-stone-900 dark:text-white">CENTRIX</span>
-        <span id="headerVersionBadge" data-centrix-version class="hidden sm:inline-block text-[11px] px-2 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 font-mono font-semibold">v1.0.4 Ready</span>
+        <span id="headerVersionBadge" data-centrix-version class="hidden sm:inline-block text-[11px] px-2 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 font-mono font-semibold">v1.0.5 Ready</span>
       </a>
 
       <!-- Center Navigation Links -->
@@ -140,10 +140,10 @@
         <!-- Download Centrix Desktop App Button -->
         <button onclick="openDownloadModal()" id="headerDownloadAppBtn" type="button" 
                 class="inline-flex items-center space-x-1.5 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-xs px-3 py-1.5 rounded-lg shadow-xs transition transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
-          <span class="text-xs">📥</span>
-          <span>Download</span>
+          <span class="text-xs os-header-icon">📥</span>
+          <span class="header-dl-text">Download</span>
           <span class="hidden sm:inline">Centrix</span>
-          <span id="headerBtnVerBadge" class="hidden lg:inline text-[9px] px-1 py-0.2 rounded-full bg-emerald-500/20 text-emerald-400 dark:text-emerald-700 font-bold">v1.0.4</span>
+          <span id="headerBtnVerBadge" class="hidden lg:inline text-[9px] px-1 py-0.2 rounded-full bg-emerald-500/20 text-emerald-400 dark:text-emerald-700 font-bold">v1.0.5</span>
         </button>
       </div>
 
@@ -168,19 +168,19 @@
       </p>
 
       <div class="flex flex-wrap items-center gap-3 mb-8">
-        <button onclick="openDownloadModal()" type="button" 
+        <button onclick="openDownloadModal()" id="heroMainDownloadBtn" type="button" 
                 class="inline-flex items-center space-x-2.5 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-sm px-6 py-3 rounded-xl shadow-md transition transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
-          <span class="text-base">📥</span>
-          <span>Download Centrix App</span>
-          <span class="text-xs opacity-75 font-normal ml-0.5">(Windows / Mac)</span>
+          <span class="text-base os-icon">📥</span>
+          <span class="os-text">Download Centrix App</span>
+          <span class="text-xs opacity-75 font-normal ml-0.5 os-sub">(Windows / Mac)</span>
         </button>
-        <a data-download-platform="windows" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" 
+        <a id="heroWinPill" data-download-platform="windows" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.5/Centrix-Setup.exe" 
            class="inline-flex items-center space-x-1.5 bg-stone-200/70 hover:bg-stone-300/70 dark:bg-stone-800/60 dark:hover:bg-stone-700/60 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-xs sm:text-sm px-3.5 py-3 rounded-xl transition" title="Direct download Windows .exe installer">
-          <span>🪟 .exe</span>
+          <span>🪟 .exe (Windows)</span>
         </a>
-        <a data-download-platform="mac" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" 
+        <a id="heroMacPill" data-download-platform="mac" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.5/Centrix-v1.0.5.dmg" 
            class="inline-flex items-center space-x-1.5 bg-stone-200/70 hover:bg-stone-300/70 dark:bg-stone-800/60 dark:hover:bg-stone-700/60 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-xs sm:text-sm px-3.5 py-3 rounded-xl transition" title="Direct download macOS .dmg disk image">
-          <span>🍎 .dmg</span>
+          <span>🍎 .dmg (Mac)</span>
         </a>
         <a href="#pilot" 
            class="inline-flex items-center space-x-2 text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 font-mono font-medium text-xs sm:text-sm px-3 py-3 transition">
@@ -240,7 +240,7 @@
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
               <span>LIVE EDGE</span>
             </span>
-            <span id="simulatorVersionLabel" class="text-xs font-mono text-stone-400 hidden sm:inline">Centrix v1.0.4</span>
+            <span id="simulatorVersionLabel" class="text-xs font-mono text-stone-400 hidden sm:inline">Centrix v1.0.5</span>
           </div>
         </div>
 
@@ -1210,11 +1210,11 @@
           <span>📥</span>
           <span>Download Centrix App</span>
         </button>
-        <a data-download-platform="windows" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe" 
+        <a data-download-platform="windows" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.5/Centrix-Setup.exe" 
            class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-sm px-4 py-3.5 rounded-xl transition">
           <span>🪟 Windows (.exe)</span>
         </a>
-        <a data-download-platform="mac" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg" 
+        <a data-download-platform="mac" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.5/Centrix-v1.0.5.dmg" 
            class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 font-mono font-medium text-sm px-4 py-3.5 rounded-xl transition">
           <span>🍎 macOS (.dmg)</span>
         </a>
@@ -1345,7 +1345,7 @@
           <div>
             <div class="flex items-center space-x-2">
               <h3 class="font-mono font-extrabold text-sm sm:text-base tracking-tight">Download Centrix App</h3>
-              <span data-centrix-version class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400">v1.0.4 Ready</span>
+              <span data-centrix-version class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400">v1.0.5 Ready</span>
             </div>
             <p class="text-[10px] sm:text-xs text-stone-500 dark:text-stone-400 font-sans truncate max-w-[210px] sm:max-w-none">PW Classroom Automation Workstation Build</p>
           </div>
@@ -1375,7 +1375,7 @@
                     <span class="text-[10px] font-mono text-stone-400 sm:hidden">64-bit Workstation</span>
                   </div>
                 </div>
-                <span class="font-mono text-[11px] sm:text-xs text-stone-500 dark:text-stone-400" id="modalWinMeta">v1.0.4 • ~208MB</span>
+                <span class="font-mono text-[11px] sm:text-xs text-stone-500 dark:text-stone-400" id="modalWinMeta">v1.0.5 • ~209MB</span>
               </div>
               <p class="text-[11px] sm:text-xs text-stone-600 dark:text-stone-400 leading-relaxed mb-3">
                 Native background automation service for classroom PCs. Silent OBS folder watcher, boot auto-start &amp; DPAPI hardware vault.
@@ -1386,7 +1386,7 @@
                 <li class="flex items-center space-x-1.5"><span class="text-blue-500">✓</span><span>.NET 8 bundled (No setup required)</span></li>
               </ul>
             </div>
-            <a data-download-platform="windows" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe"
+            <a data-download-platform="windows" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.5/Centrix-Setup.exe"
                class="w-full inline-flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white font-mono font-semibold text-xs py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl shadow-sm transition transform active:scale-95 cursor-pointer">
               <span>🪟 Download Windows (.exe)</span>
             </a>
@@ -1406,7 +1406,7 @@
                     <span class="text-[10px] font-mono text-stone-400 sm:hidden">Apple Silicon &amp; Intel</span>
                   </div>
                 </div>
-                <span class="font-mono text-[11px] sm:text-xs text-stone-500 dark:text-stone-400" id="modalMacMeta">v1.0.4 • ~26MB</span>
+                <span class="font-mono text-[11px] sm:text-xs text-stone-500 dark:text-stone-400" id="modalMacMeta">v1.0.5 • ~55MB</span>
               </div>
               <p class="text-[11px] sm:text-xs text-stone-600 dark:text-stone-400 leading-relaxed mb-3">
                 Universal application package for Mac workstations and review operators. Fast native execution on Apple Silicon (M1–M4) &amp; Intel.
@@ -1417,7 +1417,7 @@
                 <li class="flex items-center space-x-1.5"><span class="text-emerald-500">✓</span><span>Drag-and-Drop .dmg Installer</span></li>
               </ul>
             </div>
-            <a data-download-platform="mac" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg"
+            <a data-download-platform="mac" href="https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.5/Centrix-v1.0.5.dmg"
                class="w-full inline-flex items-center justify-center space-x-2 bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-mono font-semibold text-xs py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl shadow-sm transition transform active:scale-95 cursor-pointer">
               <span>🍎 Download macOS (.dmg)</span>
             </a>
@@ -2443,16 +2443,79 @@
     // released binary dynamically from GitHub Releases, with instant localStorage cache.
     // =========================================================================
     const CENTRIX_GITHUB_REPO = 'aniketmishra-0/Centrix_Demo';
-    const CENTRIX_RELEASE_CACHE_KEY = 'centrix_live_release_v2';
+    const CENTRIX_RELEASE_CACHE_KEY = 'centrix_live_release_v5';
     
     // Reliable default baseline
     let centrixRelease = {
-      tag: 'v1.0.4',
-      macUrl: 'https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg',
-      macSize: '26 MB',
-      winUrl: 'https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe',
-      winSize: '208 MB'
+      tag: 'v1.0.5',
+      macUrl: 'https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.5/Centrix-v1.0.5.dmg',
+      macSize: '55 MB',
+      winUrl: 'https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.5/Centrix-Setup.exe',
+      winSize: '209 MB'
     };
+
+    function detectUserOS() {
+      const ua = (typeof navigator !== 'undefined' && navigator.userAgent ? navigator.userAgent : '').toLowerCase();
+      const platform = (typeof navigator !== 'undefined' && navigator.platform ? navigator.platform : '').toLowerCase();
+
+      if (typeof navigator !== 'undefined' && navigator.userAgentData && navigator.userAgentData.platform) {
+        const p = navigator.userAgentData.platform.toLowerCase();
+        if (p.includes('win')) return 'windows';
+        if (p.includes('mac') || p.includes('ios')) return 'mac';
+      }
+
+      if (platform.includes('mac') || ua.includes('macintosh') || ua.includes('mac os') || ua.includes('iphone') || ua.includes('ipad')) {
+        return 'mac';
+      }
+      if (platform.includes('win') || ua.includes('windows')) {
+        return 'windows';
+      }
+      return 'windows';
+    }
+
+    function updateOsAwareElements() {
+      const os = detectUserOS();
+      const isMac = (os === 'mac');
+
+      // Update Hero Section Main Button
+      const heroMainBtn = document.getElementById('heroMainDownloadBtn');
+      if (heroMainBtn) {
+        const icon = heroMainBtn.querySelector('.os-icon');
+        const text = heroMainBtn.querySelector('.os-text');
+        const sub = heroMainBtn.querySelector('.os-sub');
+        if (isMac) {
+          if (icon) icon.textContent = '🍎';
+          if (text) text.textContent = 'Download for Mac';
+          if (sub) sub.textContent = '(.dmg Universal)';
+        } else {
+          if (icon) icon.textContent = '🪟';
+          if (text) text.textContent = 'Download for Windows';
+          if (sub) sub.textContent = '(.exe 64-bit)';
+        }
+      }
+
+      // Update Header Download Button
+      const headerBtn = document.getElementById('headerDownloadAppBtn');
+      if (headerBtn) {
+        const headerIcon = headerBtn.querySelector('.os-header-icon');
+        const headerText = headerBtn.querySelector('.header-dl-text');
+        if (headerIcon) headerIcon.textContent = isMac ? '🍎' : '🪟';
+        if (headerText) headerText.textContent = isMac ? 'Download Mac' : 'Download Win';
+      }
+
+      // Highlight recommended pill button in hero
+      const winPill = document.getElementById('heroWinPill');
+      const macPill = document.getElementById('heroMacPill');
+      if (winPill && macPill) {
+        if (isMac) {
+          macPill.classList.add('border-emerald-500', 'bg-emerald-500/10', 'text-emerald-700', 'dark:text-emerald-400', 'font-bold');
+          winPill.classList.remove('border-blue-500', 'bg-blue-500/10', 'text-blue-700', 'dark:text-blue-400', 'font-bold');
+        } else {
+          winPill.classList.add('border-blue-500', 'bg-blue-500/10', 'text-blue-700', 'dark:text-blue-400', 'font-bold');
+          macPill.classList.remove('border-emerald-500', 'bg-emerald-500/10', 'text-emerald-700', 'dark:text-emerald-400', 'font-bold');
+        }
+      }
+    }
 
     function applyReleaseToDom(rel) {
       if (!rel) return;
@@ -2480,9 +2543,9 @@
 
       // 4. Update modal platform metadata
       const modalWinMeta = document.getElementById('modalWinMeta');
-      if (modalWinMeta) modalWinMeta.textContent = `${rel.tag || 'Latest'} • ~${rel.winSize || '208MB'}`;
+      if (modalWinMeta) modalWinMeta.textContent = `${rel.tag || 'Latest'} • ~${rel.winSize || '209MB'}`;
       const modalMacMeta = document.getElementById('modalMacMeta');
-      if (modalMacMeta) modalMacMeta.textContent = `${rel.tag || 'Latest'} • ~${rel.macSize || '26MB'}`;
+      if (modalMacMeta) modalMacMeta.textContent = `${rel.tag || 'Latest'} • ~${rel.macSize || '55MB'}`;
     }
 
     // Modal Controller for Platform Download Popup
@@ -2493,25 +2556,48 @@
       document.body.style.overflow = 'hidden';
 
       // Auto-highlight recommended card based on visitor OS & reorder cards for mobile view
-      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0 || 
-                    navigator.userAgent.toUpperCase().indexOf('MAC') >= 0 ||
-                    navigator.userAgent.toUpperCase().indexOf('IPHONE') >= 0 ||
-                    navigator.userAgent.toUpperCase().indexOf('IPAD') >= 0;
+      const os = detectUserOS();
+      const isMac = (os === 'mac');
+
       const macBadge = document.getElementById('macRecommendedBadge');
       const winBadge = document.getElementById('winRecommendedBadge');
       const macCard = document.getElementById('modalMacCard');
       const winCard = document.getElementById('modalWinCard');
 
       if (isMac) {
-        if (macBadge) macBadge.classList.remove('hidden');
+        if (macBadge) {
+          macBadge.textContent = '✓ Recommended for macOS';
+          macBadge.classList.remove('hidden');
+        }
         if (winBadge) winBadge.classList.add('hidden');
-        if (macCard) macCard.style.order = '-1';
-        if (winCard) winCard.style.order = '1';
+
+        if (macCard) {
+          macCard.classList.add('border-emerald-500', 'ring-2', 'ring-emerald-500/30', 'bg-emerald-50/15', 'dark:bg-emerald-950/25');
+          macCard.classList.remove('border-stone-200', 'dark:border-stone-800');
+          macCard.style.order = '-1';
+        }
+        if (winCard) {
+          winCard.classList.remove('border-blue-500', 'ring-2', 'ring-blue-500/30', 'bg-blue-50/15', 'dark:bg-blue-950/25');
+          winCard.classList.add('border-stone-200', 'dark:border-stone-800');
+          winCard.style.order = '1';
+        }
       } else {
-        if (winBadge) winBadge.classList.remove('hidden');
+        if (winBadge) {
+          winBadge.textContent = '✓ Recommended for Windows';
+          winBadge.classList.remove('hidden');
+        }
         if (macBadge) macBadge.classList.add('hidden');
-        if (winCard) winCard.style.order = '-1';
-        if (macCard) macCard.style.order = '1';
+
+        if (winCard) {
+          winCard.classList.add('border-blue-500', 'ring-2', 'ring-blue-500/30', 'bg-blue-50/15', 'dark:bg-blue-950/25');
+          winCard.classList.remove('border-stone-200', 'dark:border-stone-800');
+          winCard.style.order = '-1';
+        }
+        if (macCard) {
+          macCard.classList.remove('border-emerald-500', 'ring-2', 'ring-emerald-500/30', 'bg-emerald-50/15', 'dark:bg-emerald-950/25');
+          macCard.classList.add('border-stone-200', 'dark:border-stone-800');
+          macCard.style.order = '1';
+        }
       }
     }
 
@@ -2580,6 +2666,7 @@
     }
 
     function setupPlatformDownloads() {
+      updateOsAwareElements();
       applyReleaseToDom(centrixRelease);
       syncLatestReleaseFromGitHub();
     }
@@ -2991,8 +3078,8 @@
             "Centrix is available for Windows 10/11 (64-bit) and macOS Universal (Apple Silicon &amp; Intel):<br />" +
             "<div class='my-2.5 flex flex-wrap gap-2'>" +
             "  <button type='button' onclick='openDownloadModal()' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-950 font-mono text-xs font-semibold cursor-pointer shadow-xs'><span>📥</span><span>Open Download Dialog</span></button>" +
-            "  <a data-download-platform='mac' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🍎</span><span>Download macOS (.dmg)</span></a>" +
-            "  <a data-download-platform='windows' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🪟</span><span>Download Windows (.exe)</span></a>" +
+            "  <a data-download-platform='mac' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.5/Centrix-v1.0.5.dmg' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🍎</span><span>Download macOS (.dmg)</span></a>" +
+            "  <a data-download-platform='windows' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.5/Centrix-Setup.exe' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🪟</span><span>Download Windows (.exe)</span></a>" +
             "</div>" +
             "1. Download the installer for your operating system.<br />" +
             "2. Run setup on the workstation PC.<br />" +
@@ -3001,8 +3088,8 @@
             "Centrix, Windows 10/11 (64-bit) और macOS Universal दोनों के लिए उपलब्ध है:<br />" +
             "<div class='my-2.5 flex flex-wrap gap-2'>" +
             "  <button type='button' onclick='openDownloadModal()' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-950 font-mono text-xs font-semibold cursor-pointer shadow-xs'><span>📥</span><span>डाउनलोड डायलॉग खोलें</span></button>" +
-            "  <a data-download-platform='mac' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🍎</span><span>macOS (.dmg) डाउनलोड</span></a>" +
-            "  <a data-download-platform='windows' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🪟</span><span>Windows (.exe) डाउनलोड</span></a>" +
+            "  <a data-download-platform='mac' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.5/Centrix-v1.0.5.dmg' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🍎</span><span>macOS (.dmg) डाउनलोड</span></a>" +
+            "  <a data-download-platform='windows' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.5/Centrix-Setup.exe' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🪟</span><span>Windows (.exe) डाउनलोड</span></a>" +
             "</div>" +
             "1. ऊपर दिए गए बटन से अपने OS के अनुसार .exe या .dmg डाउनलोड करें।<br />" +
             "2. इंस्टॉलर रन करके क्लासरूम का PC सेटअप करें।<br />" +
@@ -3498,7 +3585,7 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
 - Cloud Server Cost = $0 / Zero Server Compute: Video hashing, chunking, and PDF cover slide OCR occur locally on classroom edge PCs, requiring zero cloud GPU/transcoding servers.
 
 8. HOW TO USE CENTRIX (STEP-BY-STEP):
-- Step 1: Run Centrix-Setup.exe (v1.0.4) on classroom Windows 10/11 PC, select Vidyapeeth center and room ID, and import google_credentials.json (Google OAuth Desktop Client JSON). Performs 1-click browser sign-in; token is encrypted via Windows DPAPI hardware vault bound to motherboard GUID. Runs silently on Windows boot.
+- Step 1: Run Centrix-Setup.exe (v1.0.5) on classroom Windows 10/11 PC, select Vidyapeeth center and room ID, and import google_credentials.json (Google OAuth Desktop Client JSON). Performs 1-click browser sign-in; token is encrypted via Windows DPAPI hardware vault bound to motherboard GUID. Runs silently on Windows boot.
 - Step 2: Faculty conduct classes normally in OBS Studio and export MaxHub smartboard notes to .pdf, then press "Stop Recording" (zero disruption, zero extra software).
 - Step 3: Centrix automatically captures video & notes, verifies stability (10s lock), matches timetable via 7-signal deterministic engine, renames files, and streams 10MB chunked uploads to Google Drive & YouTube.
 - Step 4: Coordinator verifies uploads in real time on localhost:5200. Internal turnaround SLA < 30 minutes.
@@ -4583,8 +4670,8 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
             <strong>Direct Centrix Downloads:</strong><br />
             Aap direct installer niche diye buttons se download kar sakte hain:<br />
             <div class='my-2 flex flex-wrap gap-2'>
-              <a data-download-platform='mac' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🍎</span><span>Download macOS (.dmg)</span></a>
-              <a data-download-platform='windows' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🪟</span><span>Download Windows (.exe)</span></a>
+              <a data-download-platform='mac' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.5/Centrix-v1.0.5.dmg' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🍎</span><span>Download macOS (.dmg)</span></a>
+              <a data-download-platform='windows' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.5/Centrix-Setup.exe' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🪟</span><span>Download Windows (.exe)</span></a>
             </div>
           </div>
         `;
@@ -4790,8 +4877,8 @@ OFFICIAL CENTRIX ARCHITECTURE & SPECIFICATIONS:
             <strong>Direct Centrix Downloads:</strong><br />
             Aap direct installer niche diye buttons se download kar sakte hain:<br />
             <div class='my-2.5 flex flex-wrap gap-2'>
-              <a data-download-platform='mac' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-v1.0.4.dmg' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🍎</span><span>Download macOS (.dmg)</span></a>
-              <a data-download-platform='windows' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.4/Centrix-Setup.exe' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🪟</span><span>Download Windows (.exe)</span></a>
+              <a data-download-platform='mac' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.5/Centrix-v1.0.5.dmg' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🍎</span><span>Download macOS (.dmg)</span></a>
+              <a data-download-platform='windows' href='https://github.com/aniketmishra-0/Centrix_Demo/releases/download/v1.0.5/Centrix-Setup.exe' class='inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold shadow-xs'><span>🪟</span><span>Download Windows (.exe)</span></a>
             </div>
           </div>
         `;
