@@ -14,10 +14,10 @@
 <br />
 
 <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
-<a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/latest/download/Centrix-Setup.exe">
-  <img src="https://img.shields.io/badge/⬇️%20WINDOWS%20INSTALLER-CENTRIX%20(.EXE)-0052CC?style=for-the-badge&logoColor=white" height="40" />
+<a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/latest/download/Centrix.exe">
+  <img src="https://img.shields.io/badge/⬇️%20WINDOWS%20APP-CENTRIX%20(.EXE)-0052CC?style=for-the-badge&logoColor=white" height="40" />
 </a>
-<a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/latest">
+<a href="https://github.com/aniketmishra-0/Centrix_Demo/releases/latest/download/Centrix-v1.0.6.dmg">
   <img src="https://img.shields.io/badge/⬇️%20MACOS%20PACKAGE-CENTRIX%20(.DMG)-107C41?style=for-the-badge&logoColor=white" height="40" />
 </a>
 </div>
@@ -122,8 +122,8 @@ Built for zero memory leaks, continuous 24/7 reliability, and resilience against
 
 ## 📥 5. 3-Step Quick Deployment Guide
 
-1. **Download:** Grab the standalone `Centrix-Setup.exe` from the direct release link above.
-2. **Install:** Run the setup installer on the classroom PC and follow the prompts.
+1. **Download:** Grab the standalone `Centrix.exe` from the direct release link above.
+2. **Install:** Run `Centrix.exe` on the classroom PC and follow the prompts.
 3. **Configure:** Select your center from the master list (e.g. *Pune - PCMC Vidyapeeth*), set your Room number, and point to the OBS recordings directory. Centrix starts automatically in the system tray.
 
 ---
@@ -132,7 +132,7 @@ Built for zero memory leaks, continuous 24/7 reliability, and resilience against
 
 Project stakeholders and repository maintainers can monitor access and downloads in real time:
 - **GitHub Traffic & Visitors:** [View Repository Analytics](https://github.com/aniketmishra-0/Centrix_Demo/graphs/traffic) *(Tracks unique visitors and daily pageviews)*
-- **Release Downloads:** [View Release Metrics](https://github.com/aniketmishra-0/Centrix_Demo/releases) *(Tracks exact download counter for `Centrix-Setup.exe`)*
+- **Release Downloads:** [View Release Metrics](https://github.com/aniketmishra-0/Centrix_Demo/releases) *(Tracks exact download counter for `Centrix.exe`)*
 
 ---
 
@@ -160,7 +160,7 @@ The Centrix web showcase features an authoritative **1000+ Question Corpus** cat
 6. **📡 Offline Resilience & Sync**: SQLite WAL durable queue, 10MB chunked resumable streaming, 3-day internet blackout survival, bandwidth throttling.
 7. **💰 Business Case & ROI**: Operational cost reduction, ₹0 cloud transcoding fleet bills, 3,000+ staff hours saved monthly nationwide.
 8. **👨‍🏫 Teacher & Classroom Flow**: Zero teacher disruption, smartboard touch input friendliness, 1-click Review Queue portal (`localhost:5200`).
-9. **🚀 Deployment & Ops**: Silent CLI rollout (`Centrix-Setup.exe /VERYSILENT`), automated Windows startup daemon, multi-classroom health monitor.
+9. **🚀 Deployment & Ops**: Silent CLI rollout (`Centrix.exe /VERYSILENT`), automated Windows startup daemon, multi-classroom health monitor.
 10. **🔬 Impact Analysis & Blast Radius**: Modifying `MatchSessionAsync()` blast radius, caller dependency graphs, automated xUnit regression test verification.
 
 ---

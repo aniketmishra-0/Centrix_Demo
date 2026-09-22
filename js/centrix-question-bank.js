@@ -296,15 +296,15 @@
         'msi install', 'batch script', 'gpo deploy', 'mass install', 'kaise lagaye sab me'
       ],
       en: "<strong>Silent Fleet Rollout Across 442+ Centers:</strong><br />" +
-          "• <strong>Single Standalone Installer:</strong> <code>Centrix-Setup.exe</code> is completely self-contained with zero runtime prerequisite requirements (.NET 8 runtime is pre-bundled in self-contained mode).<br />" +
+          "• <strong>Single Standalone Executable:</strong> <code>Centrix.exe</code> is completely self-contained with zero runtime prerequisite requirements (.NET 8 runtime is pre-bundled in self-contained mode).<br />" +
           "• <strong>Silent MSI / CLI Deployment:</strong> Centrix supports unattended installation via standard IT management tools (Active Directory GPO, SCCM, Intune, or PowerShell batch script):<br />" +
-          "  <code>Centrix-Setup.exe /VERYSILENT /CENTER_ID=PUNE_PCMC /OBS_DIR=\"D:\\Recordings\"</code><br />" +
+          "  <code>Centrix.exe /VERYSILENT /CENTER_ID=PUNE_PCMC /OBS_DIR=\"D:\\Recordings\"</code><br />" +
           "• <strong>Auto-Start as Background Daemon:</strong> Registers directly as a Windows background task that launches automatically upon PC boot without requiring user logon.<br />" +
           "<span class='inline-block mt-2 text-[10px] text-blue-600 dark:text-blue-400 font-mono'>⚡ Source: [LectureAgent/Vault/dpapi_vault.rs:1-35]</span>",
       hi: "<strong>442+ सेंटर्स और 500+ PCs पर एक साथ इंस्टॉलेशन (Mass Rollout):</strong><br />" +
-          "• <strong>सेल्फ-कंटेन्ड इंस्टॉलर:</strong> <code>Centrix-Setup.exe</code> पूरी तरह इंडिपेंडेंट है, PC पर पहले से कोई भी .NET या दूसरा सॉफ्टवेयर डालने की ज़रूरत नहीं है।<br />" +
+          "• <strong>सेल्फ-कंटेन्ड एक्ज़ीक्यूटेबल:</strong> <code>Centrix.exe</code> पूरी तरह इंडिपेंडेंट है, PC पर पहले से कोई भी .NET या दूसरा सॉफ्टवेयर डालने की ज़रूरत नहीं है।<br />" +
           "• <strong>साइलेंट कमांड-लाइन इंस्टॉलेशन:</strong> IT टीम बिना किसी स्क्रीन पर क्लिक किए, एक स्क्रिप्ट से पूरे सेंटर के सभी कंप्यूटर्स में Centrix इंस्टॉल कर सकती है:<br />" +
-          "  <code>Centrix-Setup.exe /VERYSILENT /CENTER_ID=PUNE_PCMC</code><br />" +
+          "  <code>Centrix.exe /VERYSILENT /CENTER_ID=PUNE_PCMC</code><br />" +
           "• <strong>ऑटो-स्टार्ट:</strong> Windows चालू होते ही यह अपने आप बैकग्राउंड में सक्रिय हो जाता है।"
     },
     {
@@ -659,7 +659,7 @@
           "• <strong>सीधा डाउनलोड लिंक:</strong> आप नीचे दिए गए बटन से JSON टेम्पलेट डाउनलोड कर सकते हैं:<br />" +
           "<a href='config/google_credentials.json' download='google_credentials.json' class='inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-mono text-xs font-semibold my-2'><span>📥 Download google_credentials.json</span></a><br />" +
           "• <strong>प्रोडक्शन फाइल हेतु संपर्क:</strong> विद्यापीठ सेंटर IT टीम अधिकृत प्रोडक्शन क्रेडेंशियल्स के लिए सीधे प्रोजेक्ट लीड अनिकेत मिश्रा (<a href='mailto:aniket.mishra2@pw.live' class='text-blue-600 dark:text-blue-400 underline'>aniket.mishra2@pw.live</a>) से संपर्क कर सकती है।<br />" +
-          "• <strong>सेटअप विज़ार्ड में 1-क्लिक चयन:</strong> क्लासरूम PC पर <code>Centrix-Setup.exe</code> चलाते समय विज़ार्ड यह फाइल मांगता है। यह इसे सुरक्षित रूप से <code>C:\\ProgramData\\Centrix\\config\\google_credentials.json</code> में कॉपी करता है।<br />" +
+          "• <strong>सेटअप विज़ार्ड में 1-क्लिक चयन:</strong> क्लासरूम PC पर <code>Centrix.exe</code> चलाते समय विज़ार्ड यह फाइल मांगता है। यह इसे सुरक्षित रूप से <code>C:\\ProgramData\\Centrix\\config\\google_credentials.json</code> में कॉपी करता है।<br />" +
           "• <strong>Windows DPAPI हार्डवेयर एन्क्रिप्शन:</strong> गूगल से मिले रिफ्रेश टोकन को कंप्यूटर के मदरबोर्ड GUID से Windows DPAPI द्वारा हमेशा के लिए एन्क्रिप्ट करके <code>data/google-drive-token</code> में सुरक्षित रखा जाता है। दोबारा कभी लॉगिन नहीं करना पड़ता।"
     },
     {
